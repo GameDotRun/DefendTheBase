@@ -1,7 +1,0 @@
-Content\ghostSquare.xnb
-Content\square.xnb
-Content\concrete.xnb
-Content\dirt.xnb
-Content\trench-end.xnb
-Content\trench.xnb
-Content\debug.xnb
