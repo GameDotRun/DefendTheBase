@@ -85,14 +85,18 @@ namespace PathFinding
             for (int y = 0; y < height; y++)
                 for (int x = 0; x < width; x++)
                 {
-                    sb.DrawString(deb, gridSquares[x, y].sqrCoord.counter.ToString(), new Vector2(gridSquares[x, y].rect.X + 10, gridSquares[x, y].rect.Y), Color.Black);
+                    if (gridSquares[x, y].sqrCoord.counter < 2000)
+                        sb.DrawString(deb, gridSquares[x, y].sqrCoord.counter.ToString(), new Vector2(gridSquares[x, y].rect.X + 10, gridSquares[x, y].rect.Y), Color.Black);
                 }
         }
 
-        // temporary maze generation, maybe map generation in the future?
+        // temporary maze generation, maybe map generation in the future? DEM IFS THO
         public void GenerateNewMap(ai ai, Random rnd)
         {
+            int disparity = 10; // how populated the maze is, lower = less max = 12
             int counter = 12;
+            int sideCount = 2;
+            resetGrid();
 
             for (int y = 0; y < height; y++)
                 for (int x = 0; x < width; x++)
@@ -101,9 +105,9 @@ namespace PathFinding
                     {
                         if ((gridSquares[x, y].sqrCoord.x != ai.aiPos.x && gridSquares[x, y].sqrCoord.y != ai.aiPos.y))
                         {
-                            if (rnd.Next(0, counter) < 10)
+                            if (rnd.Next(0, counter) < disparity)
                             {
-                                if (gridSquares[x, y].sqrCoord.x - 1 >= width - width && gridSquares[x, y].sqrCoord.x + 1 < width && gridSquares[x, y].sqrCoord.y - 1 >= height - height && gridSquares[x, y].sqrCoord.y + 1 < height)
+                                if (x != 0 && x != width - 1 && y != 0 && y != height - 1)
                                 {
                                     if (!gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                                     {
@@ -143,12 +147,35 @@ namespace PathFinding
                                     }
                                 }
 
+                                else
+                                {
+                                    if (rnd.Next(1, 50) > sideCount)
+                                    {
+                                        if (x == 0)
+                                            gridSquares[rnd.Next(1, width), y].typeOfSquare = Squares.SqrFlags.Wall;
+                                        if (y == 0)
+                                            gridSquares[x, rnd.Next(1, height)].typeOfSquare = Squares.SqrFlags.Wall;
+
+                                        sideCount += 2;
+                                    }
+                                
+                                }
+
                             }
                         }
                     }
 
 
                 }
+        
+        }
+
+        void resetGrid()
+        { 
+            foreach (Squares square in gridSquares)
+                square.typeOfSquare &= ~Squares.SqrFlags.Wall;
+            
+        
         
         }
 

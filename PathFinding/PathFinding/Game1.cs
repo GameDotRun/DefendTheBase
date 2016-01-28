@@ -26,7 +26,7 @@ namespace PathFinding
         const int HEIGHT = 25;
         const int WIDTH = 25;
         const int DEFAULYDIST = 2000;
-        Coordinates aiStart = new Coordinates(12, 12);
+        Coordinates aiStart = new Coordinates(2, 2);
 
         Random rnd;
         SpriteBatch spriteBatch;
