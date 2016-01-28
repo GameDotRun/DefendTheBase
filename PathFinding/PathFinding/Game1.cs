@@ -28,11 +28,12 @@ namespace PathFinding
         const int DEFAULYDIST = 2000;
         Coordinates aiStart = new Coordinates(12, 12);
 
-        
+        Random rnd;
         SpriteBatch spriteBatch;
         Grid grid;
         Texture2D squareTex, squareMove, trenchTex;
         MouseState mouse;
+        KeyboardState keyboard, old;
         Rectangle mouseRect;
         SpriteFont debug;
         ai Ai;
@@ -50,6 +51,7 @@ namespace PathFinding
 
             graphics.PreferredBackBufferWidth = (int)ScreenSize.X;
             graphics.PreferredBackBufferHeight = (int)ScreenSize.Y;
+
         }
 
  
@@ -57,7 +59,8 @@ namespace PathFinding
         {
             // TODO: Add your initialization logic here
             pathFound = false;
-            
+
+            rnd = new Random();
 
             base.Initialize();
 
@@ -95,7 +98,7 @@ namespace PathFinding
                 this.Exit();
 
             mouse = Mouse.GetState();
-
+            keyboard = Keyboard.GetState();
             mouseRect = new Rectangle(mouse.X, mouse.Y, 1, 1);
 
             grid.Update(mouseRect, mouse, Ai, gameTime);
@@ -108,6 +111,13 @@ namespace PathFinding
 
             if (pathFound)
                 Ai.Update(grid.stopPointCoord, grid.gridSquares, HEIGHT, WIDTH);
+
+            if (keyboard.IsKeyDown(Keys.G) && old != keyboard)
+            {
+                grid.GenerateNewMap(Ai, rnd);
+            }
+
+            old = keyboard;
 
             base.Update(gameTime);
         }

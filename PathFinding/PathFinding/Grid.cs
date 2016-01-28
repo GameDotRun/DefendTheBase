@@ -24,9 +24,9 @@ namespace PathFinding
 
         public gridFlags gridStatus;
         public Squares[,] gridSquares;
-        int height, width;
         public Coordinates stopPointCoord;
         Texture2D gridSquareTex, trenchTex;
+        int height, width;
 
         private TimeSpan updateTimer;
 
@@ -51,8 +51,6 @@ namespace PathFinding
 
         public void Update(Rectangle mouseRect, MouseState mouseState, ai Ai, GameTime gameTime)
         {
-
-
             foreach (Squares square in gridSquares)
                 square.Update(mouseState);
 
@@ -90,6 +88,70 @@ namespace PathFinding
                     sb.DrawString(deb, gridSquares[x, y].sqrCoord.counter.ToString(), new Vector2(gridSquares[x, y].rect.X + 10, gridSquares[x, y].rect.Y), Color.Black);
                 }
         }
+
+        // temporary maze generation, maybe map generation in the future?
+        public void GenerateNewMap(ai ai, Random rnd)
+        {
+            int counter = 12;
+
+            for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
+                {
+                    if (!gridSquares[x, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    {
+                        if ((gridSquares[x, y].sqrCoord.x != ai.aiPos.x && gridSquares[x, y].sqrCoord.y != ai.aiPos.y))
+                        {
+                            if (rnd.Next(0, counter) < 10)
+                            {
+                                if (gridSquares[x, y].sqrCoord.x - 1 >= width - width && gridSquares[x, y].sqrCoord.x + 1 < width && gridSquares[x, y].sqrCoord.y - 1 >= height - height && gridSquares[x, y].sqrCoord.y + 1 < height)
+                                {
+                                    if (!gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                                    {
+                                        if (!gridSquares[x + 1, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x + 1, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                                        {
+                                            for (int i = 0; i < rnd.Next(1, width - x); i++)
+                                            {
+                                                try
+                                                {
+                                                    if (!gridSquares[x + i + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                                                    {
+                                                        gridSquares[x + i, y].typeOfSquare = Squares.SqrFlags.Wall;
+                                                    }
+                                                    else break;
+                                                }
+                                                catch
+                                                {
+                                                    gridSquares[x + i, y].typeOfSquare = Squares.SqrFlags.Wall;
+                                                }
+                                            }
+                                            for (int i = 0; i < rnd.Next(1, height - y); i++)
+                                            {
+                                                try
+                                                {
+                                                    if (!gridSquares[x, y + i + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                                                        gridSquares[x, y + i].typeOfSquare = Squares.SqrFlags.Wall;
+                                                    else break;
+                                                }
+
+                                                catch
+                                                {
+                                                    gridSquares[x, y + i].typeOfSquare = Squares.SqrFlags.Wall;
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+
+
+                }
+        
+        }
+
     }
 
    
