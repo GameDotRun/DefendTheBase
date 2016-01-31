@@ -60,7 +60,7 @@ namespace PathFinding
             else highlight = 1;
         }
 
-        public void Draw(SpriteBatch sb, Texture2D gridSquareTex, Texture2D trenchTex)
+        public void Draw(SpriteBatch sb, Texture2D gridSquareTex)
         {
             if (typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                 sb.Draw(Game1.art.getTrenchTex(texEnum), rect, Color.White * highlight);

@@ -25,14 +25,13 @@ namespace PathFinding
         public gridFlags gridStatus;
         public Squares[,] gridSquares;
         public Coordinates stopPointCoord;
-        Texture2D gridSquareTex, trenchTex;
+        Texture2D gridSquareTex;
         int height, width;
 
         private TimeSpan updateTimer;
 
-        public Grid(int SquareSize, int Height, int Width, Texture2D squareTex, Texture2D TrenchTex, int defDist)
+        public Grid(int SquareSize, int Height, int Width, Texture2D squareTex, int defDist)
         {
-            trenchTex = TrenchTex;
             gridSquareTex = squareTex;
             height = Height;
             width = Width;
@@ -90,7 +89,7 @@ namespace PathFinding
         public void Draw(SpriteBatch sb, SpriteFont deb)
         {
             foreach (Squares square in gridSquares)
-                square.Draw(sb, gridSquareTex, trenchTex);
+                square.Draw(sb, gridSquareTex);
 
 
             for (int y = 0; y < height; y++)

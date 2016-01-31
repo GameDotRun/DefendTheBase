@@ -34,7 +34,7 @@ namespace PathFinding
         SpriteBatch spriteBatch;
         Grid grid;
        
-        Texture2D squareTex, squareMove, trenchTex;
+        Texture2D squareTex, squareMove;
         MouseState mouse;
         KeyboardState keyboard, old;
         Rectangle mouseRect;
@@ -81,7 +81,7 @@ namespace PathFinding
             debug = Content.Load<SpriteFont>("debug");
             squareTex = Content.Load<Texture2D>("dirt");
             squareMove = Content.Load<Texture2D>("square");
-            grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, squareTex, trenchTex, DEFAULYDIST);
+            grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, squareTex, DEFAULYDIST);
             Ai = new ai(HEIGHT, WIDTH, aiStart, DEFAULYDIST);
             art = new Art();
             art.Load(Content);
