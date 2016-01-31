@@ -37,6 +37,7 @@ namespace PathFinding
         Rectangle mouseRect;
         SpriteFont debug;
         ai Ai;
+
         bool pathFound;
         
         public Game1()

@@ -1,0 +1,12 @@
+trench-end-down	= 3
+trench-end-Left = 2
+trench-end-right = 1
+trench-end-up = 0
+
+trench-t-down = 7
+trench-t-left = 6
+trench-t-right = 5
+trench-t-up = 4
+trench-x = 8
+trench-horizontal = 9
+trench-vertical = 10
