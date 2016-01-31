@@ -73,6 +73,8 @@ namespace PathFinding
 
                         }
 
+
+
                     }
 
                 for (int y = 1; y < height - 1; y++)

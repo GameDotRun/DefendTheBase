@@ -30,6 +30,8 @@ namespace PathFinding
         public Coordinates sqrCoord;
         public Rectangle rect;
 
+        float highlight;
+
         public Squares(int SquareSize, Vector2 Location, int x, int y, int defDist)
         {
 
@@ -50,19 +52,24 @@ namespace PathFinding
                     typeOfSquare |= Squares.SqrFlags.Wall;
                 else if (mouseState.RightButton == ButtonState.Pressed)
                     typeOfSquare = Squares.SqrFlags.Unoccupied;
+
+                highlight = 0.5f;
+
             }
+
+            else highlight = 1;
         }
 
         public void Draw(SpriteBatch sb, Texture2D gridSquareTex, Texture2D trenchTex)
         {
             if (typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                sb.Draw(Game1.art.getTrenchTex(texEnum), rect, Color.White);
+                sb.Draw(Game1.art.getTrenchTex(texEnum), rect, Color.White * highlight);
             else if (typeOfSquare.HasFlag(Squares.SqrFlags.Occupied))
-                sb.Draw(gridSquareTex, rect, Color.Blue);
+                sb.Draw(gridSquareTex, rect, Color.Blue * highlight);
             else if (typeOfSquare.HasFlag(Squares.SqrFlags.StopPoint))
-                sb.Draw(gridSquareTex, rect, Color.Red);
+                sb.Draw(gridSquareTex, rect, Color.Red * highlight);
             else if (typeOfSquare.HasFlag(Squares.SqrFlags.Unoccupied))
-                sb.Draw(gridSquareTex, rect, Color.White);
+                sb.Draw(gridSquareTex, rect, Color.White * highlight);
         
         }
 
