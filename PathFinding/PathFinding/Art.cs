@@ -12,16 +12,21 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PathFinding
 {
-    class Art
+    public class Art
     {
-        enum TrenchEnum
+        public enum TrenchEnum
         { 
             Horizontal,
             Vertical,
-            TUP,
+            TUp,
             TDown,
             TLeft,
-            TRight
+            TRight,
+            EUp,
+            EDown,
+            ERight,
+            ELeft,
+            trenchX
         }
 
         Texture2D[] trenchTexs;
@@ -29,22 +34,71 @@ namespace PathFinding
 
         public Art()
         { 
-            
+            trenchTexs = new Texture2D[11];
             
 
         }
 
-        public static void Load(ContentManager content)
+        public void Load(ContentManager content)
         {
-            
-            for()
-            {}
 
+            for (int i = 0; i < trenchTexs.Count(); i++ )
+                trenchTexs[i] = content.Load<Texture2D>("trenchArt/trench_" + i);
         }
 
-        public Texture2D getTrenchTex()
+        public Texture2D getTrenchTex(TrenchEnum trenchEnum)
         {
-            Texture2D a;
+            Texture2D a = trenchTexs[0];
+
+            switch(trenchEnum)
+            {
+
+                case TrenchEnum.EUp:
+                    return trenchTexs[0];
+                    break;
+
+                case TrenchEnum.ERight:
+                    return trenchTexs[1];
+                    break;
+
+                case TrenchEnum.ELeft:
+                    return trenchTexs[2];
+                    break;
+
+                case TrenchEnum.EDown:
+                    return trenchTexs[3];
+                    break;
+
+                case TrenchEnum.TUp:
+                    return trenchTexs[4];
+                    break;
+
+                case TrenchEnum.TRight:
+                    return trenchTexs[5];
+                    break;
+
+                case TrenchEnum.TLeft:
+                    return trenchTexs[6];
+                    break;
+
+                case TrenchEnum.TDown:
+                    return trenchTexs[7];
+                    break;
+
+                case TrenchEnum.trenchX:
+                    return trenchTexs[8];
+                    break;
+
+                case TrenchEnum.Vertical:
+                    return trenchTexs[9];
+                    break;
+
+                case TrenchEnum.Horizontal:
+                    return trenchTexs[10];
+                    break;
+
+
+            }
 
             return a;
         }

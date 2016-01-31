@@ -20,8 +20,10 @@ namespace PathFinding
         public const int UPS = 20; // Updates per second
         public const int FPS = 60;
 
-
         public Vector2 ScreenSize;
+        public static Art art;
+
+
         const int SQUARESIZE = 25;
         const int HEIGHT = 25;
         const int WIDTH = 25;
@@ -31,6 +33,7 @@ namespace PathFinding
         Random rnd;
         SpriteBatch spriteBatch;
         Grid grid;
+       
         Texture2D squareTex, squareMove, trenchTex;
         MouseState mouse;
         KeyboardState keyboard, old;
@@ -77,11 +80,11 @@ namespace PathFinding
             
             debug = Content.Load<SpriteFont>("debug");
             squareTex = Content.Load<Texture2D>("dirt");
-            trenchTex = Content.Load<Texture2D>("trench");
             squareMove = Content.Load<Texture2D>("square");
             grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, squareTex, trenchTex, DEFAULYDIST);
             Ai = new ai(HEIGHT, WIDTH, aiStart, DEFAULYDIST);
-
+            art = new Art();
+            art.Load(Content);
 
             // TODO: use this.Content to load your game content here
         }

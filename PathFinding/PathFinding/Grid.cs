@@ -72,6 +72,10 @@ namespace PathFinding
                             gridSquares[x, y].typeOfSquare = Squares.SqrFlags.StopPoint;
 
                         }
+
+                        if (gridSquares[x, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                            sqrTexDecider(x, y);
+
                     }
             }
         }
@@ -170,13 +174,124 @@ namespace PathFinding
         
         }
 
+        void sqrTexDecider(int x, int y)
+        {
+            try
+            {
+                if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.ELeft;
+            }
+            catch { }
+
+            try
+            {
+                if (gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.ERight;
+            }
+            catch { }
+
+            try
+            {
+                if (gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.EUp;
+            }
+            catch { }
+
+            try
+            {
+                if (gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.EDown;
+            }
+            catch { }
+
+
+            try
+            {
+                if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.Horizontal;
+            }
+            catch { }
+
+            try
+            {
+                if (gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.Vertical;
+            }
+            catch { }
+
+            //
+
+            try
+            {
+                if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.TRight;
+            }
+            catch { }
+
+            try
+            {
+                if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.TRight;
+            }
+            catch { }
+
+            try
+            {
+                if (gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.TLeft;
+            }
+            catch { }
+
+            try
+            {
+                if (gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.TLeft;
+            }
+            catch { }
+            ///
+
+            try
+            {
+                if (gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.TRight;
+            }
+            catch { }
+
+            try
+            {
+                if (gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.TLeft;
+            }
+            catch { }
+
+            try
+            {
+                if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.TDown;
+            }
+            catch { }
+
+            try
+            {
+                if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.TUp;
+            }
+            catch { }
+
+            try
+            {
+                if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].texEnum = Art.TrenchEnum.trenchX;
+            }
+            catch { }
+        
+        }
+
         void resetGrid()
         { 
             foreach (Squares square in gridSquares)
                 square.typeOfSquare &= ~Squares.SqrFlags.Wall;
-            
-        
-        
+     
         }
 
     }

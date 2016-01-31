@@ -25,6 +25,7 @@ namespace PathFinding
             StopPoint = 32
         }
 
+        public Art.TrenchEnum texEnum;
         public SqrFlags typeOfSquare;
         public Coordinates sqrCoord;
         public Rectangle rect;
@@ -55,7 +56,7 @@ namespace PathFinding
         public void Draw(SpriteBatch sb, Texture2D gridSquareTex, Texture2D trenchTex)
         {
             if (typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                sb.Draw(trenchTex, rect, Color.White);
+                sb.Draw(Game1.art.getTrenchTex(texEnum), rect, Color.White);
             else if (typeOfSquare.HasFlag(Squares.SqrFlags.Occupied))
                 sb.Draw(gridSquareTex, rect, Color.Blue);
             else if (typeOfSquare.HasFlag(Squares.SqrFlags.StopPoint))
