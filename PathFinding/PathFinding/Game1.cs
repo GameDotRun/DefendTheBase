@@ -26,7 +26,7 @@ namespace PathFinding
 
         const int SQUARESIZE = 25;
         const int HEIGHT = 25;
-        const int WIDTH = 25;
+        const int WIDTH = 30;
         const int DEFAULYDIST = 2000;
         Coordinates aiStart = new Coordinates(2, 2);
 
@@ -53,8 +53,8 @@ namespace PathFinding
 
             ScreenSize = new Vector2(WIDTH, HEIGHT) * SQUARESIZE;
 
-            graphics.PreferredBackBufferWidth = (int)ScreenSize.X;
-            graphics.PreferredBackBufferHeight = (int)ScreenSize.Y;
+            graphics.PreferredBackBufferWidth = (int)ScreenSize.X + 175;
+            graphics.PreferredBackBufferHeight = (int)ScreenSize.Y + 60;
 
         }
 

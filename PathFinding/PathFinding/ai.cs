@@ -18,6 +18,8 @@ namespace PathFinding
         public bool[,] ENDPOS;
         public Coordinates aiPos;
 
+        bool loopStop = true;
+
         List<Coordinates> coords;
         List<Coordinates> tempCoords;
         Coordinates currentElement;
@@ -110,6 +112,9 @@ namespace PathFinding
 
         public bool FindPath(Coordinates endPoint, Squares[,] squares, int height, int width)
         {
+
+
+
             ENDPOS[(int)endPoint.x, (int)endPoint.y] = true;
 
             if (!done)
@@ -119,45 +124,47 @@ namespace PathFinding
                 done = true;
             }
 
-            //Check right square
-            if (currentElement.x + 1 < width)
-                if (!squares[currentElement.x + 1, currentElement.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                    tempCoords.Add(new Coordinates(currentElement.x + 1, currentElement.y, currentElement.counter + 1));
+            while (loopStop)
+            {
+                //Check right square
+                if (currentElement.x + 1 < width)
+                    if (!squares[currentElement.x + 1, currentElement.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                        tempCoords.Add(new Coordinates(currentElement.x + 1, currentElement.y, currentElement.counter + 1));
 
-            //check left square
-            if (currentElement.x - 1 >= 0)
-                if (!squares[currentElement.x - 1, currentElement.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                    tempCoords.Add(new Coordinates(currentElement.x - 1, currentElement.y, currentElement.counter + 1));
+                //check left square
+                if (currentElement.x - 1 >= 0)
+                    if (!squares[currentElement.x - 1, currentElement.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                        tempCoords.Add(new Coordinates(currentElement.x - 1, currentElement.y, currentElement.counter + 1));
 
-            //check lower square
-            if (currentElement.y + 1 < height)
-                if (!squares[currentElement.x, currentElement.y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                    tempCoords.Add(new Coordinates(currentElement.x, currentElement.y + 1, currentElement.counter + 1));
+                //check lower square
+                if (currentElement.y + 1 < height)
+                    if (!squares[currentElement.x, currentElement.y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                        tempCoords.Add(new Coordinates(currentElement.x, currentElement.y + 1, currentElement.counter + 1));
 
-            //check upper square
-            if (currentElement.y - 1 >= 0)
-                if (!squares[currentElement.x, currentElement.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                    tempCoords.Add(new Coordinates(currentElement.x, currentElement.y - 1, currentElement.counter + 1));
+                //check upper square
+                if (currentElement.y - 1 >= 0)
+                    if (!squares[currentElement.x, currentElement.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                        tempCoords.Add(new Coordinates(currentElement.x, currentElement.y - 1, currentElement.counter + 1));
 
-            duplicateCheck(squares);
+                duplicateCheck(squares);
 
-            squaresCounter(squares, currentElement.counter + 1);
+                squaresCounter(squares, currentElement.counter + 1);
 
-             for (int i = 0; i < tempCoords.Count; i++)
-                 if (aiPos.x == tempCoords[i].x && aiPos.y == tempCoords[i].y)
-                 {
-                     squares[(int)endPoint.x, (int)endPoint.y].sqrCoord.counter = 0;
-                     return true;
-                 }
+                for (int i = 0; i < tempCoords.Count; i++)
+                    if (aiPos.x == tempCoords[i].x && aiPos.y == tempCoords[i].y)
+                    {
+                        squares[(int)endPoint.x, (int)endPoint.y].sqrCoord.counter = 0;
+                        return true;
+                    }
 
-            for (int i = 0; i < tempCoords.Count; i++)
-                coords.Add(tempCoords[i]);
+                for (int i = 0; i < tempCoords.Count; i++)
+                    coords.Add(tempCoords[i]);
 
-            count++;
-            currentElement = coords[count];
+                count++;
+                currentElement = coords[count];
 
-            tempCoords.Clear();
-
+                tempCoords.Clear();
+            }
             return false;
         
         }
@@ -204,19 +211,6 @@ namespace PathFinding
                     squares[tempCoords[v].x, tempCoords[v].y].sqrCoord.counter = counter; 
             }
         }
-
-        /*bool canMove(Squares[,] sqrs, Vector2 aiLoc)
-        {
-            if (aiLoc.X >= 0 && aiLoc.Y >= 0)
-            {
-                if (!sqrs[(int)aiLoc.X, (int)aiLoc.Y].selected)
-                    return true;
-                else return false;
-            }
-
-            else return false;
-        
-        }*/
 
         void getPos(int height, int width)
         {

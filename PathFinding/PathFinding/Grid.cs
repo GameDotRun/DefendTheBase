@@ -40,7 +40,7 @@ namespace PathFinding
 
             for (int y = 0; y < Height; y++)
                 for (int x = 0; x < Width; x++)
-                    gridSquares[x, y] = new Squares(SquareSize, new Vector2(x * SquareSize, y * SquareSize), x, y, defDist);
+                    gridSquares[x, y] = new Squares(SquareSize, new Vector2(x * SquareSize, y * SquareSize + 60), x, y, defDist);
 
             gridStatus = gridFlags.empty;
 
