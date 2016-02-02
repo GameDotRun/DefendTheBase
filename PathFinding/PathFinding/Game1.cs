@@ -17,29 +17,36 @@ namespace PathFinding
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        public const int UPS = 20; // Updates per second
-        public const int FPS = 60;
 
-        public Vector2 ScreenSize;
-        public static Art art;
-
-
+        //Grid Size
         const int SQUARESIZE = 25;
         const int HEIGHT = 25;
         const int WIDTH = 30;
-        const int DEFAULYDIST = 2000;
-        Coordinates aiStart = new Coordinates(2, 2);
+        
+        const int DEFAULYDIST = 2000; //temp default counter for pathfinding
 
+        //ui Borders
+        public const int BORDERTOP = 60;
+        public const int BORDERRIGHT = 175;
+        public const int BORDERLEFT = 0;
+
+        //game speed
+        public const int UPS = 20; // Updates per second
+        public const int FPS = 60; //Frames per second
+
+        public static Art art;
+
+
+        Vector2 ScreenSize; // ScreenSize
+        Coordinates aiStart = new Coordinates(2, 2); // temporary, Prototype pathfinding leftover
         Random rnd;
         SpriteBatch spriteBatch;
         Grid grid;
-       
-        Texture2D squareTex, squareMove;
-        MouseState mouse;
-        KeyboardState keyboard, old;
         Rectangle mouseRect;
         SpriteFont debug;
         ai Ai;
+        MouseState mouse;
+        KeyboardState keyboard, old;
 
         bool pathFound;
         
@@ -53,8 +60,8 @@ namespace PathFinding
 
             ScreenSize = new Vector2(WIDTH, HEIGHT) * SQUARESIZE;
 
-            graphics.PreferredBackBufferWidth = (int)ScreenSize.X + 175;
-            graphics.PreferredBackBufferHeight = (int)ScreenSize.Y + 60;
+            graphics.PreferredBackBufferWidth = (int)ScreenSize.X + BORDERRIGHT + BORDERLEFT;
+            graphics.PreferredBackBufferHeight = (int)ScreenSize.Y + BORDERTOP;
 
         }
 
@@ -63,13 +70,8 @@ namespace PathFinding
         {
             // TODO: Add your initialization logic here
             pathFound = false;
-
             rnd = new Random();
-
             base.Initialize();
-
-
-
         }
 
   
@@ -79,14 +81,11 @@ namespace PathFinding
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             debug = Content.Load<SpriteFont>("debug");
-            squareTex = Content.Load<Texture2D>("dirt");
-            squareMove = Content.Load<Texture2D>("square");
-            grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, squareTex, DEFAULYDIST);
             Ai = new ai(HEIGHT, WIDTH, aiStart, DEFAULYDIST);
             art = new Art();
             art.Load(Content);
+            grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, DEFAULYDIST);
 
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void UnloadContent()
@@ -133,12 +132,10 @@ namespace PathFinding
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
+
             spriteBatch.Begin();
             grid.Draw(spriteBatch, debug);
             spriteBatch.DrawString(debug, "fps: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString("N0"), Vector2.Zero, Color.Red);
-            
-
-
             spriteBatch.End();
            
             base.Draw(gameTime);

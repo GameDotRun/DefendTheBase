@@ -19,20 +19,18 @@ namespace PathFinding
         { 
             empty = 0,
             endPoint = 1
-
         }
+
+        private TimeSpan updateTimer;
 
         public gridFlags gridStatus;
         public Squares[,] gridSquares;
         public Coordinates stopPointCoord;
-        Texture2D gridSquareTex;
+
         int height, width;
 
-        private TimeSpan updateTimer;
-
-        public Grid(int SquareSize, int Height, int Width, Texture2D squareTex, int defDist)
+        public Grid(int SquareSize, int Height, int Width, int defDist)
         {
-            gridSquareTex = squareTex;
             height = Height;
             width = Width;
 
@@ -40,7 +38,7 @@ namespace PathFinding
 
             for (int y = 0; y < Height; y++)
                 for (int x = 0; x < Width; x++)
-                    gridSquares[x, y] = new Squares(SquareSize, new Vector2(x * SquareSize, y * SquareSize + 60), x, y, defDist);
+                    gridSquares[x, y] = new Squares(SquareSize, new Vector2(x * SquareSize + Game1.BORDERLEFT, y * SquareSize + Game1.BORDERTOP), x, y, defDist);
 
             gridStatus = gridFlags.empty;
 
@@ -60,20 +58,21 @@ namespace PathFinding
                 for (int y = 0; y < height; y++)
                     for (int x = 0; x < width; x++)
                     {
-                        if (Ai.aiPos.x == gridSquares[x, y].sqrCoord.x && Ai.aiPos.y == gridSquares[x, y].sqrCoord.y)
+                        if (Ai.aiPos.x == gridSquares[x, y].sqrCoord.x && Ai.aiPos.y == gridSquares[x, y].sqrCoord.y) // temporary.
                             gridSquares[x, y].typeOfSquare = Squares.SqrFlags.Occupied;
-                        else gridSquares[x, y].typeOfSquare |= Squares.SqrFlags.Unoccupied;
+                        else
+                        {
+                            gridSquares[x, y].typeOfSquare &= ~Squares.SqrFlags.Occupied;
+                            gridSquares[x, y].typeOfSquare |= Squares.SqrFlags.Unoccupied;
+                        }
 
-                        if (mouseRect.Intersects(gridSquares[x, y].rect) && mouseState.RightButton == ButtonState.Pressed && !gridStatus.HasFlag(gridFlags.endPoint))
+                        if (mouseRect.Intersects(gridSquares[x, y].rect) && mouseState.RightButton == ButtonState.Pressed && !gridStatus.HasFlag(gridFlags.endPoint)) // temporary.
                         {
                             gridStatus = gridFlags.endPoint;
                             stopPointCoord = new Coordinates(x, y, 0);
                             gridSquares[x, y].typeOfSquare = Squares.SqrFlags.StopPoint;
 
                         }
-
-
-
                     }
 
                 for (int y = 1; y < height - 1; y++)
@@ -89,10 +88,10 @@ namespace PathFinding
         public void Draw(SpriteBatch sb, SpriteFont deb)
         {
             foreach (Squares square in gridSquares)
-                square.Draw(sb, gridSquareTex);
+                square.Draw(sb, Game1.art.groundTextureReturn);
 
 
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < height; y++) //Debug counter Text
                 for (int x = 0; x < width; x++)
                 {
                     if (gridSquares[x, y].sqrCoord.counter < 2000)
@@ -174,10 +173,7 @@ namespace PathFinding
                             }
                         }
                     }
-
-
                 }
-        
         }
 
         void sqrTexDecider(int x, int y)

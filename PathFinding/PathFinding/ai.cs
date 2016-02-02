@@ -112,9 +112,6 @@ namespace PathFinding
 
         public bool FindPath(Coordinates endPoint, Squares[,] squares, int height, int width)
         {
-
-
-
             ENDPOS[(int)endPoint.x, (int)endPoint.y] = true;
 
             if (!done)
@@ -169,8 +166,6 @@ namespace PathFinding
         
         }
 
-         
-        //&& tempCoords[i].counter >= coords[v].counter
         void duplicateCheck(Squares[,] squares)
         { 
             for(int i = 0; i < tempCoords.Count; i++)

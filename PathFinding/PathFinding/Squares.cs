@@ -29,19 +29,20 @@ namespace PathFinding
         public SqrFlags typeOfSquare;
         public Coordinates sqrCoord;
         public Rectangle rect;
+        public Vector2 sqrLoc;
+
 
         float highlight;
 
         public Squares(int SquareSize, Vector2 Location, int x, int y, int defDist)
         {
+            sqrLoc = Location;
 
             typeOfSquare = SqrFlags.Unoccupied;
 
             rect = new Rectangle((int)Location.X, (int)Location.Y, SquareSize, SquareSize);
     
-
             sqrCoord = new Coordinates(x, y, defDist);
-
         }
 
         public void Update(MouseState mouseState)
@@ -54,7 +55,6 @@ namespace PathFinding
                     typeOfSquare = Squares.SqrFlags.Unoccupied;
 
                 highlight = 0.5f;
-
             }
 
             else highlight = 1;
@@ -70,11 +70,6 @@ namespace PathFinding
                 sb.Draw(gridSquareTex, rect, Color.Red * highlight);
             else if (typeOfSquare.HasFlag(Squares.SqrFlags.Unoccupied))
                 sb.Draw(gridSquareTex, rect, Color.White * highlight);
-        
         }
-
-
-
-
     }
 }
