@@ -59,47 +59,36 @@ namespace DefendTheBase
 
                 case TrenchEnum.EUp:
                     return TrenchTexs[0];
-                    break;
 
                 case TrenchEnum.ERight:
                     return TrenchTexs[1];
-                    break;
 
                 case TrenchEnum.ELeft:
                     return TrenchTexs[2];
-                    break;
 
                 case TrenchEnum.EDown:
                     return TrenchTexs[3];
-                    break;
 
                 case TrenchEnum.TUp:
                     return TrenchTexs[4];
-                    break;
 
                 case TrenchEnum.TRight:
                     return TrenchTexs[5];
-                    break;
 
                 case TrenchEnum.TLeft:
                     return TrenchTexs[6];
-                    break;
 
                 case TrenchEnum.TDown:
                     return TrenchTexs[7];
-                    break;
 
                 case TrenchEnum.trenchX:
                     return TrenchTexs[8];
-                    break;
 
                 case TrenchEnum.Vertical:
                     return TrenchTexs[9];
-                    break;
 
                 case TrenchEnum.Horizontal:
                     return TrenchTexs[10];
-                    break;
 
 
             }

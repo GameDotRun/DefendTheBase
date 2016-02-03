@@ -18,11 +18,6 @@ namespace DefendTheBase
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //Rectangle smallRect;
-
-        // CONSTANTS
-        //public const int WIDTH = 1290, HEIGHT = 720;
-
         // PATHFINDING CODE
         //Grid Size
         public const int SQUARESIZE = 25;
@@ -48,8 +43,6 @@ namespace DefendTheBase
         Random rnd;
 
         Rectangle mouseRect;
-        //MouseState mouse;
-        //KeyboardState keyboard, old;
 
         Enemy enemy;
 
@@ -101,7 +94,6 @@ namespace DefendTheBase
         public void ResetGame()
         {
             // Reset Variables, or Set if first run.
-            //smallRect = new Rectangle(5, 5, 10, 10);
         }
 
         // Update
@@ -117,8 +109,6 @@ namespace DefendTheBase
                 this.Exit();
 
             // PATHFINDING CODE
-            //mouse = Mouse.GetState();
-            //keyboard = Keyboard.GetState();
             mouseRect = new Rectangle((int)Input.MousePosition.X, (int)Input.MousePosition.Y, 1, 1);
 
             grid.Update(mouseRect, gameTime);
@@ -139,9 +129,6 @@ namespace DefendTheBase
             GraphicsDevice.Clear(Color.White);
             // Begin our spriteBatch.
             spriteBatch.Begin();
-
-            // Draw a white square using a 1x1 image scaled up.
-            //spriteBatch.Draw(Art.Pixel, smallRect, Color.White);
 
             // PATHFINDING CODE
             grid.Draw(spriteBatch, Art.DebugFont);
