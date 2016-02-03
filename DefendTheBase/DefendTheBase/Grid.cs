@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Flextensions;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -45,10 +46,10 @@ namespace DefendTheBase
 
         }
 
-        public void Update(Rectangle mouseRect, MouseState mouseState, GameTime gameTime)
+        public void Update(Rectangle mouseRect, GameTime gameTime)
         {
             foreach (Squares square in gridSquares)
-                square.Update(mouseState);
+                square.Update();
 
             updateTimer += gameTime.ElapsedGameTime;
 
@@ -58,7 +59,7 @@ namespace DefendTheBase
                     for (int x = 0; x < width; x++)
                     {
 
-                        if (mouseRect.Intersects(gridSquares[x, y].rect) && mouseState.RightButton == ButtonState.Pressed && !gridStatus.HasFlag(gridFlags.endPoint)) // temporary.
+                        if (mouseRect.Intersects(gridSquares[x, y].rect) && Input.RMBDown && !gridStatus.HasFlag(gridFlags.endPoint)) // temporary.
                         {
                             gridStatus = gridFlags.endPoint;
                             stopPointCoord = new Coordinates(x, y, 0);

@@ -48,9 +48,8 @@ namespace DefendTheBase
         Random rnd;
 
         Rectangle mouseRect;
-        SpriteFont debug;
-        MouseState mouse;
-        KeyboardState keyboard, old;
+        //MouseState mouse;
+        //KeyboardState keyboard, old;
 
         Enemy enemy;
 
@@ -118,20 +117,18 @@ namespace DefendTheBase
                 this.Exit();
 
             // PATHFINDING CODE
-            mouse = Mouse.GetState();
-            keyboard = Keyboard.GetState();
-            mouseRect = new Rectangle(mouse.X, mouse.Y, 1, 1);
+            //mouse = Mouse.GetState();
+            //keyboard = Keyboard.GetState();
+            mouseRect = new Rectangle((int)Input.MousePosition.X, (int)Input.MousePosition.Y, 1, 1);
 
-            grid.Update(mouseRect, mouse, gameTime);
+            grid.Update(mouseRect, gameTime);
 
             enemy.Update(grid.gridStatus);
 
-            if (keyboard.IsKeyDown(Keys.G) && old != keyboard)
+            if (Input.WasKeyPressed(Keys.G))
             {
                 grid.GenerateNewMap(rnd);
             }
-
-            old = keyboard;
 
             base.Update(gameTime);
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Flextensions;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -41,13 +42,13 @@ namespace DefendTheBase
             sqrCoord = new Coordinates(x, y, defDist);
         }
 
-        public void Update(MouseState mouseState)
+        public void Update()
         {
-            if (rect.Contains(new Point(mouseState.X, mouseState.Y)))
+            if (rect.Contains(Input.MousePosition.ToPoint()))
             {
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (Input.LMBDown)
                     typeOfSquare |= Squares.SqrFlags.Wall;
-                else if (mouseState.RightButton == ButtonState.Pressed)
+                else if (Input.RMBDown)
                     typeOfSquare = Squares.SqrFlags.Unoccupied;
 
                 highlight = 0.5f;

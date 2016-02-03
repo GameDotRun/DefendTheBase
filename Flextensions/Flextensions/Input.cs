@@ -34,21 +34,40 @@ namespace Flextensions
         }
 
         /// <summary>
+        /// Returns true if LMB is Pressed.
+        /// </summary>
+        public static bool LMBDown
+        {
+            get { return mouseState.LeftButton == ButtonState.Pressed; }
+        }
+
+        /// <summary>
+        /// Returns true if RMB is Pressed.
+        /// </summary>
+        public static bool RMBDown
+        {
+            get { return mouseState.RightButton == ButtonState.Pressed; }
+        }
+
+        /// <summary>
         /// Returns true if the Left Mouse Button has been pressed once.
         /// </summary>
         /// <returns>True if the LMB was pressed since the last frame.</returns>
-        public static bool WasLMBClicked()
-        {
-            return (lastMouseState.LeftButton == ButtonState.Released) && (mouseState.LeftButton == ButtonState.Pressed);
+        public static bool WasLMBClicked 
+        { 
+            get { return (lastMouseState.LeftButton == ButtonState.Released) && (mouseState.LeftButton == ButtonState.Pressed); }
         }
 
         /// <summary>
         /// Returns true if the Right Mouse Button has been pressed once.
         /// </summary>
         /// <returns>True if the RMB was pressed since the last frame.</returns>
-        public static bool WasRMBClicked()
+        public static bool WasRMBClicked
         {
-            return (lastMouseState.RightButton == ButtonState.Released) && (mouseState.RightButton == ButtonState.Pressed);
+            get
+            {
+                return (lastMouseState.RightButton == ButtonState.Released) && (mouseState.RightButton == ButtonState.Pressed);
+            }
         }
 
         /// <summary>
