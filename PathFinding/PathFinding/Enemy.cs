@@ -49,7 +49,7 @@ namespace PathFinding
 
             if (Game1.grid.stopPointCoord != null)
             {
-                if (enemyPos.x == Game1.grid.stopPointCoord.x && enemyPos.y == Game1.grid.stopPointCoord.y)
+                if (enemyVect.X == Game1.grid.stopPointCoord.x && enemyVect.Y == Game1.grid.stopPointCoord.y)
                 {
                     enemyPos = new Coordinates(0, 0);
                     enemyVect = new Vector2(0, 0);

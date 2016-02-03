@@ -61,13 +61,6 @@ namespace PathFinding
                 for (int y = 0; y < height; y++)
                     for (int x = 0; x < width; x++)
                     {
-                        /*if (Ai.aiPos.x == gridSquares[x, y].sqrCoord.x && Ai.aiPos.y == gridSquares[x, y].sqrCoord.y) // temporary.
-                            gridSquares[x, y].typeOfSquare = Squares.SqrFlags.Occupied;
-                        else
-                        {
-                            gridSquares[x, y].typeOfSquare &= ~Squares.SqrFlags.Occupied;
-                            gridSquares[x, y].typeOfSquare |= Squares.SqrFlags.Unoccupied;
-                        }*/
 
                         if (mouseRect.Intersects(gridSquares[x, y].rect) && mouseState.RightButton == ButtonState.Pressed && !gridStatus.HasFlag(gridFlags.endPoint)) // temporary.
                         {
@@ -226,9 +219,12 @@ namespace PathFinding
         }
 
         void resetGrid()
-        { 
+        {
             foreach (Squares square in gridSquares)
+            {
                 square.typeOfSquare &= ~Squares.SqrFlags.Wall;
+                square.typeOfSquare |= Squares.SqrFlags.Unoccupied;
+            }
      
         }
 
