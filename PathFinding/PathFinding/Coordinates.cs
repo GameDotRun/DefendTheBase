@@ -5,10 +5,9 @@ using System.Text;
 
 namespace PathFinding
 {
-    class Coordinates
+    public class Coordinates
     {
         public int x, y, counter;
-
         public Coordinates(int X, int Y, int COUNTER)
         {
             x = X;

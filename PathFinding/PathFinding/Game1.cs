@@ -19,11 +19,11 @@ namespace PathFinding
         GraphicsDeviceManager graphics;
 
         //Grid Size
-        const int SQUARESIZE = 25;
-        const int HEIGHT = 25;
-        const int WIDTH = 30;
+        public const int SQUARESIZE = 25;
+        public const int HEIGHT = 25;
+        public const int WIDTH = 30;
         
-        const int DEFAULYDIST = 2000; //temp default counter for pathfinding
+        public const int DEFAULYDIST = 2000; //temp default counter for pathfinding
 
         //ui Borders
         public const int BORDERTOP = 60;
@@ -35,18 +35,19 @@ namespace PathFinding
         public const int FPS = 60; //Frames per second
 
         public static Art art;
-
+        public static Grid grid;
 
         Vector2 ScreenSize; // ScreenSize
         Coordinates aiStart = new Coordinates(2, 2); // temporary, Prototype pathfinding leftover
         Random rnd;
         SpriteBatch spriteBatch;
-        Grid grid;
+       
         Rectangle mouseRect;
         SpriteFont debug;
-        ai Ai;
         MouseState mouse;
         KeyboardState keyboard, old;
+
+        Enemy enemy;
 
         bool pathFound;
         
@@ -81,9 +82,11 @@ namespace PathFinding
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             debug = Content.Load<SpriteFont>("debug");
-            Ai = new ai(HEIGHT, WIDTH, aiStart, DEFAULYDIST);
+
             art = new Art();
             art.Load(Content);
+
+            enemy = new Enemy();
             grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, DEFAULYDIST);
 
         }
@@ -104,20 +107,13 @@ namespace PathFinding
             keyboard = Keyboard.GetState();
             mouseRect = new Rectangle(mouse.X, mouse.Y, 1, 1);
 
-            grid.Update(mouseRect, mouse, Ai, gameTime);
+            grid.Update(mouseRect, mouse, gameTime);
 
-            if(grid.gridStatus.HasFlag(Grid.gridFlags.endPoint))
-            {
-                if (!pathFound )
-                    pathFound = Ai.FindPath(grid.stopPointCoord, grid.gridSquares, HEIGHT, WIDTH);
-            }
-
-            if (pathFound)
-                Ai.Update(grid.stopPointCoord, grid.gridSquares, HEIGHT, WIDTH);
+            enemy.Update(grid.gridStatus);
 
             if (keyboard.IsKeyDown(Keys.G) && old != keyboard)
             {
-                grid.GenerateNewMap(Ai, rnd);
+                grid.GenerateNewMap(rnd);
             }
 
             old = keyboard;
@@ -136,6 +132,7 @@ namespace PathFinding
             spriteBatch.Begin();
             grid.Draw(spriteBatch, debug);
             spriteBatch.DrawString(debug, "fps: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString("N0"), Vector2.Zero, Color.Red);
+            enemy.Draw(spriteBatch);
             spriteBatch.End();
            
             base.Draw(gameTime);

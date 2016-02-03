@@ -31,6 +31,7 @@ namespace PathFinding
 
         Texture2D[] trenchTexs;
         Texture2D groundTexs;
+        Texture2D enemyTex;
 
         public Art()
         { 
@@ -44,11 +45,17 @@ namespace PathFinding
                 trenchTexs[i] = content.Load<Texture2D>("trenchArt/trench_" + i);
 
             groundTexs = content.Load<Texture2D>("dirt");
+            enemyTex = content.Load<Texture2D>("ghostSquare");
         }
 
         public Texture2D groundTextureReturn
         {
               get {return groundTexs;}
+        }
+
+        public Texture2D enemyTexReturn
+        {
+            get { return enemyTex; }
         }   
 
         public Texture2D getTrenchTex(TrenchEnum trenchEnum)

@@ -110,6 +110,7 @@
     <Compile Include="ai.cs" />
     <Compile Include="Art.cs" />
     <Compile Include="Coordinates.cs" />
+    <Compile Include="Enemy.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

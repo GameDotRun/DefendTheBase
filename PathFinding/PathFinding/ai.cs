@@ -14,8 +14,6 @@ namespace PathFinding
 {
     class ai
     {
-        public bool[,] AIPOS;
-        public bool[,] ENDPOS;
         public Coordinates aiPos;
 
         bool loopStop = true;
@@ -29,31 +27,20 @@ namespace PathFinding
         int count = 0;
         bool done = false;
         
-        public ai(int Height, int Width, Coordinates aiStart, int defaultDist)
+        public ai(Coordinates aiStart, int defaultDist)
         {
             aiPos = aiStart;
             defDist = defaultDist;
             tempInt = defaultDist;
-
-            AIPOS = new bool[Width, Height];
-            ENDPOS = new bool[Width, Height];
-            for (int y = 0; y < Height; y++)
-                for (int x = 0; x < Width; x++)
-                {
-                    AIPOS[x, y] = false;
-                    ENDPOS[x, y] = false;
-                }
-
-            AIPOS[0, 0] = true;
 
             tempCoord = new Coordinates(0, 0, defaultDist);
             coords = new List<Coordinates>();
             tempCoords = new List<Coordinates>();
         }
 
-        public void Update(Coordinates endPoint, Squares[,] squares, int height, int width)
+        public void PathMove(Coordinates endPoint, Squares[,] squares, int height, int width, ref Vector2 enemyVect)
         {
-            if (AIPOS != ENDPOS)
+            if (aiPos.x == (int)enemyVect.X && aiPos.y == (int)enemyVect.Y)
             {
                 if (aiPos.x + 1 < width)
                 {
@@ -104,16 +91,35 @@ namespace PathFinding
                     }
                 }
 
-                aiPos = new Coordinates(tempCoord.x, tempCoord.y);
 
+
+                aiPos = new Coordinates(tempCoord.x, tempCoord.y);
             }
-        
+
+            if (enemyVect.X < aiPos.x)
+            {
+                enemyVect.X += 1f / 10;
+                enemyVect.X = (float)Math.Round(enemyVect.X, 2);
+            }
+            else if (enemyVect.Y < aiPos.y)
+            {
+                enemyVect.Y += 1f / 10;
+                enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
+            }
+            if (enemyVect.X > aiPos.x)
+            {
+                enemyVect.X -= 1f / 10;
+                enemyVect.X = (float)Math.Round(enemyVect.X, 2);
+            }
+            else if (enemyVect.Y > aiPos.y)
+            {
+                enemyVect.Y -= 1f / 10;
+                enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
+            }
         }
 
         public bool FindPath(Coordinates endPoint, Squares[,] squares, int height, int width)
         {
-            ENDPOS[(int)endPoint.x, (int)endPoint.y] = true;
-
             if (!done)
             {
                 coords.Add(endPoint);
@@ -199,7 +205,6 @@ namespace PathFinding
 
         void squaresCounter(Squares[,] squares, int counter)
         {
-
             for (int v = 0; v < tempCoords.Count; v++)
             {
                 if (squares[tempCoords[v].x, tempCoords[v].y].sqrCoord.counter == 0 || squares[tempCoords[v].x, tempCoords[v].y].sqrCoord.counter == defDist)
@@ -207,20 +212,10 @@ namespace PathFinding
             }
         }
 
-        void getPos(int height, int width)
+        public void Reset()
         {
-
-            for (int y = 0; y < height; y++)
-                for (int x = 0; x < width; x++)
-                {
-                    if (AIPOS[x, y])
-                    {
-                        aiPos = new Coordinates(x, y);
-                        break;
-                    }
-
-                }
-        
+            tempInt = defDist;
+            tempCoord = new Coordinates(0, 0, defDist);
         }
 
         public void Draw()
