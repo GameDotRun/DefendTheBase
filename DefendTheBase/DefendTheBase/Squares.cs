@@ -22,7 +22,7 @@ namespace DefendTheBase
             StopPoint = 32
         }
 
-        public Art.TrenchEnum texEnum;
+        public string TrenchName;
         public SqrFlags typeOfSquare;
         public Coordinates sqrCoord;
         public Rectangle rect;
@@ -69,7 +69,7 @@ namespace DefendTheBase
         public void Draw(SpriteBatch sb, Texture2D gridSquareTex)
         {
             if (typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                sb.Draw(Art.getTrenchTex(texEnum), rect, Color.White * highlight);
+                sb.Draw(Art.getTrenchTex(TrenchName), rect, Color.White * highlight);
             else if (typeOfSquare.HasFlag(Squares.SqrFlags.Occupied))
                 sb.Draw(gridSquareTex, rect, Color.Blue * highlight);
             else if (typeOfSquare.HasFlag(Squares.SqrFlags.Unoccupied))

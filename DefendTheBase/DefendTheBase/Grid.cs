@@ -167,51 +167,18 @@ namespace DefendTheBase
 
         void sqrTexDecider(int x, int y)
         {
+            gridSquares[x, y].TrenchName = "Trench_";
+            if (gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                gridSquares[x, y].TrenchName += "N";
 
             if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.ELeft;
-
-            if (gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.ERight;
+                gridSquares[x, y].TrenchName += "E";
 
             if (gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.EUp;
+                gridSquares[x, y].TrenchName += "S";
 
-            if (gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.EDown;
-
-            if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.Horizontal;
-
-            if (gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.Vertical;
-
-            if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.TRight;
-
-            if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.TRight;
-
-            if (gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.TLeft;
-
-            if (gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.TLeft;
-
-            if (gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.TRight;
-
-            if (gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.TLeft;
-
-            if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.TDown;
-
-            if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.TUp;
-
-            if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].texEnum = Art.TrenchEnum.trenchX;
+            if (gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                gridSquares[x, y].TrenchName += "W";
         }
 
         void resetGrid()
