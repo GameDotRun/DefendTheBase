@@ -58,7 +58,6 @@ namespace DefendTheBase
                 for (int y = 0; y < height; y++)
                     for (int x = 0; x < width; x++)
                     {
-
                         if (mouseRect.Intersects(gridSquares[x, y].rect) && Input.RMBDown && !gridStatus.HasFlag(gridFlags.endPoint)) // temporary.
                         {
                             gridStatus = gridFlags.endPoint;

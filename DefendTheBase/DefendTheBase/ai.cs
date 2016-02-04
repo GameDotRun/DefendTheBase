@@ -206,10 +206,26 @@ namespace DefendTheBase
             }
         }
 
-        public void Reset()
+        public void PathMoveReset()
         {
             tempInt = defDist;
             tempCoord = new Coordinates(0, 0, defDist);
+        }
+
+        public void FindPathReset()
+        {
+            count = 0;
+            coords.Clear();
+            tempCoords.Clear();
+            done = false;
+
+            for (int y = 0; y < GameRoot.HEIGHT; y++)
+                for (int x = 0; x < GameRoot.WIDTH; x++)
+                {
+                    GameRoot.grid.gridSquares[x, y].sqrCoord.counter = defDist;
+                }
+
+            PathMoveReset();
         }
 
         public void Draw()

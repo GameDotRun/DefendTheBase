@@ -13,11 +13,11 @@ namespace DefendTheBase
 
 
         Texture2D sprite;
-        Coordinates enemyPos;
-        Vector2 enemyVect;
+        public Coordinates enemyPos;
+        public Vector2 enemyVect;
         ai pathFinder;
 
-        bool pathFound = false;
+        public bool pathFound = false;
         bool destReached = false;
 
         public Enemy()
@@ -34,7 +34,10 @@ namespace DefendTheBase
         public void Update(Grid.gridFlags endPoint)
         {
             if (!pathFound && endPoint.HasFlag(Grid.gridFlags.endPoint))
+            {
+                pathFinder.FindPathReset();
                 pathFound = pathFinder.FindPath(GameRoot.grid.stopPointCoord, GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH);
+            }
 
             if (pathFound)
             {
@@ -48,7 +51,7 @@ namespace DefendTheBase
                 {
                     enemyPos = new Coordinates(0, 0);
                     enemyVect = new Vector2(0, 0);
-                    pathFinder.Reset();
+                    pathFinder.PathMoveReset();
                     pathFinder.aiPos = enemyPos;
                 }
             }

@@ -20,7 +20,7 @@ namespace DefendTheBase
 
         // PATHFINDING CODE
         //Grid Size
-        public const int SQUARESIZE = 25;
+        public const int SQUARESIZE = 35;
         public const int HEIGHT = 25;
         public const int WIDTH = 30;
 
@@ -115,6 +115,18 @@ namespace DefendTheBase
 
             enemy.Update(grid.gridStatus);
 
+            for (int y = 0; y < HEIGHT; y++) //Debug counter Text
+                for (int x = 0; x < WIDTH; x++)
+                {
+                    if (Input.WasLMBClicked || Input.WasRMBClicked && grid.gridSquares[x, y].getSquareEdited)
+                    {
+                        enemy.pathFound = false;     
+                    }
+                }
+
+
+          
+
             if (Input.WasKeyPressed(Keys.G))
             {
                 grid.GenerateNewMap(rnd);
@@ -145,6 +157,9 @@ namespace DefendTheBase
                     i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }
+
+            spriteBatch.DrawString(Art.DebugFont, enemy.enemyPos.x + " " + enemy.enemyPos.y, enemy.enemyVect, Color.White);
+
 #endif
 
             // Finish spriteBatch.

@@ -28,6 +28,7 @@ namespace DefendTheBase
         public Rectangle rect;
         public Vector2 sqrLoc;
 
+        public bool sqrEdited = false;
 
         float highlight;
 
@@ -44,12 +45,20 @@ namespace DefendTheBase
 
         public void Update()
         {
+            sqrEdited = false;
+
             if (rect.Contains(Input.MousePosition.ToPoint()))
             {
                 if (Input.LMBDown)
+                {
                     typeOfSquare |= Squares.SqrFlags.Wall;
+                    sqrEdited = true;
+                }
                 else if (Input.RMBDown)
                     typeOfSquare = Squares.SqrFlags.Unoccupied;
+
+                if (Input.RMBDown)
+                    sqrEdited = true;
 
                 highlight = 0.5f;
             }
@@ -63,10 +72,16 @@ namespace DefendTheBase
                 sb.Draw(Art.getTrenchTex(texEnum), rect, Color.White * highlight);
             else if (typeOfSquare.HasFlag(Squares.SqrFlags.Occupied))
                 sb.Draw(gridSquareTex, rect, Color.Blue * highlight);
-            else if (typeOfSquare.HasFlag(Squares.SqrFlags.StopPoint))
-                sb.Draw(gridSquareTex, rect, Color.Red * highlight);
             else if (typeOfSquare.HasFlag(Squares.SqrFlags.Unoccupied))
                 sb.Draw(gridSquareTex, rect, Color.White * highlight);
+            else if (typeOfSquare.HasFlag(Squares.SqrFlags.StopPoint))
+                sb.Draw(gridSquareTex, rect, Color.Red * highlight); 
         }
+
+        public bool getSquareEdited
+        { 
+            get{return sqrEdited;}
+        }
+
     }
 }
