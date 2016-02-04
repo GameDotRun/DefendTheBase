@@ -10,22 +10,6 @@ namespace DefendTheBase
 {
     public class Art
     {
-        // PATHFINDING CODE
-        public enum TrenchEnum
-        {
-            Horizontal,
-            Vertical,
-            TUp,
-            TDown,
-            TLeft,
-            TRight,
-            EUp,
-            EDown,
-            ERight,
-            ELeft,
-            trenchX
-        }
-
         // A single white pixel.
         public static Texture2D Pixel { get; private set; }
 
@@ -40,56 +24,70 @@ namespace DefendTheBase
         {
             Pixel = content.Load<Texture2D>("Art/Images/Pixel");
 
-            TrenchTexs = new Texture2D[11];
+            TrenchTexs = new Texture2D[16];
             for (int i = 0; i < TrenchTexs.Count(); i++)
                 TrenchTexs[i] = content.Load<Texture2D>("Art/Images/Trenches/trench_" + i);
 
-            GroundTexs = content.Load<Texture2D>("Art/Images/dirt");
+            GroundTexs = content.Load<Texture2D>("Art/Images/Durt");
             EnemyTex = content.Load<Texture2D>("Art/Images/ghostSquare");
 
             DebugFont = content.Load<SpriteFont>("Art/Fonts/DebugFont");
         }
 
-        public static Texture2D getTrenchTex(TrenchEnum trenchEnum)
+        public static Texture2D getTrenchTex(string trenchName)
         {
             Texture2D a = TrenchTexs[0];
 
-            switch (trenchEnum)
+            switch (trenchName)
             {
 
-                case TrenchEnum.EUp:
+                case "Trench_":
                     return TrenchTexs[0];
 
-                case TrenchEnum.ERight:
+                case "Trench_N":
                     return TrenchTexs[1];
 
-                case TrenchEnum.ELeft:
+                case "Trench_NE":
                     return TrenchTexs[2];
 
-                case TrenchEnum.EDown:
+                case "Trench_NS":
                     return TrenchTexs[3];
 
-                case TrenchEnum.TUp:
+                case "Trench_NW":
                     return TrenchTexs[4];
 
-                case TrenchEnum.TRight:
+                case "Trench_NES":
                     return TrenchTexs[5];
 
-                case TrenchEnum.TLeft:
+                case "Trench_NSW":
                     return TrenchTexs[6];
 
-                case TrenchEnum.TDown:
+                case "Trench_NESW":
                     return TrenchTexs[7];
 
-                case TrenchEnum.trenchX:
+                case "Trench_ES":
                     return TrenchTexs[8];
 
-                case TrenchEnum.Vertical:
+                case "Trench_EW":
                     return TrenchTexs[9];
 
-                case TrenchEnum.Horizontal:
+                case "Trench_ESW":
                     return TrenchTexs[10];
 
+                case "Trench_SW":
+                    return TrenchTexs[11];
+
+                case "Trench_E":
+                    return TrenchTexs[12];
+
+                case "Trench_S":
+                    return TrenchTexs[13];
+
+                case "Trench_W":
+                    return TrenchTexs[14];
+
+                case "Trench_NEW":
+                    return TrenchTexs[15];
 
             }
 

@@ -66,58 +66,58 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Images\Trenches\trench_0.png">
-      <Name>trench_0</Name>
+    <Compile Include="Art\Images\Trenches\Trench_0.png">
+      <Name>Trench_0</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\Trenches\trench_1.png">
-      <Name>trench_1</Name>
+    <Compile Include="Art\Images\Trenches\Trench_1.png">
+      <Name>Trench_1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\Trenches\trench_10.png">
-      <Name>trench_10</Name>
+    <Compile Include="Art\Images\Trenches\Trench_10.png">
+      <Name>Trench_10</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\Trenches\trench_2.png">
-      <Name>trench_2</Name>
+    <Compile Include="Art\Images\Trenches\Trench_2.png">
+      <Name>Trench_2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\Trenches\trench_3.png">
-      <Name>trench_3</Name>
+    <Compile Include="Art\Images\Trenches\Trench_3.png">
+      <Name>Trench_3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\Trenches\trench_4.png">
-      <Name>trench_4</Name>
+    <Compile Include="Art\Images\Trenches\Trench_4.png">
+      <Name>Trench_4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\Trenches\trench_5.png">
-      <Name>trench_5</Name>
+    <Compile Include="Art\Images\Trenches\Trench_5.png">
+      <Name>Trench_5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\Trenches\trench_6.png">
-      <Name>trench_6</Name>
+    <Compile Include="Art\Images\Trenches\Trench_6.png">
+      <Name>Trench_6</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\Trenches\trench_7.png">
-      <Name>trench_7</Name>
+    <Compile Include="Art\Images\Trenches\Trench_7.png">
+      <Name>Trench_7</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\Trenches\trench_8.png">
-      <Name>trench_8</Name>
+    <Compile Include="Art\Images\Trenches\Trench_8.png">
+      <Name>Trench_8</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\Trenches\trench_9.png">
-      <Name>trench_9</Name>
+    <Compile Include="Art\Images\Trenches\Trench_9.png">
+      <Name>Trench_9</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -130,6 +130,42 @@
     </Compile>
     <Compile Include="Art\Images\trench.png">
       <Name>trench</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Images\Trenches\Trench_11.png">
+      <Name>Trench_11</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Trenches\Trench_13.png">
+      <Name>Trench_13</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Trenches\Trench_14.png">
+      <Name>Trench_14</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Trenches\Trench_15.png">
+      <Name>Trench_15</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Images\Trenches\Trench_12.png">
+      <Name>Trench_12</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Images\Durt.png">
+      <Name>Durt</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
