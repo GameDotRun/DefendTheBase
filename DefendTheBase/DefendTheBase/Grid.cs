@@ -67,8 +67,8 @@ namespace DefendTheBase
                         }
                     }
 
-                for (int y = 1; y < height - 1; y++)
-                    for (int x = 1; x < width - 1; x++)
+                for (int y = 0; y < height - 0; y++)
+                    for (int x = 0; x < width - 0; x++)
                     {
                         if (gridSquares[x, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                             sqrTexDecider(x, y);
@@ -168,17 +168,22 @@ namespace DefendTheBase
         void sqrTexDecider(int x, int y)
         {
             gridSquares[x, y].TrenchName = "Trench_";
-            if (gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].TrenchName += "N";
 
-            if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].TrenchName += "E";
+            if (y > 0)
+                if (gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].TrenchName += "N";
 
-            if (gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].TrenchName += "S";
+            if (x < GameRoot.WIDTH - 1)
+                if (gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].TrenchName += "E";
 
-            if (gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                gridSquares[x, y].TrenchName += "W";
+            if (y < GameRoot.HEIGHT - 1)
+                if (gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].TrenchName += "S";
+
+            if (x > 0)
+                if (gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    gridSquares[x, y].TrenchName += "W";
         }
 
         void resetGrid()
