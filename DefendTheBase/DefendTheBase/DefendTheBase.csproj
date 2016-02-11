@@ -81,6 +81,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="GameRoot.cs" />
     <Compile Include="Squares.cs" />
+    <Compile Include="UI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

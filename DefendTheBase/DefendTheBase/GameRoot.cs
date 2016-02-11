@@ -20,9 +20,9 @@ namespace DefendTheBase
 
         // PATHFINDING CODE
         //Grid Size
-        public const int SQUARESIZE = 35;
-        public const int HEIGHT = 25;
-        public const int WIDTH = 30;
+        public const int SQUARESIZE = 50;
+        public const int HEIGHT = 15;
+        public const int WIDTH = 25;
 
         public const int DEFAULYDIST = 2000; //temp default counter for pathfinding
 
@@ -121,6 +121,11 @@ namespace DefendTheBase
                     if (Input.WasLMBClicked || Input.WasRMBClicked && grid.gridSquares[x, y].getSquareEdited)
                     {
                         enemy.pathFound = false;     
+                    }
+
+                    if (Input.WasKeyPressed(Keys.G))
+                    {
+                        enemy.pathFound = false;
                     }
                 }
 

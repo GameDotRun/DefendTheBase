@@ -95,7 +95,7 @@ namespace DefendTheBase
                 enemyVect.X += 1f / 10;
                 enemyVect.X = (float)Math.Round(enemyVect.X, 2);
             }
-            else if (enemyVect.Y < aiPos.y)
+            if (enemyVect.Y < aiPos.y)
             {
                 enemyVect.Y += 1f / 10;
                 enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
@@ -105,7 +105,7 @@ namespace DefendTheBase
                 enemyVect.X -= 1f / 10;
                 enemyVect.X = (float)Math.Round(enemyVect.X, 2);
             }
-            else if (enemyVect.Y > aiPos.y)
+            if (enemyVect.Y > aiPos.y)
             {
                 enemyVect.Y -= 1f / 10;
                 enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
@@ -158,6 +158,7 @@ namespace DefendTheBase
                     coords.Add(tempCoords[i]);
 
                 count++;
+
                 currentElement = coords[count];
 
                 tempCoords.Clear();

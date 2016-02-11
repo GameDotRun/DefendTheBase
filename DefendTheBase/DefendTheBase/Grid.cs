@@ -62,7 +62,7 @@ namespace DefendTheBase
                         {
                             gridStatus = gridFlags.endPoint;
                             stopPointCoord = new Coordinates(x, y, 0);
-                            gridSquares[x, y].typeOfSquare = Squares.SqrFlags.StopPoint;
+                            gridSquares[x, y].typeOfSquare |= Squares.SqrFlags.StopPoint;
 
                         }
                     }
@@ -102,64 +102,67 @@ namespace DefendTheBase
             for (int y = 0; y < height; y++)
                 for (int x = 1; x < width; x++)
                 {
-                    if (!gridSquares[x, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    if (!gridSquares[x, y].typeOfSquare.HasFlag(Squares.SqrFlags.StopPoint))
                     {
-                        if (rnd.Next(0, counter) < disparity)
+                        if (!gridSquares[x, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                         {
-                            if (x != 0 && x != width - 1 && y != 0 && y != height - 1)
+                            if (rnd.Next(0, counter) < disparity)
                             {
-                                if (!gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                                if (x != 0 && x != width - 1 && y != 0 && y != height - 1)
                                 {
-                                    if (!gridSquares[x + 1, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x + 1, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                                    if (!gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                                     {
-                                        for (int i = 0; i < rnd.Next(1, width - x); i++)
+                                        if (!gridSquares[x + 1, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x + 1, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                                         {
-                                            try
+                                            for (int i = 0; i < rnd.Next(1, width - x); i++)
                                             {
-                                                if (!gridSquares[x + i + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                                                try
+                                                {
+                                                    if (!gridSquares[x + i + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                                                    {
+                                                        gridSquares[x + i, y].typeOfSquare = Squares.SqrFlags.Wall;
+                                                    }
+                                                    else break;
+                                                }
+                                                catch
                                                 {
                                                     gridSquares[x + i, y].typeOfSquare = Squares.SqrFlags.Wall;
                                                 }
-                                                else break;
                                             }
-                                            catch
+                                            for (int i = 0; i < rnd.Next(1, height - y); i++)
                                             {
-                                                gridSquares[x + i, y].typeOfSquare = Squares.SqrFlags.Wall;
-                                            }
-                                        }
-                                        for (int i = 0; i < rnd.Next(1, height - y); i++)
-                                        {
-                                            try
-                                            {
-                                                if (!gridSquares[x, y + i + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                                                    gridSquares[x, y + i].typeOfSquare = Squares.SqrFlags.Wall;
-                                                else break;
-                                            }
+                                                try
+                                                {
+                                                    if (!gridSquares[x, y + i + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                                                        gridSquares[x, y + i].typeOfSquare = Squares.SqrFlags.Wall;
+                                                    else break;
+                                                }
 
-                                            catch
-                                            {
-                                                gridSquares[x, y + i].typeOfSquare = Squares.SqrFlags.Wall;
+                                                catch
+                                                {
+                                                    gridSquares[x, y + i].typeOfSquare = Squares.SqrFlags.Wall;
+                                                }
                                             }
                                         }
+
+                                    }
+                                }
+
+                                else
+                                {
+                                    if (rnd.Next(1, 50) > sideCount)
+                                    {
+                                        if (x == 0)
+                                            gridSquares[rnd.Next(1, width), y].typeOfSquare = Squares.SqrFlags.Wall;
+                                        if (y == 0)
+                                            gridSquares[x, rnd.Next(1, height)].typeOfSquare = Squares.SqrFlags.Wall;
+
+                                        sideCount += 2;
                                     }
 
                                 }
-                            }
-
-                            else
-                            {
-                                if (rnd.Next(1, 50) > sideCount)
-                                {
-                                    if (x == 0)
-                                        gridSquares[rnd.Next(1, width), y].typeOfSquare = Squares.SqrFlags.Wall;
-                                    if (y == 0)
-                                        gridSquares[x, rnd.Next(1, height)].typeOfSquare = Squares.SqrFlags.Wall;
-
-                                    sideCount += 2;
-                                }
 
                             }
-
                         }
                     }
                 }
