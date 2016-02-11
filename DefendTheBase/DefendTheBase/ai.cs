@@ -90,12 +90,13 @@ namespace DefendTheBase
                 aiPos = new Coordinates(tempCoord.x, tempCoord.y);
             }
 
+            
             if (enemyVect.X < aiPos.x)
             {
                 enemyVect.X += 1f / 10;
                 enemyVect.X = (float)Math.Round(enemyVect.X, 2);
             }
-            else if (enemyVect.Y < aiPos.y)
+             if (enemyVect.Y < aiPos.y)
             {
                 enemyVect.Y += 1f / 10;
                 enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
@@ -105,11 +106,12 @@ namespace DefendTheBase
                 enemyVect.X -= 1f / 10;
                 enemyVect.X = (float)Math.Round(enemyVect.X, 2);
             }
-            else if (enemyVect.Y > aiPos.y)
+             if (enemyVect.Y > aiPos.y)
             {
                 enemyVect.Y -= 1f / 10;
                 enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
             }
+            
         }
 
         public bool FindPath(Coordinates endPoint, Squares[,] squares, int height, int width)
