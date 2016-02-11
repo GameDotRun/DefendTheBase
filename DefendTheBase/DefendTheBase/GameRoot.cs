@@ -38,15 +38,26 @@ namespace DefendTheBase
         //public static Art art;
         public static Grid grid;
 
+        //Game states
+        public enum gamestate
+        {
+            StartScreen,
+            PlayScreen,
+            EndScreen,
+            Highscore,
+            InfoScreen,
+        }
+
+
+
+
         Vector2 ScreenSize; // ScreenSize
-        Coordinates aiStart = new Coordinates(2, 2); // temporary, Prototype pathfinding leftover
         Random rnd;
 
         Rectangle mouseRect;
 
         Enemy enemy;
 
-        bool pathFound;
 
         // Constructor
         public GameRoot()
@@ -68,7 +79,6 @@ namespace DefendTheBase
         // Init
         protected override void Initialize()
         {
-            pathFound = false;
             rnd = new Random();
             base.Initialize();
         }
