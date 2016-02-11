@@ -17,6 +17,7 @@ namespace DefendTheBase
         // Game Variables
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        public static gamestate GameState;
 
         // PATHFINDING CODE
         //Grid Size
@@ -173,7 +174,8 @@ namespace DefendTheBase
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }
 
-            spriteBatch.DrawString(Art.DebugFont, enemy.enemyPos.x + " " + enemy.enemyPos.y, enemy.enemyVect, Color.White);
+            // Aaron what were you doing with this? :P
+            spriteBatch.DrawString(Art.DebugFont, enemy.enemyPos.x + " " + enemy.enemyPos.y, enemy.enemyVect, Color.Black);
 
 #endif
 

@@ -52,6 +52,7 @@ namespace DefendTheBase
                     enemyPos = new Coordinates(0, 0);
                     enemyVect = new Vector2(0, 0);
                     pathFinder.PathMoveReset();
+                    pathFound = false;
                     pathFinder.aiPos = enemyPos;
                 }
             }

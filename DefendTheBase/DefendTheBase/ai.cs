@@ -90,17 +90,14 @@ namespace DefendTheBase
                 aiPos = new Coordinates(tempCoord.x, tempCoord.y);
             }
 
-            
+            // Somewhere in these ifs is the key to diag movement or wall nope-ing...
+            // adding else to all but the last ifs, removes diag but he nopes through many a wall.
             if (enemyVect.X < aiPos.x)
             {
                 enemyVect.X += 1f / 10;
                 enemyVect.X = (float)Math.Round(enemyVect.X, 2);
             }
-<<<<<<< HEAD
             if (enemyVect.Y < aiPos.y)
-=======
-             if (enemyVect.Y < aiPos.y)
->>>>>>> origin/master
             {
                 enemyVect.Y += 1f / 10;
                 enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
@@ -110,11 +107,7 @@ namespace DefendTheBase
                 enemyVect.X -= 1f / 10;
                 enemyVect.X = (float)Math.Round(enemyVect.X, 2);
             }
-<<<<<<< HEAD
             if (enemyVect.Y > aiPos.y)
-=======
-             if (enemyVect.Y > aiPos.y)
->>>>>>> origin/master
             {
                 enemyVect.Y -= 1f / 10;
                 enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
