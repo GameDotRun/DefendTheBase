@@ -175,7 +175,7 @@ namespace DefendTheBase
             }
 
             // Aaron what were you doing with this? :P
-            spriteBatch.DrawString(Art.DebugFont, enemy.enemyPos.x + " " + enemy.enemyPos.y, enemy.enemyVect, Color.Black);
+            spriteBatch.DrawString(Art.DebugFont, enemy.ScreenPos.X + " " + enemy.ScreenPos.Y, enemy.ScreenPos, Color.Black);
 
 #endif
 

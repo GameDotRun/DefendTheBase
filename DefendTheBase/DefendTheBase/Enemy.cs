@@ -14,7 +14,7 @@ namespace DefendTheBase
 
         Texture2D sprite;
         public Coordinates enemyPos;
-        public Vector2 enemyVect;
+        public Vector2 enemyVect, ScreenPos;
         ai pathFinder;
 
         public bool pathFound = false;
@@ -22,7 +22,7 @@ namespace DefendTheBase
 
         public Enemy()
         {
-            enemyVect = new Vector2(0, 0);
+            enemyVect = ScreenPos = new Vector2(0, 0);
             enemyPos = new Coordinates(0, 0);
             pathFinder = new ai(enemyPos, GameRoot.DEFAULYDIST);
             sprite = Art.EnemyTex;
@@ -56,11 +56,13 @@ namespace DefendTheBase
                     pathFinder.aiPos = enemyPos;
                 }
             }
+            // Get screen pixel position from Grid Coordinates (enemyVect).
+            ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE), (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE));
         }
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(sprite, new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE), (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE)), Color.Aqua);
+            sb.Draw(sprite, ScreenPos, Color.Aqua);
 
         }
     }
