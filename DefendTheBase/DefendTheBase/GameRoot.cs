@@ -140,9 +140,6 @@ namespace DefendTheBase
                     }
                 }
 
-
-          
-
             if (Input.WasKeyPressed(Keys.G))
             {
                 grid.GenerateNewMap(rnd);

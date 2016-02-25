@@ -21,13 +21,13 @@ namespace DefendTheBase
         int count = 0;
         bool done = false;
 
-        public ai(Coordinates aiStart, int defaultDist)
+        public ai(Coordinates aiStart)
         {
             aiPos = aiStart;
-            defDist = defaultDist;
-            tempInt = defaultDist;
+            defDist = GameRoot.DEFAULYDIST;
+            tempInt = GameRoot.DEFAULYDIST;
 
-            tempCoord = new Coordinates(0, 0, defaultDist);
+            tempCoord = new Coordinates(0, 0, GameRoot.DEFAULYDIST);
             coords = new List<Coordinates>();
             tempCoords = new List<Coordinates>();
         }
