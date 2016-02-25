@@ -140,9 +140,6 @@ namespace DefendTheBase
                     }
                 }
 
-
-          
-
             if (Input.WasKeyPressed(Keys.G))
             {
                 grid.GenerateNewMap(rnd);
@@ -175,7 +172,7 @@ namespace DefendTheBase
             }
 
             // Aaron what were you doing with this? :P
-            spriteBatch.DrawString(Art.DebugFont, enemy.enemyPos.x + " " + enemy.enemyPos.y, enemy.enemyVect, Color.Black);
+            spriteBatch.DrawString(Art.DebugFont, enemy.enemyPos.x + " " + enemy.enemyPos.y, new Vector2(enemy.enemyVect.X, enemy.enemyVect.Y), Color.Black);
 
 #endif
 

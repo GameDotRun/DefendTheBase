@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DefendTheBase
 {
-    class Enemy
+    class Enemy : ai
     {
         //insert stats: hp, speed, dmg etc.
 
@@ -15,19 +15,15 @@ namespace DefendTheBase
         Texture2D sprite;
         public Coordinates enemyPos;
         public Vector2 enemyVect;
-        ai pathFinder;
 
         public bool pathFound = false;
         bool destReached = false;
 
-        public Enemy()
+        public Enemy() : base(new Coordinates(0,0))
         {
             enemyVect = new Vector2(0, 0);
             enemyPos = new Coordinates(0, 0);
-            pathFinder = new ai(enemyPos, GameRoot.DEFAULYDIST);
             sprite = Art.EnemyTex;
-
-
 
         }
 
@@ -35,14 +31,14 @@ namespace DefendTheBase
         {
             if (!pathFound && endPoint.HasFlag(Grid.gridFlags.endPoint))
             {
-                pathFinder.FindPathReset();
-                pathFound = pathFinder.FindPath(GameRoot.grid.stopPointCoord, GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH);
+                FindPathReset();
+                pathFound = FindPath(GameRoot.grid.stopPointCoord, GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH);
             }
 
             if (pathFound)
             {
-                pathFinder.PathMove(GameRoot.grid.stopPointCoord, GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect);
-                enemyPos = pathFinder.aiPos;
+               PathMove(GameRoot.grid.stopPointCoord, GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect);
+                enemyPos = aiPos;
             }
 
             if (GameRoot.grid.stopPointCoord != null)
@@ -51,11 +47,12 @@ namespace DefendTheBase
                 {
                     enemyPos = new Coordinates(0, 0);
                     enemyVect = new Vector2(0, 0);
-                    pathFinder.PathMoveReset();
+                    PathMoveReset();
                     pathFound = false;
-                    pathFinder.aiPos = enemyPos;
+                    aiPos = enemyPos;
                 }
             }
+
         }
 
         public void Draw(SpriteBatch sb)
