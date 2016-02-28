@@ -18,7 +18,7 @@ namespace DefendTheBase
         ai pathFinder;
 
         public bool pathFound = false;
-        bool destReached = false;
+       // bool destReached = false;
 
         public Enemy()
         {

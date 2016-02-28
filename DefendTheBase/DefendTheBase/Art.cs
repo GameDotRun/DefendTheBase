@@ -16,7 +16,7 @@ namespace DefendTheBase
         public static Texture2D[] TrenchTexs { get; private set; }
         public static Texture2D GroundTexs { get; private set; }
         public static Texture2D EnemyTex { get; private set; }
-        public static Texture2D uiUp { get; private set; }
+        public static Texture2D uiUp{ get; private set; }
         public static Texture2D uiSide { get; private set; }
 
         // Small font used for debug info.

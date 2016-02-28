@@ -16,12 +16,13 @@ namespace DefendTheBase
     {
         // Game Variables
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        public SpriteBatch spriteBatch;
         public static gamestate GameState;
 
+           
         // PATHFINDING CODE
         //Grid Size
-        public const int SQUARESIZE = 50;
+        public const int SQUARESIZE = 40;
         public const int HEIGHT = 15;
         public const int WIDTH = 25;
 
@@ -58,6 +59,8 @@ namespace DefendTheBase
         Rectangle mouseRect;
 
         Enemy enemy;
+
+        UI ui;
 
 
         // Constructor
@@ -99,6 +102,10 @@ namespace DefendTheBase
 
             // Set up variables.
             ResetGame();
+
+            //UI
+            ui = new UI(Art.uiUp, 0, 0);
+            
         }
 
         // Reset
@@ -118,6 +125,9 @@ namespace DefendTheBase
                 this.Exit();
             if (Input.WasKeyPressed(Keys.Escape))
                 this.Exit();
+
+            //UI update
+            ui.Update();
 
             // PATHFINDING CODE
             mouseRect = new Rectangle((int)Input.MousePosition.X, (int)Input.MousePosition.Y, 1, 1);
@@ -158,10 +168,15 @@ namespace DefendTheBase
             // Begin our spriteBatch.
             spriteBatch.Begin();
 
+            
+
             // PATHFINDING CODE
+            
             grid.Draw(spriteBatch, Art.DebugFont);
             enemy.Draw(spriteBatch);
 
+            //draw UI
+            ui.Draw(spriteBatch);
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
             for (int i = 0; i < 2; i++)
