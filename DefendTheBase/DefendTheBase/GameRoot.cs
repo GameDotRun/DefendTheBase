@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Flextensions;
+using RPGEx;
 
 namespace DefendTheBase
 {
@@ -23,13 +24,13 @@ namespace DefendTheBase
         //Grid Size
         public const int SQUARESIZE = 50;
         public const int HEIGHT = 15;
-        public const int WIDTH = 25;
+        public const int WIDTH = 20;
 
         public const int DEFAULYDIST = 2000; //temp default counter for pathfinding
 
         //ui Borders
         public const int BORDERTOP = 60;
-        public const int BORDERRIGHT = 175;
+        public const int BORDERRIGHT = 250;
         public const int BORDERLEFT = 0;
 
         //game speed
@@ -49,16 +50,13 @@ namespace DefendTheBase
             InfoScreen,
         }
 
-
-
-
         Vector2 ScreenSize; // ScreenSize
         Random rnd;
 
         Rectangle mouseRect;
 
         Enemy enemy;
-
+        UiGameScreen gameScreenUi;
 
         // Constructor
         public GameRoot()
@@ -90,12 +88,15 @@ namespace DefendTheBase
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            UiButtonMessenger.InitiliseListenerList();
+
             // Load Images and Fonts from disk.
             Art.Load(Content);
 
             // PATHFINDING CODE
             enemy = new Enemy();
             grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, DEFAULYDIST);
+            gameScreenUi = new UiGameScreen(GraphicsDevice);
 
             // Set up variables.
             ResetGame();
@@ -119,6 +120,8 @@ namespace DefendTheBase
             if (Input.WasKeyPressed(Keys.Escape))
                 this.Exit();
 
+            UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
+            gameScreenUi.Update();
             // PATHFINDING CODE
             mouseRect = new Rectangle((int)Input.MousePosition.X, (int)Input.MousePosition.Y, 1, 1);
 
@@ -158,6 +161,7 @@ namespace DefendTheBase
             // PATHFINDING CODE
             grid.Draw(spriteBatch, Art.DebugFont);
             enemy.Draw(spriteBatch);
+            gameScreenUi.Draw(spriteBatch);
 
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
@@ -170,6 +174,8 @@ namespace DefendTheBase
                     i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }
+
+           
 
             // Aaron what were you doing with this? :P
             spriteBatch.DrawString(Art.DebugFont, enemy.ScreenPos.X + " " + enemy.ScreenPos.Y, enemy.ScreenPos, Color.Black);

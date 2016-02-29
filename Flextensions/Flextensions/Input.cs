@@ -148,5 +148,16 @@ namespace Flextensions
             else
                 return 0f;
         }
+
+
+        public static MouseState GetMouseState
+        {
+            get { return mouseState; }
+        }
+
+        public static MouseState GetMouseStateOld
+        {
+            get { return lastMouseState; }
+        }
     }
 }

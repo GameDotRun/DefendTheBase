@@ -81,7 +81,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="GameRoot.cs" />
     <Compile Include="Squares.cs" />
-    <Compile Include="UI.cs" />
+    <Compile Include="UiGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -93,6 +93,10 @@
     <ProjectReference Include="..\..\Flextensions\Flextensions\Flextensions.csproj">
       <Project>{42793b89-19bf-4b3e-aa2c-9711d3a89cdc}</Project>
       <Name>Flextensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UiExt\UiExt.csproj">
+      <Project>{65823548-5C51-46FD-867F-CBB709A0CAEE}</Project>
+      <Name>UiExt</Name>
     </ProjectReference>
     <ProjectReference Include="..\DefendTheBaseContent\DefendTheBaseContent.contentproj">
       <Name>DefendTheBaseContent</Name>
