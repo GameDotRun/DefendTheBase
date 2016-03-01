@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="ai.cs" />
     <Compile Include="Art.cs" />
+    <Compile Include="BuildManager.cs" />
     <Compile Include="Coordinates.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Grid.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="GameRoot.cs" />
     <Compile Include="Squares.cs" />
+    <Compile Include="Tower.cs" />
     <Compile Include="UiGame.cs" />
   </ItemGroup>
   <ItemGroup>

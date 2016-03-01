@@ -148,6 +148,12 @@ namespace DefendTheBase
                 grid.GenerateNewMap(rnd);
             }
 
+            if (Input.WasKeyPressed(Keys.Back))
+            {
+                grid.resetGrid();
+                enemy.pathFound = false;
+            }
+
             base.Update(gameTime);
         }
 

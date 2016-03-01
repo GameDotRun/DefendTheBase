@@ -189,7 +189,7 @@ namespace DefendTheBase
                     gridSquares[x, y].TrenchName += "W";
         }
 
-        void resetGrid()
+        public void resetGrid()
         {
             foreach (Squares square in gridSquares)
             {
