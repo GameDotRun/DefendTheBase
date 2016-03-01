@@ -409,6 +409,21 @@ namespace RPGEx
             if (index >= 0)
                 ButtonListeners.RemoveAt(index);
         }
+
+        static public bool CheckButtonIsDown(string ButtonName)
+        {
+            foreach (UiButton Button in ButtonListeners)
+            {
+                if (Button.GetButtonID == ButtonName)
+                    if (Button.IsButtonDown())
+                        return true;
+            }
+
+
+            return false;
+        
+        }
+        
     }
 
     /// <summary>

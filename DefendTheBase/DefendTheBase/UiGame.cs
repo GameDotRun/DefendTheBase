@@ -18,8 +18,8 @@ namespace DefendTheBase
         UiTabs tabs;
 
         //Group Elements up with Lists, allows the ui controller to manipulate them
-        List<UiButton> unitBuild;
-        List<UiButton> baseBuild;
+        public List<UiButton> unitBuild;
+        public List<UiButton> baseBuild;
 
         public UiGameScreen(GraphicsDevice graphicsDevice) : base(GameRoot.WIDTH, GameRoot.HEIGHT)
         {
@@ -50,7 +50,7 @@ namespace DefendTheBase
         {
             //its of UTMOST IMPORTANCE that each button has a unique id
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 6; i++) // where 6 is number of buttons to createl
             {
                 unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "button" + i.ToString(), true));
                 unitBuild[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));
