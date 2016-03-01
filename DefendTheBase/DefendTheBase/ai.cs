@@ -231,8 +231,5 @@ namespace DefendTheBase
 
             PathMoveReset();
         }
-
-        public void Draw()
-        { }
     }
 }

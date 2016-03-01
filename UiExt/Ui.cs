@@ -19,18 +19,21 @@ namespace RPGEx
     public class Ui
     {
         //Elements added to these lists can be manipulated. Nothing implemented yet.
-        public List<UiButton> ButtonList;
-        public List<UiTextBox> TextBoxList;
-        public List<UiTextString> StringList;
+        //Hoho list in list should be fun :P
+        public List<List<UiButton>> ButtonList;
+        public List<List<UiTextBox>> TextBoxList;
+        public List<List<UiTextString>> StringList;
         public List<UiTabs> TabsList;
 
         public Vector2 WindowDimensions;
 
         public Ui(int WindowWidth, int WindowHeight)
         {
-            ButtonList = new List<UiButton>();
-            TextBoxList = new List<UiTextBox>();
-            StringList = new List<UiTextString>();
+            WindowDimensions = new Vector2(WindowWidth, WindowHeight);
+
+            ButtonList = new List<List<UiButton>>();
+            TextBoxList = new List<List<UiTextBox>>();
+            StringList = new List<List<UiTextString>>();
             TabsList = new List<UiTabs>();
         }
 
@@ -38,26 +41,26 @@ namespace RPGEx
         ///  Add elements to the Ui Control
         ///  cannot be removed
         /// </summary>
+        public void Add<T>(ref List<T> UiElement)
+        {
+            if (UiElement is List<UiButton>)
+                ButtonList.Add(UiElement as List<UiButton>);
+
+            else if (UiElement is List<UiTextBox>)
+                TextBoxList.Add(UiElement as  List<UiTextBox>);
+
+            else if (UiElement is List<UiTextString>)
+                StringList.Add(UiElement as List<UiTextString>);
+        }
+
         public void Add<T>(ref T UiElement)
         {
-            if (UiElement is UiButton)
-                ButtonList.Add(UiElement as UiButton);
-
-            else if (UiElement is UiTextBox)
-                TextBoxList.Add(UiElement as UiTextBox);
-
-            else if (UiElement is UiTextString)
-                StringList.Add(UiElement as UiTextString);
-
-            else if (UiElement is UiTabs)
+            if (UiElement is UiTabs)
                 TabsList.Add(UiElement as UiTabs);
         }
 
         public void TabLocationTopRight()
-        {
-
-
-        }
+        { }
 
         public void TabLocationBottomLeft()
         { }
@@ -74,7 +77,7 @@ namespace RPGEx
     /// </summary>
     public class UiTabs
     {
-        public List<UiTab> tabList;
+        internal List<UiTab> tabList;
         private int currentSelection;
 
         /// <summary>
@@ -129,6 +132,11 @@ namespace RPGEx
             SetDrawLocations(TabDrawLocation, Pages);
         }
 
+        /// <summary>
+        /// Create Tabs with a Colour.
+        /// The tabs will scale to the given TabSize.
+        /// Give empty tabnames for no text
+        /// </summary>
         public UiTabs(GraphicsDevice graphicDev, SpriteFont Font, int Pages, Vector2 TabDrawLocation, string[] TabName, Color TabColor, Vector2 TabSize)
         {
             tabList = new List<UiTab>();
@@ -161,7 +169,10 @@ namespace RPGEx
             tabList[currentSelection].tabButton.isTabSelected = true;
         }
 
-        public void Add<T>(ref T UiElement, int TabPage)
+        /// <summary>
+        /// Add an element to a tab.
+        /// </summary>
+        public void Add<T>(T UiElement, int TabPage)
         {
             tabList[TabPage].Add(ref UiElement);
             SwitchPageListeners();
@@ -257,7 +268,7 @@ namespace RPGEx
         }
     }
 
-    public class UiTab
+    internal class UiTab
     {
         //List of items the tab contains, will be fed to the tabs own draw method
         public UiButton tabButton;
@@ -328,13 +339,12 @@ namespace RPGEx
                 StringList.Add(UiElement as UiTextString);
         }
 
-        public void Draw(SpriteBatch sb)
+        internal void Draw(SpriteBatch sb)
         {
-            
             tabButton.DrawButton(sb);
         }
 
-        public void LocationResetter()
+        internal void LocationResetter()
         {
             tabButton.TextBoxLocation = tabLocation;
         }
@@ -411,8 +421,9 @@ namespace RPGEx
         private float highlight = 1;
         private int sizeChange = 0;
 
-        public bool isTabButton;
-        public bool isTabSelected;
+        internal bool isTabButton;
+        internal bool isTabSelected;
+
         public enum UiButtonStates
         {
             Button_Down,

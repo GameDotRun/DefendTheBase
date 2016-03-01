@@ -11,13 +11,11 @@ namespace DefendTheBase
     {
         //insert stats: hp, speed, dmg etc.
 
-
         Texture2D sprite;
         public Coordinates enemyPos;
         public Vector2 enemyVect, ScreenPos;
 
         public bool pathFound = false;
-        bool destReached = false;
 
         public Enemy() : base(new Coordinates(0,0))
         {
