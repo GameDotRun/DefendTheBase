@@ -18,8 +18,8 @@ namespace DefendTheBase
         UiTabs tabs;
 
         //Group Elements up with Lists, allows the ui controller to manipulate them
-        List<UiButton> unitBuild;
-        List<UiButton> baseBuild;
+        public List<UiButton> unitBuild;
+        public List<UiButton> baseBuild;
 
         public UiGameScreen(GraphicsDevice graphicsDevice) : base(GameRoot.WIDTH, GameRoot.HEIGHT)
         {
@@ -60,7 +60,14 @@ namespace DefendTheBase
                 unitBuild[i].TextBoxRectangleSet();
             }
 
-            for (int i = 0; i < 3; i++)
+            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "buttonBldTrnch", true));
+            baseBuild[0].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y);
+            baseBuild[0].StringText = "BUILD TRENCH";
+            baseBuild[0].SetStringPos();
+            tabs.Add(baseBuild[0], 1);
+            baseBuild[0].TextBoxRectangleSet();
+
+            for (int i = 1; i < 3; i++)
             {
                 baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "button0" + i.ToString(), true));
                 baseBuild[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));

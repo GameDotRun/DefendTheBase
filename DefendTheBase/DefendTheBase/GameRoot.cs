@@ -19,6 +19,7 @@ namespace DefendTheBase
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static gamestate GameState;
+        public static BuildStates BuildState;
 
         // PATHFINDING CODE
         //Grid Size
@@ -48,6 +49,20 @@ namespace DefendTheBase
             EndScreen,
             Highscore,
             InfoScreen,
+        }
+
+        // Build States
+        public enum BuildStates
+        {
+            // This is what decides what a mouse click does.
+            Nothing,
+            Upgrade,
+            Trench,
+            Concrete,
+            TowerGun,
+            TowerRocket,
+            TowerSAM,
+            TowerTesla
         }
 
         Vector2 ScreenSize; // ScreenSize
@@ -122,6 +137,10 @@ namespace DefendTheBase
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
             gameScreenUi.Update();
+
+            if (gameScreenUi.baseBuild[0].IsButtonDown())
+                BuildState = BuildStates.Trench;
+
             // PATHFINDING CODE
             mouseRect = new Rectangle((int)Input.MousePosition.X, (int)Input.MousePosition.Y, 1, 1);
 
@@ -176,7 +195,7 @@ namespace DefendTheBase
                 spriteBatch.DrawString(Art.DebugFont,
                     "DEBUG" +
                     "\nFPS: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString("N0") +
-                    "\n",
+                    "\nBuild: " + BuildState,
                     i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }

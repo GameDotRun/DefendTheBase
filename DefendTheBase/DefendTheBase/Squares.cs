@@ -49,11 +49,13 @@ namespace DefendTheBase
 
             if (rect.Contains(Input.MousePosition.ToPoint()))
             {
-                if (Input.LMBDown)
+                if (Input.LMBDown && GameRoot.BuildState == GameRoot.BuildStates.Trench)
                 {
                     typeOfSquare |= Squares.SqrFlags.Wall;
                     sqrEdited = true;
                 }
+                else if (Input.LMBDown)
+                    typeOfSquare = Squares.SqrFlags.Occupied;
                 else if (Input.RMBDown)
                     typeOfSquare = Squares.SqrFlags.Unoccupied;
 
