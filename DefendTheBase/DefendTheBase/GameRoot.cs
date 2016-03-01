@@ -57,9 +57,6 @@ namespace DefendTheBase
 
         Enemy enemy;
         UiGameScreen gameScreenUi;
-
-        UiTextString testystring;
-
         // Constructor
         public GameRoot()
         {

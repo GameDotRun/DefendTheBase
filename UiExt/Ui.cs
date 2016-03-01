@@ -370,6 +370,7 @@ namespace RPGEx
     static public class UiButtonMessenger
     {
         static public List<UiButton> ButtonListeners;
+        static public string ButtonPressedId;
 
         static public void InitiliseListenerList()
         {
@@ -384,6 +385,7 @@ namespace RPGEx
             foreach (UiButton button in ButtonListeners)
             {
                 button.Update(mouseState, old);
+                ButtonPressedId = ReturnButtonPressed();
             }
         }
 
@@ -418,10 +420,21 @@ namespace RPGEx
                     if (Button.IsButtonDown())
                         return true;
             }
-
-
             return false;
-        
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        static string ReturnButtonPressed()
+        {
+            foreach (UiButton Button in ButtonListeners)
+            {
+                if (Button.IsButtonDown())
+                    return Button.GetButtonID;
+            }
+
+            return null;       
         }
         
     }
