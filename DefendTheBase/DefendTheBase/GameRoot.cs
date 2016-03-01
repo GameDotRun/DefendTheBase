@@ -72,7 +72,6 @@ namespace DefendTheBase
 
         Enemy enemy;
         UiGameScreen gameScreenUi;
-
         // Constructor
         public GameRoot()
         {
@@ -147,7 +146,7 @@ namespace DefendTheBase
             grid.Update(mouseRect, gameTime);
 
             enemy.Update(grid.gridStatus);
-
+                
             for (int y = 0; y < HEIGHT; y++) //Debug counter Text
                 for (int x = 0; x < WIDTH; x++)
                 {
