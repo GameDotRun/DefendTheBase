@@ -30,29 +30,29 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Images\Pixel.bmp">
+    <Compile Include="Art\Images\Misc\Pixel.bmp">
       <Name>Pixel</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Images\concrete.png">
+    <Compile Include="Art\Images\Terrain\concrete.png">
       <Name>concrete</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\dirt.png">
+    <Compile Include="Art\Images\Terrain\dirt.png">
       <Name>dirt</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\ghostSquare.png">
+    <Compile Include="Art\Images\Misc\ghostSquare.png">
       <Name>ghostSquare</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\square.png">
+    <Compile Include="Art\Images\Misc\square.png">
       <Name>square</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -123,12 +123,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Images\trench-end.png">
+    <Compile Include="Art\Images\Trenches\trench-end.png">
       <Name>trench-end</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\trench.png">
+    <Compile Include="Art\Images\Trenches\trench.png">
       <Name>trench</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -164,22 +164,111 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Images\Durt.png">
+    <Compile Include="Art\Images\Terrain\Durt.png">
       <Name>Durt</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Images\ui-template-topbar.png">
+    <Compile Include="Art\Images\UI\ui-template-topbar.png">
       <Name>ui-template-topbar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Images\ui-side.png">
+    <Compile Include="Art\Images\UI\ui-side.png">
       <Name>ui-side</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Art\Images\Towers\GunTower\minigun_lvl1Turret.png">
+      <Name>minigun_lvl1Turret</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\GunTower\minigun_lvl2Turret.png">
+      <Name>minigun_lvl2Turret</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\GunTower\minigun_lvl3Turret.png">
+      <Name>minigun_lvl3Turret</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\GunTower\minigun_lvl4Turret.png">
+      <Name>minigun_lvl4Turret</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Images\Towers\RocketTower\RocketTurretLvl1.png">
+      <Name>RocketTurretLvl1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\RocketTower\RocketTurretLvl2.png">
+      <Name>RocketTurretLvl2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\RocketTower\RocketTurretLvl3.png">
+      <Name>RocketTurretLvl3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\RocketTower\RocketTurretLvl4.png">
+      <Name>RocketTurretLvl4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Images\Towers\SAMTower\SAMmk1.png">
+      <Name>SAMmk1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\SAMTower\SAMmk2.png">
+      <Name>SAMmk2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\SAMTower\SAMmk3.png">
+      <Name>SAMmk3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\SAMTower\SAMmk4.png">
+      <Name>SAMmk4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Images\Towers\TeslaTower\teslatower-mk1.png">
+      <Name>teslatower-mk1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\TeslaTower\teslatower-mk2.png">
+      <Name>teslatower-mk2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\TeslaTower\teslatower-mk3.png">
+      <Name>teslatower-mk3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\Towers\TeslaTower\teslatower-mk4.png">
+      <Name>teslatower-mk4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

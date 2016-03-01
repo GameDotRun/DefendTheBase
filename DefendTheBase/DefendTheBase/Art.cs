@@ -24,18 +24,18 @@ namespace DefendTheBase
 
         public static void Load(ContentManager content)
         {
-            Pixel = content.Load<Texture2D>("Art/Images/Pixel");
+            Pixel = content.Load<Texture2D>("Art/Images/Misc/Pixel");
 
             TrenchTexs = new Texture2D[16];
             for (int i = 0; i < TrenchTexs.Count(); i++)
                 TrenchTexs[i] = content.Load<Texture2D>("Art/Images/Trenches/trench_" + i);
 
-            GroundTexs = content.Load<Texture2D>("Art/Images/Durt");
-            EnemyTex = content.Load<Texture2D>("Art/Images/ghostSquare");
+            GroundTexs = content.Load<Texture2D>("Art/Images/Terrain/Durt");
+            EnemyTex = content.Load<Texture2D>("Art/Images/Misc/ghostSquare");
 
             DebugFont = content.Load<SpriteFont>("Art/Fonts/DebugFont");
-            uiUp = content.Load<Texture2D>("Art/Images/ui-template-topbar");
-            uiSide = content.Load<Texture2D>("Art/Images/ui-side");
+            uiUp = content.Load<Texture2D>("Art/Images/UI/ui-template-topbar");
+            uiSide = content.Load<Texture2D>("Art/Images/UI/ui-side");
 
         }
 
