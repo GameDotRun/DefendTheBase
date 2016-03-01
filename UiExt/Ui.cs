@@ -474,7 +474,7 @@ namespace RPGEx
                 highlight = 0.5f;
             }
 
-            else if (buttonState == UiButtonStates.Button_Down && buttonEffects)
+            else if (IsButtonDown() && buttonEffects)
                 sizeChange = 5;
 
             else
@@ -501,6 +501,13 @@ namespace RPGEx
             GetStringSizePX();
         }
 
+        public bool IsButtonDown()
+        {
+            if (buttonState == UiButtonStates.Button_Down)
+                return true;
+
+            else return false;
+        }
 
         public UiButtonStates GetButtonState
         {
