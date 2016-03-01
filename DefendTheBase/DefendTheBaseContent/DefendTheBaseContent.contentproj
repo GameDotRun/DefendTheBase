@@ -184,7 +184,23 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Art\Images\UnitsEnemy\helicopter.png">
+      <Name>helicopter</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\UnitsEnemy\Tank_bottom.png">
+      <Name>Tank_bottom</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\UnitsEnemy\Tank_top.png">
+      <Name>Tank_top</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Art\Images\Towers\GunTower\minigun_lvl1Turret.png">
       <Name>minigun_lvl1Turret</Name>
@@ -269,6 +285,18 @@
     </Compile>
     <Compile Include="Art\Images\Towers\TeslaTower\teslatower-mk4.png">
       <Name>teslatower-mk4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Images\UnitsPlayer\army_man_good.png">
+      <Name>army_man_good</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\UnitsPlayer\medic.png">
+      <Name>medic</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
