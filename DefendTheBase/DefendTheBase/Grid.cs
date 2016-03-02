@@ -196,6 +196,7 @@ namespace DefendTheBase
             {
                 square.typeOfSquare &= ~Squares.SqrFlags.Wall;
                 square.typeOfSquare |= Squares.SqrFlags.Unoccupied;
+                square.Building = Squares.BuildingType.None;
             }
 
         }
