@@ -49,18 +49,23 @@ namespace DefendTheBase
 
             if (rect.Contains(Input.MousePosition.ToPoint()))
             {
-                if (Input.LMBDown && GameRoot.BuildState == GameRoot.BuildStates.Trench)
+                if (Input.LMBDown && typeOfSquare == SqrFlags.Unoccupied && GameRoot.BuildState == GameRoot.BuildStates.Trench)
                 {
                     typeOfSquare |= Squares.SqrFlags.Wall;
                     sqrEdited = true;
                 }
-                else if (Input.LMBDown)
+                else if (Input.LMBDown && typeOfSquare == SqrFlags.Unoccupied && GameRoot.BuildState == GameRoot.BuildStates.Concrete)
+                {
                     typeOfSquare = Squares.SqrFlags.Occupied;
-                else if (Input.RMBDown)
-                    typeOfSquare = Squares.SqrFlags.Unoccupied;
-
-                if (Input.RMBDown)
                     sqrEdited = true;
+                }
+
+                // This will likely be removed, we dont want the player freely destroying shit.
+                else if (Input.LMBDown && GameRoot.BuildState == GameRoot.BuildStates.Destroy)
+                {
+                    typeOfSquare = Squares.SqrFlags.Unoccupied;
+                    sqrEdited = true;
+                }
 
                 highlight = 0.5f;
             }
@@ -76,8 +81,8 @@ namespace DefendTheBase
                 sb.Draw(gridSquareTex, rect, Color.Blue * highlight);
             else if (typeOfSquare.HasFlag(Squares.SqrFlags.Unoccupied))
                 sb.Draw(gridSquareTex, rect, Color.White * highlight);
-            else if (typeOfSquare.HasFlag(Squares.SqrFlags.StopPoint))
-                sb.Draw(gridSquareTex, rect, Color.Red * highlight); 
+            if (typeOfSquare.HasFlag(Squares.SqrFlags.StopPoint))
+                sb.Draw(gridSquareTex, rect, Color.Red * highlight);
         }
 
         public bool getSquareEdited

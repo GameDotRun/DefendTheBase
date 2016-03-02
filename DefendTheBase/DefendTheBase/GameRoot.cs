@@ -56,6 +56,7 @@ namespace DefendTheBase
         {
             // This is what decides what a mouse click does.
             Nothing,
+            Destroy,
             Upgrade,
             Trench,
             Concrete,
@@ -137,8 +138,17 @@ namespace DefendTheBase
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
             gameScreenUi.Update();
 
-            if (gameScreenUi.baseBuild[0].IsButtonDown())
-                BuildState = BuildStates.Trench;
+            // Using the last button pressed ID, as long as it exists,
+            // see if it is a "btn" and then set the BuildState.
+            if (UiButtonMessenger.ButtonPressedId != null)
+            {
+                if (UiButtonMessenger.ButtonPressedId.Contains("btn0"))
+                {
+                    // Create String from id by removing the "btn". Then Parse String to enum.
+                    string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
+                    BuildState = (BuildStates)Enum.Parse(typeof(BuildStates), bStateString);
+                }
+            }
 
             // PATHFINDING CODE
             mouseRect = new Rectangle((int)Input.MousePosition.X, (int)Input.MousePosition.Y, 1, 1);
@@ -150,9 +160,9 @@ namespace DefendTheBase
             for (int y = 0; y < HEIGHT; y++) //Debug counter Text
                 for (int x = 0; x < WIDTH; x++)
                 {
-                    if (Input.WasLMBClicked || Input.WasRMBClicked && grid.gridSquares[x, y].getSquareEdited)
+                    if (Input.LMBDown || Input.RMBDown && grid.gridSquares[x, y].getSquareEdited)
                     {
-                        enemy.pathFound = false;     
+                        enemy.pathFound = false;
                     }
 
                     if (Input.WasKeyPressed(Keys.G))
