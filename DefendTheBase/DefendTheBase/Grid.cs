@@ -63,6 +63,7 @@ namespace DefendTheBase
                             gridStatus = gridFlags.endPoint;
                             stopPointCoord = new Coordinates(x, y, 0);
                             gridSquares[x, y].typeOfSquare |= Squares.SqrFlags.StopPoint;
+                            gridSquares[x, y].Building = Squares.BuildingType.Base;
 
                         }
                     }

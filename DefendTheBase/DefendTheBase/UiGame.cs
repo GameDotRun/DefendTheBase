@@ -50,7 +50,15 @@ namespace DefendTheBase
         {
             //its of UTMOST IMPORTANCE that each button has a unique id
 
-            for (int i = 0; i < 6; i++) // where 6 is number of buttons to createl
+            // Build Gun Tower Button
+            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0TowerGun", true));
+            unitBuild[0].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (0 * (buttonSize.Y + 10)));
+            unitBuild[0].StringText = "Gun Tower";
+            unitBuild[0].SetStringPos();
+            tabs.Add(unitBuild[0], 0);
+            unitBuild[0].TextBoxRectangleSet();
+
+            for (int i = 1; i < 6; i++) // where 6 is number of buttons to createl
             {
                 unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "button" + i.ToString(), true));
                 unitBuild[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));

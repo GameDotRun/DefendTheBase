@@ -14,8 +14,13 @@ namespace DefendTheBase
         public static Texture2D Pixel { get; private set; }
 
         public static Texture2D[] TrenchTexs { get; private set; }
+
+        public static Texture2D Concrete { get; private set; }
         public static Texture2D GroundTexs { get; private set; }
         public static Texture2D EnemyTex { get; private set; }
+
+        public static Texture2D[] TowerGun { get; private set; }
+
         public static Texture2D uiUp { get; private set; }
         public static Texture2D uiSide { get; private set; }
 
@@ -24,18 +29,28 @@ namespace DefendTheBase
 
         public static void Load(ContentManager content)
         {
-            Pixel = content.Load<Texture2D>("Art/Images/Misc/Pixel");
-
+            Pixel = content.Load<Texture2D>("Art/Images/Misc/Pixel");   // Flecks Art Contribution.
+            // Trenches
             TrenchTexs = new Texture2D[16];
             for (int i = 0; i < TrenchTexs.Count(); i++)
                 TrenchTexs[i] = content.Load<Texture2D>("Art/Images/Trenches/trench_" + i);
 
+            // Terrain
+            Concrete = content.Load<Texture2D>("Art/Images/Terrain/concrete");
             GroundTexs = content.Load<Texture2D>("Art/Images/Terrain/Durt");
             EnemyTex = content.Load<Texture2D>("Art/Images/Misc/ghostSquare");
 
-            DebugFont = content.Load<SpriteFont>("Art/Fonts/DebugFont");
+            // Towers
+            TowerGun = new Texture2D[3];
+            for (int i = 0; i < TowerGun.Length; i++)
+                TowerGun[i] = content.Load<Texture2D>("Art/Images/Towers/GunTower/minigun_lvl" + (i + 1) + "Turret");
+
+            // UI
             uiUp = content.Load<Texture2D>("Art/Images/UI/ui-template-topbar");
             uiSide = content.Load<Texture2D>("Art/Images/UI/ui-side");
+
+            // Fonts
+            DebugFont = content.Load<SpriteFont>("Art/Fonts/DebugFont");
 
         }
 
