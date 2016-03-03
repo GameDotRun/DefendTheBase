@@ -44,6 +44,8 @@ namespace DefendTheBase
 
             updateTimer = TimeSpan.Zero;
 
+            GenerateNewMap();
+
         }
 
         public void Update(Rectangle mouseRect, GameTime gameTime)
@@ -92,85 +94,26 @@ namespace DefendTheBase
                 }
         }
 
-        // temporary maze generation, maybe map generation in the future? DEM IFS THO
-        public void GenerateNewMap(Random rnd)
+        // Generate a Starter Map. Couple of trenches and base in the bottom right.
+        public void GenerateNewMap()
         {
-            int disparity = 10; // how populated the maze is, lower = less max = 12
-            int counter = 12;
-            int sideCount = 2;
+            // manually set the coords of base and a few trenches to begin with.
             resetGrid();
-
-            for (int y = 0; y < height; y++)
-                for (int x = 1; x < width; x++)
-                {
-                    if (!gridSquares[x, y].typeOfSquare.HasFlag(Squares.SqrFlags.StopPoint))
-                    {
-                        if (!gridSquares[x, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                        {
-                            if (rnd.Next(0, counter) < disparity)
-                            {
-                                if (x != 0 && x != width - 1 && y != 0 && y != height - 1)
-                                {
-                                    if (!gridSquares[x + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                                    {
-                                        if (!gridSquares[x + 1, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x - 1, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall) && !gridSquares[x + 1, y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                                        {
-                                            for (int i = 0; i < rnd.Next(1, width - x); i++)
-                                            {
-                                                try
-                                                {
-                                                    if (!gridSquares[x + i + 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                                                    {
-                                                        gridSquares[x + i, y].typeOfSquare = Squares.SqrFlags.Wall;
-                                                    }
-                                                    else break;
-                                                }
-                                                catch
-                                                {
-                                                    gridSquares[x + i, y].typeOfSquare = Squares.SqrFlags.Wall;
-                                                }
-                                            }
-                                            for (int i = 0; i < rnd.Next(1, height - y); i++)
-                                            {
-                                                try
-                                                {
-                                                    if (!gridSquares[x, y + i + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                                                        gridSquares[x, y + i].typeOfSquare = Squares.SqrFlags.Wall;
-                                                    else break;
-                                                }
-
-                                                catch
-                                                {
-                                                    gridSquares[x, y + i].typeOfSquare = Squares.SqrFlags.Wall;
-                                                }
-                                            }
-                                        }
-
-                                    }
-                                }
-
-                                else
-                                {
-                                    if (rnd.Next(1, 50) > sideCount)
-                                    {
-                                        if (x == 0)
-                                            gridSquares[rnd.Next(1, width), y].typeOfSquare = Squares.SqrFlags.Wall;
-                                        if (y == 0)
-                                            gridSquares[x, rnd.Next(1, height)].typeOfSquare = Squares.SqrFlags.Wall;
-
-                                        sideCount += 2;
-                                    }
-
-                                }
-
-                            }
-                        }
-                    }
-                }
+            // X X X    Create 3 Trenches in the bot-right corner,
+            // X X 3    in the order the numbers are shown,
+            // X 1 2    to the left here.
+            gridSquares[width - 2, height - 1].typeOfSquare |= Squares.SqrFlags.Wall;   // 1
+            gridSquares[width - 2, height - 1].Building = Squares.BuildingType.Trench;  // 1
+            gridSquares[width - 1, height - 1].typeOfSquare |= Squares.SqrFlags.Wall;   // 2
+            gridSquares[width - 1, height - 1].Building = Squares.BuildingType.Trench;  // 2
+            gridSquares[width - 1, height - 2].typeOfSquare |= Squares.SqrFlags.Wall;   // 3
+            gridSquares[width - 1, height - 2].Building = Squares.BuildingType.Trench;  // 3        
         }
 
         void sqrTexDecider(int x, int y)
         {
+            // Create a name to select a texture based on the present neighbours. For example:
+            // Result will be "Trench_NEW" if it has neighbours to the North, East and West.
             gridSquares[x, y].TrenchName = "Trench_";
 
             if (y > 0)
