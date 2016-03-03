@@ -37,6 +37,12 @@ namespace DefendTheBase
                 case Type.Rocket:
                     Sprite = Art.TowerRocket[level - 1];
                     break;
+                case Type.SAM:
+                    Sprite = Art.TowerSAM[level - 1];
+                    break;
+                case Type.Tesla:
+                    Sprite = Art.TowerTesla[level - 1];
+                    break;
             }
         }
 
@@ -51,6 +57,12 @@ namespace DefendTheBase
                     break;
                 case Type.Rocket:
                     Sprite = Art.TowerRocket[Level - 1];
+                    break;
+                case Type.SAM:
+                    Sprite = Art.TowerSAM[Level - 1];
+                    break;
+                case Type.Tesla:
+                    Sprite = Art.TowerTesla[Level - 1];
                     break;
             }
         }

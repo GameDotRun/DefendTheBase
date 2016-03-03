@@ -67,16 +67,30 @@ namespace DefendTheBase
             unitBuild[1].SetStringPos();
             tabs.Add(unitBuild[1], 0);
             unitBuild[1].TextBoxRectangleSet();
+            // Build SAM Tower Button
+            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0TowerSAM", true));
+            unitBuild[2].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (2 * (buttonSize.Y + 10)));
+            unitBuild[2].StringText = "SAM Tower";
+            unitBuild[2].SetStringPos();
+            tabs.Add(unitBuild[2], 0);
+            unitBuild[2].TextBoxRectangleSet();
+            // Build Tesla Tower Button
+            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0TowerTesla", true));
+            unitBuild[3].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (3 * (buttonSize.Y + 10)));
+            unitBuild[3].StringText = "Tesla Tower";
+            unitBuild[3].SetStringPos();
+            tabs.Add(unitBuild[3], 0);
+            unitBuild[3].TextBoxRectangleSet();
 
-            for (int i = 2; i < 6; i++) // where 6 is number of buttons to createl
-            {
-                unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "button" + i.ToString(), true));
-                unitBuild[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));
-                unitBuild[i].StringText = "TOWERS PLACEHOLDER " + i.ToString();
-                unitBuild[i].SetStringPos();
-                tabs.Add(unitBuild[i], 0);
-                unitBuild[i].TextBoxRectangleSet();
-            }
+            //for (int i = 2; i < 6; i++) // where 6 is number of buttons to createl
+            //{
+            //    unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "button" + i.ToString(), true));
+            //    unitBuild[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));
+            //    unitBuild[i].StringText = "TOWERS PLACEHOLDER " + i.ToString();
+            //    unitBuild[i].SetStringPos();
+            //    tabs.Add(unitBuild[i], 0);
+            //    unitBuild[i].TextBoxRectangleSet();
+            //}
             // Build Trench Button
             baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0Trench", true));
             baseBuild[0].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y);

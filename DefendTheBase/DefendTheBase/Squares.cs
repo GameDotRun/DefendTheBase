@@ -99,6 +99,26 @@ namespace DefendTheBase
                     TowerHere = new Tower(Tower.Type.Rocket);
                     sqrEdited = true;
                 }
+                // Build SAM Tower
+                else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerSAM)
+                {
+                    typeOfSquare = Squares.SqrFlags.Occupied;
+                    typeOfSquare |= Squares.SqrFlags.Wall;
+                    typeOfSquare |= SqrFlags.Concrete;
+                    Building = BuildingType.Tower;
+                    TowerHere = new Tower(Tower.Type.SAM);
+                    sqrEdited = true;
+                }
+                // Build Tesla Tower
+                else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerTesla)
+                {
+                    typeOfSquare = Squares.SqrFlags.Occupied;
+                    typeOfSquare |= Squares.SqrFlags.Wall;
+                    typeOfSquare |= SqrFlags.Concrete;
+                    Building = BuildingType.Tower;
+                    TowerHere = new Tower(Tower.Type.Tesla);
+                    sqrEdited = true;
+                }
                 else if (Input.WasLMBClicked && Building == BuildingType.Tower && GameRoot.BuildState == GameRoot.BuildStates.Upgrade)
                 {
                     TowerHere.LevelUp();
