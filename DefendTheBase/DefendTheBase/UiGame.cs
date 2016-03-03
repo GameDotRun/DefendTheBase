@@ -50,7 +50,15 @@ namespace DefendTheBase
         {
             //its of UTMOST IMPORTANCE that each button has a unique id
 
-            for (int i = 0; i < 6; i++) // where 6 is number of buttons to createl
+            // Build Gun Tower Button
+            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0TowerGun", true));
+            unitBuild[0].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (0 * (buttonSize.Y + 10)));
+            unitBuild[0].StringText = "Gun Tower";
+            unitBuild[0].SetStringPos();
+            tabs.Add(unitBuild[0], 0);
+            unitBuild[0].TextBoxRectangleSet();
+
+            for (int i = 1; i < 6; i++) // where 6 is number of buttons to createl
             {
                 unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "button" + i.ToString(), true));
                 unitBuild[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));
@@ -59,16 +67,37 @@ namespace DefendTheBase
                 tabs.Add(unitBuild[i], 0);
                 unitBuild[i].TextBoxRectangleSet();
             }
+            // Build Trench Button
+            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0Trench", true));
+            baseBuild[0].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y);
+            baseBuild[0].StringText = "Build Trench";
+            baseBuild[0].SetStringPos();
+            tabs.Add(baseBuild[0], 1);
+            baseBuild[0].TextBoxRectangleSet();
+            // Build Concrete Button
+            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0Concrete", true));
+            baseBuild[1].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (1 * (buttonSize.Y + 10)));
+            baseBuild[1].StringText = "Build Concrete";
+            baseBuild[1].SetStringPos();
+            tabs.Add(baseBuild[1], 1);
+            baseBuild[1].TextBoxRectangleSet();
+            // PLACEHOLDER BUTTON
+            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0Destroy", true));
+            baseBuild[2].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (2 * (buttonSize.Y + 10)));
+            baseBuild[2].StringText = "Destroy Building";
+            baseBuild[2].SetStringPos();
+            tabs.Add(baseBuild[2], 1);
+            baseBuild[2].TextBoxRectangleSet();
 
-            for (int i = 0; i < 3; i++)
-            {
-                baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "button0" + i.ToString(), true));
-                baseBuild[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));
-                baseBuild[i].StringText = "BUILD PLACEHOLDER " + i.ToString();
-                baseBuild[i].SetStringPos();
-                tabs.Add(baseBuild[i], 1);
-                baseBuild[i].TextBoxRectangleSet();
-            }
+            //for (int i = 1; i < 3; i++)
+            //{
+            //    baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "button0" + i.ToString(), true));
+            //    baseBuild[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));
+            //    baseBuild[i].StringText = "BUILD PLACEHOLDER " + i.ToString();
+            //    baseBuild[i].SetStringPos();
+            //    tabs.Add(baseBuild[i], 1);
+            //    baseBuild[i].TextBoxRectangleSet();
+            //}
         }
 
 

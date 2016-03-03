@@ -19,6 +19,7 @@ namespace DefendTheBase
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         public static gamestate GameState;
+        public static BuildStates BuildState;
 
         // PATHFINDING CODE
         //Grid Size
@@ -48,6 +49,21 @@ namespace DefendTheBase
             EndScreen,
             Highscore,
             InfoScreen,
+        }
+
+        // Build States
+        public enum BuildStates
+        {
+            // This is what decides what a mouse click does.
+            Nothing,
+            Destroy,
+            Upgrade,
+            Trench,
+            Concrete,
+            TowerGun,
+            TowerRocket,
+            TowerSAM,
+            TowerTesla
         }
 
         Vector2 ScreenSize; // ScreenSize
@@ -121,6 +137,19 @@ namespace DefendTheBase
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
             gameScreenUi.Update();
+
+            // Using the last button pressed ID, as long as it exists,
+            // see if it is a "btn" and then set the BuildState.
+            if (UiButtonMessenger.ButtonPressedId != null)
+            {
+                if (UiButtonMessenger.ButtonPressedId.Contains("btn0"))
+                {
+                    // Create String from id by removing the "btn". Then Parse String to enum.
+                    string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
+                    BuildState = (BuildStates)Enum.Parse(typeof(BuildStates), bStateString);
+                }
+            }
+
             // PATHFINDING CODE
             mouseRect = new Rectangle((int)Input.MousePosition.X, (int)Input.MousePosition.Y, 1, 1);
 
@@ -131,9 +160,9 @@ namespace DefendTheBase
             for (int y = 0; y < HEIGHT; y++) //Debug counter Text
                 for (int x = 0; x < WIDTH; x++)
                 {
-                    if (Input.WasLMBClicked || Input.WasRMBClicked && grid.gridSquares[x, y].getSquareEdited)
+                    if (Input.LMBDown || Input.RMBDown && grid.gridSquares[x, y].getSquareEdited)
                     {
-                        enemy.pathFound = false;     
+                        enemy.pathFound = false;
                     }
 
                     if (Input.WasKeyPressed(Keys.G))
@@ -175,7 +204,7 @@ namespace DefendTheBase
                 spriteBatch.DrawString(Art.DebugFont,
                     "DEBUG" +
                     "\nFPS: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString("N0") +
-                    "\n",
+                    "\nBuild: " + BuildState,
                     i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }
