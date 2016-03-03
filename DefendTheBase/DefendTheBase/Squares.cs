@@ -149,6 +149,9 @@ namespace DefendTheBase
             }
 
             else highlight = 1;
+
+            if (TowerHere != null)
+                TowerHere.Update();
         }
 
         public void Draw(SpriteBatch sb, Texture2D gridSquareTex)

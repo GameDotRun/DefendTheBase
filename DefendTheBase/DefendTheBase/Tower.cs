@@ -23,12 +23,13 @@ namespace DefendTheBase
         public Texture2D Sprite;
         public Type TypeofTower;
         public float Rotation;
+        bool rotClock = true;
         public int Level, Range, Health, Damage, fireRate;
 
         public Tower(Type type, int level = 1, int range = 100, int health = 100, int damage = 10, int fireRate = 1)
         {
             TypeofTower = type;
-            Rotation = 2;
+            Rotation = 0;
             Level = level;
             Range = range;
             Health = health;
@@ -75,6 +76,16 @@ namespace DefendTheBase
         {
             // Find enemy, rotate and shoot.
             //Rotation = GameRoot.enemy.ScreenPos.ToAngle();
+
+
+
+            // If no enemy, rotate back and forth.
+            if (Rotation > 6.2f || Rotation < 0)
+                rotClock = !rotClock;
+            if (rotClock)
+                Rotation += 0.02f;
+            else
+                Rotation -= 0.02f;
         }
     }
 }
