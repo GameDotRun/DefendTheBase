@@ -106,11 +106,23 @@ namespace DefendTheBase
                 }
 
                 // This will likely be removed, we dont want the player freely destroying shit.
-                else if (Input.LMBDown && GameRoot.BuildState == GameRoot.BuildStates.Destroy)
+                else if (Input.WasLMBClicked && GameRoot.BuildState == GameRoot.BuildStates.Destroy)
                 {
-                    typeOfSquare = Squares.SqrFlags.Unoccupied;
-                    Building = BuildingType.None;
-                    sqrEdited = true;
+                    if (Building == BuildingType.Concrete || Building == BuildingType.Trench)
+                    {
+                        typeOfSquare = Squares.SqrFlags.Unoccupied;
+                        Building = BuildingType.None;
+                        sqrEdited = true;
+                    }
+
+                    else if (Building == BuildingType.Tower)
+                    {
+                        typeOfSquare = Squares.SqrFlags.Occupied;
+                        typeOfSquare = Squares.SqrFlags.Concrete;
+                        Building = BuildingType.Concrete;
+                        TowerHere = null;
+                        sqrEdited = true;
+                    }
                 }
 
                 highlight = 0.5f;
