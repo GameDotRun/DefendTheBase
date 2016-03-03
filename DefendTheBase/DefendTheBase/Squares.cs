@@ -64,62 +64,67 @@ namespace DefendTheBase
 
             if (rect.Contains(Input.MousePosition.ToPoint()))
             {
-                // Build Trench
-                if (Input.LMBDown && Building == BuildingType.None && GameRoot.BuildState == GameRoot.BuildStates.Trench)
+                if (this.HasNeighbour(BuildingType.Trench))
                 {
-                    typeOfSquare |= Squares.SqrFlags.Wall;
-                    Building = BuildingType.Trench;
-                    sqrEdited = true;
+                    // Build Trench
+                    if (Input.LMBDown && Building == BuildingType.None && GameRoot.BuildState == GameRoot.BuildStates.Trench)
+                    {
+                        typeOfSquare |= Squares.SqrFlags.Wall;
+                        Building = BuildingType.Trench;
+                        sqrEdited = true;
+                    }
+                    // Build Gun Tower
+                    else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerGun)
+                    {
+                        typeOfSquare = Squares.SqrFlags.Occupied;
+                        typeOfSquare |= Squares.SqrFlags.Wall;
+                        typeOfSquare |= SqrFlags.Concrete;
+                        Building = BuildingType.Tower;
+                        TowerHere = new Tower(Tower.Type.Gun);
+                        sqrEdited = true;
+                    }
+                    // Build Rocket Tower
+                    else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerRocket)
+                    {
+                        typeOfSquare = Squares.SqrFlags.Occupied;
+                        typeOfSquare |= Squares.SqrFlags.Wall;
+                        typeOfSquare |= SqrFlags.Concrete;
+                        Building = BuildingType.Tower;
+                        TowerHere = new Tower(Tower.Type.Rocket);
+                        sqrEdited = true;
+                    }
+                    // Build SAM Tower
+                    else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerSAM)
+                    {
+                        typeOfSquare = Squares.SqrFlags.Occupied;
+                        typeOfSquare |= Squares.SqrFlags.Wall;
+                        typeOfSquare |= SqrFlags.Concrete;
+                        Building = BuildingType.Tower;
+                        TowerHere = new Tower(Tower.Type.SAM);
+                        sqrEdited = true;
+                    }
+                    // Build Tesla Tower
+                    else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerTesla)
+                    {
+                        typeOfSquare = Squares.SqrFlags.Occupied;
+                        typeOfSquare |= Squares.SqrFlags.Wall;
+                        typeOfSquare |= SqrFlags.Concrete;
+                        Building = BuildingType.Tower;
+                        TowerHere = new Tower(Tower.Type.Tesla);
+                        sqrEdited = true;
+                    }
+
                 }
                 // Build Concrete
-                else if (Input.LMBDown && Building == BuildingType.None && GameRoot.BuildState == GameRoot.BuildStates.Concrete)
+                if (Input.LMBDown && Building == BuildingType.None && GameRoot.BuildState == GameRoot.BuildStates.Concrete)
                 {
                     typeOfSquare = Squares.SqrFlags.Occupied;
                     typeOfSquare = SqrFlags.Concrete;
                     Building = BuildingType.Concrete;
                     sqrEdited = true;
                 }
-                // Build Gun Tower
-                else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerGun)
-                {
-                    typeOfSquare = Squares.SqrFlags.Occupied;
-                    typeOfSquare |= Squares.SqrFlags.Wall;
-                    typeOfSquare |= SqrFlags.Concrete;
-                    Building = BuildingType.Tower;
-                    TowerHere = new Tower(Tower.Type.Gun);
-                    sqrEdited = true;
-                }
-                // Build Rocket Tower
-                else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerRocket)
-                {
-                    typeOfSquare = Squares.SqrFlags.Occupied;
-                    typeOfSquare |= Squares.SqrFlags.Wall;
-                    typeOfSquare |= SqrFlags.Concrete;
-                    Building = BuildingType.Tower;
-                    TowerHere = new Tower(Tower.Type.Rocket);
-                    sqrEdited = true;
-                }
-                // Build SAM Tower
-                else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerSAM)
-                {
-                    typeOfSquare = Squares.SqrFlags.Occupied;
-                    typeOfSquare |= Squares.SqrFlags.Wall;
-                    typeOfSquare |= SqrFlags.Concrete;
-                    Building = BuildingType.Tower;
-                    TowerHere = new Tower(Tower.Type.SAM);
-                    sqrEdited = true;
-                }
-                // Build Tesla Tower
-                else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerTesla)
-                {
-                    typeOfSquare = Squares.SqrFlags.Occupied;
-                    typeOfSquare |= Squares.SqrFlags.Wall;
-                    typeOfSquare |= SqrFlags.Concrete;
-                    Building = BuildingType.Tower;
-                    TowerHere = new Tower(Tower.Type.Tesla);
-                    sqrEdited = true;
-                }
-                else if (Input.WasLMBClicked && Building == BuildingType.Tower && GameRoot.BuildState == GameRoot.BuildStates.Upgrade)
+                // Upgrade Tower
+                if (Input.WasLMBClicked && Building == BuildingType.Tower && GameRoot.BuildState == GameRoot.BuildStates.Upgrade)
                 {
                     TowerHere.LevelUp();
                     sqrEdited = true;
@@ -169,6 +174,27 @@ namespace DefendTheBase
             else if (Building == BuildingType.Tower)
                 sb.Draw(TowerHere.Sprite, new Vector2(rect.X+rect.Width/2, rect.Y+rect.Height/2), null, Color.White, TowerHere.Rotation, new Vector2(rect.Width / 2, rect.Height / 2), 1f, SpriteEffects.None, 0f);
                 //sb.Draw(TowerHere.Sprite, rect, Color.White * highlight);
+        }
+
+        public bool HasNeighbour(BuildingType typeOfBuilding)
+        {
+            // Check North
+            if (this.sqrCoord.y > 0)
+                if (GameRoot.grid.gridSquares[this.sqrCoord.x, this.sqrCoord.y - 1].Building == typeOfBuilding)
+                    return true;
+            // Check East
+            if (this.sqrCoord.x < GameRoot.WIDTH - 1)
+                if (GameRoot.grid.gridSquares[this.sqrCoord.x + 1, this.sqrCoord.y].Building == typeOfBuilding)
+                    return true;
+            // Check South
+            if (this.sqrCoord.y < GameRoot.HEIGHT - 1)
+                if (GameRoot.grid.gridSquares[this.sqrCoord.x, this.sqrCoord.y + 1].Building == typeOfBuilding)
+                    return true;
+            // Check West
+            if (this.sqrCoord.x > 0)
+                if (GameRoot.grid.gridSquares[this.sqrCoord.x - 1, this.sqrCoord.y].Building == typeOfBuilding)
+                    return true;
+            return false;
         }
 
         public bool getSquareEdited

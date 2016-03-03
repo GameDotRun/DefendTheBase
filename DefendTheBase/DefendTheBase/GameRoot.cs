@@ -21,7 +21,6 @@ namespace DefendTheBase
         public static gamestate GameState;
         public static BuildStates BuildState;
 
-        // PATHFINDING CODE
         //Grid Size
         public const int SQUARESIZE = 50;
         public const int HEIGHT = 15;
@@ -54,7 +53,7 @@ namespace DefendTheBase
         // Build States
         public enum BuildStates
         {
-            // This is what decides what a mouse click does.
+            // This decides what a mouse click does.
             Nothing,
             Destroy,
             Upgrade,
@@ -78,8 +77,7 @@ namespace DefendTheBase
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            
-            // PATHFINDING CODE
+
             IsMouseVisible = true;
 
             TargetElapsedTime = TimeSpan.FromSeconds(1.0 / FPS);
@@ -100,18 +98,9 @@ namespace DefendTheBase
         // Load
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            UiButtonMessenger.InitiliseListenerList();
-
             // Load Images and Fonts from disk.
             Art.Load(Content);
-
-            // PATHFINDING CODE
-            enemy = new Enemy();
-            grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, DEFAULYDIST);
-            gameScreenUi = new UiGameScreen(GraphicsDevice);
 
             // Set up variables.
             ResetGame();
@@ -121,6 +110,10 @@ namespace DefendTheBase
         public void ResetGame()
         {
             // Reset Variables, or Set if first run.
+            UiButtonMessenger.InitiliseListenerList();
+            enemy = new Enemy();
+            grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, DEFAULYDIST);
+            gameScreenUi = new UiGameScreen(GraphicsDevice);
         }
 
         // Update
@@ -130,16 +123,14 @@ namespace DefendTheBase
             // The above must be called for Input data to update per frame, this allows us to instead of:
             // if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             // we can use:
-            if (Input.IsButtonDown(Buttons.Back))
-                this.Exit();
-            if (Input.WasKeyPressed(Keys.Escape))
+            if (Input.IsButtonDown(Buttons.Back) || Input.WasKeyPressed(Keys.Escape))
                 this.Exit();
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
             gameScreenUi.Update();
 
             // Using the last button pressed ID, as long as it exists,
-            // see if it is a "btn" and then set the BuildState.
+            // see if it is a "btn0" and then set the BuildState using the rest of the ID.
             if (UiButtonMessenger.ButtonPressedId != null)
             {
                 if (UiButtonMessenger.ButtonPressedId.Contains("btn0"))
@@ -150,7 +141,6 @@ namespace DefendTheBase
                 }
             }
 
-            // PATHFINDING CODE
             mouseRect = new Rectangle((int)Input.MousePosition.X, (int)Input.MousePosition.Y, 1, 1);
 
             grid.Update(mouseRect, gameTime);
@@ -165,7 +155,7 @@ namespace DefendTheBase
                         enemy.pathFound = false;
                     }
                 }
-
+            // Wipe grid when BackSpace is pressed. REMOVE LATER
             if (Input.WasKeyPressed(Keys.Back))
             {
                 grid.resetGrid();
@@ -179,10 +169,8 @@ namespace DefendTheBase
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
-            // Begin our spriteBatch.
             spriteBatch.Begin();
 
-            // PATHFINDING CODE
             grid.Draw(spriteBatch, Art.DebugFont);
             enemy.Draw(spriteBatch);
             gameScreenUi.Draw(spriteBatch);
@@ -199,13 +187,9 @@ namespace DefendTheBase
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }
 
-           
-
-            // Aaron what were you doing with this? :P
             spriteBatch.DrawString(Art.DebugFont, enemy.ScreenPos.X + " " + enemy.ScreenPos.Y, enemy.ScreenPos, Color.Black);
 
 #endif
-
             // Finish spriteBatch.
             spriteBatch.End();
 
