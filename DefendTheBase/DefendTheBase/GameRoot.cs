@@ -160,21 +160,11 @@ namespace DefendTheBase
             for (int y = 0; y < HEIGHT; y++) //Debug counter Text
                 for (int x = 0; x < WIDTH; x++)
                 {
-                    if (Input.LMBDown || Input.RMBDown && grid.gridSquares[x, y].getSquareEdited)
-                    {
-                        enemy.pathFound = false;
-                    }
-
-                    if (Input.WasKeyPressed(Keys.G))
+                    if ((Input.LMBDown || Input.RMBDown) && grid.gridSquares[x, y].getSquareEdited)
                     {
                         enemy.pathFound = false;
                     }
                 }
-
-            if (Input.WasKeyPressed(Keys.G))
-            {
-                grid.GenerateNewMap(rnd);
-            }
 
             if (Input.WasKeyPressed(Keys.Back))
             {

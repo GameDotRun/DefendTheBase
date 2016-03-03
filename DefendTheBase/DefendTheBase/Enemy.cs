@@ -7,6 +7,27 @@ using System.Text;
 
 namespace DefendTheBase
 {
+    //public static class EnemyPosListener
+    //{
+    //    List<Vector2> EnemyPositions;
+
+    //    public void EnemyPosListener()
+    //    {
+    //        EnemyPositions = new List<Vector2>();
+    //    }
+
+    //    //dont give this random vectors. things will go wrong
+    //    public void AddEnemy(ref Vector2 EnemyPosition) 
+    //    {
+    //        EnemyPositions.Add(EnemyPosition);
+    //    }
+    
+    
+    //}
+
+
+
+
     class Enemy : ai
     {
         //insert stats: hp, speed, dmg etc.
