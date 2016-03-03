@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Flextensions;
 
 namespace DefendTheBase
 {
@@ -21,14 +22,17 @@ namespace DefendTheBase
 
         public Texture2D Sprite;
         public Type TypeofTower;
-        public int Level, Range, Health;
+        public float Rotation;
+        public int Level, Range, Health, Damage, fireRate;
 
-        public Tower(Type type, int level = 1, int range = 100, int health = 100)
+        public Tower(Type type, int level = 1, int range = 100, int health = 100, int damage = 10, int fireRate = 1)
         {
             TypeofTower = type;
+            Rotation = 2;
             Level = level;
             Range = range;
             Health = health;
+            Damage = damage;
             switch (type)
             {
                 case Type.Gun:
@@ -70,6 +74,7 @@ namespace DefendTheBase
         public void Update()
         {
             // Find enemy, rotate and shoot.
+            //Rotation = GameRoot.enemy.ScreenPos.ToAngle();
         }
     }
 }

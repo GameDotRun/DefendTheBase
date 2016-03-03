@@ -164,7 +164,8 @@ namespace DefendTheBase
             else if (Building == BuildingType.Base)
                 sb.Draw(gridSquareTex, rect, Color.Red * highlight);
             else if (Building == BuildingType.Tower)
-                sb.Draw(TowerHere.Sprite, rect, Color.White * highlight);
+                sb.Draw(TowerHere.Sprite, new Vector2(rect.X+rect.Width/2, rect.Y+rect.Height/2), null, Color.White, TowerHere.Rotation, new Vector2(rect.Width / 2, rect.Height / 2), 1f, SpriteEffects.None, 0f);
+                //sb.Draw(TowerHere.Sprite, rect, Color.White * highlight);
         }
 
         public bool getSquareEdited
