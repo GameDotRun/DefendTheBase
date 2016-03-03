@@ -20,6 +20,7 @@ namespace DefendTheBase
         public static Texture2D EnemyTex { get; private set; }
 
         public static Texture2D[] TowerGun { get; private set; }
+        public static Texture2D[] TowerRocket { get; private set; }
 
         public static Texture2D uiUp { get; private set; }
         public static Texture2D uiSide { get; private set; }
@@ -41,9 +42,12 @@ namespace DefendTheBase
             EnemyTex = content.Load<Texture2D>("Art/Images/Misc/ghostSquare");
 
             // Towers
-            TowerGun = new Texture2D[3];
+            TowerGun = new Texture2D[4];
             for (int i = 0; i < TowerGun.Length; i++)
                 TowerGun[i] = content.Load<Texture2D>("Art/Images/Towers/GunTower/minigun_lvl" + (i + 1) + "Turret");
+            TowerRocket = new Texture2D[4];
+            for (int i = 0; i < TowerRocket.Length; i++)
+                TowerRocket[i] = content.Load<Texture2D>("Art/Images/Towers/RocketTower/RocketTurretLvl" + (i + 1));
 
             // UI
             uiUp = content.Load<Texture2D>("Art/Images/UI/ui-template-topbar");

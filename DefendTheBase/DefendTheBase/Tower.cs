@@ -20,17 +20,37 @@ namespace DefendTheBase
         }
 
         public Texture2D Sprite;
+        public Type TypeofTower;
         public int Level, Range, Health;
 
         public Tower(Type type, int level = 1, int range = 100, int health = 100)
         {
+            TypeofTower = type;
+            Level = level;
+            Range = range;
+            Health = health;
             switch (type)
             {
                 case Type.Gun:
                     Sprite = Art.TowerGun[level - 1];
                     break;
                 case Type.Rocket:
-                    Sprite = Art.TowerGun[level - 1];
+                    Sprite = Art.TowerRocket[level - 1];
+                    break;
+            }
+        }
+
+        public void LevelUp()
+        {
+            if (Level < 4)
+                Level++;
+            switch (TypeofTower)
+            {
+                case Type.Gun:
+                    Sprite = Art.TowerGun[Level - 1];
+                    break;
+                case Type.Rocket:
+                    Sprite = Art.TowerRocket[Level - 1];
                     break;
             }
         }

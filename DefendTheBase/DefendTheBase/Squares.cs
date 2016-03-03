@@ -19,7 +19,8 @@ namespace DefendTheBase
             Moveable = 4,
             Occupied = 8,
             Unoccupied = 16,
-            StopPoint = 32
+            StopPoint = 32,
+            Concrete = 64
         }
 
         public enum BuildingType
@@ -63,24 +64,44 @@ namespace DefendTheBase
 
             if (rect.Contains(Input.MousePosition.ToPoint()))
             {
+                // Build Trench
                 if (Input.LMBDown && Building == BuildingType.None && GameRoot.BuildState == GameRoot.BuildStates.Trench)
                 {
                     typeOfSquare |= Squares.SqrFlags.Wall;
                     Building = BuildingType.Trench;
                     sqrEdited = true;
                 }
+                // Build Concrete
                 else if (Input.LMBDown && Building == BuildingType.None && GameRoot.BuildState == GameRoot.BuildStates.Concrete)
                 {
                     typeOfSquare = Squares.SqrFlags.Occupied;
+                    typeOfSquare = SqrFlags.Concrete;
                     Building = BuildingType.Concrete;
                     sqrEdited = true;
                 }
+                // Build Gun Tower
                 else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerGun)
                 {
                     typeOfSquare = Squares.SqrFlags.Occupied;
                     typeOfSquare |= Squares.SqrFlags.Wall;
+                    typeOfSquare |= SqrFlags.Concrete;
                     Building = BuildingType.Tower;
                     TowerHere = new Tower(Tower.Type.Gun);
+                    sqrEdited = true;
+                }
+                // Build Rocket Tower
+                else if (Input.LMBDown && Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerRocket)
+                {
+                    typeOfSquare = Squares.SqrFlags.Occupied;
+                    typeOfSquare |= Squares.SqrFlags.Wall;
+                    typeOfSquare |= SqrFlags.Concrete;
+                    Building = BuildingType.Tower;
+                    TowerHere = new Tower(Tower.Type.Rocket);
+                    sqrEdited = true;
+                }
+                else if (Input.WasLMBClicked && Building == BuildingType.Tower && GameRoot.BuildState == GameRoot.BuildStates.Upgrade)
+                {
+                    TowerHere.LevelUp();
                     sqrEdited = true;
                 }
 
@@ -100,6 +121,8 @@ namespace DefendTheBase
 
         public void Draw(SpriteBatch sb, Texture2D gridSquareTex)
         {
+            if (typeOfSquare.HasFlag(SqrFlags.Concrete))
+                sb.Draw(Art.Concrete, rect, Color.White * highlight);
             if (Building == BuildingType.Trench)
                 sb.Draw(Art.getTrenchTex(TrenchName), rect, Color.White * highlight);
             else if (Building == BuildingType.Concrete)
