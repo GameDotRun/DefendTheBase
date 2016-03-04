@@ -64,22 +64,24 @@ namespace DefendTheBase
         public void LevelUp()
         {
             if (Level < 4)
-                Level++;
-            switch (TypeofTower)
             {
-                case Type.Gun:
-                    Sprite = Art.TowerGun[Level - 1];
-                    FireRate -= 0.25f;
-                    break;
-                case Type.Rocket:
-                    Sprite = Art.TowerRocket[Level - 1];
-                    break;
-                case Type.SAM:
-                    Sprite = Art.TowerSAM[Level - 1];
-                    break;
-                case Type.Tesla:
-                    Sprite = Art.TowerTesla[Level - 1];
-                    break;
+                Level++;
+                switch (TypeofTower)
+                {
+                    case Type.Gun:
+                        Sprite = Art.TowerGun[Level - 1];
+                        FireRate -= 0.25f;
+                        break;
+                    case Type.Rocket:
+                        Sprite = Art.TowerRocket[Level - 1];
+                        break;
+                    case Type.SAM:
+                        Sprite = Art.TowerSAM[Level - 1];
+                        break;
+                    case Type.Tesla:
+                        Sprite = Art.TowerTesla[Level - 1];
+                        break;
+                }
             }
         }
 
