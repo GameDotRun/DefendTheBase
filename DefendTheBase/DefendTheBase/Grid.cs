@@ -53,6 +53,13 @@ namespace DefendTheBase
             foreach (Squares square in gridSquares)
                 square.Update();
 
+            // In case we delete everything, always have one bit of Trench.
+            if (gridSquares[width - 1, height - 1].Building != Squares.BuildingType.Trench)
+            {
+                gridSquares[width - 1, height - 1].typeOfSquare |= Squares.SqrFlags.Wall;
+                gridSquares[width - 1, height - 1].Building = Squares.BuildingType.Trench;
+            }
+
             updateTimer += gameTime.ElapsedGameTime;
 
             if (updateTimer.TotalMilliseconds > 1000f / GameRoot.UPS)

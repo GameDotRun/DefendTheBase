@@ -154,9 +154,10 @@ namespace DefendTheBase
             }
 
             else highlight = 1;
-
-            if (TowerHere != null)
-                TowerHere.Update();
+            // Update the Tower if there is one and we are active. We MUST also be next to a trench.
+            if (TowerHere != null && HasNeighbour(BuildingType.Trench))
+                if (TowerHere.IsActive)
+                    TowerHere.Update();
         }
 
         public void Draw(SpriteBatch sb, Texture2D gridSquareTex)
