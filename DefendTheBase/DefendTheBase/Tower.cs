@@ -82,6 +82,25 @@ namespace DefendTheBase
             }
         }
 
+        public void Shoot()
+        {
+            switch (TypeofTower)
+            {
+                case Type.Gun:
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, (int)Position.X, (int)Position.Y, Rotation.ToVector(), 5f));
+                    break;
+                case Type.Rocket:
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, (int)Position.X, (int)Position.Y, Rotation.ToVector(), 5f));
+                    break;
+                case Type.SAM:
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, (int)Position.X, (int)Position.Y, Rotation.ToVector(), 5f));
+                    break;
+                case Type.Tesla:
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Tesla, (int)Position.X, (int)Position.Y, Rotation.ToVector(), 5f));
+                    break;
+            }
+        }
+
         public void Update()
         {
             if (IsActive)
@@ -94,7 +113,7 @@ namespace DefendTheBase
                 if (shootTimer >= timeToShoot)
                 {
                     shootTimer = 0;
-                    TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, (int)Position.X, (int)Position.Y, Rotation.ToVector(), 5f));
+                    Shoot();
                 }
 
                 // Remove Projectiles after lifetime.
