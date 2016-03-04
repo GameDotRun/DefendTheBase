@@ -25,12 +25,12 @@ namespace DefendTheBase
         public Type TypeofTower;
         public List<Projectile> TowerProjectiles;
         public Vector2 Position;
-        public float Rotation;
+        public float Rotation, FireRate;
         public bool IsActive = true;
         bool rotClock = true;
-        public int Level, Range, Health, Damage, fireRate;
+        public int Level, Range, Health, Damage;
 
-        private float timeToShoot, shootTimer;
+        private float  shootTimer;
 
         public Tower(Type type, Vector2 position, int level = 1, int range = 100, int health = 100, int damage = 10, int fireRate = 1)
         {
@@ -42,7 +42,7 @@ namespace DefendTheBase
             Range = range;
             Health = health;
             Damage = damage;
-            timeToShoot = fireRate;
+            FireRate = fireRate;
             shootTimer = 0f;
             switch (type)
             {
@@ -69,6 +69,7 @@ namespace DefendTheBase
             {
                 case Type.Gun:
                     Sprite = Art.TowerGun[Level - 1];
+                    FireRate -= 0.25f;
                     break;
                 case Type.Rocket:
                     Sprite = Art.TowerRocket[Level - 1];
@@ -110,7 +111,7 @@ namespace DefendTheBase
 
                 // Shoot
                 shootTimer += 1 / 60f;
-                if (shootTimer >= timeToShoot)
+                if (shootTimer >= FireRate)
                 {
                     shootTimer = 0;
                     Shoot();
@@ -131,6 +132,10 @@ namespace DefendTheBase
                     Rotation += 0.02f;
                 else
                     Rotation -= 0.02f;
+            }
+            else
+            {
+                TowerProjectiles.Clear();
             }
         }
 
