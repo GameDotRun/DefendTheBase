@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Flextensions;
+using Microsoft.Xna.Framework;
 
 namespace DefendTheBase
 {
@@ -22,19 +23,27 @@ namespace DefendTheBase
 
         public Texture2D Sprite;
         public Type TypeofTower;
-        public float Rotation;
+        public List<Projectile> TowerProjectiles;
+        public Vector2 Position;
+        public float Rotation, FireRate;
         public bool IsActive = true;
         bool rotClock = true;
-        public int Level, Range, Health, Damage, fireRate;
+        public int Level, Range, Health, Damage;
 
-        public Tower(Type type, int level = 1, int range = 100, int health = 100, int damage = 10, int fireRate = 1)
+        private float  shootTimer;
+
+        public Tower(Type type, Vector2 position, int level = 1, int range = 100, int health = 100, int damage = 10, int fireRate = 1)
         {
             TypeofTower = type;
+            TowerProjectiles = new List<Projectile>();
             Rotation = 0;
+            Position = position;
             Level = level;
             Range = range;
             Health = health;
             Damage = damage;
+            FireRate = fireRate;
+            shootTimer = 0f;
             switch (type)
             {
                 case Type.Gun:
@@ -55,20 +64,42 @@ namespace DefendTheBase
         public void LevelUp()
         {
             if (Level < 4)
+            {
                 Level++;
+                switch (TypeofTower)
+                {
+                    case Type.Gun:
+                        Sprite = Art.TowerGun[Level - 1];
+                        FireRate -= 0.25f;
+                        break;
+                    case Type.Rocket:
+                        Sprite = Art.TowerRocket[Level - 1];
+                        break;
+                    case Type.SAM:
+                        Sprite = Art.TowerSAM[Level - 1];
+                        break;
+                    case Type.Tesla:
+                        Sprite = Art.TowerTesla[Level - 1];
+                        break;
+                }
+            }
+        }
+
+        public void Shoot()
+        {
             switch (TypeofTower)
             {
                 case Type.Gun:
-                    Sprite = Art.TowerGun[Level - 1];
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, (int)Position.X, (int)Position.Y, Rotation.ToVector(), 5f));
                     break;
                 case Type.Rocket:
-                    Sprite = Art.TowerRocket[Level - 1];
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, (int)Position.X, (int)Position.Y, Rotation.ToVector(), 5f));
                     break;
                 case Type.SAM:
-                    Sprite = Art.TowerSAM[Level - 1];
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, (int)Position.X, (int)Position.Y, Rotation.ToVector(), 5f));
                     break;
                 case Type.Tesla:
-                    Sprite = Art.TowerTesla[Level - 1];
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Tesla, (int)Position.X, (int)Position.Y, Rotation.ToVector(), 5f));
                     break;
             }
         }
@@ -80,7 +111,21 @@ namespace DefendTheBase
                 // Find enemy, rotate and shoot.
                 //Rotation = GameRoot.enemy.ScreenPos.ToAngle();
 
+                // Shoot
+                shootTimer += 1 / 60f;
+                if (shootTimer >= FireRate)
+                {
+                    shootTimer = 0;
+                    Shoot();
+                }
 
+                // Remove Projectiles after lifetime.
+                for (int i = 0; i < TowerProjectiles.Count(); i++)
+                {
+                    TowerProjectiles[i].Update();
+                    if (TowerProjectiles[i].TimeSinceSpawn > TowerProjectiles[i].Lifetime)
+                        TowerProjectiles.RemoveAt(i);
+                }
 
                 // If no enemy, rotate back and forth.
                 if (Rotation > 6.2f || Rotation < 0)
@@ -90,6 +135,16 @@ namespace DefendTheBase
                 else
                     Rotation -= 0.02f;
             }
+            else
+            {
+                TowerProjectiles.Clear();
+            }
+        }
+
+        public void DrawProjectiles(SpriteBatch sb)
+        {
+            foreach (Projectile proj in TowerProjectiles)
+                proj.Draw(sb);
         }
     }
 }

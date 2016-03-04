@@ -40,6 +40,7 @@ namespace DefendTheBase
         public Coordinates sqrCoord;
         public Rectangle rect;
         public Vector2 sqrLoc;
+        public Vector2 PixelScreenPos;
 
         public bool sqrEdited = false;
 
@@ -48,7 +49,7 @@ namespace DefendTheBase
         public Squares(int SquareSize, Vector2 Location, int x, int y, int defDist)
         {
             sqrLoc = Location;
-
+            
             typeOfSquare = SqrFlags.Unoccupied;
             Building = BuildingType.None;
             TowerHere = null;
@@ -56,6 +57,8 @@ namespace DefendTheBase
             rect = new Rectangle((int)Location.X, (int)Location.Y, SquareSize, SquareSize);
 
             sqrCoord = new Coordinates(x, y, defDist);
+
+            PixelScreenPos = new Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2);
         }
 
         public void Update()
@@ -80,7 +83,7 @@ namespace DefendTheBase
                         typeOfSquare |= Squares.SqrFlags.Wall;
                         typeOfSquare |= SqrFlags.Concrete;
                         Building = BuildingType.Tower;
-                        TowerHere = new Tower(Tower.Type.Gun);
+                        TowerHere = new Tower(Tower.Type.Gun, PixelScreenPos);
                         sqrEdited = true;
                     }
                     // Build Rocket Tower
@@ -90,7 +93,7 @@ namespace DefendTheBase
                         typeOfSquare |= Squares.SqrFlags.Wall;
                         typeOfSquare |= SqrFlags.Concrete;
                         Building = BuildingType.Tower;
-                        TowerHere = new Tower(Tower.Type.Rocket);
+                        TowerHere = new Tower(Tower.Type.Rocket, PixelScreenPos);
                         sqrEdited = true;
                     }
                     // Build SAM Tower
@@ -100,7 +103,7 @@ namespace DefendTheBase
                         typeOfSquare |= Squares.SqrFlags.Wall;
                         typeOfSquare |= SqrFlags.Concrete;
                         Building = BuildingType.Tower;
-                        TowerHere = new Tower(Tower.Type.SAM);
+                        TowerHere = new Tower(Tower.Type.SAM, PixelScreenPos);
                         sqrEdited = true;
                     }
                     // Build Tesla Tower
@@ -110,7 +113,7 @@ namespace DefendTheBase
                         typeOfSquare |= Squares.SqrFlags.Wall;
                         typeOfSquare |= SqrFlags.Concrete;
                         Building = BuildingType.Tower;
-                        TowerHere = new Tower(Tower.Type.Tesla);
+                        TowerHere = new Tower(Tower.Type.Tesla, PixelScreenPos);
                         sqrEdited = true;
                     }
 
@@ -166,15 +169,19 @@ namespace DefendTheBase
                 sb.Draw(Art.Concrete, rect, Color.White * highlight);
             if (Building == BuildingType.Trench)
                 sb.Draw(Art.getTrenchTex(TrenchName), rect, Color.White * highlight);
-            else if (Building == BuildingType.Concrete)
-                sb.Draw(Art.Concrete, rect, Color.White * highlight);
             else if (Building == BuildingType.None)
                 sb.Draw(gridSquareTex, rect, Color.White * highlight);
             else if (Building == BuildingType.Base)
                 sb.Draw(gridSquareTex, rect, Color.Red * highlight);
-            else if (Building == BuildingType.Tower)
-                sb.Draw(TowerHere.Sprite, new Vector2(rect.X+rect.Width/2, rect.Y+rect.Height/2), null, Color.White, TowerHere.Rotation, new Vector2(rect.Width / 2, rect.Height / 2), 1f, SpriteEffects.None, 0f);
-                //sb.Draw(TowerHere.Sprite, rect, Color.White * highlight);
+        }
+
+        public void DrawTowers(SpriteBatch sb)
+        {
+            if (Building == BuildingType.Tower)
+            {
+                sb.Draw(TowerHere.Sprite, new Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), null, Color.White, TowerHere.Rotation, new Vector2(rect.Width / 2, rect.Height / 2), 1f, SpriteEffects.None, 0f);
+                TowerHere.DrawProjectiles(sb);
+            }
         }
 
         public bool HasNeighbour(BuildingType typeOfBuilding)
