@@ -70,7 +70,7 @@ namespace DefendTheBase
 
         Rectangle mouseRect;
 
-        Enemy enemy;
+        TankEnemy tanks;
         UiGameScreen gameScreenUi;
         // Constructor
         public GameRoot()
@@ -109,7 +109,7 @@ namespace DefendTheBase
         {
             // Reset Variables, or Set if first run.
             UiButtonMessenger.InitiliseListenerList();
-            enemy = new Enemy();
+            tanks = new TankEnemy();
             grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, DEFAULYDIST);
             gameScreenUi = new UiGameScreen(GraphicsDevice);
         }
@@ -143,21 +143,21 @@ namespace DefendTheBase
 
             grid.Update(mouseRect, gameTime);
 
-            enemy.Update(grid.gridStatus);
+            tanks.Update(grid.gridStatus);
                 
             for (int y = 0; y < HEIGHT; y++) //Debug counter Text
                 for (int x = 0; x < WIDTH; x++)
                 {
                     if ((Input.LMBDown || Input.RMBDown) && grid.gridSquares[x, y].getSquareEdited)
                     {
-                        enemy.pathFound = false;
+                        tanks.pathFound = false;
                     }
                 }
             // Wipe grid when BackSpace is pressed. REMOVE LATER
             if (Input.WasKeyPressed(Keys.Back))
             {
                 grid.resetGrid();
-                enemy.pathFound = false;
+                tanks.pathFound = false;
             }
 
             base.Update(gameTime);
@@ -170,7 +170,7 @@ namespace DefendTheBase
             spriteBatch.Begin();
 
             grid.Draw(spriteBatch, Art.DebugFont);
-            enemy.Draw(spriteBatch);
+            tanks.Draw(spriteBatch);
             gameScreenUi.Draw(spriteBatch);
 
 #if DEBUG
@@ -185,7 +185,7 @@ namespace DefendTheBase
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }
 
-            spriteBatch.DrawString(Art.DebugFont, enemy.ScreenPos.X + " " + enemy.ScreenPos.Y, enemy.ScreenPos, Color.Black);
+            spriteBatch.DrawString(Art.DebugFont, tanks.ScreenPos.X + " " + tanks.ScreenPos.Y, tanks.ScreenPos, Color.Black);
 
 #endif
             // Finish spriteBatch.
