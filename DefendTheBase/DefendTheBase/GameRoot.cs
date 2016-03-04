@@ -77,13 +77,11 @@ namespace DefendTheBase
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
             IsMouseVisible = true;
 
             TargetElapsedTime = TimeSpan.FromSeconds(1.0 / FPS);
 
             ScreenSize = new Vector2(WIDTH, HEIGHT) * SQUARESIZE;
-
             graphics.PreferredBackBufferWidth = (int)ScreenSize.X + BORDERRIGHT + BORDERLEFT;
             graphics.PreferredBackBufferHeight = (int)ScreenSize.Y + BORDERTOP;
         }

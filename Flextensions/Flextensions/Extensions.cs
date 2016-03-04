@@ -19,6 +19,16 @@ namespace Flextensions
         }
 
         /// <summary>
+        /// Gets a vector given an angle in radians.
+        /// </summary>
+        /// <param name="angle">The angle to get the vector of.</param>
+        /// <returns>Float angle in radians of a Vector2.</returns>
+        public static Vector2 ToVector(this float angle)
+        {
+            return new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+        }
+
+        /// <summary>
         /// Converts a Vector2 into a Point. Rounds to the nearest X and Y integers.
         /// </summary>
         /// <param name="vector">The vector to convert to Point.</param>

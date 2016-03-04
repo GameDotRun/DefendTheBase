@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Flextensions;
+using Microsoft.Xna.Framework;
 
 namespace DefendTheBase
 {
@@ -22,19 +23,27 @@ namespace DefendTheBase
 
         public Texture2D Sprite;
         public Type TypeofTower;
+        public List<Projectile> TowerProjectiles;
+        public Vector2 Position;
         public float Rotation;
         public bool IsActive = true;
         bool rotClock = true;
         public int Level, Range, Health, Damage, fireRate;
 
-        public Tower(Type type, int level = 1, int range = 100, int health = 100, int damage = 10, int fireRate = 1)
+        private float timeToShoot, shootTimer;
+
+        public Tower(Type type, Vector2 position, int level = 1, int range = 100, int health = 100, int damage = 10, int fireRate = 1)
         {
             TypeofTower = type;
+            TowerProjectiles = new List<Projectile>();
             Rotation = 0;
+            Position = position;
             Level = level;
             Range = range;
             Health = health;
             Damage = damage;
+            timeToShoot = fireRate;
+            shootTimer = 0f;
             switch (type)
             {
                 case Type.Gun:
@@ -80,7 +89,21 @@ namespace DefendTheBase
                 // Find enemy, rotate and shoot.
                 //Rotation = GameRoot.enemy.ScreenPos.ToAngle();
 
+                // Shoot
+                shootTimer += 1 / 60f;
+                if (shootTimer >= timeToShoot)
+                {
+                    shootTimer = 0;
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, (int)Position.X, (int)Position.Y, Rotation.ToVector(), 5f));
+                }
 
+                // Remove Projectiles after lifetime.
+                for (int i = 0; i < TowerProjectiles.Count(); i++)
+                {
+                    TowerProjectiles[i].Update();
+                    if (TowerProjectiles[i].TimeSinceSpawn > TowerProjectiles[i].Lifetime)
+                        TowerProjectiles.RemoveAt(i);
+                }
 
                 // If no enemy, rotate back and forth.
                 if (Rotation > 6.2f || Rotation < 0)
@@ -90,6 +113,12 @@ namespace DefendTheBase
                 else
                     Rotation -= 0.02f;
             }
+        }
+
+        public void DrawProjectiles(SpriteBatch sb)
+        {
+            foreach (Projectile proj in TowerProjectiles)
+                proj.Draw(sb);
         }
     }
 }
