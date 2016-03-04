@@ -77,7 +77,7 @@ namespace DefendTheBase
 
             // Get screen pixel position from Grid Coordinates (enemyVect).
             ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE), (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE));
-            Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (aiPos.x * GameRoot.SQUARESIZE), (int)GameRoot.grid.gridBorder.Y + (aiPos.y * GameRoot.SQUARESIZE));
+            Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (aiPos.x * GameRoot.SQUARESIZE + 0.1f), (int)GameRoot.grid.gridBorder.Y + (aiPos.y * GameRoot.SQUARESIZE));
             Direction = NextScreenPos - ScreenPos;
             
         }

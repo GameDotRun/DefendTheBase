@@ -34,7 +34,7 @@ namespace DefendTheBase
 
         public void PathMove(Coordinates endPoint, Squares[,] squares, int height, int width, ref Vector2 enemyVect)
         {
-            if (aiPos.x == (int)enemyVect.X && aiPos.y == (int)enemyVect.Y)
+            if ((aiPos.x == (int)enemyVect.X && aiPos.y == (int)enemyVect.Y) || (aiPos.y == (int)enemyVect.Y + 1 && aiPos.x == (int)enemyVect.X))
             {
                 if (aiPos.x + 1 < width)
                 {
