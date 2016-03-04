@@ -37,7 +37,7 @@ namespace DefendTheBase
 
 
         public Coordinates enemyPos;
-        public Vector2 enemyVect, ScreenPos, NextPos, ThisPos, Direction;
+        public Vector2 enemyVect, ScreenPos, Direction;
 
         public bool pathFound = false;
 
@@ -75,12 +75,11 @@ namespace DefendTheBase
                 }
             }
 
-
-            NextPos = new Vector2(aiPos.x, aiPos.y);
-            ThisPos = new Vector2(enemyVect.X, enemyVect.Y);
-            Direction = new Vector2(ThisPos.Y - NextPos.Y, ThisPos.Y - NextPos.Y);
             // Get screen pixel position from Grid Coordinates (enemyVect).
             ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE), (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE));
+            Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (aiPos.x * GameRoot.SQUARESIZE), (int)GameRoot.grid.gridBorder.Y + (aiPos.y * GameRoot.SQUARESIZE));
+            Direction = NextScreenPos - ScreenPos;
+            
         }
 
         
@@ -104,8 +103,8 @@ namespace DefendTheBase
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2), null, Color.White, Extensions.ToAngle(Direction) , new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
-            sb.Draw(Art.TankTop, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2), null, Color.White, Extensions.ToAngle(Direction), new Vector2(Art.TankTop.Width / 2 + Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+            sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2), null, Color.White, Direction.ToAngle() , new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
+            sb.Draw(Art.TankTop, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
 
         }
     
