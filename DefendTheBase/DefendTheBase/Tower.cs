@@ -43,7 +43,7 @@ namespace DefendTheBase
             Health = health;
             Damage = damage;
             FireRate = fireRate;
-            shootTimer = 0f;
+            shootTimer = fireRate;
             switch (type)
             {
                 case Type.Gun:
@@ -85,7 +85,7 @@ namespace DefendTheBase
             }
         }
 
-        public void Shoot()
+        public void Shoot(Enemy targetEnemy)
         {
             switch (TypeofTower)
             {
@@ -95,40 +95,40 @@ namespace DefendTheBase
                     Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
                     // Aesthetically pleasing, but fuuuu...
                     if (Level == 1)
-                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, Position + offset, Rotation.ToVector(), 1f));
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, targetEnemy, Position + offset, Rotation.ToVector(), 1f));
                     else if (Level == 2)
                     {
-                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, Position + offset, Rotation.ToVector(), 1f));
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, targetEnemy, Position + offset, Rotation.ToVector(), 1f));
                         offset = Vector2.Transform(new Vector2(25, 16), aimQuat);
-                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, Position + offset, Rotation.ToVector(), 1f));
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, targetEnemy, Position + offset, Rotation.ToVector(), 1f));
                     }
                     else if (Level == 3)
                     {
-                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, Position + offset, Rotation.ToVector(), 1f));
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, targetEnemy, Position + offset, Rotation.ToVector(), 1f));
                         offset = Vector2.Transform(new Vector2(25, 16), aimQuat);
-                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, Position + offset, Rotation.ToVector(), 1f));
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, targetEnemy, Position + offset, Rotation.ToVector(), 1f));
                         offset = Vector2.Transform(new Vector2(25, 0), aimQuat);
-                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, Position + offset, Rotation.ToVector(), 1f));
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, targetEnemy, Position + offset, Rotation.ToVector(), 1f));
                     }
                     else
                     {
-                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, Position + offset, Rotation.ToVector(), 1f));
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, targetEnemy, Position + offset, Rotation.ToVector(), 1f));
                         offset = Vector2.Transform(new Vector2(25, -8), aimQuat);
-                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, Position + offset, Rotation.ToVector(), 1f));
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, targetEnemy, Position + offset, Rotation.ToVector(), 1f));
                         offset = Vector2.Transform(new Vector2(25, 8), aimQuat);
-                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, Position + offset, Rotation.ToVector(), 1f));
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, targetEnemy, Position + offset, Rotation.ToVector(), 1f));
                         offset = Vector2.Transform(new Vector2(25, 16), aimQuat);
-                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, Position + offset, Rotation.ToVector(), 1f));
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, targetEnemy, Position + offset, Rotation.ToVector(), 1f));
                     }
                     break;
                 case Type.Rocket:
-                    TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, Position, Rotation.ToVector(), 0f));
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position, Rotation.ToVector(), 0f));
                     break;
                 case Type.SAM:
-                    TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, Position, Rotation.ToVector(), 0f));
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position, Rotation.ToVector(), 0f));
                     break;
                 case Type.Tesla:
-                    TowerProjectiles.Add(new Projectile(Projectile.Type.Tesla, Position, Rotation.ToVector(), 0f));
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Tesla, targetEnemy, Position, Rotation.ToVector(), 0f));
                     break;
             }
         }
@@ -161,7 +161,7 @@ namespace DefendTheBase
                     if (shootTimer >= FireRate)
                     {
                         shootTimer = 0;
-                        Shoot();
+                        Shoot(targetEnemy);
                     }
                 }
 
