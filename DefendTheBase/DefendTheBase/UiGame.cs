@@ -18,6 +18,8 @@ namespace DefendTheBase
         UiTabs tabs;
 
         //Group Elements up with Lists, allows the ui controller to manipulate them
+        public List<UiTextString> waveStats;
+
         public List<UiButton> unitBuild;
         public List<UiButton> baseBuild;
         public List<UiButton> miscBuild;
@@ -25,11 +27,13 @@ namespace DefendTheBase
         public UiGameScreen(GraphicsDevice graphicsDevice) : base(GameRoot.WIDTH, GameRoot.HEIGHT)
         {
             tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Color.Aquamarine, new Vector2(83, 20));
+            waveStats = new List<UiTextString>();
             unitBuild = new List<UiButton>();
             baseBuild = new List<UiButton>();
             miscBuild = new List<UiButton>();
 
             //add grouped elements to uicontrollers
+            Add(ref waveStats);
             Add(ref tabs);
             Add(ref unitBuild);
             Add(ref baseBuild);
@@ -41,16 +45,26 @@ namespace DefendTheBase
         public void Update()
         {
             tabs.Update();
+
+
+            waveStats[0].StringText = "Wave: " + LevelWaves.WaveNumber;
+            waveStats[1].StringText = "Enemies: " + LevelWaves.WaveEnemiesUsed + "/" + LevelWaves.WaveEnemyAmount;
         }
 
 
         public void Draw(SpriteBatch sb)
         {
             tabs.Draw(sb);
+
+            foreach (UiTextString text in waveStats)
+                text.DrawString(sb);
         }
 
         public void CreateButtons(GraphicsDevice graphicsDevice)
         {
+            waveStats.Add(new UiTextString(Art.DebugFont, "Wave: " + LevelWaves.WaveNumber, new Vector2(100, 0), Color.Black));
+            waveStats.Add(new UiTextString(Art.DebugFont, "Enemies: " + LevelWaves.WaveEnemiesUsed + "/" + LevelWaves.WaveEnemyAmount, new Vector2(200, 0), Color.Black));
+
             //its of UTMOST IMPORTANCE that each button has a unique id
 
             // Build Gun Tower Button

@@ -8,13 +8,13 @@ namespace DefendTheBase
 {
     public static class LevelWaves
     {
+        public static TimeSpan EnemySpawnTimer = TimeSpan.Zero;
         public static bool WaveStarted = false;
-
         public static int WaveNumber = 1;
-        static int WaveEnemyAmount = 25;
+        public static int WaveEnemyAmount = 25;
         public static int WaveEnemiesUsed = 0;
+
         static int WaveEnemiesSpawned = 0;
-        static TimeSpan WaveSpawnTimer = TimeSpan.Zero;
         static float WaveSpawnInterval = (WaveEnemyAmount / WaveNumber) * 10f;
         static float WavePower = 2;
 
@@ -22,19 +22,19 @@ namespace DefendTheBase
         {
             if (WaveStarted)
             {
-                EnemyCreator.Update();
+                EnemyManager.Update();
 
-                WaveSpawnTimer += gameTime.ElapsedGameTime;
+                EnemySpawnTimer += gameTime.ElapsedGameTime;
 
-                if (WaveSpawnTimer.TotalMilliseconds >= WaveSpawnInterval)
+                if (EnemySpawnTimer.TotalMilliseconds >= WaveSpawnInterval)
                 {
                     if (WaveEnemiesSpawned != WaveEnemyAmount)
                     {
-                        EnemyCreator.SpawnEnemy(EnemyCreator.TypeIDs[GameRoot.rnd.Next(0, EnemyCreator.TypeIDs.Count())]);
+                        EnemyManager.SpawnEnemy(EnemyManager.TypeIDs[GameRoot.rnd.Next(0, EnemyManager.TypeIDs.Count())]);
                         WaveEnemiesSpawned++;
                     }
 
-                    WaveSpawnTimer = TimeSpan.Zero;
+                    EnemySpawnTimer = TimeSpan.Zero;
                 }
 
                 if (WaveEnemiesUsed == WaveEnemyAmount)

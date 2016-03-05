@@ -17,12 +17,20 @@ namespace DefendTheBase
            EnemyList = new List<Enemy>();
        }
 
-       //dont give this random vectors. things will go wrong
+       /// <summary>
+       /// Add enemies to listener, for towers to interact with them
+       /// </summary>
+       /// <param name="Enemy"></param>
         public static void AddEnemy(Enemy Enemy) 
         {
             EnemyList.Add(Enemy);
         }
 
+
+        /// <summary>
+        /// Removes enemy from listener. Shouldnt have to be called manually,  should be automted.
+        /// </summary>
+        /// <param name="EnemyID"></param>
         static public void RemoveEnemy(string EnemyID)
         {
             int index = EnemyList.FindIndex(item => string.Compare(item.EnemyID, EnemyID, 0) == 0);
@@ -32,13 +40,23 @@ namespace DefendTheBase
         }
     }
 
-    public static class EnemyCreator
+    /// <summary>
+    /// Spawn and destroy enemies
+    /// manages all the enemies 
+    /// 
+    /// </summary>
+    public static class EnemyManager
     {
         public static string[] TypeIDs = {"Tank"};
         static List<TankEnemy> TankEnemies = new List<TankEnemy>();
 
         static List<string> EnemyIDs = new List<string>();
 
+        /// <summary>
+        /// Destroys enemies and cleans up references in other lists of said enemy
+        /// </summary>
+        /// <param name="EnemyID"></param>
+        /// <param name="TypeID"></param>
         static void DestroyEnemy(string EnemyID, string TypeID)
         {
             EnemyListener.RemoveEnemy(EnemyID);
@@ -59,12 +77,20 @@ namespace DefendTheBase
 
         }
 
+        /// <summary>
+        /// spawns enemy of given TypeID
+        /// </summary>
+        /// <param name="TypeID"></param>
         public static void SpawnEnemy(string TypeID)
         {
             if(TypeID == "Tank")
                 TankEnemies.Add(new TankEnemy(CreateID(TypeID)));
         }
 
+
+        /// <summary>
+        /// Updates the enemies and checkes for destroyed enemies
+        /// </summary>
         public static void Update()
         {
             foreach (TankEnemy Tank in TankEnemies)
@@ -80,6 +106,10 @@ namespace DefendTheBase
             }
         }
 
+        /// <summary>
+        /// draws the enemies
+        /// </summary>
+        /// <param name="sb"></param>
         public static void Draw(SpriteBatch sb)
         {
             foreach (TankEnemy Tank in TankEnemies)
@@ -88,7 +118,11 @@ namespace DefendTheBase
             }
         }
 
-
+        /// <summary>
+        /// creates a unique ID for the enemy, if the random ID is not unique it will retry. Chances of this happening more than once are 1/1,000,000
+        /// </summary>
+        /// <param name="TypeID"></param>
+        /// <returns></returns>
         static string CreateID(string TypeID)
         {
             bool IsUnique = false;
@@ -173,6 +207,12 @@ namespace DefendTheBase
                     pathFound = false;
                     aiPos = enemyPos;*/
                 }
+            }
+
+            if (hitPoints == 0)
+            {
+                LevelWaves.WaveEnemiesUsed++;
+                IsDestroyed = true;
             }
 
             // Get screen pixel position from Grid Coordinates (enemyVect).

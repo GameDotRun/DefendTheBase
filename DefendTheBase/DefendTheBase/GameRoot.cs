@@ -177,7 +177,7 @@ namespace DefendTheBase
             grid.Draw(spriteBatch, Art.DebugFont);
             gameScreenUi.Draw(spriteBatch);
 
-            EnemyCreator.Draw(spriteBatch);
+            EnemyManager.Draw(spriteBatch);
 
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
@@ -186,7 +186,8 @@ namespace DefendTheBase
                 spriteBatch.DrawString(Art.DebugFont,
                     "DEBUG" +
                     "\nFPS: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString("N0") +
-                    "\nBuild: " + BuildState,
+                    "\nBuild: " + BuildState +
+                    "\nEnemySpawn: " + LevelWaves.EnemySpawnTimer,
                     i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }
