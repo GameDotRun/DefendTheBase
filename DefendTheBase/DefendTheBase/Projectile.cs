@@ -25,7 +25,7 @@ namespace DefendTheBase
         private Texture2D m_sprite;
         private Vector2 m_position, m_velocity, m_center;
 
-        public Projectile(Type type, int xPos, int yPos, Vector2 direction, float lifetime)
+        public Projectile(Type type, Vector2 position, Vector2 direction, float lifetime)
         {
             direction.Normalize();
             switch(type)
@@ -33,7 +33,7 @@ namespace DefendTheBase
                 case Type.Gun:
                     TypeofProj = type;
                     m_sprite = Art.ProjectileGun;
-                    m_position = Position = new Vector2(xPos, yPos);
+                    m_position = Position = position;
                     m_velocity = direction * 5f;
                     m_center = new Vector2(m_sprite.Width / 2, m_sprite.Height / 2);
                     Lifetime = lifetime;
@@ -42,7 +42,7 @@ namespace DefendTheBase
                 case Type.Rocket:
                     TypeofProj = type;
                     m_sprite = Art.ProjectileGun;
-                    m_position = Position = new Vector2(xPos, yPos);
+                    m_position = Position = position;
                     m_velocity = direction * 5f;
                     m_center = new Vector2(m_sprite.Width / 2, m_sprite.Height / 2);
                     Lifetime = lifetime;
@@ -51,7 +51,7 @@ namespace DefendTheBase
                 case Type.SAM:
                     TypeofProj = type;
                     m_sprite = Art.ProjectileGun;
-                    m_position = Position = new Vector2(xPos, yPos);
+                    m_position = Position = position;
                     m_velocity = direction * 5f;
                     m_center = new Vector2(m_sprite.Width / 2, m_sprite.Height / 2);
                     Lifetime = lifetime;
@@ -60,7 +60,7 @@ namespace DefendTheBase
                 case Type.Tesla:
                     TypeofProj = type;
                     m_sprite = Art.ProjectileGun;
-                    m_position = Position = new Vector2(xPos, yPos);
+                    m_position = Position = position;
                     m_velocity = direction * 5f;
                     m_center = new Vector2(m_sprite.Width / 2, m_sprite.Height / 2);
                     Lifetime = lifetime;
