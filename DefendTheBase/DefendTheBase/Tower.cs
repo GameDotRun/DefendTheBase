@@ -137,21 +137,21 @@ namespace DefendTheBase
         {
             if (IsActive)
             {
-                // Find enemy, rotate and shoot.
-                //Rotation = GameRoot.enemy.ScreenPos.ToAngle();
-
+                // Find closest enemy, rotate and shoot.
                 List<Enemy> enemyList = EnemyListener.EnemyList;
                 Enemy targetEnemy = null;
-                for (int i = 0; i < enemyList.Count; i++)
+                Enemy tempEnemy = null;
+                if (enemyList.Count > 0)
+                    tempEnemy = enemyList[0];
+                float dist = Range;
+                for (int i = 1; i < enemyList.Count; i++)
                 {
-                    float dist = Range;
-                    Enemy tempEnemy = enemyList[i];
+                    tempEnemy = enemyList[i];
                     if (dist > Vector2.Distance(tempEnemy.ScreenPos, this.Position))
                     {
                         dist = Vector2.Distance(tempEnemy.ScreenPos, this.Position);
                         targetEnemy = enemyList[i];
                     }
-                    
                 }
                 if (targetEnemy != null)
                 {
