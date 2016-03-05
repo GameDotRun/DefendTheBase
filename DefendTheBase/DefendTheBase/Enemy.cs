@@ -161,7 +161,7 @@ namespace DefendTheBase
 
         Texture2D sprite;
 
-        protected float hitPoints;
+        public float hitPoints;
         protected float speed;
 
         public Coordinates enemyPos;
