@@ -32,7 +32,7 @@ namespace DefendTheBase
             tempCoords = new List<Coordinates>();
         }
 
-        public void PathMove(Coordinates endPoint, Squares[,] squares, int height, int width, ref Vector2 enemyVect)
+        public void PathMove(Coordinates endPoint, Squares[,] squares, int height, int width, ref Vector2 enemyVect, float speed)
         {
             if ((aiPos.x == (int)enemyVect.X && aiPos.y == (int)enemyVect.Y) || (aiPos.y == (int)enemyVect.Y + 1 && aiPos.x == (int)enemyVect.X))
             {
@@ -94,22 +94,25 @@ namespace DefendTheBase
             // adding else to all but the last ifs, removes diag but he nopes through many a wall.
             if (enemyVect.X < aiPos.x)
             {
-                enemyVect.X += 1f / 10;
+                enemyVect.X += speed / 100;
                 enemyVect.X = (float)Math.Round(enemyVect.X, 2);
             }
-            if (enemyVect.Y < aiPos.y)
-            {
-                enemyVect.Y += 1f / 10;
-                enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
-            }
+
             if (enemyVect.X > aiPos.x)
             {
-                enemyVect.X -= 1f / 10;
+                enemyVect.X -= speed / 100;
                 enemyVect.X = (float)Math.Round(enemyVect.X, 2);
             }
+
+            if (enemyVect.Y < aiPos.y)
+            {
+                enemyVect.Y += speed / 100;
+                enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
+            }
+
             if (enemyVect.Y > aiPos.y)
             {
-                enemyVect.Y -= 1f / 10;
+                enemyVect.Y -= speed / 100;
                 enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
             }
             

@@ -32,10 +32,72 @@ namespace DefendTheBase
         }
     }
 
+    public static class EnemyCreator
+    {
+        public static string[] TypeIDs = {"Tank"};
+        static List<TankEnemy> TankEnemies = new List<TankEnemy>();
+
+        static List<string> EnemyIDs = new List<string>();
+
+        static void DestroyEnemy(string EnemyID, string TypeID)
+        {
+            EnemyListener.RemoveEnemy(EnemyID);
+
+            if (TypeID == "Tank")
+            {
+                int index = TankEnemies.FindIndex(item => string.Compare(item.EnemyID, EnemyID, 0) == 0);
+
+                if (index >= 0)
+                    TankEnemies.RemoveAt(index);
+            }
+        }
+
+        public static void SpawnEnemy(string TypeID)
+        {
+            if(TypeID == "Tank")
+                TankEnemies.Add(new TankEnemy(CreateID(TypeID)));
+        }
+
+        public static void Update()
+        {
+            foreach (TankEnemy Tank in TankEnemies)
+            {
+                if (Tank.IsDestroyed)
+                {
+                    DestroyEnemy(Tank.EnemyID, Tank.Type);
+                    break;
+                }
+
+                else
+                    Tank.Update(GameRoot.grid.gridStatus);
+            }
+        }
+
+        public static void Draw(SpriteBatch sb)
+        {
+            foreach (TankEnemy Tank in TankEnemies)
+            {
+                Tank.Draw(sb);
+            }
+        }
+
+
+        static string CreateID(string TypeID)
+        {
+            string ID = TypeID + TankEnemies.Count().ToString() + 1;
+
+            EnemyIDs.Add(ID);
+
+            return ID;
+        }
+
+
+
+    }
+
+
     public class Enemy : ai
     {
-        //insert stats: hp, speed, dmg etc.
-
         internal string EnemyID;
 
         Texture2D sprite;
@@ -47,6 +109,8 @@ namespace DefendTheBase
         public Vector2 enemyVect, ScreenPos, Direction;
 
         public bool pathFound = false;
+
+        public bool IsDestroyed = false;
 
         public Enemy(string enemyID) : base(new Coordinates(0,0))
         {
@@ -67,19 +131,22 @@ namespace DefendTheBase
 
             if (pathFound)
             {
-               PathMove(GameRoot.grid.stopPointCoord, GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect);
-                enemyPos = aiPos;
+               PathMove(GameRoot.grid.stopPointCoord, GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, speed);
+               enemyPos = aiPos;
             }
 
             if (GameRoot.grid.stopPointCoord != null)
             {
                 if (enemyVect.X == GameRoot.grid.stopPointCoord.x && enemyVect.Y == GameRoot.grid.stopPointCoord.y)
                 {
-                    enemyPos = new Coordinates(0, 0);
+                    LevelWaves.WaveEnemiesUsed++;
+                    IsDestroyed = true;
+
+                    /*enemyPos = new Coordinates(0, 0);
                     enemyVect = new Vector2(0, 0);
                     PathMoveReset();
                     pathFound = false;
-                    aiPos = enemyPos;
+                    aiPos = enemyPos;*/
                 }
             }
 
@@ -97,8 +164,10 @@ namespace DefendTheBase
 
     class TankEnemy : Enemy
     {
+        public string Type = "Tank";
+
         private float m_hp = 20;
-        private float m_speed = 0.2f;
+        private float m_speed = 10f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
         private float m_BottomRotation = 0f;
         private float m_TopRotation = 0f;
 
@@ -107,7 +176,6 @@ namespace DefendTheBase
         {
             hitPoints = m_hp;
             speed = m_speed;
-        
         }
 
         public void Draw(SpriteBatch sb)

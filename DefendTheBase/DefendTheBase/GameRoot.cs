@@ -39,6 +39,7 @@ namespace DefendTheBase
 
         //public static Art art;
         public static Grid grid;
+        public static Random rnd;
 
         //Game states
         public enum gamestate
@@ -66,11 +67,11 @@ namespace DefendTheBase
         }
 
         Vector2 ScreenSize; // ScreenSize
-        Random rnd;
+        
 
         Rectangle mouseRect;
 
-        TankEnemy tanks;
+        //TankEnemy tanks;
         UiGameScreen gameScreenUi;
         // Constructor
         public GameRoot()
@@ -110,7 +111,7 @@ namespace DefendTheBase
             // Reset Variables, or Set if first run.
             UiButtonMessenger.InitiliseListenerList();
             EnemyListener.InitiliseListener();
-            tanks = new TankEnemy("enemyTest");
+            //tanks = new TankEnemy("enemyTest");
             grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, DEFAULYDIST);
             gameScreenUi = new UiGameScreen(GraphicsDevice);
         }
@@ -127,6 +128,7 @@ namespace DefendTheBase
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
             gameScreenUi.Update();
+            LevelWaves.Update(gameTime);
 
             // Using the last button pressed ID, as long as it exists,
             // see if it is a "btn0" and then set the BuildState using the rest of the ID.
@@ -144,21 +146,23 @@ namespace DefendTheBase
 
             grid.Update(mouseRect, gameTime);
 
-            tanks.Update(grid.gridStatus);
+            if(grid.gridStatus.HasFlag(Grid.gridFlags.endPoint))
+                LevelWaves.WaveStarted = true;
+
                 
             for (int y = 0; y < HEIGHT; y++) //Debug counter Text
                 for (int x = 0; x < WIDTH; x++)
                 {
                     if ((Input.LMBDown || Input.RMBDown) && grid.gridSquares[x, y].getSquareEdited)
                     {
-                        tanks.pathFound = false;
+                        //tanks.pathFound = false;
                     }
                 }
             // Wipe grid when BackSpace is pressed. REMOVE LATER
             if (Input.WasKeyPressed(Keys.Back))
             {
                 grid.resetGrid();
-                tanks.pathFound = false;
+                //tanks.pathFound = false;
             }
 
             base.Update(gameTime);
@@ -171,8 +175,9 @@ namespace DefendTheBase
             spriteBatch.Begin();
 
             grid.Draw(spriteBatch, Art.DebugFont);
-            tanks.Draw(spriteBatch);
             gameScreenUi.Draw(spriteBatch);
+
+            EnemyCreator.Draw(spriteBatch);
 
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
@@ -186,7 +191,7 @@ namespace DefendTheBase
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }
 
-            spriteBatch.DrawString(Art.DebugFont, tanks.ScreenPos.X + " " + tanks.ScreenPos.Y, tanks.ScreenPos, Color.Black);
+            //spriteBatch.DrawString(Art.DebugFont, tanks.ScreenPos.X + " " + tanks.ScreenPos.Y, tanks.ScreenPos, Color.Black);
 
 #endif
             // Finish spriteBatch.
