@@ -120,7 +120,7 @@ namespace DefendTheBase
             gridSquares[width - 1, height - 2].Building = Squares.BuildingType.Trench;  // 3        
         }
 
-        void sqrTexDecider(int x, int y)
+        public string sqrTexDecider(int x, int y)
         {
             // Create a name to select a texture based on the present neighbours. For example:
             // Result will be "Trench_NEW" if it has neighbours to the North, East and West.
@@ -141,6 +141,7 @@ namespace DefendTheBase
             if (x > 0)
                 if (gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                     gridSquares[x, y].TrenchName += "W";
+            return gridSquares[x, y].TrenchName;
         }
 
         public void resetGrid()

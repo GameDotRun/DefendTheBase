@@ -32,7 +32,7 @@ namespace DefendTheBase
 
         private float  shootTimer;
 
-        public Tower(Type type, Vector2 position, int level = 1, int range = 100, int health = 100, int damage = 10, int fireRate = 1)
+        public Tower(Type type, Vector2 position, int level = 1, int range = 400, int health = 100, int damage = 10, int fireRate = 1)
         {
             TypeofTower = type;
             TowerProjectiles = new List<Projectile>();
@@ -140,12 +140,29 @@ namespace DefendTheBase
                 // Find enemy, rotate and shoot.
                 //Rotation = GameRoot.enemy.ScreenPos.ToAngle();
 
-                // Shoot
-                shootTimer += 1 / 60f;
-                if (shootTimer >= FireRate)
+                List<Enemy> enemyList = EnemyListener.EnemyList;
+                Enemy targetEnemy = null;
+                for (int i = 0; i < enemyList.Count; i++)
                 {
-                    shootTimer = 0;
-                    Shoot();
+                    float dist = Range;
+                    Enemy tempEnemy = enemyList[i];
+                    if (dist > Vector2.Distance(tempEnemy.ScreenPos, this.Position))
+                    {
+                        dist = Vector2.Distance(tempEnemy.ScreenPos, this.Position);
+                        targetEnemy = enemyList[i];
+                    }
+                    
+                }
+                if (targetEnemy != null)
+                {
+                    Rotation = Extensions.ToAngle(targetEnemy.ScreenPos - Position);
+                    // Shoot
+                    shootTimer += 1 / 60f;
+                    if (shootTimer >= FireRate)
+                    {
+                        shootTimer = 0;
+                        Shoot();
+                    }
                 }
 
                 // If no enemy, rotate back and forth.
