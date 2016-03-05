@@ -50,6 +50,13 @@ namespace DefendTheBase
                 if (index >= 0)
                     TankEnemies.RemoveAt(index);
             }
+
+            int index2 = EnemyIDs.FindIndex(item => string.Compare(item, EnemyID, 0) == 0);
+
+            if (index2 >= 0)
+                EnemyIDs.RemoveAt(index2);
+
+
         }
 
         public static void SpawnEnemy(string TypeID)
@@ -84,8 +91,26 @@ namespace DefendTheBase
 
         static string CreateID(string TypeID)
         {
-            string ID = TypeID + TankEnemies.Count().ToString() + 1;
+            bool IsUnique = false;
+            string ID = "";
+            while (!IsUnique)
+            {
+                ID = TypeID + GameRoot.rnd.Next(0, 10).ToString() + GameRoot.rnd.Next(0, 100000).ToString();
 
+                foreach (string id in EnemyIDs)
+                    if (id == ID)
+                    {
+                        IsUnique = false;
+                        break;
+                    }
+                    else IsUnique = true;
+
+                if (EnemyIDs.Count() == 0)
+                    IsUnique = true;
+                        
+
+            }
+                
             EnemyIDs.Add(ID);
 
             return ID;
