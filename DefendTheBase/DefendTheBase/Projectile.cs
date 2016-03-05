@@ -22,13 +22,14 @@ namespace DefendTheBase
         public Vector2 Position;                    // The pixel position on screen.
         public float Lifetime, TimeSinceSpawn;      // Used to destroy projectiles after a while.
 
+        private int m_damage;
         private float m_speed;
         private Texture2D m_sprite;
         private Vector2 m_position, m_velocity, m_center;
 
         private Enemy m_enemy;
 
-        public Projectile(Type type, Enemy enemy, Vector2 position, Vector2 direction, float lifetime, float speed = 10)
+        public Projectile(Type type, Enemy enemy, Vector2 position, Vector2 direction, float lifetime, int damage, float speed = 10)
         {
             direction.Normalize();
             m_enemy = enemy;
@@ -36,6 +37,7 @@ namespace DefendTheBase
             m_position = Position = position;
             m_speed = speed;
             m_velocity = direction * m_speed;
+            m_damage = damage;
             switch(type)
             {
                 case Type.Gun:
@@ -75,8 +77,7 @@ namespace DefendTheBase
                 if (Vector2.Distance(m_enemy.ScreenPos, m_position) < 10)
                 {
                     Lifetime = 0;
-                    // Change this to enemy.Hit or something...
-                    m_enemy.IsDestroyed = true;
+                    m_enemy.hitPoints -= m_damage;
                 }
             }
             TimeSinceSpawn += 1 / 60f;
