@@ -144,7 +144,7 @@ namespace DefendTheBase
                 if (enemyList.Count > 0)
                     tempEnemy = enemyList[0];
                 float dist = Range;
-                for (int i = 1; i < enemyList.Count; i++)
+                for (int i = 0; i < enemyList.Count; i++)
                 {
                     tempEnemy = enemyList[i];
                     if (dist > Vector2.Distance(tempEnemy.ScreenPos, this.Position))
