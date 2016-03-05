@@ -8,44 +8,52 @@ using Flextensions;
 
 namespace DefendTheBase
 {
-    //public static class EnemyPosListener
-    //{
-    //    List<Vector2> EnemyPositions;
+    public static class EnemyListener
+    {
+       public static List<Enemy> EnemyList; // allows access of enemies variable pretty much anywhere
 
-    //    public void EnemyPosListener()
-    //    {
-    //        EnemyPositions = new List<Vector2>();
-    //    }
+       public static void InitiliseListener()
+       {
+           EnemyList = new List<Enemy>();
+       }
 
-    //    //dont give this random vectors. things will go wrong
-    //    public void AddEnemy(ref Vector2 EnemyPosition) 
-    //    {
-    //        EnemyPositions.Add(EnemyPosition);
-    //    }
-    
-    
-    //}
+       //dont give this random vectors. things will go wrong
+        public static void AddEnemy(Enemy Enemy) 
+        {
+            EnemyList.Add(Enemy);
+        }
 
-    class Enemy : ai
+        static public void RemoveEnemy(string EnemyID)
+        {
+            int index = EnemyList.FindIndex(item => string.Compare(item.EnemyID, EnemyID, 0) == 0);
+
+            if (index >= 0)
+                EnemyList.RemoveAt(index);
+        }
+    }
+
+    public class Enemy : ai
     {
         //insert stats: hp, speed, dmg etc.
+
+        internal string EnemyID;
 
         Texture2D sprite;
 
         protected float hitPoints;
         protected float speed;
 
-
         public Coordinates enemyPos;
         public Vector2 enemyVect, ScreenPos, Direction;
 
         public bool pathFound = false;
 
-        public Enemy() : base(new Coordinates(0,0))
+        public Enemy(string enemyID) : base(new Coordinates(0,0))
         {
             enemyVect = ScreenPos = new Vector2(0, 0);
             enemyPos = new Coordinates(0, 0);
             sprite = Art.EnemyTex;
+            EnemyID = enemyID;
 
         }
 
@@ -79,10 +87,11 @@ namespace DefendTheBase
             ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE), (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE));
             Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (aiPos.x * GameRoot.SQUARESIZE + 0.1f), (int)GameRoot.grid.gridBorder.Y + (aiPos.y * GameRoot.SQUARESIZE));
             Direction = NextScreenPos - ScreenPos;
+
+            EnemyListener.RemoveEnemy(EnemyID);
+            EnemyListener.AddEnemy(this);
             
         }
-
-        
     }
 
 
@@ -93,8 +102,8 @@ namespace DefendTheBase
         private float m_BottomRotation = 0f;
         private float m_TopRotation = 0f;
 
-        public TankEnemy()
-            : base()
+        public TankEnemy(string enemyID)
+            : base(enemyID)
         {
             hitPoints = m_hp;
             speed = m_speed;

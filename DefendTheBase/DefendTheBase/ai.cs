@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DefendTheBase
 {
-    class ai
+    public class ai
     {
         public Coordinates aiPos;
 

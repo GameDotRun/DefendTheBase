@@ -109,7 +109,8 @@ namespace DefendTheBase
         {
             // Reset Variables, or Set if first run.
             UiButtonMessenger.InitiliseListenerList();
-            tanks = new TankEnemy();
+            EnemyListener.InitiliseListener();
+            tanks = new TankEnemy("enemyTest");
             grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, DEFAULYDIST);
             gameScreenUi = new UiGameScreen(GraphicsDevice);
         }
