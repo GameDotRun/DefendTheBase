@@ -209,7 +209,7 @@ namespace DefendTheBase
                 }
             }
 
-            if (hitPoints == 0)
+            if (hitPoints <= 0)
             {
                 LevelWaves.WaveEnemiesUsed++;
                 IsDestroyed = true;

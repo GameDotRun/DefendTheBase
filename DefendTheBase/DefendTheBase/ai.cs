@@ -36,19 +36,19 @@ namespace DefendTheBase
         {
             if ((aiPos.x == (int)enemyVect.X && aiPos.y == (int)enemyVect.Y) || (aiPos.y == (int)enemyVect.Y + 1 && aiPos.x == (int)enemyVect.X))
             {
-                if (aiPos.x + 1 < width)
+                if (aiPos.x + 1 < width) // check array wont go out of bounds 
                 {
-                    if (!squares[(int)aiPos.x + 1, (int)aiPos.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    if (!squares[(int)aiPos.x + 1, (int)aiPos.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
                     {
-                        if (squares[(int)aiPos.x + 1, (int)aiPos.y].sqrCoord.counter < tempInt)
+                        if (squares[(int)aiPos.x + 1, (int)aiPos.y].sqrCoord.counter < tempInt) // check the square distance from endpoint is less than the current pos. 
                         {
-                            tempInt = squares[(int)aiPos.x + 1, (int)aiPos.y].sqrCoord.counter;
-                            tempCoord = new Coordinates((int)aiPos.x + 1, (int)aiPos.y, tempInt);
+                            tempInt = squares[(int)aiPos.x + 1, (int)aiPos.y].sqrCoord.counter; // set the tempint to new distance value
+                            tempCoord = new Coordinates((int)aiPos.x + 1, (int)aiPos.y, tempInt); // set temp coord to the aipos + direction.
                         }
                     }
                 }
 
-                if (aiPos.x - 1 >= 0)
+                if (aiPos.x - 1 >= 0) // check array wont go out of bounds 
                 {
                     if (!squares[(int)aiPos.x - 1, (int)aiPos.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                     {
@@ -61,7 +61,7 @@ namespace DefendTheBase
                     }
                 }
 
-                if (aiPos.y + 1 < height)
+                if (aiPos.y + 1 < height) // check array wont go out of bounds 
                 {
                     if (!squares[(int)aiPos.x, (int)aiPos.y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                     {
@@ -73,7 +73,7 @@ namespace DefendTheBase
                     }
                 }
 
-                if (aiPos.y - 1 >= 0)
+                if (aiPos.y - 1 >= 0) // check array wont go out of bounds 
                 {
                     if (!squares[(int)aiPos.x, (int)aiPos.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                     {
@@ -87,7 +87,7 @@ namespace DefendTheBase
 
 
 
-                aiPos = new Coordinates(tempCoord.x, tempCoord.y);
+                aiPos = new Coordinates(tempCoord.x, tempCoord.y); // set ai coord to the new location found
             }
 
             // Somewhere in these ifs is the key to diag movement or wall nope-ing...
