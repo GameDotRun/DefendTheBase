@@ -25,14 +25,14 @@ namespace DefendTheBase
         public Type TypeofTower;
         public List<Projectile> TowerProjectiles;
         public Vector2 Position;
-        public float Rotation, FireRate;
+        public float Rotation;
         public bool IsActive = true;
         bool rotClock = true;
-        public int Level, Range, Health, Damage;
+        public int Level, FireRate, Range, Health, Damage;
 
         private float  shootTimer;
 
-        public Tower(Type type, Vector2 position, int level = 1, int range = 400, int health = 100, int damage = 10, int fireRate = 1)
+        public Tower(Type type, Vector2 position, int level = 1, int range = 200, int health = 100, int damage = 1, int fireRate = 2)
         {
             TypeofTower = type;
             TowerProjectiles = new List<Projectile>();
@@ -70,7 +70,7 @@ namespace DefendTheBase
                 {
                     case Type.Gun:
                         Sprite = Art.TowerGun[Level - 1];
-                        FireRate -= 0.25f;
+                        Range += 100;
                         break;
                     case Type.Rocket:
                         Sprite = Art.TowerRocket[Level - 1];
@@ -156,7 +156,7 @@ namespace DefendTheBase
                     Rotation = Extensions.ToAngle(targetEnemy.ScreenPos - Position);
                     // Shoot
                     shootTimer += 1 / 60f;
-                    if (shootTimer >= FireRate)
+                    if (shootTimer >= (1f/FireRate))
                     {
                         shootTimer = 0;
                         Shoot(targetEnemy);
