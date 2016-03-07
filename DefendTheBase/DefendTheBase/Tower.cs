@@ -141,8 +141,6 @@ namespace DefendTheBase
                 List<Enemy> enemyList = EnemyListener.EnemyList;
                 Enemy targetEnemy = null;
                 Enemy tempEnemy = null;
-                if (enemyList.Count > 0)
-                    tempEnemy = enemyList[0];
                 float dist = Range;
                 for (int i = 0; i < enemyList.Count; i++)
                 {
@@ -164,10 +162,12 @@ namespace DefendTheBase
                         Shoot(targetEnemy);
                     }
                 }
-
                 // If no enemy, rotate back and forth.
-                if (Rotation > 6.2f || Rotation < 0)
-                    rotClock = !rotClock;
+                if (Rotation < 0)
+                    rotClock = true;
+                if (Rotation > 6.2f)
+                    rotClock = false;
+
                 if (rotClock)
                     Rotation += 0.02f;
                 else
