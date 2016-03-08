@@ -18,8 +18,6 @@ namespace DefendTheBase
         // Game Variables
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public static gamestate GameState;
-        public static BuildStates BuildState;
 
         //Grid Size
         public const int SQUARESIZE = 50;
@@ -37,39 +35,10 @@ namespace DefendTheBase
         public const int UPS = 20; // Updates per second
         public const int FPS = 60; //Frames per second
 
-        //public static Art art;
         public static Grid grid;
         public static Random rnd;
 
-        //Game states
-        public enum gamestate
-        {
-            StartScreen,
-            PlayScreen,
-            EndScreen,
-            Highscore,
-            InfoScreen,
-        }
-
-        // Build States
-        public enum BuildStates
-        {
-            // This decides what a mouse click does.
-            Nothing,
-            Destroy,
-            Upgrade,
-            Trench,
-            Concrete,
-            TowerGun,
-            TowerRocket,
-            TowerSAM,
-            TowerTesla
-        }
-
         Vector2 ScreenSize; // ScreenSize
-        
-
-        Rectangle mouseRect;
 
         //TankEnemy tanks;
         UiGameScreen gameScreenUi;
@@ -138,13 +107,11 @@ namespace DefendTheBase
                 {
                     // Create String from id by removing the "btn". Then Parse String to enum.
                     string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
-                    BuildState = (BuildStates)Enum.Parse(typeof(BuildStates), bStateString);
+                    GameManager.BuildState = (GameManager.BuildStates)Enum.Parse(typeof(GameManager.BuildStates), bStateString);
                 }
             }
 
-            mouseRect = new Rectangle((int)Input.MousePosition.X, (int)Input.MousePosition.Y, 1, 1);
-
-            grid.Update(mouseRect, gameTime);
+            grid.Update(gameTime);
 
             if(grid.gridStatus.HasFlag(Grid.gridFlags.endPoint))
                 LevelWaves.WaveStarted = true;
@@ -186,7 +153,7 @@ namespace DefendTheBase
                 spriteBatch.DrawString(Art.DebugFont,
                     "DEBUG" +
                     "\nFPS: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString("N0") +
-                    "\nBuild: " + BuildState +
+                    "\nBuild: " + GameManager.BuildState +
                     "\nEnemySpawn: " + LevelWaves.EnemySpawnTimer,
                     i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
