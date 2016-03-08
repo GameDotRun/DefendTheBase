@@ -48,7 +48,7 @@ namespace DefendTheBase
 
         }
 
-        public void Update(Rectangle mouseRect, GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             foreach (Squares square in gridSquares)
                 square.Update();
@@ -67,7 +67,7 @@ namespace DefendTheBase
                 for (int y = 0; y < height; y++)
                     for (int x = 0; x < width; x++)
                     {
-                        if (mouseRect.Intersects(gridSquares[x, y].rect) && Input.RMBDown && Input.IsKeyDown(Keys.LeftShift) && !gridStatus.HasFlag(gridFlags.endPoint)) // temporary.
+                        if (Input.MouseRect.Intersects(gridSquares[x, y].rect) && Input.RMBDown && Input.IsKeyDown(Keys.LeftShift) && !gridStatus.HasFlag(gridFlags.endPoint)) // temporary.
                         {
                             gridStatus = gridFlags.endPoint;
                             stopPointCoord = new Coordinates(x, y, 0);

@@ -17,7 +17,7 @@ namespace Flextensions
         private static GamePadState gamepadState, lastGamepadState;
 
         public static Vector2 MousePosition { get { return new Vector2(mouseState.X, mouseState.Y); } }
-
+        public static Rectangle MouseRect { get { return new Rectangle(mouseState.X, mouseState.Y, 1, 1); } }
         /// <summary>
         /// This must be called during Root Game's Update function to work.
         /// </summary>

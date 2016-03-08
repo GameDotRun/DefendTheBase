@@ -72,7 +72,7 @@ namespace DefendTheBase
                 if (this.HasNeighbour(BuildingType.Trench))
                 {
                     // Build Trench
-                    if (Building == BuildingType.None && GameRoot.BuildState == GameRoot.BuildStates.Trench)
+                    if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
                     {
                         ghostImage = Art.getTrenchTex(GameRoot.grid.sqrTexDecider(sqrCoord.x, sqrCoord.y));
                         if (Input.LMBDown)
@@ -83,7 +83,7 @@ namespace DefendTheBase
                         }
                     }
                     // Build Gun Tower
-                    else if (Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerGun)
+                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerGun)
                     {
                         ghostImage = Art.TowerGun[0];
                         if (Input.LMBDown)
@@ -97,7 +97,7 @@ namespace DefendTheBase
                         }
                     }
                     // Build Rocket Tower
-                    else if (Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerRocket)
+                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerRocket)
                     {
                         ghostImage = Art.TowerRocket[0];
                         if (Input.LMBDown)
@@ -111,7 +111,7 @@ namespace DefendTheBase
                         }
                     }
                     // Build SAM Tower
-                    else if (Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerSAM)
+                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerSAM)
                     {
                         ghostImage = Art.TowerSAM[0];
                         if (Input.LMBDown)
@@ -125,7 +125,7 @@ namespace DefendTheBase
                         }
                     }
                     // Build Tesla Tower
-                    else if (Building == BuildingType.Concrete && GameRoot.BuildState == GameRoot.BuildStates.TowerTesla)
+                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerTesla)
                     {
                         ghostImage = Art.TowerTesla[0];
                         if (Input.LMBDown)
@@ -141,7 +141,7 @@ namespace DefendTheBase
 
                 }
                 // Build Concrete
-                if (Building == BuildingType.None && GameRoot.BuildState == GameRoot.BuildStates.Concrete)
+                if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Concrete)
                 {
                     ghostImage = Art.Concrete;
                     if (Input.LMBDown)
@@ -153,14 +153,14 @@ namespace DefendTheBase
                     }
                 }
                 // Upgrade Tower
-                if (Input.WasLMBClicked && Building == BuildingType.Tower && GameRoot.BuildState == GameRoot.BuildStates.Upgrade)
+                if (Input.WasLMBClicked && Building == BuildingType.Tower && GameManager.BuildState == GameManager.BuildStates.Upgrade)
                 {
                     TowerHere.LevelUp();
                     sqrEdited = true;
                 }
 
                 // This will likely be removed, we dont want the player freely destroying shit.
-                else if (Input.WasLMBClicked && GameRoot.BuildState == GameRoot.BuildStates.Destroy)
+                else if (Input.WasLMBClicked && GameManager.BuildState == GameManager.BuildStates.Destroy)
                 {
                     if (Building == BuildingType.Concrete || Building == BuildingType.Trench)
                     {
