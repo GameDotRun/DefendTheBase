@@ -70,7 +70,7 @@ namespace DefendTheBase
                 {
                     case Type.Gun:
                         Sprite = Art.TowerGun[Level - 1];
-                        Range += 100;
+                        Range += 50;
                         break;
                     case Type.Rocket:
                         Sprite = Art.TowerRocket[Level - 1];
