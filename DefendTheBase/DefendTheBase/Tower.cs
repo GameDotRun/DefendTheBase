@@ -25,14 +25,14 @@ namespace DefendTheBase
         public Type TypeofTower;
         public List<Projectile> TowerProjectiles;
         public Vector2 Position;
-        public float Rotation, FireRate;
+        public float Rotation;
         public bool IsActive = true;
         bool rotClock = true;
-        public int Level, Range, Health, Damage;
+        public int Level, FireRate, Range, Health, Damage;
 
         private float  shootTimer;
 
-        public Tower(Type type, Vector2 position, int level = 1, int range = 400, int health = 100, int damage = 10, int fireRate = 1)
+        public Tower(Type type, Vector2 position, int level = 1, int range = 200, int health = 100, int damage = 1, int fireRate = 2)
         {
             TypeofTower = type;
             TowerProjectiles = new List<Projectile>();
@@ -70,7 +70,7 @@ namespace DefendTheBase
                 {
                     case Type.Gun:
                         Sprite = Art.TowerGun[Level - 1];
-                        FireRate -= 0.25f;
+                        Range += 100;
                         break;
                     case Type.Rocket:
                         Sprite = Art.TowerRocket[Level - 1];
@@ -141,8 +141,6 @@ namespace DefendTheBase
                 List<Enemy> enemyList = EnemyListener.EnemyList;
                 Enemy targetEnemy = null;
                 Enemy tempEnemy = null;
-                if (enemyList.Count > 0)
-                    tempEnemy = enemyList[0];
                 float dist = Range;
                 for (int i = 0; i < enemyList.Count; i++)
                 {
@@ -158,16 +156,18 @@ namespace DefendTheBase
                     Rotation = Extensions.ToAngle(targetEnemy.ScreenPos - Position);
                     // Shoot
                     shootTimer += 1 / 60f;
-                    if (shootTimer >= FireRate)
+                    if (shootTimer >= (1f/FireRate))
                     {
                         shootTimer = 0;
                         Shoot(targetEnemy);
                     }
                 }
-
                 // If no enemy, rotate back and forth.
-                if (Rotation > 6.2f || Rotation < 0)
-                    rotClock = !rotClock;
+                if (Rotation < 0)
+                    rotClock = true;
+                if (Rotation > 6.2f)
+                    rotClock = false;
+
                 if (rotClock)
                     Rotation += 0.02f;
                 else
