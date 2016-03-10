@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Flextensions;
 
 namespace DefendTheBase
 {
@@ -23,7 +24,7 @@ namespace DefendTheBase
         public float Lifetime, TimeSinceSpawn;      // Used to destroy projectiles after a while.
 
         private int m_damage;
-        private float m_speed;
+        private float m_speed, m_rotation;
         private Texture2D m_sprite;
         private Vector2 m_position, m_velocity, m_center;
 
@@ -48,19 +49,19 @@ namespace DefendTheBase
                     break;
                 case Type.Rocket:
                     TypeofProj = type;
-                    m_sprite = Art.ProjectileGun;
+                    m_sprite = Art.ProjectileRocket;
                     m_center = new Vector2(m_sprite.Width / 2, m_sprite.Height / 2);
                     Radius = m_sprite.Width / 2;
                     break;
                 case Type.SAM:
                     TypeofProj = type;
-                    m_sprite = Art.ProjectileGun;
+                    m_sprite = Art.ProjectileSAM;
                     m_center = new Vector2(m_sprite.Width / 2, m_sprite.Height / 2);
                     Radius = m_sprite.Width / 2;
                     break;
                 case Type.Tesla:
                     TypeofProj = type;
-                    m_sprite = Art.ProjectileGun;
+                    m_sprite = Art.ProjectileTesla;
                     m_center = new Vector2(m_sprite.Width / 2, m_sprite.Height / 2);
                     Radius = m_sprite.Width / 2;
                     break;
@@ -83,11 +84,12 @@ namespace DefendTheBase
             TimeSinceSpawn += 1 / 60f;
             m_position += m_velocity;
             Position = m_position;
+            m_rotation = m_velocity.ToAngle();
         }
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(m_sprite, m_position, null, Color.Black, 0, m_center, 1, SpriteEffects.None, 0f);
+            sb.Draw(m_sprite, m_position, null, Color.White, m_rotation, m_center, 1, SpriteEffects.None, 0f);
         }
     }
 }

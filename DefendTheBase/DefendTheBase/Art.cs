@@ -27,10 +27,16 @@ namespace DefendTheBase
         public static Texture2D TankBottom { get; private set; }
         public static Texture2D TankTop { get; private set; }
 
+        public static Texture2D Projectile { get; private set; }
         public static Texture2D ProjectileGun { get; private set; }
+        public static Texture2D ProjectileRocket { get; private set; }
+        public static Texture2D ProjectileSAM { get; private set; }
+        public static Texture2D ProjectileTesla { get; private set; }
 
         public static Texture2D uiUp { get; private set; }
         public static Texture2D uiSide { get; private set; }
+        public static Texture2D[] ButtonsBase { get; private set; }
+        public static Texture2D[] ButtonsTower { get; private set; }
 
         // Small font used for debug info.
         public static SpriteFont DebugFont { get; private set; }
@@ -68,11 +74,21 @@ namespace DefendTheBase
 
 
             // Projectiles
-            ProjectileGun = content.Load<Texture2D>("Art/Images/Projectiles/Projectile");
+            Projectile = content.Load<Texture2D>("Art/Images/Projectiles/Projectile");
+            ProjectileGun = content.Load<Texture2D>("Art/Images/Projectiles/bullet");
+            ProjectileRocket = content.Load<Texture2D>("Art/Images/Projectiles/missile");
+            ProjectileSAM = content.Load<Texture2D>("Art/Images/Projectiles/sam-missile");
+            ProjectileTesla = content.Load<Texture2D>("Art/Images/Projectiles/tesla-zappy");
 
             // UI
             uiUp = content.Load<Texture2D>("Art/Images/UI/ui-template-topbar");
             uiSide = content.Load<Texture2D>("Art/Images/UI/ui-side");
+            ButtonsBase = new Texture2D[4];
+            for (int i = 0; i < 4; i++)
+                ButtonsBase[i] = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonBase" + i);
+            ButtonsTower = new Texture2D[4];
+            for (int i = 0; i < 4; i++)
+                ButtonsTower[i] = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonTower" + i);
 
             // Fonts
             DebugFont = content.Load<SpriteFont>("Art/Fonts/DebugFont");
