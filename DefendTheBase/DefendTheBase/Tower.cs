@@ -25,14 +25,14 @@ namespace DefendTheBase
         public Type TypeofTower;
         public List<Projectile> TowerProjectiles;
         public Vector2 Position;
-        public float Rotation;
+        public float Rotation, FireRate;
         public bool IsActive = true;
         bool rotClock = true;
-        public int Level, FireRate, Range, Health, Damage;
+        public int Level, Range, Health, Damage;
 
         private float  shootTimer;
 
-        public Tower(Type type, Vector2 position, int level = 1, int range = 200, int health = 100, int damage = 1, int fireRate = 2)
+        public Tower(Type type, Vector2 position, int level = 1, int range = 200, int health = 100, int damage = 1, float fireRate = 2f)
         {
             TypeofTower = type;
             TowerProjectiles = new List<Projectile>();
@@ -51,6 +51,8 @@ namespace DefendTheBase
                     break;
                 case Type.Rocket:
                     Sprite = Art.TowerRocket[level - 1];
+                    Damage = 10;
+                    FireRate = 0.5f;
                     break;
                 case Type.SAM:
                     Sprite = Art.TowerSAM[level - 1];
@@ -74,6 +76,7 @@ namespace DefendTheBase
                         break;
                     case Type.Rocket:
                         Sprite = Art.TowerRocket[Level - 1];
+                        Damage += 5;
                         break;
                     case Type.SAM:
                         Sprite = Art.TowerSAM[Level - 1];
@@ -122,13 +125,13 @@ namespace DefendTheBase
                     }
                     break;
                 case Type.Rocket:
-                    TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position, Rotation.ToVector(), 0f, Damage));
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position, Rotation.ToVector(), 1f, Damage));
                     break;
                 case Type.SAM:
-                    TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position, Rotation.ToVector(), 0f, Damage));
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position, Rotation.ToVector(), 1f, Damage));
                     break;
                 case Type.Tesla:
-                    TowerProjectiles.Add(new Projectile(Projectile.Type.Tesla, targetEnemy, Position, Rotation.ToVector(), 0f, Damage));
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Tesla, targetEnemy, Position, Rotation.ToVector(), 1f, Damage));
                     break;
             }
         }
