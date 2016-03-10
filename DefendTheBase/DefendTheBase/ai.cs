@@ -45,6 +45,8 @@ namespace DefendTheBase
                             tempInt = squares[(int)aiPos.x + 1, (int)aiPos.y].sqrCoord.counter; // set the tempint to new distance value
                             tempCoord = new Coordinates((int)aiPos.x + 1, (int)aiPos.y, tempInt); // set temp coord to the aipos + direction.
                         }
+
+
                     }
                 }
 
@@ -53,6 +55,12 @@ namespace DefendTheBase
                     if (!squares[(int)aiPos.x - 1, (int)aiPos.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                     {
                         if (squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter < tempInt)
+                        {
+                            tempInt = squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter;
+                            tempCoord = new Coordinates((int)aiPos.x - 1, (int)aiPos.y, tempInt);
+                        }
+
+                        else if (squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 0)
                         {
                             tempInt = squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter;
                             tempCoord = new Coordinates((int)aiPos.x - 1, (int)aiPos.y, tempInt);
@@ -70,6 +78,12 @@ namespace DefendTheBase
                             tempInt = squares[(int)aiPos.x, (int)aiPos.y + 1].sqrCoord.counter;
                             tempCoord = new Coordinates((int)aiPos.x, (int)aiPos.y + 1, tempInt);
                         }
+
+                        else if (squares[(int)aiPos.x, (int)aiPos.y + 1].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 0)
+                        {
+                            tempInt = squares[(int)aiPos.x, (int)aiPos.y + 1].sqrCoord.counter;
+                            tempCoord = new Coordinates((int)aiPos.x, (int)aiPos.y + 1, tempInt);
+                        }
                     }
                 }
 
@@ -78,6 +92,12 @@ namespace DefendTheBase
                     if (!squares[(int)aiPos.x, (int)aiPos.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                     {
                         if (squares[(int)aiPos.x, (int)aiPos.y - 1].sqrCoord.counter < tempInt)
+                        {
+                            tempInt = squares[(int)aiPos.x, (int)aiPos.y - 1].sqrCoord.counter;
+                            tempCoord = new Coordinates((int)aiPos.x, (int)aiPos.y - 1, tempInt);
+                        }
+
+                        else if (squares[(int)aiPos.x, (int)aiPos.y - 1].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 0)
                         {
                             tempInt = squares[(int)aiPos.x, (int)aiPos.y - 1].sqrCoord.counter;
                             tempCoord = new Coordinates((int)aiPos.x, (int)aiPos.y - 1, tempInt);
