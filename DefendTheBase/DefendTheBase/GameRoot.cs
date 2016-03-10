@@ -24,7 +24,9 @@ namespace DefendTheBase
         public const int HEIGHT = 15;
         public const int WIDTH = 20;
 
+       
         public const int DEFAULYDIST = 2000; //temp default counter for pathfinding
+        public static Coordinates STARTPOINT = new Coordinates(0,0);
 
         //ui Borders
         public const int BORDERTOP = 60;

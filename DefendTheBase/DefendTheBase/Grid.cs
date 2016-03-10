@@ -25,7 +25,15 @@ namespace DefendTheBase
         public Coordinates stopPointCoord;
         public Vector2 gridBorder;
 
+        List<Coordinates> coords;
+        List<Coordinates> tempCoords;
+        Coordinates currentElement;
+
         int height, width;
+        int count = 0;
+        bool done = false;
+        bool loopStop = true;
+        public bool pathFound = false;
 
         public Grid(int SquareSize, int Height, int Width, int defDist)
         {
@@ -44,8 +52,10 @@ namespace DefendTheBase
 
             updateTimer = TimeSpan.Zero;
 
-            GenerateNewMap();
+            coords = new List<Coordinates>();
+            tempCoords = new List<Coordinates>();
 
+            GenerateNewMap();
         }
 
         public void Update(GameTime gameTime)
@@ -73,6 +83,7 @@ namespace DefendTheBase
                             stopPointCoord = new Coordinates(x, y, 0);
                             gridSquares[x, y].typeOfSquare |= Squares.SqrFlags.StopPoint;
                             gridSquares[x, y].Building = Squares.BuildingType.Base;
+                            pathFound = FindPath();
 
                         }
                     }
@@ -84,6 +95,101 @@ namespace DefendTheBase
                             sqrTexDecider(x, y);
                     }
 
+            }
+        }
+
+        public bool FindPath()
+        {
+            if (!done)
+            {
+                coords.Add(stopPointCoord);
+                currentElement = coords[count];
+                done = true;
+            }
+
+            while (loopStop)
+            {
+                //Check right square
+                if (currentElement.x + 1 < width)
+                    if (!gridSquares[currentElement.x + 1, currentElement.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                        tempCoords.Add(new Coordinates(currentElement.x + 1, currentElement.y, currentElement.counter + 1));
+
+                //check left square
+                if (currentElement.x - 1 >= 0)
+                    if (!gridSquares[currentElement.x - 1, currentElement.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                        tempCoords.Add(new Coordinates(currentElement.x - 1, currentElement.y, currentElement.counter + 1));
+
+                //check lower square
+                if (currentElement.y + 1 < height)
+                    if (!gridSquares[currentElement.x, currentElement.y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                        tempCoords.Add(new Coordinates(currentElement.x, currentElement.y + 1, currentElement.counter + 1));
+
+                //check upper square
+                if (currentElement.y - 1 >= 0)
+                    if (!gridSquares[currentElement.x, currentElement.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                        tempCoords.Add(new Coordinates(currentElement.x, currentElement.y - 1, currentElement.counter + 1));
+
+                duplicateCheck();
+
+                squaresCounter(currentElement.counter + 1);
+
+                for (int i = 0; i < tempCoords.Count; i++)
+                    if (GameRoot.STARTPOINT.x == tempCoords[i].x && GameRoot.STARTPOINT.y == tempCoords[i].y)
+                    {
+                        gridSquares[(int)stopPointCoord.x, (int)stopPointCoord.y].sqrCoord.counter = 0;
+                        return true;
+                    }
+
+                for (int i = 0; i < tempCoords.Count; i++)
+                    coords.Add(tempCoords[i]);
+
+                count++;
+
+                currentElement = coords[count];
+
+                tempCoords.Clear();
+            }
+            return false;
+
+        }
+
+        void duplicateCheck()
+        {
+            for (int i = 0; i < tempCoords.Count; i++)
+                for (int v = 0; v < coords.Count; v++)
+                {
+                    if (tempCoords[i].x == coords[v].x && tempCoords[i].y == coords[v].y)
+                    {
+                        tempCoords.RemoveAt(i);
+
+                        i = 0;
+
+                        if (tempCoords.Count == 0)
+                            break;
+
+                    }
+                }
+
+            for (int i = 0; i < tempCoords.Count; i++)
+                for (int v = 0; v < coords.Count; v++)
+                {
+                    if (gridSquares[tempCoords[i].x, tempCoords[i].y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    {
+                        tempCoords.RemoveAt(i);
+
+                        break;
+                    }
+                }
+
+
+        }
+
+        void squaresCounter(int counter)
+        {
+            for (int v = 0; v < tempCoords.Count; v++)
+            {
+                if (gridSquares[tempCoords[v].x, tempCoords[v].y].sqrCoord.counter == 0 || gridSquares[tempCoords[v].x, tempCoords[v].y].sqrCoord.counter == GameRoot.DEFAULYDIST)
+                    gridSquares[tempCoords[v].x, tempCoords[v].y].sqrCoord.counter = counter;
             }
         }
 
