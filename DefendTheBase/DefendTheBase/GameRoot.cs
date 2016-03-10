@@ -24,7 +24,9 @@ namespace DefendTheBase
         public const int HEIGHT = 15;
         public const int WIDTH = 20;
 
+       
         public const int DEFAULYDIST = 2000; //temp default counter for pathfinding
+        public static Coordinates STARTPOINT = new Coordinates(0,0);
 
         //ui Borders
         public const int BORDERTOP = 60;
@@ -122,7 +124,8 @@ namespace DefendTheBase
                 {
                     if ((Input.LMBDown || Input.RMBDown) && grid.gridSquares[x, y].getSquareEdited)
                     {
-                        //tanks.pathFound = false;
+                        if (grid.pathFound == true)
+                            grid.FindPathReset();
                     }
                 }
             // Wipe grid when BackSpace is pressed. REMOVE LATER

@@ -182,13 +182,7 @@ namespace DefendTheBase
 
         public void Update(Grid.gridFlags endPoint)
         {
-            if (!pathFound && endPoint.HasFlag(Grid.gridFlags.endPoint))
-            {
-                FindPathReset();
-                pathFound = FindPath(GameRoot.grid.stopPointCoord, GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH);
-            }
-
-            if (pathFound)
+            if (GameRoot.grid.pathFound)
             {
                PathMove(GameRoot.grid.stopPointCoord, GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, speed);
                enemyPos = aiPos;
