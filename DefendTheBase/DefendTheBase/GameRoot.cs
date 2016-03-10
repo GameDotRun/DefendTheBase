@@ -105,7 +105,7 @@ namespace DefendTheBase
             {
                 if (UiButtonMessenger.ButtonPressedId.Contains("btn0"))
                 {
-                    // Create String from id by removing the "btn". Then Parse String to enum.
+                    // Create String from id by removing the "btn0". Then Parse String to enum.
                     string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
                     GameManager.BuildState = (GameManager.BuildStates)Enum.Parse(typeof(GameManager.BuildStates), bStateString);
                 }
