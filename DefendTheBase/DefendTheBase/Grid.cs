@@ -153,6 +153,22 @@ namespace DefendTheBase
 
         }
 
+        public void FindPathReset()
+        {
+            count = 0;
+            coords.Clear();
+            tempCoords.Clear();
+            done = false;
+
+            for (int y = 0; y < GameRoot.HEIGHT; y++)
+                for (int x = 0; x < GameRoot.WIDTH; x++)
+                {
+                    GameRoot.grid.gridSquares[x, y].sqrCoord.counter = GameRoot.DEFAULYDIST;
+                }
+
+            FindPath();
+        }
+
         void duplicateCheck()
         {
             for (int i = 0; i < tempCoords.Count; i++)

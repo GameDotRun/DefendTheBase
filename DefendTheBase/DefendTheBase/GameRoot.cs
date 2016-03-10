@@ -124,7 +124,8 @@ namespace DefendTheBase
                 {
                     if ((Input.LMBDown || Input.RMBDown) && grid.gridSquares[x, y].getSquareEdited)
                     {
-                        //tanks.pathFound = false;
+                        if (grid.pathFound == true)
+                            grid.FindPathReset();
                     }
                 }
             // Wipe grid when BackSpace is pressed. REMOVE LATER
