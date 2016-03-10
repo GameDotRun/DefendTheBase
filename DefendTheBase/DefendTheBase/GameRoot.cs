@@ -85,6 +85,7 @@ namespace DefendTheBase
             //tanks = new TankEnemy("enemyTest");
             grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, DEFAULYDIST);
             gameScreenUi = new UiGameScreen(GraphicsDevice);
+            GameManager.ResetValues();
         }
 
         // Update

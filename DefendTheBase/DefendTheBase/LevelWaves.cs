@@ -49,6 +49,7 @@ namespace DefendTheBase
             WavePower++;
             WaveEnemyAmount = (WaveNumber * 75) + (int)(WavePower * 0.5f);
             WaveSpawnInterval = (WaveEnemyAmount / WaveNumber) * 10f;
+            GameManager.ModifyManpower(50);
            
         }
     }

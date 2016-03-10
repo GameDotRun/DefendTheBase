@@ -19,6 +19,7 @@ namespace DefendTheBase
 
         //Group Elements up with Lists, allows the ui controller to manipulate them
         public List<UiTextString> waveStats;
+        public List<UiTextString> currencyStats;
 
         public List<UiButton> unitBuild;
         public List<UiButton> baseBuild;
@@ -28,12 +29,15 @@ namespace DefendTheBase
         {
             tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Color.Aquamarine, new Vector2(83, 20));
             waveStats = new List<UiTextString>();
+            currencyStats = new List<UiTextString>();
+            
             unitBuild = new List<UiButton>();
             baseBuild = new List<UiButton>();
             miscBuild = new List<UiButton>();
 
             //add grouped elements to uicontrollers
             Add(ref waveStats);
+            Add(ref currencyStats);
             Add(ref tabs);
             Add(ref unitBuild);
             Add(ref baseBuild);
@@ -49,6 +53,9 @@ namespace DefendTheBase
 
             waveStats[0].StringText = "Wave: " + LevelWaves.WaveNumber;
             waveStats[1].StringText = "Enemies: " + LevelWaves.WaveEnemiesUsed + "/" + LevelWaves.WaveEnemyAmount;
+
+            currencyStats[0].StringText = "Manpower: " + GameManager.Manpower;
+            currencyStats[1].StringText = "Resources: " + GameManager.Resources;
         }
 
 
@@ -58,12 +65,17 @@ namespace DefendTheBase
 
             foreach (UiTextString text in waveStats)
                 text.DrawString(sb);
+            foreach (UiTextString text in currencyStats)
+                text.DrawString(sb);
         }
 
         public void CreateButtons(GraphicsDevice graphicsDevice)
         {
             waveStats.Add(new UiTextString(Art.DebugFont, "Wave: " + LevelWaves.WaveNumber, new Vector2(100, 0), Color.Black));
             waveStats.Add(new UiTextString(Art.DebugFont, "Enemies: " + LevelWaves.WaveEnemiesUsed + "/" + LevelWaves.WaveEnemyAmount, new Vector2(200, 0), Color.Black));
+
+            currencyStats.Add(new UiTextString(Art.DebugFont, "Manpower: " + GameManager.Manpower, new Vector2(300, 0), Color.Black));
+            currencyStats.Add(new UiTextString(Art.DebugFont, "Resources: " + GameManager.Resources, new Vector2(300, 20), Color.Black));
 
             //its of UTMOST IMPORTANCE that each button has a unique id
 

@@ -72,7 +72,7 @@ namespace DefendTheBase
                 if (this.HasNeighbour(BuildingType.Trench))
                 {
                     // Build Trench
-                    if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
+                    if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench && GameManager.Manpower >= 0.2f)
                     {
                         ghostImage = Art.getTrenchTex(GameRoot.grid.sqrTexDecider(sqrCoord.x, sqrCoord.y));
                         if (Input.LMBDown)
@@ -80,10 +80,12 @@ namespace DefendTheBase
                             typeOfSquare |= Squares.SqrFlags.Wall;
                             Building = BuildingType.Trench;
                             sqrEdited = true;
+                            GameManager.ModifyResources(15);
+                            GameManager.ModifyManpower(-0.2f);
                         }
                     }
                     // Build Gun Tower
-                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerGun)
+                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerGun && GameManager.Manpower > 2 && GameManager.Resources > 100)
                     {
                         ghostImage = Art.TowerGun[0];
                         if (Input.LMBDown)
@@ -94,10 +96,12 @@ namespace DefendTheBase
                             Building = BuildingType.Tower;
                             TowerHere = new Tower(Tower.Type.Gun, PixelScreenPos);
                             sqrEdited = true;
+                            GameManager.ModifyManpower(-2f);
+                            GameManager.ModifyResources(-100);
                         }
                     }
                     // Build Rocket Tower
-                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerRocket)
+                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerRocket && GameManager.Manpower > 4 && GameManager.Resources > 300)
                     {
                         ghostImage = Art.TowerRocket[0];
                         if (Input.LMBDown)
@@ -108,10 +112,12 @@ namespace DefendTheBase
                             Building = BuildingType.Tower;
                             TowerHere = new Tower(Tower.Type.Rocket, PixelScreenPos);
                             sqrEdited = true;
+                            GameManager.ModifyManpower(-4f);
+                            GameManager.ModifyResources(-300);
                         }
                     }
                     // Build SAM Tower
-                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerSAM)
+                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerSAM && GameManager.Manpower > 3 && GameManager.Resources > 400)
                     {
                         ghostImage = Art.TowerSAM[0];
                         if (Input.LMBDown)
@@ -122,10 +128,12 @@ namespace DefendTheBase
                             Building = BuildingType.Tower;
                             TowerHere = new Tower(Tower.Type.SAM, PixelScreenPos);
                             sqrEdited = true;
+                            GameManager.ModifyManpower(-3f);
+                            GameManager.ModifyResources(-400);
                         }
                     }
                     // Build Tesla Tower
-                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerTesla)
+                    else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerTesla && GameManager.Manpower > 3 && GameManager.Resources > 500)
                     {
                         ghostImage = Art.TowerTesla[0];
                         if (Input.LMBDown)
@@ -136,12 +144,14 @@ namespace DefendTheBase
                             Building = BuildingType.Tower;
                             TowerHere = new Tower(Tower.Type.Tesla, PixelScreenPos);
                             sqrEdited = true;
+                            GameManager.ModifyManpower(-3f);
+                            GameManager.ModifyResources(-500);
                         }
                     }
 
                 }
                 // Build Concrete
-                if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Concrete)
+                if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Concrete && GameManager.Resources >= 10 && GameManager.Manpower >= 0.5f)
                 {
                     ghostImage = Art.Concrete;
                     if (Input.LMBDown)
@@ -150,33 +160,86 @@ namespace DefendTheBase
                         typeOfSquare = SqrFlags.Concrete;
                         Building = BuildingType.Concrete;
                         sqrEdited = true;
+                        GameManager.ModifyManpower(-0.5f);
+                        GameManager.ModifyResources(-10);
                     }
                 }
                 // Upgrade Tower
                 if (Input.WasLMBClicked && Building == BuildingType.Tower && GameManager.BuildState == GameManager.BuildStates.Upgrade)
                 {
-                    TowerHere.LevelUp();
+                    if (TowerHere.TypeofTower == Tower.Type.Gun && GameManager.Manpower >= 1f && GameManager.Resources >= 100)
+                    {
+                        TowerHere.LevelUp();
+                        GameManager.ModifyManpower(-1f);
+                        GameManager.ModifyResources(-100);
+                    }
+                    if (TowerHere.TypeofTower == Tower.Type.Rocket && GameManager.Manpower >= 2f && GameManager.Resources >= 200)
+                    {
+                        TowerHere.LevelUp();
+                        GameManager.ModifyManpower(-2f);
+                        GameManager.ModifyResources(-200);
+                    }
+                    if (TowerHere.TypeofTower == Tower.Type.SAM && GameManager.Manpower >= 2f && GameManager.Resources >= 400)
+                    {
+                        TowerHere.LevelUp();
+                        GameManager.ModifyManpower(-2f);
+                        GameManager.ModifyResources(-400);
+                    }
+                    if (TowerHere.TypeofTower == Tower.Type.Tesla && GameManager.Manpower >= 1f && GameManager.Resources >= 200)
+                    {
+                        TowerHere.LevelUp();
+                        GameManager.ModifyManpower(-1f);
+                        GameManager.ModifyResources(-200);
+                    }
                     sqrEdited = true;
                 }
 
                 // This will likely be removed, we dont want the player freely destroying shit.
                 else if (Input.WasLMBClicked && GameManager.BuildState == GameManager.BuildStates.Destroy)
                 {
-                    if (Building == BuildingType.Concrete || Building == BuildingType.Trench)
+                    if (Building == BuildingType.Concrete && GameManager.Manpower > 1)
                     {
                         typeOfSquare = Squares.SqrFlags.Unoccupied;
                         Building = BuildingType.None;
-                        sqrEdited = true;
+                        GameManager.ModifyManpower(-1f);
+                        GameManager.ModifyResources(5);
+                    }
+                    if (Building == BuildingType.Trench && GameManager.Manpower > 1 && GameManager.Resources > 10)
+                    {
+                        typeOfSquare = Squares.SqrFlags.Unoccupied;
+                        Building = BuildingType.None;
+                        GameManager.ModifyManpower(-1f);
+                        GameManager.ModifyResources(-10);
                     }
 
-                    else if (Building == BuildingType.Tower)
+                    else if (Building == BuildingType.Tower && GameManager.Manpower > 1)
                     {
+                        if (TowerHere.TypeofTower == Tower.Type.Gun)
+                        {
+                            GameManager.ModifyManpower(-1f);
+                            GameManager.ModifyResources(50);
+                        }
+                        if (TowerHere.TypeofTower == Tower.Type.Rocket)
+                        {
+                            GameManager.ModifyManpower(-1f);
+                            GameManager.ModifyResources(150);
+                        }
+                        if (TowerHere.TypeofTower == Tower.Type.SAM)
+                        {
+                            GameManager.ModifyManpower(-1f);
+                            GameManager.ModifyResources(200);
+                        }
+                        if (TowerHere.TypeofTower == Tower.Type.Tesla)
+                        {
+                            GameManager.ModifyManpower(-1f);
+                            GameManager.ModifyResources(250);
+                        }
                         typeOfSquare = Squares.SqrFlags.Occupied;
                         typeOfSquare = Squares.SqrFlags.Concrete;
                         Building = BuildingType.Concrete;
                         TowerHere = null;
-                        sqrEdited = true;
                     }
+                    sqrEdited = true;
                 }
 
                 highlight = 0.5f;
