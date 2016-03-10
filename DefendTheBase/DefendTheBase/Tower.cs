@@ -166,6 +166,7 @@ namespace DefendTheBase
         {
             if (IsActive)
             {
+                shootTimer += 1 / 60f;
                 // Find closest enemy, rotate and shoot.
                 List<Enemy> enemyList = EnemyListener.EnemyList;
                 Enemy targetEnemy = null;
@@ -184,7 +185,6 @@ namespace DefendTheBase
                 {
                     Rotation = Extensions.ToAngle(targetEnemy.ScreenPos - Position);
                     // Shoot
-                    shootTimer += 1 / 60f;
                     if (shootTimer >= (1f/FireRate))
                     {
                         shootTimer = 0;

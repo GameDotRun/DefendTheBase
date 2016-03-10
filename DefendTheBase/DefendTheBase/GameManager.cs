@@ -8,7 +8,7 @@ namespace DefendTheBase
     public class GameManager
     {
         private const float DEFAULT_MANPOWER = 100f;
-        private const int DEFAULT_RESOURCES = 2000;
+        private const int DEFAULT_RESOURCES = 2500;
 
         public enum GameStates
         {
