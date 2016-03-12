@@ -127,6 +127,7 @@ namespace DefendTheBase
                     {
                         if (grid.pathFound == true)
                         {
+                            EnemyManager.ResetEnemyAI();
                             grid.pathFound = false;
                             grid.pathFound = GridManager.GridPaths(grid.gridSquares);
                         }

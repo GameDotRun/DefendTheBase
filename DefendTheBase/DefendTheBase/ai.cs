@@ -14,7 +14,9 @@ namespace DefendTheBase
         List<Coordinates> tempCoords;
         Coordinates tempCoord;
 
-        int tempInt, defDist;
+        internal int tempInt;
+
+        int defDist;
 
         public ai(Coordinates aiStart)
         {
@@ -40,8 +42,6 @@ namespace DefendTheBase
                             tempInt = squares[(int)aiPos.x + 1, (int)aiPos.y].sqrCoord.counter; // set the tempint to new distance value
                             tempCoord = new Coordinates((int)aiPos.x + 1, (int)aiPos.y, tempInt); // set temp coord to the aipos + direction.
                         }
-
-
                     }
                 }
 
@@ -55,7 +55,7 @@ namespace DefendTheBase
                             tempCoord = new Coordinates((int)aiPos.x - 1, (int)aiPos.y, tempInt);
                         }
 
-                        else if (squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 0)
+                        else if (squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 0) // random choice between two paths of same length
                         {
                             tempInt = squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter;
                             tempCoord = new Coordinates((int)aiPos.x - 1, (int)aiPos.y, tempInt);

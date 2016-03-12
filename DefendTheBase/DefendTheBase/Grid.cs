@@ -161,8 +161,6 @@ namespace DefendTheBase
             }
         }
 
-
-
     }
 
     public class Grid
