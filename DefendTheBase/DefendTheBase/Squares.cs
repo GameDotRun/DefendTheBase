@@ -71,7 +71,7 @@ namespace DefendTheBase
             {
                 if (this.HasNeighbour(BuildingType.Trench))
                 {
-                        // Build Trench
+                        // Build Trenchh
                         if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
                         {
 
