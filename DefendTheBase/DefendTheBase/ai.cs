@@ -14,7 +14,9 @@ namespace DefendTheBase
         List<Coordinates> tempCoords;
         Coordinates tempCoord;
 
-        int tempInt, defDist;
+        internal int tempInt;
+
+        int defDist;
 
         public ai(Coordinates aiStart)
         {
@@ -27,7 +29,7 @@ namespace DefendTheBase
             tempCoords = new List<Coordinates>();
         }
 
-        public void PathMove(Coordinates endPoint, Squares[,] squares, int height, int width, ref Vector2 enemyVect, float speed)
+        public void PathMove(Squares[,] squares, int height, int width, ref Vector2 enemyVect, float speed)
         {
             if ((aiPos.x == (int)enemyVect.X && aiPos.y == (int)enemyVect.Y) || (aiPos.y == (int)enemyVect.Y + 1 && aiPos.x == (int)enemyVect.X))
             {
@@ -40,8 +42,6 @@ namespace DefendTheBase
                             tempInt = squares[(int)aiPos.x + 1, (int)aiPos.y].sqrCoord.counter; // set the tempint to new distance value
                             tempCoord = new Coordinates((int)aiPos.x + 1, (int)aiPos.y, tempInt); // set temp coord to the aipos + direction.
                         }
-
-
                     }
                 }
 
@@ -55,7 +55,7 @@ namespace DefendTheBase
                             tempCoord = new Coordinates((int)aiPos.x - 1, (int)aiPos.y, tempInt);
                         }
 
-                        else if (squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 0)
+                        else if (squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 0) // random choice between two paths of same length
                         {
                             tempInt = squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter;
                             tempCoord = new Coordinates((int)aiPos.x - 1, (int)aiPos.y, tempInt);
@@ -138,21 +138,5 @@ namespace DefendTheBase
             tempInt = defDist;
             tempCoord = new Coordinates(0, 0, defDist);
         }
-
-        /*public void FindPathReset()
-        {
-            count = 0;
-            coords.Clear();
-            tempCoords.Clear();
-            done = false;
-
-            for (int y = 0; y < GameRoot.HEIGHT; y++)
-                for (int x = 0; x < GameRoot.WIDTH; x++)
-                {
-                    GameRoot.grid.gridSquares[x, y].sqrCoord.counter = defDist;
-                }
-
-            PathMoveReset();
-        }*/
     }
 }

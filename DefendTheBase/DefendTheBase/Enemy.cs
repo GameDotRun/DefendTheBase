@@ -118,6 +118,18 @@ namespace DefendTheBase
             }
         }
 
+        public static void ResetEnemyAI()
+        {
+            foreach (TankEnemy Tank in TankEnemies)
+            {
+                Tank.aiPos.x = (int)Tank.enemyVect.X;
+                Tank.aiPos.y = (int)Tank.enemyVect.Y;
+                Tank.aiPos.counter = GameRoot.DEFAULYDIST;
+                Tank.tempInt = GameRoot.DEFAULYDIST;
+            }
+        
+        }
+
         /// <summary>
         /// creates a unique ID for the enemy, if the random ID is not unique it will retry. Chances of this happening more than once are 1/1,000,000
         /// </summary>
@@ -149,11 +161,7 @@ namespace DefendTheBase
 
             return ID;
         }
-
-
-
     }
-
 
     public class Enemy : ai
     {
@@ -177,20 +185,19 @@ namespace DefendTheBase
             enemyPos = new Coordinates(0, 0);
             sprite = Art.EnemyTex;
             EnemyID = enemyID;
-
         }
 
         public void Update(Grid.gridFlags endPoint)
         {
-            if (GameRoot.grid.pathFound)
+            if (GameRoot.grid.pathFound) // this needs some form of trigger 
             {
-               PathMove(GameRoot.grid.stopPointCoord, GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, speed);
-               enemyPos = aiPos;
+                PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, speed);
+                enemyPos = aiPos;
             }
 
-            if (GameRoot.grid.stopPointCoord != null)
+            if (GameRoot.ENDPOINT != null)
             {
-                if (enemyVect.X == GameRoot.grid.stopPointCoord.x && enemyVect.Y == GameRoot.grid.stopPointCoord.y)
+                if (enemyVect.X == GameRoot.ENDPOINT.x && enemyVect.Y == GameRoot.ENDPOINT.y)
                 {
                     LevelWaves.WaveEnemiesUsed++;
                     IsDestroyed = true;
