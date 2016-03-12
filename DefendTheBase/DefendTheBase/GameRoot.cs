@@ -27,6 +27,7 @@ namespace DefendTheBase
        
         public const int DEFAULYDIST = 2000; //temp default counter for pathfinding
         public static Coordinates STARTPOINT = new Coordinates(0,0);
+        public static Coordinates ENDPOINT = new Coordinates(18, 13, 0);
 
         //ui Borders
         public const int BORDERTOP = 60;
@@ -83,7 +84,7 @@ namespace DefendTheBase
             UiButtonMessenger.InitiliseListenerList();
             EnemyListener.InitiliseListener();
             //tanks = new TankEnemy("enemyTest");
-            grid = new Grid(SQUARESIZE, HEIGHT, WIDTH, DEFAULYDIST);
+            grid = new Grid(SQUARESIZE, DEFAULYDIST);
             gameScreenUi = new UiGameScreen(GraphicsDevice);
         }
 
@@ -115,17 +116,20 @@ namespace DefendTheBase
 
             grid.Update(gameTime);
 
-            if(grid.gridStatus.HasFlag(Grid.gridFlags.endPoint))
+            if(grid.gridStatus.HasFlag(Grid.gridFlags.endPoint)) //CREATE A WAVE COUNT DOWN
                 LevelWaves.WaveStarted = true;
 
                 
-            for (int y = 0; y < HEIGHT; y++) //Debug counter Text
+            for (int y = 0; y < HEIGHT; y++) // get if a square has been edited 
                 for (int x = 0; x < WIDTH; x++)
                 {
                     if ((Input.LMBDown || Input.RMBDown) && grid.gridSquares[x, y].getSquareEdited)
                     {
                         if (grid.pathFound == true)
-                            grid.FindPathReset();
+                        {
+                            grid.pathFound = false;
+                            grid.pathFound = GridManager.GridPaths(grid.gridSquares);
+                        }
                     }
                 }
             // Wipe grid when BackSpace is pressed. REMOVE LATER

@@ -27,7 +27,7 @@ namespace DefendTheBase
             tempCoords = new List<Coordinates>();
         }
 
-        public void PathMove(Coordinates endPoint, Squares[,] squares, int height, int width, ref Vector2 enemyVect, float speed)
+        public void PathMove(Squares[,] squares, int height, int width, ref Vector2 enemyVect, float speed)
         {
             if ((aiPos.x == (int)enemyVect.X && aiPos.y == (int)enemyVect.Y) || (aiPos.y == (int)enemyVect.Y + 1 && aiPos.x == (int)enemyVect.X))
             {
@@ -138,21 +138,5 @@ namespace DefendTheBase
             tempInt = defDist;
             tempCoord = new Coordinates(0, 0, defDist);
         }
-
-        /*public void FindPathReset()
-        {
-            count = 0;
-            coords.Clear();
-            tempCoords.Clear();
-            done = false;
-
-            for (int y = 0; y < GameRoot.HEIGHT; y++)
-                for (int x = 0; x < GameRoot.WIDTH; x++)
-                {
-                    GameRoot.grid.gridSquares[x, y].sqrCoord.counter = defDist;
-                }
-
-            PathMoveReset();
-        }*/
     }
 }

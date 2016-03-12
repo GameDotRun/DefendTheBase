@@ -71,17 +71,27 @@ namespace DefendTheBase
             {
                 if (this.HasNeighbour(BuildingType.Trench))
                 {
-                    // Build Trench
-                    if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
-                    {
-                        ghostImage = Art.getTrenchTex(GameRoot.grid.sqrTexDecider(sqrCoord.x, sqrCoord.y));
-                        if (Input.LMBDown)
+                        // Build Trench
+                        if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
                         {
-                            typeOfSquare |= Squares.SqrFlags.Wall;
-                            Building = BuildingType.Trench;
-                            sqrEdited = true;
+
+                            ghostImage = Art.getTrenchTex(GameRoot.grid.sqrTexDecider(sqrCoord.x, sqrCoord.y));
+                            if (Input.LMBDown)
+                            {
+                                if (GridManager.InaccessibleSquareCheck(GameRoot.grid.gridSquares, sqrCoord))
+                                {
+                                    typeOfSquare |= Squares.SqrFlags.Wall;
+                                    Building = BuildingType.Trench;
+                                    sqrEdited = true;
+                                }
+
+                                sqrEdited = true;
+
+                            }
+
+
                         }
-                    }
+                    
                     // Build Gun Tower
                     else if (Building == BuildingType.Concrete && GameManager.BuildState == GameManager.BuildStates.TowerGun)
                     {

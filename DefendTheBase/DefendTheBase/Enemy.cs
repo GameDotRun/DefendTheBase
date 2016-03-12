@@ -154,7 +154,6 @@ namespace DefendTheBase
 
     }
 
-
     public class Enemy : ai
     {
         internal string EnemyID;
@@ -184,13 +183,13 @@ namespace DefendTheBase
         {
             if (GameRoot.grid.pathFound)
             {
-               PathMove(GameRoot.grid.stopPointCoord, GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, speed);
+               PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, speed);
                enemyPos = aiPos;
             }
 
-            if (GameRoot.grid.stopPointCoord != null)
+            if (GameRoot.ENDPOINT != null)
             {
-                if (enemyVect.X == GameRoot.grid.stopPointCoord.x && enemyVect.Y == GameRoot.grid.stopPointCoord.y)
+                if (enemyVect.X == GameRoot.ENDPOINT.x && enemyVect.Y == GameRoot.ENDPOINT.y)
                 {
                     LevelWaves.WaveEnemiesUsed++;
                     IsDestroyed = true;
