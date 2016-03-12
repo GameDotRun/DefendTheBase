@@ -25,14 +25,14 @@ namespace DefendTheBase
         public Type TypeofTower;
         public List<Projectile> TowerProjectiles;
         public Vector2 Position;
-        public float Rotation;
+        public float Rotation, FireRate;
         public bool IsActive = true;
         bool rotClock = true;
-        public int Level, FireRate, Range, Health, Damage;
+        public int Level, Range, Health, Damage;
 
         private float  shootTimer;
 
-        public Tower(Type type, Vector2 position, int level = 1, int range = 200, int health = 100, int damage = 1, int fireRate = 2)
+        public Tower(Type type, Vector2 position, int level = 1, int range = 200, int health = 100, int damage = 1, float fireRate = 2f)
         {
             TypeofTower = type;
             TowerProjectiles = new List<Projectile>();
@@ -51,6 +51,8 @@ namespace DefendTheBase
                     break;
                 case Type.Rocket:
                     Sprite = Art.TowerRocket[level - 1];
+                    Damage = 10;
+                    FireRate = 0.5f;
                     break;
                 case Type.SAM:
                     Sprite = Art.TowerSAM[level - 1];
@@ -74,6 +76,7 @@ namespace DefendTheBase
                         break;
                     case Type.Rocket:
                         Sprite = Art.TowerRocket[Level - 1];
+                        Damage += 5;
                         break;
                     case Type.SAM:
                         Sprite = Art.TowerSAM[Level - 1];
@@ -87,12 +90,13 @@ namespace DefendTheBase
 
         public void Shoot(Enemy targetEnemy)
         {
+            Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, Rotation);
+            Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
             switch (TypeofTower)
             {
                 case Type.Gun:
                     // Quaternion FTW. Used to Transform offset so bullets spawn correctly even as tower rotates.
-                    Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, Rotation);
-                    Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
+                    
                     // Aesthetically pleasing, but fuuuu...
                     if (Level == 1)
                         TowerProjectiles.Add(new Projectile(Projectile.Type.Gun, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
@@ -122,13 +126,38 @@ namespace DefendTheBase
                     }
                     break;
                 case Type.Rocket:
-                    TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position, Rotation.ToVector(), 0f, Damage));
+                    if (Level == 1)
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                    else if (Level == 2)
+                    {
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                        offset = Vector2.Transform(new Vector2(25, 16), aimQuat);
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                    }
+                    else if (Level == 3)
+                    {
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                        offset = Vector2.Transform(new Vector2(25, 16), aimQuat);
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                        offset = Vector2.Transform(new Vector2(25, 0), aimQuat);
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                    }
+                    else
+                    {
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                        offset = Vector2.Transform(new Vector2(25, -8), aimQuat);
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                        offset = Vector2.Transform(new Vector2(25, 8), aimQuat);
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                        offset = Vector2.Transform(new Vector2(25, 16), aimQuat);
+                        TowerProjectiles.Add(new Projectile(Projectile.Type.Rocket, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                    }
                     break;
                 case Type.SAM:
-                    TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position, Rotation.ToVector(), 0f, Damage));
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position, Rotation.ToVector(), 1f, Damage));
                     break;
                 case Type.Tesla:
-                    TowerProjectiles.Add(new Projectile(Projectile.Type.Tesla, targetEnemy, Position, Rotation.ToVector(), 0f, Damage));
+                    TowerProjectiles.Add(new Projectile(Projectile.Type.Tesla, targetEnemy, Position, Rotation.ToVector(), 1f, Damage));
                     break;
             }
         }
@@ -137,6 +166,7 @@ namespace DefendTheBase
         {
             if (IsActive)
             {
+                shootTimer += 1 / 60f;
                 // Find closest enemy, rotate and shoot.
                 List<Enemy> enemyList = EnemyListener.EnemyList;
                 Enemy targetEnemy = null;
@@ -155,7 +185,6 @@ namespace DefendTheBase
                 {
                     Rotation = Extensions.ToAngle(targetEnemy.ScreenPos - Position);
                     // Shoot
-                    shootTimer += 1 / 60f;
                     if (shootTimer >= (1f/FireRate))
                     {
                         shootTimer = 0;

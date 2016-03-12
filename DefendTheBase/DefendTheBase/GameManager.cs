@@ -7,6 +7,9 @@ namespace DefendTheBase
 {
     public class GameManager
     {
+        private const float DEFAULT_MANPOWER = 100f;
+        private const int DEFAULT_RESOURCES = 2500;
+
         public enum GameStates
         {
             StartScreen,
@@ -29,15 +32,28 @@ namespace DefendTheBase
             TowerSAM,
             TowerTesla
         }
+        private static float m_manPower = DEFAULT_MANPOWER;
+        private static int m_resources = DEFAULT_RESOURCES;
 
         public static GameStates GameState;
         public static BuildStates BuildState;
-        public float ManPower;
-        public int Resources;
+        public static float Manpower { get { return m_manPower; } }
+        public static int Resources { get { return m_resources; } }
 
-        public static void Update()
+        public static void ModifyManpower(float value)
         {
+            m_manPower += value;
+        }
 
+        public static void ModifyResources(int value)
+        {
+            m_resources += value;
+        }
+
+        public static void ResetValues()
+        {
+            m_manPower = DEFAULT_MANPOWER;
+            m_resources = DEFAULT_RESOURCES;
         }
     }
 }

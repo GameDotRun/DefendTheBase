@@ -11,11 +11,11 @@ namespace DefendTheBase
         public static TimeSpan EnemySpawnTimer = TimeSpan.Zero;
         public static bool WaveStarted = false;
         public static int WaveNumber = 1;
-        public static int WaveEnemyAmount = 25;
+        public static int WaveEnemyAmount = 10;
         public static int WaveEnemiesUsed = 0;
 
         static int WaveEnemiesSpawned = 0;
-        static float WaveSpawnInterval = (WaveEnemyAmount / WaveNumber) * 10f;
+        static float WaveSpawnInterval = 500f;
         static float WavePower = 2;
 
         public static void Update(GameTime gameTime)
@@ -37,7 +37,7 @@ namespace DefendTheBase
                     EnemySpawnTimer = TimeSpan.Zero;
                 }
 
-                if (WaveEnemiesUsed == WaveEnemyAmount)
+                if (WaveEnemiesUsed >= WaveEnemyAmount)
                     WaveIncrease();
             }
         }
@@ -47,8 +47,14 @@ namespace DefendTheBase
             WaveStarted = false;
             WaveNumber++;
             WavePower++;
-            WaveEnemyAmount = (WaveNumber * 75) + (int)(WavePower * 0.5f);
-            WaveSpawnInterval = (WaveEnemyAmount / WaveNumber) * 10f;
+            //WaveEnemyAmount = (WaveNumber * 75) + (int)(WavePower * 0.5f);
+            //WaveSpawnInterval = (WaveEnemyAmount / WaveNumber) * 10f;
+            WaveEnemiesUsed = 0;
+            WaveEnemiesSpawned = 0;
+            WaveEnemyAmount+=2;
+            if (WaveNumber < 200)
+                WaveSpawnInterval-=2;
+            GameManager.ModifyManpower(25);
            
         }
     }

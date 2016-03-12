@@ -213,6 +213,8 @@ namespace DefendTheBase
             if (hitPoints <= 0)
             {
                 LevelWaves.WaveEnemiesUsed++;
+                // Change this!
+                GameManager.ModifyResources(100);
                 IsDestroyed = true;
             }
 
