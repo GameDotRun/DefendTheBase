@@ -51,7 +51,7 @@ namespace DefendTheBase
 
             // Terrain
             Concrete = content.Load<Texture2D>("Art/Images/Terrain/concrete");
-            GroundTexs = content.Load<Texture2D>("Art/Images/Terrain/Durt");
+            GroundTexs = content.Load<Texture2D>("Art/Images/Terrain/GrassyDirt");
             EnemyTex = content.Load<Texture2D>("Art/Images/Misc/ghostSquare");
 
             // Towers
