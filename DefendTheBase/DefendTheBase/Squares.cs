@@ -212,6 +212,7 @@ namespace DefendTheBase
                             TowerHere.LevelUp();
                             GameManager.ModifyManpower(-1f);
                             GameManager.ModifyResources(-100);
+                            sqrEdited = true;
                         }
                     }
                     else if (TowerHere.Level < 4 && TowerHere.TypeofTower == Tower.Type.Rocket && GameManager.Manpower >= 2f && GameManager.Resources >= 200)
@@ -221,6 +222,7 @@ namespace DefendTheBase
                             TowerHere.LevelUp();
                             GameManager.ModifyManpower(-2f);
                             GameManager.ModifyResources(-200);
+                            sqrEdited = true;
                         }
                     }
                     else if (TowerHere.Level < 4 && TowerHere.TypeofTower == Tower.Type.SAM && GameManager.Manpower >= 2f && GameManager.Resources >= 400)
@@ -230,6 +232,7 @@ namespace DefendTheBase
                             TowerHere.LevelUp();
                             GameManager.ModifyManpower(-2f);
                             GameManager.ModifyResources(-400);
+                            sqrEdited = true;
                         }
                     }
                     else if (TowerHere.Level < 4 && TowerHere.TypeofTower == Tower.Type.Tesla && GameManager.Manpower >= 1f && GameManager.Resources >= 200)
@@ -239,11 +242,12 @@ namespace DefendTheBase
                             TowerHere.LevelUp();
                             GameManager.ModifyManpower(-1f);
                             GameManager.ModifyResources(-200);
+                            sqrEdited = true;
                         }
                     }
                     else
                         ghostCol = Color.Red;
-                    sqrEdited = true;
+                    
                 }
 
                 // This will likely be removed, we dont want the player freely destroying shit.
