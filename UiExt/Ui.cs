@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-
 // Aaron Tighe 2016
 // More designed for in game menus, buttons etc.
 
@@ -69,6 +68,57 @@ namespace RPGEx
         { }
 
 
+    }
+
+    /// <summary>
+    /// Simple timer, could be useful.
+    /// </summary>
+    public class UiTimer
+    {
+        bool active = false;
+        float target;
+        float elasped = 0;
+
+        public UiTimer(float TargetTime)
+        {
+            target = TargetTime;
+            elasped = target;
+        }
+
+        public bool TimeReached()
+        {
+            if (active)
+            {
+                if (elasped <= 0)
+                {
+                    active = false;
+                    elasped = target;
+
+                    return true;
+                }
+
+                else return false;
+            }
+
+            else return true;
+        }
+
+        public void TimerUpdate(GameTime gt)
+        {
+            if(active)
+                elasped -= gt.ElapsedGameTime.Milliseconds;
+        }
+
+        public void ActivateTimer()
+        {
+            active = true;    
+        }
+
+        public bool GetActive
+        {
+            get { return active; }
+        }
+    
     }
 
     /// <summary>

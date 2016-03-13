@@ -48,6 +48,8 @@ namespace DefendTheBase
         Color ghostCol;
         float highlight;
 
+        bool canClick = true;
+
         public Squares(int SquareSize, Vector2 Location, int x, int y, int defDist)
         {
             sqrLoc = Location;
@@ -69,6 +71,9 @@ namespace DefendTheBase
             ghostCol = Color.White;
             sqrEdited = false;
 
+            if (Input.WasLMBClicked)
+                canClick = true;
+
             if (rect.Contains(Input.MousePosition.ToPoint()))
             {
                 if (this.HasNeighbour(BuildingType.Trench))
@@ -77,7 +82,7 @@ namespace DefendTheBase
                     if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
                     {
                         ghostImage = Art.getTrenchTex(GameRoot.grid.sqrTexDecider(sqrCoord.x, sqrCoord.y));
-                        if (Input.LMBDown)
+                        if (Input.LMBDown && canClick)
                         {
                             if (GridManager.InaccessibleSquareCheck(GameRoot.grid.gridSquares, sqrCoord))
                             {
@@ -85,6 +90,9 @@ namespace DefendTheBase
                                 Building = BuildingType.Trench;
                                 sqrEdited = true;
                             }
+
+                            else canClick = false;
+                            
                             sqrEdited = true;
                         }
                     }
@@ -249,6 +257,7 @@ namespace DefendTheBase
                             Building = BuildingType.None;
                             GameManager.ModifyManpower(-1f);
                             GameManager.ModifyResources(5);
+
                         }
                     }
                     else if (Building == BuildingType.Trench && GameManager.Manpower > 1 && GameManager.Resources > 10)
@@ -259,6 +268,7 @@ namespace DefendTheBase
                             Building = BuildingType.None;
                             GameManager.ModifyManpower(-1f);
                             GameManager.ModifyResources(-10);
+                            sqrEdited = true;
                         }
                     }
 
@@ -290,12 +300,14 @@ namespace DefendTheBase
                             typeOfSquare = Squares.SqrFlags.Concrete;
                             Building = BuildingType.Concrete;
                             TowerHere = null;
+                            sqrEdited = true;
                         }
                     }
+
                     else
-                        ghostCol = Color.Red;
-                    sqrEdited = true;
+                     ghostCol = Color.Red; 
                 }
+
                 highlight = 0.5f;
             }
 

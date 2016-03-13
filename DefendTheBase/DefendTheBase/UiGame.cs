@@ -12,7 +12,7 @@ namespace DefendTheBase
     {
         //these variables hopefully wont be needed when i've made some planned ui functions
         Vector2 tabDrawPos = new Vector2(1000, 60);
-        Vector2 buttonDrawPos = new Vector2(1025, 100);
+        Vector2 buttonDrawPos = new Vector2(1025, 120);
         Vector2 buttonSize = new Vector2(200, 100);
 
         UiTabs tabs;
@@ -27,7 +27,7 @@ namespace DefendTheBase
 
         public UiGameScreen(GraphicsDevice graphicsDevice) : base(GameRoot.WIDTH, GameRoot.HEIGHT)
         {
-            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Color.Aquamarine, new Vector2(83, 20));
+            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Color.Aquamarine, new Vector2(83, 40));
             waveStats = new List<UiTextString>();
             currencyStats = new List<UiTextString>();
             

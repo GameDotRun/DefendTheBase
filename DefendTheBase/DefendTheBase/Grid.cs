@@ -79,11 +79,8 @@ namespace DefendTheBase
 
             Grid[GameRoot.ENDPOINT.x, GameRoot.ENDPOINT.y].sqrCoord.counter = GameRoot.ENDPOINT.counter;
 
-            foreach (Squares Square in Grid)
-            {
-                if (Square.sqrCoord.counter == GameRoot.DEFAULYDIST && Square.typeOfSquare == Squares.SqrFlags.Unoccupied)
-                    return false;
-            }
+            if (!CheckSquareCounters(Grid))
+                return false;
 
             return true;
         }
@@ -109,6 +106,17 @@ namespace DefendTheBase
                 TempGrid[SquareCoords.x, SquareCoords.y].Building = Squares.BuildingType.None;
                 return false;
             }
+        }
+
+        public static bool CheckSquareCounters(Squares[,] Grid)
+        {
+            foreach (Squares Square in Grid)
+            {
+                if (Square.sqrCoord.counter == GameRoot.DEFAULYDIST && Square.typeOfSquare == Squares.SqrFlags.Unoccupied)
+                    return false;
+            }
+
+            return true;
         }
 
         static void GridReset(Squares[,] Grid)
@@ -284,7 +292,6 @@ namespace DefendTheBase
                 square.typeOfSquare |= Squares.SqrFlags.Unoccupied;
                 square.Building = Squares.BuildingType.None;
             }
-
         }
 
         public string sqrTexDecider(int x, int y)
