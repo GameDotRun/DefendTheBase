@@ -43,7 +43,7 @@ namespace DefendTheBase
             Add(ref baseBuild);
             Add(ref miscBuild);
 
-            CreateButtons(graphicsDevice);
+            CreateUi(graphicsDevice);
         }
 
         public void Update()
@@ -69,7 +69,7 @@ namespace DefendTheBase
                 text.DrawString(sb);
         }
 
-        public void CreateButtons(GraphicsDevice graphicsDevice)
+        public void CreateUi(GraphicsDevice graphicsDevice)
         {
             waveStats.Add(new UiTextString(Art.DebugFont, "Wave: " + LevelWaves.WaveNumber, new Vector2(100, 0), Color.Black));
             waveStats.Add(new UiTextString(Art.DebugFont, "Enemies: " + LevelWaves.WaveEnemiesUsed + "/" + LevelWaves.WaveEnemyAmount, new Vector2(200, 0), Color.Black));
@@ -127,7 +127,6 @@ namespace DefendTheBase
 
            
         }
-
 
     }
 }

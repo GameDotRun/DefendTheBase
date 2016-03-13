@@ -81,7 +81,7 @@ namespace DefendTheBase
                     // Build Trenchh
                     if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
                     {
-                        ghostImage = Art.getTrenchTex(GameRoot.grid.sqrTexDecider(sqrCoord.x, sqrCoord.y));
+                        ghostImage = Art.getTrenchTex(GameRoot.grid.sqrTexDecider((int)sqrCoord.x, (int)sqrCoord.y));
                         if (Input.LMBDown && canClick)
                         {
                             if (GridManager.InaccessibleSquareCheck(GameRoot.grid.gridSquares, sqrCoord))
@@ -354,19 +354,19 @@ namespace DefendTheBase
         {
             // Check North
             if (this.sqrCoord.y > 0)
-                if (GameRoot.grid.gridSquares[this.sqrCoord.x, this.sqrCoord.y - 1].Building == typeOfBuilding)
+                if (GameRoot.grid.gridSquares[(int)this.sqrCoord.x, (int)this.sqrCoord.y - 1].Building == typeOfBuilding)
                     return true;
             // Check East
             if (this.sqrCoord.x < GameRoot.WIDTH - 1)
-                if (GameRoot.grid.gridSquares[this.sqrCoord.x + 1, this.sqrCoord.y].Building == typeOfBuilding)
+                if (GameRoot.grid.gridSquares[(int)this.sqrCoord.x + 1, (int)this.sqrCoord.y].Building == typeOfBuilding)
                     return true;
             // Check South
             if (this.sqrCoord.y < GameRoot.HEIGHT - 1)
-                if (GameRoot.grid.gridSquares[this.sqrCoord.x, this.sqrCoord.y + 1].Building == typeOfBuilding)
+                if (GameRoot.grid.gridSquares[(int)this.sqrCoord.x, (int)this.sqrCoord.y + 1].Building == typeOfBuilding)
                     return true;
             // Check West
             if (this.sqrCoord.x > 0)
-                if (GameRoot.grid.gridSquares[this.sqrCoord.x - 1, this.sqrCoord.y].Building == typeOfBuilding)
+                if (GameRoot.grid.gridSquares[(int)this.sqrCoord.x - 1, (int)this.sqrCoord.y].Building == typeOfBuilding)
                     return true;
             return false;
         }

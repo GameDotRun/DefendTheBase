@@ -179,7 +179,7 @@ namespace DefendTheBase
 
         public bool IsDestroyed = false;
 
-        public Enemy(string enemyID) : base(new Coordinates(0,0))
+        public Enemy(string enemyID) : base()
         {
             enemyVect = ScreenPos = new Vector2(0, 0);
             enemyPos = new Coordinates(0, 0);
@@ -197,16 +197,10 @@ namespace DefendTheBase
 
             if (GameRoot.ENDPOINT != null)
             {
-                if (enemyVect.X == GameRoot.ENDPOINT.x && enemyVect.Y == GameRoot.ENDPOINT.y)
+                if (currentCoord.x == GameRoot.ENDPOINT.x && currentCoord.y == GameRoot.ENDPOINT.y)
                 {
                     LevelWaves.WaveEnemiesUsed++;
                     IsDestroyed = true;
-
-                    /*enemyPos = new Coordinates(0, 0);
-                    enemyVect = new Vector2(0, 0);
-                    PathMoveReset();
-                    pathFound = false;
-                    aiPos = enemyPos;*/
                 }
             }
 
@@ -220,8 +214,8 @@ namespace DefendTheBase
 
             // Get screen pixel position from Grid Coordinates (enemyVect).
             ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE), (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE));
-            Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (aiPos.x * GameRoot.SQUARESIZE + 0.1f), (int)GameRoot.grid.gridBorder.Y + (aiPos.y * GameRoot.SQUARESIZE));
-            Direction = NextScreenPos - ScreenPos;
+            Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (nextCoord.x * GameRoot.SQUARESIZE + 0.1f), (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE));
+            Direction = Movement;
 
             EnemyListener.RemoveEnemy(EnemyID);
             EnemyListener.AddEnemy(this);
@@ -235,7 +229,7 @@ namespace DefendTheBase
         public string Type = "Tank";
 
         private float m_hp = 20;
-        private float m_speed = 2f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
+        private float m_speed = 0.1f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
         private float m_BottomRotation = 0f;
         private float m_TopRotation = 0f;
 
@@ -248,8 +242,8 @@ namespace DefendTheBase
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2), null, Color.White, Direction.ToAngle() , new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
-            sb.Draw(Art.TankTop, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+            sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2 + GameRoot.SQUARESIZE/4), null, Color.White, Direction.ToAngle() , new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
+            sb.Draw(Art.TankTop, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2 + GameRoot.SQUARESIZE / 4), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
 
         }
     
