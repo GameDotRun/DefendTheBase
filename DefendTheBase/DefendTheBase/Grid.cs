@@ -106,7 +106,7 @@ namespace DefendTheBase
                 TempGrid[SquareCoords.x, SquareCoords.y].Building = Squares.BuildingType.None;
                 return false;
             }
-        }
+        } // this is goddamn inefficient.
 
         public static bool CheckSquareCounters(Squares[,] Grid)
         {
@@ -199,11 +199,12 @@ namespace DefendTheBase
             gridStatus = gridFlags.empty;
             updateTimer = TimeSpan.Zero;
 
+            GenerateNewMap();
+
             gridSquares[GameRoot.ENDPOINT.x, GameRoot.ENDPOINT.y].typeOfSquare |= Squares.SqrFlags.StopPoint;
             gridSquares[GameRoot.ENDPOINT.x, GameRoot.ENDPOINT.y].Building = Squares.BuildingType.Base;
             
 
-            GenerateNewMap();
             gridStatus = gridFlags.endPoint;
             pathFound = GridManager.GridPaths(gridSquares);
             
@@ -225,19 +226,6 @@ namespace DefendTheBase
 
             if (updateTimer.TotalMilliseconds > 1000f / GameRoot.UPS)
             {
-                for (int y = 0; y < GameRoot.HEIGHT; y++)
-                    for (int x = 0; x < GameRoot.WIDTH; x++)
-                    {
-                        if (Input.MouseRect.Intersects(gridSquares[x, y].rect) && Input.RMBDown && Input.IsKeyDown(Keys.LeftShift) && !gridStatus.HasFlag(gridFlags.endPoint)) // temporary.
-                        {
-                           /* gridStatus = gridFlags.endPoint;
-                            stopPointCoord = new Coordinates(x, y, 0);
-                            gridSquares[x, y].typeOfSquare |= Squares.SqrFlags.StopPoint;
-                            gridSquares[x, y].Building = Squares.BuildingType.Base;
-                            pathFound = FindPath();*/
-
-                        }
-                    }
 
                 for (int y = 0; y < GameRoot.HEIGHT - 0; y++)
                     for (int x = 0; x < GameRoot.WIDTH - 0; x++)

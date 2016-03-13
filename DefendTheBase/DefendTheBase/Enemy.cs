@@ -235,7 +235,7 @@ namespace DefendTheBase
         public string Type = "Tank";
 
         private float m_hp = 20;
-        private float m_speed = 10f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
+        private float m_speed = 2f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
         private float m_BottomRotation = 0f;
         private float m_TopRotation = 0f;
 
