@@ -20,6 +20,7 @@ namespace DefendTheBase
         //Group Elements up with Lists, allows the ui controller to manipulate them
         public List<UiTextString> waveStats;
         public List<UiTextString> currencyStats;
+        public List<UiTextString> enemy0Info;
 
         public List<UiButton> unitBuild;
         public List<UiButton> baseBuild;
@@ -30,7 +31,8 @@ namespace DefendTheBase
             tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Color.Aquamarine, new Vector2(83, 40));
             waveStats = new List<UiTextString>();
             currencyStats = new List<UiTextString>();
-            
+            enemy0Info = new List<UiTextString>();
+
             unitBuild = new List<UiButton>();
             baseBuild = new List<UiButton>();
             miscBuild = new List<UiButton>();
@@ -56,6 +58,12 @@ namespace DefendTheBase
 
             currencyStats[0].StringText = "Manpower: " + GameManager.Manpower;
             currencyStats[1].StringText = "Resources: " + GameManager.Resources;
+
+            if (EnemyListener.EnemyList.Count() > 0)
+            {
+                enemy0Info[0].StringText = "EnemyScreenPos: " + EnemyListener.EnemyList[0].ScreenPos.ToString();
+                enemy0Info[1].StringText = "NodePos: " + EnemyListener.EnemyList[0].Node.ToString();
+            }
         }
 
 
@@ -67,6 +75,8 @@ namespace DefendTheBase
                 text.DrawString(sb);
             foreach (UiTextString text in currencyStats)
                 text.DrawString(sb);
+            foreach (UiTextString text in enemy0Info)
+                text.DrawString(sb);
         }
 
         public void CreateUi(GraphicsDevice graphicsDevice)
@@ -76,6 +86,10 @@ namespace DefendTheBase
 
             currencyStats.Add(new UiTextString(Art.DebugFont, "Manpower: " + GameManager.Manpower, new Vector2(300, 0), Color.Black));
             currencyStats.Add(new UiTextString(Art.DebugFont, "Resources: " + GameManager.Resources, new Vector2(300, 20), Color.Black));
+
+            
+            enemy0Info.Add(new UiTextString(Art.DebugFont, "EnemyScreenPos: ", new Vector2(500, 0), Color.Black));
+            enemy0Info.Add(new UiTextString(Art.DebugFont, "NodePos: ", new Vector2(500, 20), Color.Black));
 
             //its of UTMOST IMPORTANCE that each button has a unique id
 

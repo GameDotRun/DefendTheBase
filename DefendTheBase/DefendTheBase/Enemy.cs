@@ -171,8 +171,6 @@ namespace DefendTheBase
 
         public float hitPoints;
         protected float speed;
-
-        public Coordinates enemyPos;
         public Vector2 enemyVect, ScreenPos, Direction;
 
         public bool pathFound = false;
@@ -182,7 +180,6 @@ namespace DefendTheBase
         public Enemy(string enemyID) : base()
         {
             enemyVect = ScreenPos = new Vector2(0, 0);
-            enemyPos = new Coordinates(0, 0);
             sprite = Art.EnemyTex;
             EnemyID = enemyID;
         }
@@ -192,7 +189,6 @@ namespace DefendTheBase
             if (GameRoot.grid.pathFound) // this needs some form of trigger 
             {
                 PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, ScreenPos, speed);
-                enemyPos = aiPos;
             }
 
             if (GameRoot.ENDPOINT != null)
@@ -213,7 +209,7 @@ namespace DefendTheBase
             }
 
             // Get screen pixel position from Grid Coordinates (enemyVect).
-            ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE), (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE));
+            ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 4, (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 4);
             Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (nextCoord.x * GameRoot.SQUARESIZE + 0.1f), (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE));
             Direction = Movement;
 

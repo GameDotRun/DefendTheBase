@@ -42,7 +42,7 @@ namespace DefendTheBase
         {
             currentCoord = new Coordinates((int)EnemyVect.X , (int)EnemyVect.Y );
 
-            if (ScreenPos.X >= Node.X && ScreenPos.Y <= Node.Y || firstTime)
+            if (ScreenPos.X == Node.X && ScreenPos.Y == Node.Y || firstTime)
             {
                 if (currentCoord.x + 1 < width) // check array wont go out of bounds 
                 {
