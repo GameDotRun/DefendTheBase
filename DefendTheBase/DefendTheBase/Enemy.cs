@@ -209,7 +209,7 @@ namespace DefendTheBase
             }
 
             // Get screen pixel position from Grid Coordinates (enemyVect).
-            ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 4, (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 4);
+            ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2, (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2);
             Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (nextCoord.x * GameRoot.SQUARESIZE + 0.1f), (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE));
             Direction = Movement;
 
@@ -238,10 +238,13 @@ namespace DefendTheBase
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
-            sb.Draw(Art.TankTop, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+            sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
+            sb.Draw(Art.TankTop, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
 
             sb.Draw(Art.Pixel, new Rectangle((int)Node.X, (int)Node.Y, 2, 2), Color.Pink);
+
+            // Where the fuck is ScreenPos?
+            sb.Draw(Art.Pixel, new Rectangle((int)ScreenPos.X, (int)ScreenPos.Y, 2, 2), Color.White);
         }
     
     
