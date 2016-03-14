@@ -42,7 +42,7 @@ namespace DefendTheBase
         {
             currentCoord = new Coordinates((int)EnemyVect.X , (int)EnemyVect.Y );
 
-            if (ScreenPos.X >= Node.X && ScreenPos.Y <= Node.Y || firstTime)
+            if (ScreenPos.X >= Node.X && ScreenPos.Y >= Node.Y || firstTime)
             {
                 if (currentCoord.x + 1 < width) // check array wont go out of bounds 
                 {
@@ -95,7 +95,7 @@ namespace DefendTheBase
 
                 firstTime = false;
 
-                Node = new Vector2( (nextCoord.x * GameRoot.SQUARESIZE) - GameRoot.SQUARESIZE / 2, (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2); 
+                Node = new Vector2( (nextCoord.x * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2, (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2); 
 
                 Movement = new Vector2(nextCoord.x - currentCoord.x, nextCoord.y - currentCoord.y);
             }
