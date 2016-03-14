@@ -191,7 +191,7 @@ namespace DefendTheBase
         {
             if (GameRoot.grid.pathFound) // this needs some form of trigger 
             {
-                PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, speed);
+                PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, ScreenPos, speed);
                 enemyPos = aiPos;
             }
 
@@ -229,7 +229,7 @@ namespace DefendTheBase
         public string Type = "Tank";
 
         private float m_hp = 20;
-        private float m_speed = 0.1f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
+        private float m_speed = 0.01f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
         private float m_BottomRotation = 0f;
         private float m_TopRotation = 0f;
 
@@ -242,9 +242,10 @@ namespace DefendTheBase
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2 + GameRoot.SQUARESIZE/4), null, Color.White, Direction.ToAngle() , new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
-            sb.Draw(Art.TankTop, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2 + GameRoot.SQUARESIZE / 4), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+            sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
+            sb.Draw(Art.TankTop, new Vector2(ScreenPos.X + Art.TankBottom.Width / 2, ScreenPos.Y + Art.TankBottom.Height / 2), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
 
+            sb.Draw(Art.Pixel, new Rectangle((int)Node.X, (int)Node.Y, 2, 2), Color.Pink);
         }
     
     

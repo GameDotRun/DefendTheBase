@@ -11,7 +11,7 @@ namespace DefendTheBase
         public static TimeSpan EnemySpawnTimer = TimeSpan.Zero;
         public static bool WaveStarted = false;
         public static int WaveNumber = 1;
-        public static int WaveEnemyAmount = 10;
+        public static int WaveEnemyAmount = 1;
         public static int WaveEnemiesUsed = 0;
 
         static int WaveEnemiesSpawned = 0;
@@ -51,7 +51,7 @@ namespace DefendTheBase
             //WaveSpawnInterval = (WaveEnemyAmount / WaveNumber) * 10f;
             WaveEnemiesUsed = 0;
             WaveEnemiesSpawned = 0;
-            WaveEnemyAmount+=2;
+            //WaveEnemyAmount+=2;
             if (WaveNumber < 200)
                 WaveSpawnInterval-=2;
             GameManager.ModifyManpower(25);
