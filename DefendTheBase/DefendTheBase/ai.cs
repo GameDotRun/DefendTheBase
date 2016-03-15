@@ -10,40 +10,37 @@ namespace DefendTheBase
     {
         public Coordinates aiPos;
 
-        List<Coordinates> coords;
-        List<Coordinates> tempCoords;
-        Coordinates tempCoord;
         public Coordinates nextCoord;
         public Coordinates currentCoord;
-
-        public Vector2 Node;
-
+        public Vector2 Node, previousVect;
         public Vector2 Movement;
 
         internal int tempInt;
         int defDist;
 
         bool firstTime = true;
+        bool Moving = false;
+
+        float distance;
 
         public ai()
         {
             aiPos = GameRoot.STARTPOINT;
             defDist = GameRoot.DEFAULYDIST;
             tempInt = GameRoot.DEFAULYDIST;
-
-            tempCoord = new Coordinates(0, 0, GameRoot.DEFAULYDIST);
-            coords = new List<Coordinates>();
-            tempCoords = new List<Coordinates>();
             nextCoord = new Coordinates(0, 0);
 
         }
 
-        public void PathMove(Squares[,] squares, int height, int width, ref Vector2 EnemyVect, Vector2 ScreenPos, float speed)
+        public bool PathMove(Squares[,] squares, int height, int width, ref Vector2 EnemyVect, ref Vector2 ScreenPos, float speed, float time, Vector2 Direction)
         {
             currentCoord = new Coordinates((int)EnemyVect.X , (int)EnemyVect.Y );
 
-            if ((int)ScreenPos.X == Node.X && (int)ScreenPos.Y == Node.Y || firstTime)
+            if (!Moving)
             {
+                ScreenPos = new Vector2(Node.X, Node.Y);
+
+
                 if (currentCoord.x + 1 < width) // check array wont go out of bounds 
                 {
                     if (!squares[(int)currentCoord.x + 1, (int)currentCoord.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
@@ -95,12 +92,38 @@ namespace DefendTheBase
 
                 firstTime = false;
 
-                Node = new Vector2( (nextCoord.x * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2, (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2); 
+                Node = new Vector2((nextCoord.x * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2, (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2);
 
-                Movement = new Vector2(nextCoord.x - currentCoord.x, nextCoord.y - currentCoord.y);
+                distance = Vector2.Distance(new Vector2(currentCoord.x, currentCoord.y), new Vector2(nextCoord.x, nextCoord.y));
+
+                Direction = new Vector2(nextCoord.x - currentCoord.x, nextCoord.y - currentCoord.y);
+                Movement = Direction;
+                Direction.Normalize();
+
+                previousVect = new Vector2(currentCoord.x, currentCoord.y);
+
+                Moving = true;
+
             }
 
-            EnemyVect += Movement * speed;
+
+            if (Moving)
+            {
+                EnemyVect += Direction * speed * time;
+                if (Vector2.Distance(previousVect, EnemyVect) >= distance)
+                {
+                    ScreenPos = new Vector2(Node.X, Node.Y);
+                    Moving = false;
+
+                    return false;
+                }
+
+                return true;
+            }
+
+            else return false;
+
+           
 
            /* if ((aiPos.x == Math.Round(enemyVect.X, 2) && aiPos.y == Math.Round(enemyVect.Y, 2)) || (aiPos.y == Math.Round(enemyVect.Y + 1, 2) && aiPos.x == Math.Round(enemyVect.X, 2)))
             {
@@ -204,7 +227,7 @@ namespace DefendTheBase
         public void PathMoveReset()
         {
             tempInt = defDist;
-            nextCoord = new Coordinates(0, 0);
+            //nextCoord = new Coordinates(0, 0);
         }
     }
 }

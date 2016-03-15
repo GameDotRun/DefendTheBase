@@ -91,7 +91,7 @@ namespace DefendTheBase
         /// <summary>
         /// Updates the enemies and checkes for destroyed enemies
         /// </summary>
-        public static void Update()
+        public static void Update(GameTime gt)
         {
             foreach (TankEnemy Tank in TankEnemies)
             {
@@ -102,7 +102,7 @@ namespace DefendTheBase
                 }
 
                 else
-                    Tank.Update(GameRoot.grid.gridStatus);
+                    Tank.Update(GameRoot.grid.gridStatus, gt);
             }
         }
 
@@ -177,6 +177,10 @@ namespace DefendTheBase
 
         public bool IsDestroyed = false;
 
+        public float time;
+
+        bool moving = false;
+
         public Enemy(string enemyID) : base()
         {
             enemyVect = ScreenPos = new Vector2(0, 0);
@@ -184,11 +188,13 @@ namespace DefendTheBase
             EnemyID = enemyID;
         }
 
-        public void Update(Grid.gridFlags endPoint)
+        public void Update(Grid.gridFlags endPoint, GameTime gameTime)
         {
+            time = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             if (GameRoot.grid.pathFound) // this needs some form of trigger 
             {
-                PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, ScreenPos, speed);
+               moving = PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, ref ScreenPos, speed, time, Direction);
             }
 
             if (GameRoot.ENDPOINT != null)
@@ -208,8 +214,20 @@ namespace DefendTheBase
                 IsDestroyed = true;
             }
 
+            
+
             // Get screen pixel position from Grid Coordinates (enemyVect).
-            ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2, (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2);
+
+            if (moving)
+                ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2, (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2);
+
+            else
+            {
+                enemyVect.X = (int)enemyVect.X;
+                enemyVect.Y = (int)enemyVect.Y;
+
+            }
+
             Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (nextCoord.x * GameRoot.SQUARESIZE + 0.1f), (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE));
             Direction = Movement;
 
@@ -225,7 +243,7 @@ namespace DefendTheBase
         public string Type = "Tank";
 
         private float m_hp = 20;
-        private float m_speed = 0.01f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
+        private float m_speed = 7f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
         private float m_BottomRotation = 0f;
         private float m_TopRotation = 0f;
 

@@ -62,6 +62,7 @@ namespace DefendTheBase
         protected override void Initialize()
         {
             rnd = new Random();
+
             base.Initialize();
         }
 

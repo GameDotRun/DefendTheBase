@@ -63,6 +63,8 @@ namespace DefendTheBase
             {
                 enemy0Info[0].StringText = "EnemyScreenPos: " + EnemyListener.EnemyList[0].ScreenPos.ToString();
                 enemy0Info[1].StringText = "NodePos: " + EnemyListener.EnemyList[0].Node.ToString();
+                enemy0Info[2].StringText = "CurrentPos: " + EnemyListener.EnemyList[0].currentCoord.x.ToString() + ", " + EnemyListener.EnemyList[0].currentCoord.y.ToString();
+                enemy0Info[3].StringText = "NextPos: " + EnemyListener.EnemyList[0].nextCoord.x.ToString() + ", " + EnemyListener.EnemyList[0].nextCoord.y.ToString();
             }
         }
 
@@ -90,6 +92,8 @@ namespace DefendTheBase
             
             enemy0Info.Add(new UiTextString(Art.DebugFont, "EnemyScreenPos: ", new Vector2(500, 0), Color.Black));
             enemy0Info.Add(new UiTextString(Art.DebugFont, "NodePos: ", new Vector2(500, 20), Color.Black));
+            enemy0Info.Add(new UiTextString(Art.DebugFont, "CurrentPos: ", new Vector2(700, 0), Color.Black));
+            enemy0Info.Add(new UiTextString(Art.DebugFont, "NextPos: ", new Vector2(700, 20), Color.Black));
 
             //its of UTMOST IMPORTANCE that each button has a unique id
 
