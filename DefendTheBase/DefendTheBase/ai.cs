@@ -112,7 +112,9 @@ namespace DefendTheBase
                 EnemyVect += Direction * speed * time;
                 if (Vector2.Distance(previousVect, EnemyVect) >= distance)
                 {
-                    ScreenPos = new Vector2(Node.X, Node.Y);
+                    if(Direction.Y >= 0 && Direction.X >= 0)
+                        ScreenPos = new Vector2(Node.X, Node.Y);
+
                     Moving = false;
 
                     return false;
@@ -227,7 +229,7 @@ namespace DefendTheBase
         public void PathMoveReset()
         {
             tempInt = defDist;
-            //nextCoord = new Coordinates(0, 0);
+            nextCoord = new Coordinates(0, 0);
         }
     }
 }

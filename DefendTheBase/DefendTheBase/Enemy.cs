@@ -223,8 +223,8 @@ namespace DefendTheBase
 
             else
             {
-                enemyVect.X = (int)enemyVect.X;
-                enemyVect.Y = (int)enemyVect.Y;
+                enemyVect.X = (float)Math.Round(enemyVect.X);
+                enemyVect.Y = (float)Math.Round(enemyVect.Y);
 
             }
 
