@@ -54,8 +54,6 @@ namespace DefendTheBase
         /// <summary>
         /// Destroys enemies and cleans up references in other lists of said enemy
         /// </summary>
-        /// <param name="EnemyID"></param>
-        /// <param name="TypeID"></param>
         static void DestroyEnemy(string EnemyID, string TypeID)
         {
             EnemyListener.RemoveEnemy(EnemyID);
@@ -76,7 +74,6 @@ namespace DefendTheBase
         /// <summary>
         /// spawns enemy of given TypeID
         /// </summary>
-        /// <param name="TypeID"></param>
         public static void SpawnEnemy(string TypeID)
         {
             if(TypeID == "Tank")
@@ -125,11 +122,14 @@ namespace DefendTheBase
         
         }
 
+        public static void EnemyDamaged(int Damage, Enemy enemy, Projectile.Type projectile)
+        {
+            //Damage calcualtions should be put here. Not sure on the best way to handle this, could get very large with if's
+            enemy.hitPoints -= Damage;
+        }
         /// <summary>
         /// creates a unique ID for the enemy, if the random ID is not unique it will retry. Chances of this happening more than once are 1/1,000,000
         /// </summary>
-        /// <param name="TypeID"></param>
-        /// <returns></returns>
         static string CreateID(string TypeID)
         {
             bool IsUnique = false;

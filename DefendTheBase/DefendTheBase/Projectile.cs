@@ -78,7 +78,7 @@ namespace DefendTheBase
                 if (Vector2.Distance(m_enemy.ScreenPos, m_position) < 10)
                 {
                     Lifetime = 0;
-                    m_enemy.hitPoints -= m_damage;
+                    EnemyManager.EnemyDamaged(m_damage, m_enemy, TypeofProj);
                 }
             }
             TimeSinceSpawn += 1 / 60f;
