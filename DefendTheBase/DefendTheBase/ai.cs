@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DefendTheBase
 {
-    public class ai
+    public class Ai
     {
         public Coordinates nextCoord, currentCoord;
         public Vector2 Node, previousVect, Movement;
@@ -17,7 +17,7 @@ namespace DefendTheBase
 
         float distance;
 
-        public ai()
+        public Ai()
         {
             defDist = GameRoot.DEFAULYDIST;
             tempInt = GameRoot.DEFAULYDIST;

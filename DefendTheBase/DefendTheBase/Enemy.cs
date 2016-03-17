@@ -40,7 +40,7 @@ namespace DefendTheBase
         }
     }
 
-    public class Enemy : ai
+    public class Enemy : Ai
     {
         internal string EnemyID;
         internal string EnemyType;
