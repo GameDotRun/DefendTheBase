@@ -58,7 +58,6 @@ namespace DefendTheBase
             currencyStats[1].StringText = "Resources: " + GameManager.Resources;
         }
 
-
         public void Draw(SpriteBatch sb)
         {
             tabs.Draw(sb);
