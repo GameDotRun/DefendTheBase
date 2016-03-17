@@ -323,5 +323,20 @@ namespace DefendTheBase
             x = X;
             y = Y;
         }
+
+        public bool Equals(Coordinates Coords)
+        { 
+            if(Coords.x == x && Coords.y == y && Coords.counter == counter)
+                return true;
+            else return false;
+        }
+
+        public bool CoordEqual(Coordinates Coord)
+        {
+            if (Coord.x == x && Coord.y == y)
+                return true;
+            else return false;
+        
+        }
     }
 }

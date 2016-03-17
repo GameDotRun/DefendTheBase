@@ -48,8 +48,7 @@ namespace DefendTheBase
     public static class EnemyManager
     {
         public static string[] TypeIDs = {"Tank"};
-        static List<TankEnemy> TankEnemies = new List<TankEnemy>();
-
+        static List<Enemy> Enemies = new List<Enemy>();
         static List<string> EnemyIDs = new List<string>();
 
         /// <summary>
@@ -61,19 +60,16 @@ namespace DefendTheBase
         {
             EnemyListener.RemoveEnemy(EnemyID);
 
-            if (TypeID == "Tank")
-            {
-                int index = TankEnemies.FindIndex(item => string.Compare(item.EnemyID, EnemyID, 0) == 0);
+            int index = Enemies.FindIndex(item => string.Compare(item.EnemyID, EnemyID, 0) == 0);
 
-                if (index >= 0)
-                    TankEnemies.RemoveAt(index);
-            }
+            if (index >= 0)
+                Enemies.RemoveAt(index);
+            
 
             int index2 = EnemyIDs.FindIndex(item => string.Compare(item, EnemyID, 0) == 0);
 
             if (index2 >= 0)
                 EnemyIDs.RemoveAt(index2);
-
 
         }
 
@@ -84,25 +80,27 @@ namespace DefendTheBase
         public static void SpawnEnemy(string TypeID)
         {
             if(TypeID == "Tank")
-                TankEnemies.Add(new TankEnemy(CreateID(TypeID)));
+                Enemies.Add(new TankEnemy(CreateID(TypeID)));
         }
-
 
         /// <summary>
         /// Updates the enemies and checkes for destroyed enemies
         /// </summary>
         public static void Update(GameTime gt)
         {
-            foreach (TankEnemy Tank in TankEnemies)
+            foreach (Enemy Enemy in Enemies)
             {
-                if (Tank.IsDestroyed)
+                if (Enemy.IsDestroyed)
                 {
-                    DestroyEnemy(Tank.EnemyID, Tank.Type);
+                    if(Enemy.hitPoints <= 0)
+                        GameManager.EnemyWasDestroyed(Enemy.EnemyType);
+
+                    DestroyEnemy(Enemy.EnemyID, Enemy.EnemyType);
                     break;
                 }
 
                 else
-                    Tank.Update(GameRoot.grid.gridStatus, gt);
+                    Enemy.Update(GameRoot.grid.gridStatus, gt);
             }
         }
 
@@ -112,20 +110,17 @@ namespace DefendTheBase
         /// <param name="sb"></param>
         public static void Draw(SpriteBatch sb)
         {
-            foreach (TankEnemy Tank in TankEnemies)
+            foreach (Enemy Enemy in Enemies)
             {
-                Tank.Draw(sb);
+                Enemy.Draw(sb);
             }
         }
 
         public static void ResetEnemyAI()
         {
-            foreach (TankEnemy Tank in TankEnemies)
+            foreach (Enemy Enemy in Enemies)
             {
-                Tank.aiPos.x = (int)Tank.enemyVect.X;
-                Tank.aiPos.y = (int)Tank.enemyVect.Y;
-                Tank.aiPos.counter = GameRoot.DEFAULYDIST;
-                Tank.tempInt = GameRoot.DEFAULYDIST;
+                Enemy.tempInt = GameRoot.DEFAULYDIST;
             }
         
         }
@@ -153,8 +148,6 @@ namespace DefendTheBase
 
                 if (EnemyIDs.Count() == 0)
                     IsUnique = true;
-                        
-
             }
                 
             EnemyIDs.Add(ID);
@@ -166,17 +159,14 @@ namespace DefendTheBase
     public class Enemy : ai
     {
         internal string EnemyID;
-
-        Texture2D sprite;
+        internal string EnemyType;
+        protected float speed;
 
         public float hitPoints;
-        protected float speed;
+        
         public Vector2 enemyVect, ScreenPos, Direction;
-
         public bool pathFound = false;
-
         public bool IsDestroyed = false;
-
         public float time;
 
         bool moving = false;
@@ -184,13 +174,15 @@ namespace DefendTheBase
         public Enemy(string enemyID) : base()
         {
             enemyVect = ScreenPos = new Vector2(0, 0);
-            sprite = Art.EnemyTex;
             EnemyID = enemyID;
+            EnemyListener.AddEnemy(this);
         }
 
         public void Update(Grid.gridFlags endPoint, GameTime gameTime)
         {
             time = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            currentCoord = new Coordinates((int)enemyVect.X, (int)enemyVect.Y);
 
             if (GameRoot.grid.pathFound) // this needs some form of trigger 
             {
@@ -199,25 +191,20 @@ namespace DefendTheBase
 
             if (GameRoot.ENDPOINT != null)
             {
-                if (currentCoord.x == GameRoot.ENDPOINT.x && currentCoord.y == GameRoot.ENDPOINT.y)
+                if (currentCoord.CoordEqual(GameRoot.ENDPOINT))
                 {
-                    LevelWaves.WaveEnemiesUsed++;
+                    WaveManager.WaveEnemiesUsed++;
                     IsDestroyed = true;
                 }
             }
 
             if (hitPoints <= 0)
             {
-                LevelWaves.WaveEnemiesUsed++;
-                // Change this!
-                GameManager.ModifyResources(100);
+                WaveManager.WaveEnemiesUsed++;
                 IsDestroyed = true;
             }
 
-            
-
             // Get screen pixel position from Grid Coordinates (enemyVect).
-
             if (moving)
                 ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2, (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2);
 
@@ -225,17 +212,24 @@ namespace DefendTheBase
             {
                 enemyVect.X = (float)Math.Round(enemyVect.X);
                 enemyVect.Y = (float)Math.Round(enemyVect.Y);
-
             }
 
             Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (nextCoord.x * GameRoot.SQUARESIZE + 0.1f), (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE));
             Direction = Movement;
 
-            EnemyListener.RemoveEnemy(EnemyID);
-            EnemyListener.AddEnemy(this);
-            
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            //Add draw Methods for each enemy here
+            if (EnemyType == "Tank")
+            {
+                sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Art.TankTop, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+            }
         }
     }
+
 
 
     class TankEnemy : Enemy
@@ -243,7 +237,7 @@ namespace DefendTheBase
         public string Type = "Tank";
 
         private float m_hp = 20;
-        private float m_speed = 7f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
+        private float m_speed = 3f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
         private float m_BottomRotation = 0f;
         private float m_TopRotation = 0f;
 
@@ -252,19 +246,10 @@ namespace DefendTheBase
         {
             hitPoints = m_hp;
             speed = m_speed;
+            EnemyType = Type;
         }
 
-        public void Draw(SpriteBatch sb)
-        {
-            sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
-            sb.Draw(Art.TankTop, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
-
-            sb.Draw(Art.Pixel, new Rectangle((int)Node.X, (int)Node.Y, 2, 2), Color.Pink);
-
-            // Where the fuck is ScreenPos?
-            sb.Draw(Art.Pixel, new Rectangle((int)ScreenPos.X, (int)ScreenPos.Y, 2, 2), Color.White);
-        }
-    
+        
     
     }
 

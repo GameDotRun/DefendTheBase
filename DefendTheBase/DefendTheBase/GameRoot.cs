@@ -99,7 +99,7 @@ namespace DefendTheBase
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
             gameScreenUi.Update();
-            LevelWaves.Update(gameTime);
+            WaveManager.Update(gameTime);
 
             // Using the last button pressed ID, as long as it exists,
             // see if it is a "btn0" and then set the BuildState using the rest of the ID.
@@ -116,7 +116,7 @@ namespace DefendTheBase
             grid.Update(gameTime);
 
             if(grid.gridStatus.HasFlag(Grid.gridFlags.endPoint)) //CREATE A WAVE COUNT DOWN
-                LevelWaves.WaveStarted = true;
+                WaveManager.WaveStarted = true;
 
             for (int y = 0; y < HEIGHT; y++) // get if a square has been edited 
                 for (int x = 0; x < WIDTH; x++)
@@ -160,7 +160,7 @@ namespace DefendTheBase
                     "DEBUG" +
                     "\nFPS: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString("N0") +
                     "\nBuild: " + GameManager.BuildState +
-                    "\nEnemySpawn: " + LevelWaves.EnemySpawnTimer,
+                    "\nEnemySpawn: " + WaveManager.EnemySpawnTimer,
                     i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }

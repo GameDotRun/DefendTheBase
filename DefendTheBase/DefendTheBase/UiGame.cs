@@ -20,7 +20,6 @@ namespace DefendTheBase
         //Group Elements up with Lists, allows the ui controller to manipulate them
         public List<UiTextString> waveStats;
         public List<UiTextString> currencyStats;
-        public List<UiTextString> enemy0Info;
 
         public List<UiButton> unitBuild;
         public List<UiButton> baseBuild;
@@ -31,7 +30,6 @@ namespace DefendTheBase
             tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Color.Aquamarine, new Vector2(83, 40));
             waveStats = new List<UiTextString>();
             currencyStats = new List<UiTextString>();
-            enemy0Info = new List<UiTextString>();
 
             unitBuild = new List<UiButton>();
             baseBuild = new List<UiButton>();
@@ -53,19 +51,11 @@ namespace DefendTheBase
             tabs.Update();
 
 
-            waveStats[0].StringText = "Wave: " + LevelWaves.WaveNumber;
-            waveStats[1].StringText = "Enemies: " + LevelWaves.WaveEnemiesUsed + "/" + LevelWaves.WaveEnemyAmount;
+            waveStats[0].StringText = "Wave: " + WaveManager.WaveNumber;
+            waveStats[1].StringText = "Enemies: " + WaveManager.WaveEnemiesUsed + "/" + WaveManager.WaveEnemyAmount;
 
             currencyStats[0].StringText = "Manpower: " + GameManager.Manpower;
             currencyStats[1].StringText = "Resources: " + GameManager.Resources;
-
-            if (EnemyListener.EnemyList.Count() > 0)
-            {
-                enemy0Info[0].StringText = "EnemyScreenPos: " + EnemyListener.EnemyList[0].ScreenPos.ToString();
-                enemy0Info[1].StringText = "NodePos: " + EnemyListener.EnemyList[0].Node.ToString();
-                enemy0Info[2].StringText = "CurrentPos: " + EnemyListener.EnemyList[0].currentCoord.x.ToString() + ", " + EnemyListener.EnemyList[0].currentCoord.y.ToString();
-                enemy0Info[3].StringText = "NextPos: " + EnemyListener.EnemyList[0].nextCoord.x.ToString() + ", " + EnemyListener.EnemyList[0].nextCoord.y.ToString();
-            }
         }
 
 
@@ -77,23 +67,15 @@ namespace DefendTheBase
                 text.DrawString(sb);
             foreach (UiTextString text in currencyStats)
                 text.DrawString(sb);
-            foreach (UiTextString text in enemy0Info)
-                text.DrawString(sb);
         }
 
         public void CreateUi(GraphicsDevice graphicsDevice)
         {
-            waveStats.Add(new UiTextString(Art.DebugFont, "Wave: " + LevelWaves.WaveNumber, new Vector2(100, 0), Color.Black));
-            waveStats.Add(new UiTextString(Art.DebugFont, "Enemies: " + LevelWaves.WaveEnemiesUsed + "/" + LevelWaves.WaveEnemyAmount, new Vector2(200, 0), Color.Black));
+            waveStats.Add(new UiTextString(Art.DebugFont, "Wave: " + WaveManager.WaveNumber, new Vector2(100, 0), Color.Black));
+            waveStats.Add(new UiTextString(Art.DebugFont, "Enemies: " + WaveManager.WaveEnemiesUsed + "/" + WaveManager.WaveEnemyAmount, new Vector2(200, 0), Color.Black));
 
             currencyStats.Add(new UiTextString(Art.DebugFont, "Manpower: " + GameManager.Manpower, new Vector2(300, 0), Color.Black));
             currencyStats.Add(new UiTextString(Art.DebugFont, "Resources: " + GameManager.Resources, new Vector2(300, 20), Color.Black));
-
-            
-            enemy0Info.Add(new UiTextString(Art.DebugFont, "EnemyScreenPos: ", new Vector2(500, 0), Color.Black));
-            enemy0Info.Add(new UiTextString(Art.DebugFont, "NodePos: ", new Vector2(500, 20), Color.Black));
-            enemy0Info.Add(new UiTextString(Art.DebugFont, "CurrentPos: ", new Vector2(700, 0), Color.Black));
-            enemy0Info.Add(new UiTextString(Art.DebugFont, "NextPos: ", new Vector2(700, 20), Color.Black));
 
             //its of UTMOST IMPORTANCE that each button has a unique id
 

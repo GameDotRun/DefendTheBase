@@ -32,6 +32,7 @@ namespace DefendTheBase
             TowerSAM,
             TowerTesla
         }
+
         private static float m_manPower = DEFAULT_MANPOWER;
         private static int m_resources = DEFAULT_RESOURCES;
 
@@ -55,5 +56,14 @@ namespace DefendTheBase
             m_manPower = DEFAULT_MANPOWER;
             m_resources = DEFAULT_RESOURCES;
         }
+
+        public static void EnemyWasDestroyed(string EnemyType)
+        {
+            //Add modifications for each enemy here
+            if (EnemyType == "Tank")
+                m_resources += 100;
+        
+        }
+
     }
 }
