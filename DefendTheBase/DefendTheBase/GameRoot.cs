@@ -149,7 +149,6 @@ namespace DefendTheBase
 
             grid.Draw(spriteBatch, Art.DebugFont);
             gameScreenUi.Draw(spriteBatch);
-
             EnemyManager.Draw(spriteBatch);
 
 #if DEBUG

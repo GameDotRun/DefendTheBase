@@ -8,6 +8,19 @@ using Microsoft.Xna.Framework;
 
 namespace DefendTheBase
 {
+    //hacky but towers will be impossible to access unless they're changed, ill just call it tower manager...
+
+    public static class TowerManager
+    {
+        public static List<Tower> Towers = new List<Tower>();
+
+        public static void Add(Tower tower)
+        {
+            Towers.Add(tower);
+        }   
+    }
+
+
     public class Tower
     {
         // This will contain the type of tower, range, level, health and fireRate.
@@ -61,6 +74,8 @@ namespace DefendTheBase
                     Sprite = Art.TowerTesla[level - 1];
                     break;
             }
+
+            TowerManager.Add(this);
         }
 
         public void LevelUp()
@@ -215,6 +230,10 @@ namespace DefendTheBase
         {
             foreach (Projectile proj in TowerProjectiles)
                 proj.Draw(sb);
+
+            if(TankTurret.EnemyProjectiles != null)
+                foreach (Projectile proj in TankTurret.EnemyProjectiles)
+                    proj.Draw(sb);
         }
     }
 }

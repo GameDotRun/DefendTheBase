@@ -72,7 +72,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ai.cs" />
+    <Compile Include="Ai.cs" />
     <Compile Include="Art.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Managers\EnemyManager.cs" />
@@ -85,7 +85,7 @@
     <Compile Include="GameRoot.cs" />
     <Compile Include="Squares.cs" />
     <Compile Include="Tower.cs" />
-    <Compile Include="UiGame.cs" />
+    <Compile Include="UiScreens.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

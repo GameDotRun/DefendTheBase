@@ -40,6 +40,64 @@ namespace DefendTheBase
         }
     }
 
+    static class TankTurret
+    {
+        public static List<Projectile> EnemyProjectiles = new List<Projectile>();
+        public static Vector2 Update(Enemy enemy)
+        {
+            enemy.shootTimer -= 1 / 60f;
+
+            //Find closest tower
+            Vector2 turretDirection = new Vector2();
+            Tower targetTower = null;
+            Tower tempTower = null;
+            float dist = 300;
+            foreach(Tower tower in TowerManager.Towers)
+            {
+                tempTower = tower;
+                if (dist > Vector2.Distance(tempTower.Position, enemy.ScreenPos))
+                {
+                    dist = Vector2.Distance(tempTower.Position, enemy.ScreenPos);
+                    targetTower = tower;
+
+                    enemy.towerInRange = true;
+                }
+            }
+            //Shoot
+            if (targetTower != null)
+            {
+                turretDirection = new Vector2(targetTower.Position.X - enemy.ScreenPos.X, targetTower.Position.Y - enemy.ScreenPos.Y);
+                // Shoot
+
+                if (enemy.shootTimer <= 0)
+                {
+                    enemy.shootTimer = 1;
+                    Shoot(targetTower, enemy, turretDirection);
+                }
+            }
+
+            else enemy.towerInRange = false;
+
+
+            foreach (Projectile proj in EnemyProjectiles)
+                proj.Update();
+
+            for (int i = 0; i < EnemyProjectiles.Count(); i++)
+                if (EnemyProjectiles[i].TimeSinceSpawn > EnemyProjectiles[i].Lifetime)
+                    EnemyProjectiles.RemoveAt(i);
+            //draw
+
+            turretDirection.Normalize();
+            return turretDirection;
+        }
+
+        static void Shoot(Tower TargetTower, Enemy enemy, Vector2 Direction)
+        {
+            EnemyProjectiles.Add(new Projectile(Projectile.Type.Gun, TargetTower, enemy.ScreenPos, Direction, 1f, 2));
+        }
+    
+    }
+
     public class Enemy : Ai
     {
         internal string EnemyID;
@@ -48,10 +106,11 @@ namespace DefendTheBase
 
         public float hitPoints;
         
-        public Vector2 enemyVect, ScreenPos, Direction;
+        public Vector2 enemyVect, ScreenPos, Direction, TurretDirection;
         public bool pathFound = false;
         public bool IsDestroyed = false;
-        public float time;
+        public bool towerInRange = false;
+        public float time, shootTimer;
 
         bool moving = false;
 
@@ -60,6 +119,7 @@ namespace DefendTheBase
             enemyVect = ScreenPos = new Vector2(0, 0);
             EnemyID = enemyID;
             EnemyListener.AddEnemy(this);
+            shootTimer = 1;
         }
 
         public void Update(Grid.gridFlags endPoint, GameTime gameTime)
@@ -98,8 +158,17 @@ namespace DefendTheBase
                 enemyVect.Y = (float)Math.Round(enemyVect.Y);
             }
 
+
+            if (EnemyType == "Tank")
+            {
+                TurretDirection = TankTurret.Update(this);
+            }
+
             Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (nextCoord.x * GameRoot.SQUARESIZE + 0.1f), (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE));
             Direction = Movement;
+
+            if (!towerInRange)
+                TurretDirection = Direction;
 
         }
 
@@ -109,7 +178,7 @@ namespace DefendTheBase
             if (EnemyType == "Tank")
             {
                 sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
-                sb.Draw(Art.TankTop, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Art.TankTop, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
             }
         }
     }
@@ -119,9 +188,7 @@ namespace DefendTheBase
         public string Type = "Tank";
 
         private float m_hp = 20;
-        private float m_speed = 3f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
-        private float m_BottomRotation = 0f;
-        private float m_TopRotation = 0f;
+        private float m_speed = 1f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
 
         public TankEnemy(string enemyID)
             : base(enemyID)

@@ -29,6 +29,7 @@ namespace DefendTheBase
         private Vector2 m_position, m_velocity, m_center;
 
         private Enemy m_enemy;
+        private Tower m_tower;
 
         public Projectile(Type type, Enemy enemy, Vector2 position, Vector2 direction, float lifetime, int damage, float speed = 10)
         {
@@ -68,6 +69,26 @@ namespace DefendTheBase
             }
         }
 
+        public Projectile(Type type, Tower tower, Vector2 position, Vector2 direction, float lifetime, int damage, float speed = 10)
+        {
+            direction.Normalize();
+            m_tower = tower;
+            Lifetime = lifetime;
+            m_position = Position = position;
+            m_speed = speed;
+            m_velocity = direction * m_speed;
+            m_damage = damage;
+            switch (type)
+            {
+                case Type.Gun:
+                    TypeofProj = type;
+                    m_sprite = Art.ProjectileGun;
+                    m_center = new Vector2(m_sprite.Width / 2, m_sprite.Height / 2);
+                    Radius = m_sprite.Width / 2;
+                    break;
+            }
+        }
+
         public void Update()
         {
             if (m_enemy != null)
@@ -81,6 +102,18 @@ namespace DefendTheBase
                     EnemyManager.EnemyDamaged(m_damage, m_enemy, TypeofProj);
                 }
             }
+
+            else if (m_tower != null)
+            {
+                m_velocity = m_tower.Position - m_position;
+                m_velocity.Normalize();
+                m_velocity *= m_speed;
+                if (Vector2.Distance(m_tower.Position, m_position) < 10)
+                {
+                    Lifetime = 0;
+                }
+            }
+
             TimeSinceSpawn += 1 / 60f;
             m_position += m_velocity;
             Position = m_position;
