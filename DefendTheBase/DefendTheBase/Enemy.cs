@@ -78,14 +78,9 @@ namespace DefendTheBase
 
             else enemy.towerInRange = false;
 
-
-            foreach (Projectile proj in EnemyProjectiles)
-                proj.Update();
-
             for (int i = 0; i < EnemyProjectiles.Count(); i++)
                 if (EnemyProjectiles[i].TimeSinceSpawn > EnemyProjectiles[i].Lifetime)
                     EnemyProjectiles.RemoveAt(i);
-            //draw
 
             turretDirection.Normalize();
             return turretDirection;
@@ -188,7 +183,7 @@ namespace DefendTheBase
         public string Type = "Tank";
 
         private float m_hp = 20;
-        private float m_speed = 1f; // i have no clue how this works, it just does. it was bugged until i divided everything by 100 now it works. wut even. mfw cynical.jpg
+        private float m_speed = 3f;
 
         public TankEnemy(string enemyID)
             : base(enemyID)

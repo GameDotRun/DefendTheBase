@@ -66,6 +66,9 @@ namespace DefendTheBase
                 else
                     Enemy.Update(GameRoot.grid.gridStatus, gt);
             }
+
+            foreach (Projectile proj in TankTurret.EnemyProjectiles)
+                proj.Update();
         }
 
         /// <summary>
