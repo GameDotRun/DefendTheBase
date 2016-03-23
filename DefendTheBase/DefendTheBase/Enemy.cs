@@ -161,7 +161,7 @@ namespace DefendTheBase
             }
 
 
-            if (EnemyType == "Tank")
+            if (EnemyType == "Tank" || EnemyType == "Jeep")
             {
                 TurretDirection = TankTurret.Update(this);
             }
@@ -190,13 +190,19 @@ namespace DefendTheBase
             if (EnemyType == "Tank")
             {
                 sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
-                sb.Draw(Art.TankTop, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.TankTop.Width / 5, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Art.TankTop, new Vector2(ScreenPos.X , ScreenPos.Y), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.TankTop.Width / 5, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+            }
+
+            else if (EnemyType == "Jeep")
+            {
+                sb.Draw(Art.JeepBottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.JeepBottom.Width / 2, Art.JeepBottom.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Art.JeepTop, new Vector2(ScreenPos.X - Direction.X * Art.JeepBottom.Width / 3, ScreenPos.Y - Direction.Y * Art.JeepBottom.Width / 3), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.JeepTop.Width / 4, Art.JeepTop.Height / 2), 1f, SpriteEffects.None, 0);
             }
 
             else if (EnemyType == "Soldier")
             {
-                sb.Draw(Art.Soldier, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width /2, SourceRect.Height/2), 1f, SpriteEffects.None, 0);
-            
+                sb.Draw(Art.Soldier, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width / 2, SourceRect.Height / 2), 1f, SpriteEffects.None, 0);
+
             }
 
             else if (EnemyType == "Helicopter")
@@ -215,6 +221,24 @@ namespace DefendTheBase
         private bool spriteSheet = false;
 
         public TankEnemy(string enemyID)
+            : base(enemyID)
+        {
+            hitPoints = m_hp;
+            speed = m_speed;
+            EnemyType = Type;
+            usingSpriteSheet = spriteSheet;
+        }
+    }
+
+    class JeepEnemy : Enemy
+    {
+        public string Type = "Jeep";
+
+        private float m_hp = 7;
+        private float m_speed = 5f;
+        private bool spriteSheet = false;
+
+        public JeepEnemy(string enemyID)
             : base(enemyID)
         {
             hitPoints = m_hp;
