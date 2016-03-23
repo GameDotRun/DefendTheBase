@@ -30,7 +30,7 @@ namespace DefendTheBase
                 {
                     if (WaveEnemiesSpawned != WaveEnemyAmount)
                     {
-                        EnemyManager.SpawnEnemy(EnemyManager.TypeIDs[GameRoot.rnd.Next(0, EnemyManager.TypeIDs.Count())]);
+                        EnemyManager.SpawnEnemy(EnemyManager.TypeIDs[GameRoot.rnd.Next(0, EnemyManager.TypeIDs.Count())], new Vector2(0,0));
                         WaveEnemiesSpawned++;
                     }
 

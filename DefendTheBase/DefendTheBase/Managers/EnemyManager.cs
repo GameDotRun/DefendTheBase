@@ -35,28 +35,27 @@ namespace DefendTheBase
 
             if (index2 >= 0)
                 EnemyIDs.RemoveAt(index2);
-
         }
 
         /// <summary>
         /// spawns enemy of given TypeID
         /// </summary>
-        public static void SpawnEnemy(string TypeID)
+        public static void SpawnEnemy(string TypeID, Vector2 enemyVector)
         {
             if (TypeID == "Tank")
-                Enemies.Add(new TankEnemy(CreateID(TypeID)));
+                Enemies.Add(new TankEnemy(CreateID(TypeID), enemyVector));
             else if (TypeID == "Soldier")
-                Enemies.Add(new SoldierEnemy(CreateID(TypeID)));
+                Enemies.Add(new SoldierEnemy(CreateID(TypeID), enemyVector));
             else if (TypeID == "Helicopter")
-                Enemies.Add(new HelicopterEnemy(CreateID(TypeID)));
+                Enemies.Add(new HelicopterEnemy(CreateID(TypeID), enemyVector));
             else if (TypeID == "Jeep")
-                Enemies.Add(new JeepEnemy(CreateID(TypeID)));
+                Enemies.Add(new JeepEnemy(CreateID(TypeID), enemyVector));
             else if (TypeID == "Transport")
-                Enemies.Add(new TransportEnemy(CreateID(TypeID)));
+                Enemies.Add(new TransportEnemy(CreateID(TypeID), enemyVector));
         }
 
         /// <summary>
-        /// Updates the enemies and checkes for destroyed enemies
+        /// Updates the enemies and checks for destroyed enemies
         /// </summary>
         public static void Update(GameTime gt)
         {
@@ -65,7 +64,15 @@ namespace DefendTheBase
                 if (Enemy.IsDestroyed)
                 {
                     if (Enemy.hitPoints <= 0)
+                    {
                         GameManager.EnemyWasDestroyed(Enemy.EnemyType);
+
+                        if (Enemy.EnemyType == "Transport")
+                        {
+                            for (float i = 0; i < 4; i++)
+                                SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+                        }
+                    }
 
                     DestroyEnemy(Enemy.EnemyID, Enemy.EnemyType);
                     break;
@@ -78,6 +85,8 @@ namespace DefendTheBase
             foreach (Projectile proj in TankTurret.EnemyProjectiles)
                 proj.Update();
         }
+
+
 
         /// <summary>
         /// draws the enemies

@@ -114,9 +114,10 @@ namespace DefendTheBase
 
         bool moving = false;
 
-        public Enemy(string enemyID) : base()
+        public Enemy(string enemyID, Vector2 enemyVector) : base()
         {
-            enemyVect = ScreenPos = new Vector2(0, 0);
+            ScreenPos = new Vector2(0, GameRoot.grid.gridBorder.Y + GameRoot.SQUARESIZE /2);
+            enemyVect = enemyVector;
             EnemyID = enemyID;
             EnemyListener.AddEnemy(this);
             shootTimer = 1;
@@ -225,8 +226,8 @@ namespace DefendTheBase
         private float m_speed = 3f;
         private bool spriteSheet = false;
 
-        public TankEnemy(string enemyID)
-            : base(enemyID)
+        public TankEnemy(string enemyID, Vector2 enemyVector)
+            : base(enemyID, enemyVector)
         {
             hitPoints = m_hp;
             speed = m_speed;
@@ -243,8 +244,8 @@ namespace DefendTheBase
         private float m_speed = 5f;
         private bool spriteSheet = false;
 
-        public JeepEnemy(string enemyID)
-            : base(enemyID)
+        public JeepEnemy(string enemyID, Vector2 enemyVector)
+            : base(enemyID, enemyVector)
         {
             hitPoints = m_hp;
             speed = m_speed;
@@ -261,8 +262,8 @@ namespace DefendTheBase
         private float m_speed = 3f;
         private bool spriteSheet = false;
 
-        public TransportEnemy(string enemyID)
-            : base(enemyID)
+        public TransportEnemy(string enemyID, Vector2 enemyVector)
+            : base(enemyID, enemyVector)
         {
             hitPoints = m_hp;
             speed = m_speed;
@@ -282,10 +283,10 @@ namespace DefendTheBase
         private float m_speed = 2;
       
         private bool spriteSheet = true;
-        
 
-        public SoldierEnemy(string enemyID)
-            : base(enemyID)
+
+        public SoldierEnemy(string enemyID, Vector2 enemyVector)
+            : base(enemyID, enemyVector)
         {
             hitPoints = m_hp;
             speed = m_speed;
@@ -303,16 +304,14 @@ namespace DefendTheBase
 
         private float frameSpeed = 1;
         private int frameTotal = 1; // total - 1
-
         private float m_hp = 10;
         // helicopter speed works very differently, as it only heads towards one node currently it goes a lot faster than other units which use multiple nodes. dividing by 10 seems good
         private float m_speed = 5f / 10; 
 
-        
         private bool spriteSheet = true;
 
-        public HelicopterEnemy(string enemyID)
-            : base(enemyID)
+        public HelicopterEnemy(string enemyID, Vector2 enemyVector)
+            : base(enemyID, enemyVector)
         {
             hitPoints = m_hp;
             speed = m_speed;

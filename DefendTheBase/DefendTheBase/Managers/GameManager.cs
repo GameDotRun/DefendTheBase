@@ -62,6 +62,15 @@ namespace DefendTheBase
             //Add modifications for each enemy here
             if (EnemyType == "Tank")
                 m_resources += 100;
+            else if (EnemyType == "Helicopter")
+                m_resources += 100;
+            else if (EnemyType == "Transport")
+                m_resources += 100;
+            else if (EnemyType == "Jeep")
+                m_resources += 100;
+            else if (EnemyType == "Soldier")
+                m_resources += 100;
+
         
         }
 
