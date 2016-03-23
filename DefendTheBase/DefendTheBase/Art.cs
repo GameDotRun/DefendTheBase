@@ -30,6 +30,7 @@ namespace DefendTheBase
         public static Texture2D JeepTop { get; private set; }
         public static Texture2D Soldier { get; private set; }
         public static Texture2D Helicopter { get; private set; }
+        public static Texture2D Transport { get; private set; }
 
         public static Texture2D Projectile { get; private set; }
         public static Texture2D ProjectileGun { get; private set; }
@@ -79,6 +80,7 @@ namespace DefendTheBase
             JeepTop = content.Load<Texture2D>("Art/Images/UnitsEnemy/jeep_top");
             Soldier = content.Load<Texture2D>("Art/Images/UnitsEnemy/soldier");
             Helicopter = content.Load<Texture2D>("Art/Images/UnitsEnemy/helicopter");
+            Transport = content.Load<Texture2D>("Art/Images/UnitsEnemy/transport");
 
             // Projectiles
             Projectile = content.Load<Texture2D>("Art/Images/Projectiles/Projectile");

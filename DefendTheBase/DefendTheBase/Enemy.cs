@@ -193,6 +193,11 @@ namespace DefendTheBase
                 sb.Draw(Art.TankTop, new Vector2(ScreenPos.X , ScreenPos.Y), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.TankTop.Width / 5, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
             }
 
+            else if (EnemyType == "Transport")
+            {
+                sb.Draw(Art.Transport, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.Transport.Width / 2, Art.Transport.Height / 2), 1f, SpriteEffects.None, 0);
+            }
+
             else if (EnemyType == "Jeep")
             {
                 sb.Draw(Art.JeepBottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.JeepBottom.Width / 2, Art.JeepBottom.Height / 2), 1f, SpriteEffects.None, 0);
@@ -239,6 +244,24 @@ namespace DefendTheBase
         private bool spriteSheet = false;
 
         public JeepEnemy(string enemyID)
+            : base(enemyID)
+        {
+            hitPoints = m_hp;
+            speed = m_speed;
+            EnemyType = Type;
+            usingSpriteSheet = spriteSheet;
+        }
+    }
+
+    class TransportEnemy : Enemy
+    {
+        public string Type = "Transport";
+
+        private float m_hp = 14;
+        private float m_speed = 3f;
+        private bool spriteSheet = false;
+
+        public TransportEnemy(string enemyID)
             : base(enemyID)
         {
             hitPoints = m_hp;
