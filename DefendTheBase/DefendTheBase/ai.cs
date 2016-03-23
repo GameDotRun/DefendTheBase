@@ -55,6 +55,12 @@ namespace DefendTheBase
                                 tempInt = squares[(int)currentCoord.x - 1, (int)currentCoord.y].sqrCoord.counter; // set the tempint to new distance value
                                 nextCoord = new Coordinates((int)currentCoord.x - 1, (int)currentCoord.y, tempInt); // set temp coord to the aipos + direction.
                             }
+
+                            if (squares[(int)currentCoord.x - 1, (int)currentCoord.y].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0,2) == 1)
+                            {
+                                tempInt = squares[(int)currentCoord.x - 1, (int)currentCoord.y].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x - 1, (int)currentCoord.y, tempInt); // set temp coord to the aipos + direction.
+                            }
                         }
                     }
 
@@ -67,6 +73,12 @@ namespace DefendTheBase
                                 tempInt = squares[(int)currentCoord.x, (int)currentCoord.y + 1].sqrCoord.counter; // set the tempint to new distance value
                                 nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y + 1, tempInt); // set temp coord to the aipos + direction.
                             }
+
+                            if (squares[(int)currentCoord.x, (int)currentCoord.y + 1].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 1)
+                            {
+                                tempInt = squares[(int)currentCoord.x, (int)currentCoord.y + 1].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y + 1, tempInt); // set temp coord to the aipos + direction.
+                            }
                         }
                     }
 
@@ -75,6 +87,12 @@ namespace DefendTheBase
                         if (!squares[(int)currentCoord.x, (int)currentCoord.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
                         {
                             if (squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter < tempInt) // check the square distance from endpoint is less than the current pos. 
+                            {
+                                tempInt = squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y - 1, tempInt); // set temp coord to the aipos + direction.
+                            }
+
+                            if (squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 1)
                             {
                                 tempInt = squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter; // set the tempint to new distance value
                                 nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y - 1, tempInt); // set temp coord to the aipos + direction.
