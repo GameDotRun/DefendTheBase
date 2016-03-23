@@ -72,6 +72,18 @@ namespace DefendTheBase
                             for (float i = 0; i < 4; i++)
                                 SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
                         }
+
+                        else if (Enemy.EnemyType == "Tank")
+                        {
+                            for (float i = 0; i < 2; i++)
+                                SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+                        }
+
+                        else if (Enemy.EnemyType == "Jeep")
+                        {
+                            for (float i = 0; i < 1; i++)
+                                SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+                        }
                     }
 
                     DestroyEnemy(Enemy.EnemyID, Enemy.EnemyType);
