@@ -14,7 +14,7 @@ namespace DefendTheBase
     /// </summary>
     public static class EnemyManager
     {
-        public static string[] TypeIDs = { "Tank" };
+        public static string[] TypeIDs = { "Tank", "Soldier", "Helicopter" };
         static List<Enemy> Enemies = new List<Enemy>();
         static List<string> EnemyIDs = new List<string>();
 
@@ -45,6 +45,10 @@ namespace DefendTheBase
         {
             if (TypeID == "Tank")
                 Enemies.Add(new TankEnemy(CreateID(TypeID)));
+            else if (TypeID == "Soldier")
+                Enemies.Add(new SoldierEnemy(CreateID(TypeID)));
+            else if (TypeID == "Helicopter")
+                Enemies.Add(new HelicopterEnemy(CreateID(TypeID)));
         }
 
         /// <summary>

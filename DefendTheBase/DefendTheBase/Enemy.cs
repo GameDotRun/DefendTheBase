@@ -105,7 +105,12 @@ namespace DefendTheBase
         public bool pathFound = false;
         public bool IsDestroyed = false;
         public bool towerInRange = false;
-        public float time, shootTimer;
+        public bool usingSpriteSheet;
+        public float time, shootTimer, animElasped, targetElasped;
+        public int spriteSheetNo = 0;
+        public int sheetFrameTotal;
+
+        Rectangle SourceRect;
 
         bool moving = false;
 
@@ -115,6 +120,8 @@ namespace DefendTheBase
             EnemyID = enemyID;
             EnemyListener.AddEnemy(this);
             shootTimer = 1;
+
+            animElasped = 0;
         }
 
         public void Update(Grid.gridFlags endPoint, GameTime gameTime)
@@ -125,7 +132,7 @@ namespace DefendTheBase
 
             if (GameRoot.grid.pathFound) // this needs some form of trigger 
             {
-               moving = PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, ref ScreenPos, speed, time, Direction);
+               moving = PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, ref ScreenPos, speed, time, Direction, EnemyType);
             }
 
             if (GameRoot.ENDPOINT != null)
@@ -165,6 +172,16 @@ namespace DefendTheBase
             if (!towerInRange)
                 TurretDirection = Direction;
 
+            if (usingSpriteSheet)
+            {
+                EffectManager.spriteSheetUpdate(ref spriteSheetNo, ref animElasped, targetElasped, sheetFrameTotal, gameTime);
+
+                if(EnemyType == "Soldier")
+                    SourceRect = new Rectangle(0, spriteSheetNo * Art.Soldier.Height / 4, Art.Soldier.Width, Art.Soldier.Height / 4);
+                else if (EnemyType == "Helicopter")
+                    SourceRect = new Rectangle(spriteSheetNo * Art.Helicopter.Width / 2, 0, Art.Helicopter.Width / 2, Art.Helicopter.Height); 
+            }
+
         }
 
         public void Draw(SpriteBatch sb)
@@ -173,7 +190,18 @@ namespace DefendTheBase
             if (EnemyType == "Tank")
             {
                 sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
-                sb.Draw(Art.TankTop, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.TankTop.Width / 3, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Art.TankTop, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.TankTop.Width / 5, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+            }
+
+            else if (EnemyType == "Soldier")
+            {
+                sb.Draw(Art.Soldier, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width /2, SourceRect.Height/2), 1f, SpriteEffects.None, 0);
+            
+            }
+
+            else if (EnemyType == "Helicopter")
+            {
+                sb.Draw(Art.Helicopter, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width / 2, SourceRect.Height / 2), 1f, SpriteEffects.None, 0);
             }
         }
     }
@@ -184,6 +212,7 @@ namespace DefendTheBase
 
         private float m_hp = 20;
         private float m_speed = 3f;
+        private bool spriteSheet = false;
 
         public TankEnemy(string enemyID)
             : base(enemyID)
@@ -191,10 +220,60 @@ namespace DefendTheBase
             hitPoints = m_hp;
             speed = m_speed;
             EnemyType = Type;
+            usingSpriteSheet = spriteSheet;
         }
+    }
+
+    class SoldierEnemy : Enemy
+    {
+        public string Type = "Soldier";
+
+        private float frameSpeed = 100;
+        private int frameTotal = 3; // total - 1
+
+        private float m_hp = 2;
+        private float m_speed = 2;
+      
+        private bool spriteSheet = true;
+        
+
+        public SoldierEnemy(string enemyID)
+            : base(enemyID)
+        {
+            hitPoints = m_hp;
+            speed = m_speed;
+            EnemyType = Type;
+            usingSpriteSheet = spriteSheet;
+            targetElasped = frameSpeed;
+            sheetFrameTotal = frameTotal;
+        }
+   
+    }
+
+    class HelicopterEnemy : Enemy
+    {
+        public string Type = "Helicopter";
+
+        private float frameSpeed = 1;
+        private int frameTotal = 1; // total - 1
+
+        private float m_hp = 10;
+        // helicopter speed works very differently, as it only heads towards one node currently it goes a lot faster than other units which use multiple nodes. dividing by 10 seems good
+        private float m_speed = 5f / 10; 
 
         
-    
+        private bool spriteSheet = true;
+
+        public HelicopterEnemy(string enemyID)
+            : base(enemyID)
+        {
+            hitPoints = m_hp;
+            speed = m_speed;
+            EnemyType = Type;
+            usingSpriteSheet = spriteSheet;
+            targetElasped = frameSpeed;
+            sheetFrameTotal = frameTotal;
+        }
     }
 
 }

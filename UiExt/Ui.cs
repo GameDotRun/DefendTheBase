@@ -117,8 +117,7 @@ namespace RPGEx
         public bool GetActive
         {
             get { return active; }
-        }
-    
+        } 
     }
 
     /// <summary>
