@@ -188,9 +188,9 @@ namespace DefendTheBase
                 EffectManager.spriteSheetUpdate(ref spriteSheetNo, ref animElasped, targetElasped, sheetFrameTotal, gameTime);
 
                 if(EnemyType == "Soldier")
-                    SourceRect = new Rectangle(0, spriteSheetNo * Art.Soldier.Height / 4, Art.Soldier.Width, Art.Soldier.Height / 4);
+                    SourceRect = new Rectangle(0, spriteSheetNo * Art.Soldier.Height / (sheetFrameTotal + 1), Art.Soldier.Width, Art.Soldier.Height / (sheetFrameTotal + 1));
                 else if (EnemyType == "Helicopter")
-                    SourceRect = new Rectangle(spriteSheetNo * Art.Helicopter.Width / 2, 0, Art.Helicopter.Width / 2, Art.Helicopter.Height); 
+                    SourceRect = new Rectangle(spriteSheetNo * Art.Helicopter.Width / (sheetFrameTotal + 1) , 0, Art.Helicopter.Width / (sheetFrameTotal + 1), Art.Helicopter.Height); 
             }
 
         }
@@ -312,8 +312,8 @@ namespace DefendTheBase
     {
         public string Type = "Helicopter";
 
-        private float frameSpeed = 1;
-        private int frameTotal = 1; // total - 1
+        private float frameSpeed = 50;
+        private int frameTotal = 3; // total - 1
         private float m_hp = 10;
         // helicopter speed works very differently, as it only heads towards one node currently it goes a lot faster than other units which use multiple nodes. dividing by 10 seems good
         private float m_speed = 5f / 10; 
