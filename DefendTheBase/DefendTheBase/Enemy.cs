@@ -140,14 +140,12 @@ namespace DefendTheBase
             {
                 if (currentCoord.CoordEqual(GameRoot.ENDPOINT))
                 {
-                    WaveManager.WaveEnemiesUsed++;
                     IsDestroyed = true;
                 }
             }
 
             if (hitPoints <= 0)
             {
-                WaveManager.WaveEnemiesUsed++;
                 IsDestroyed = true;
             }
 

@@ -30,7 +30,6 @@ namespace DefendTheBase
             if (index >= 0)
                 Enemies.RemoveAt(index);
 
-
             int index2 = EnemyIDs.FindIndex(item => string.Compare(item, EnemyID, 0) == 0);
 
             if (index2 >= 0)
@@ -63,38 +62,49 @@ namespace DefendTheBase
             {
                 if (Enemy.IsDestroyed)
                 {
-                    if (Enemy.hitPoints <= 0)
+                    WaveManager.WaveEnemiesUsed++;
+
+                    if (Enemy.hitPoints <= 0) // check if it was destroyed by means of towers
                     {
-                        GameManager.EnemyWasDestroyed(Enemy.EnemyType);
+                        GameManager.EnemyWasDestroyed(Enemy.EnemyType); // resource acquisition 
 
                         if (Enemy.EnemyType == "Transport")
                         {
                             for (float i = 0; i < 4; i++)
+                            {
+                                WaveManager.WaveEnemiesUsed--;
                                 SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+                            }
                         }
 
                         else if (Enemy.EnemyType == "Tank")
                         {
                             for (float i = 0; i < 2; i++)
+                            {
+                                WaveManager.WaveEnemiesUsed--;
                                 SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+                            }
                         }
 
                         else if (Enemy.EnemyType == "Jeep")
                         {
                             for (float i = 0; i < 1; i++)
+                            {
+                                WaveManager.WaveEnemiesUsed--;
                                 SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+                            }
                         }
                     }
 
-                    DestroyEnemy(Enemy.EnemyID, Enemy.EnemyType);
+                    DestroyEnemy(Enemy.EnemyID, Enemy.EnemyType); 
                     break;
                 }
 
                 else
-                    Enemy.Update(GameRoot.grid.gridStatus, gt);
+                    Enemy.Update(GameRoot.grid.gridStatus, gt); //updates the enemy
             }
 
-            foreach (Projectile proj in TankTurret.EnemyProjectiles)
+            foreach (Projectile proj in TankTurret.EnemyProjectiles) //updates the projectiles of enemy
                 proj.Update();
         }
 
