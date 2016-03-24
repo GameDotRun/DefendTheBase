@@ -11,11 +11,11 @@ namespace DefendTheBase
         public static TimeSpan EnemySpawnTimer = TimeSpan.Zero;
         public static bool WaveStarted = false;
         public static int WaveNumber = 1;
-        public static int WaveEnemyAmount = 10;
+        public static int WaveEnemyAmount = 100;
         public static int WaveEnemiesUsed = 0;
 
         static int WaveEnemiesSpawned = 0;
-        static float WaveSpawnInterval = 1000f;
+        static float WaveSpawnInterval = 200f;
         static float WavePower = 2;
 
         public static void Update(GameTime gameTime)

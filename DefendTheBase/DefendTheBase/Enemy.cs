@@ -129,7 +129,19 @@ namespace DefendTheBase
         {
             time = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            //check for out of bounds, only really occurs when they are spawned from a destroyed vehicle as the vehicle is turning
+            if (enemyVect.X >= 20)
+                enemyVect.X = 19;
+            if (enemyVect.Y >= 15)
+                enemyVect.Y = 14;
+            if (enemyVect.X < 0)
+                enemyVect.X = 0;
+            if (enemyVect.Y < 0)
+                enemyVect.Y = 0;
+
             currentCoord = new Coordinates((int)enemyVect.X, (int)enemyVect.Y);
+
+            
 
             if (GameRoot.grid.pathFound) // this needs some form of trigger 
             {
