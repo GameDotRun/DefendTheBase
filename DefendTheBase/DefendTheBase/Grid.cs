@@ -31,7 +31,7 @@ namespace DefendTheBase
             {
                 coords.Add(GameRoot.ENDPOINT);
                 currentElement = coords[count];
-                Grid[GameRoot.ENDPOINT.x, GameRoot.ENDPOINT.y].sqrCoord.counter = GameRoot.ENDPOINT.counter;
+                Grid[(int)GameRoot.ENDPOINT.x, (int)GameRoot.ENDPOINT.y].sqrCoord.counter = GameRoot.ENDPOINT.counter;
                 done = true;
             }
 
@@ -40,22 +40,22 @@ namespace DefendTheBase
 
                 //Check right square
                 if (currentElement.x + 1 < GameRoot.WIDTH)
-                    if (!Grid[currentElement.x + 1, currentElement.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    if (!Grid[(int)currentElement.x + 1, (int)currentElement.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                         tempCoords.Add(new Coordinates(currentElement.x + 1, currentElement.y, currentElement.counter + 1));
 
                 //check left square
                 if (currentElement.x - 1 >= 0)
-                    if (!Grid[currentElement.x - 1, currentElement.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    if (!Grid[(int)currentElement.x - 1, (int)currentElement.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                         tempCoords.Add(new Coordinates(currentElement.x - 1, currentElement.y, currentElement.counter + 1));
 
                 //check lower square
                 if (currentElement.y + 1 < GameRoot.HEIGHT)
-                    if (!Grid[currentElement.x, currentElement.y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    if (!Grid[(int)currentElement.x, (int)currentElement.y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                         tempCoords.Add(new Coordinates(currentElement.x, currentElement.y + 1, currentElement.counter + 1));
 
                 //check upper square
                 if (currentElement.y - 1 >= 0)
-                    if (!Grid[currentElement.x, currentElement.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
+                    if (!Grid[(int)currentElement.x, (int)currentElement.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                         tempCoords.Add(new Coordinates(currentElement.x, currentElement.y - 1, currentElement.counter + 1));
 
                 duplicateCheck(ref count, tempCoords, coords);
@@ -77,13 +77,10 @@ namespace DefendTheBase
 
             }
 
-            Grid[GameRoot.ENDPOINT.x, GameRoot.ENDPOINT.y].sqrCoord.counter = GameRoot.ENDPOINT.counter;
+            Grid[(int)GameRoot.ENDPOINT.x, (int)GameRoot.ENDPOINT.y].sqrCoord.counter = GameRoot.ENDPOINT.counter;
 
-            foreach (Squares Square in Grid)
-            {
-                if (Square.sqrCoord.counter == GameRoot.DEFAULYDIST && Square.typeOfSquare == Squares.SqrFlags.Unoccupied)
-                    return false;
-            }
+            if (!CheckSquareCounters(Grid))
+                return false;
 
             return true;
         }
@@ -93,22 +90,33 @@ namespace DefendTheBase
             Squares[,] TempGrid;
             TempGrid = Grid;
 
-            TempGrid[SquareCoords.x, SquareCoords.y].typeOfSquare = Squares.SqrFlags.Wall;
-            TempGrid[SquareCoords.x, SquareCoords.y].Building = Squares.BuildingType.Trench;
+            TempGrid[(int)SquareCoords.x, (int)SquareCoords.y].typeOfSquare = Squares.SqrFlags.Wall;
+            TempGrid[(int)SquareCoords.x, (int)SquareCoords.y].Building = Squares.BuildingType.Trench;
 
             if (GridPaths(TempGrid))
             {
-                TempGrid[SquareCoords.x, SquareCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
-                TempGrid[SquareCoords.x, SquareCoords.y].Building = Squares.BuildingType.None ;
+                TempGrid[(int)SquareCoords.x, (int)SquareCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
+                TempGrid[(int)SquareCoords.x, (int)SquareCoords.y].Building = Squares.BuildingType.None;
                 return true;
             }
 
             else
             {
-                TempGrid[SquareCoords.x, SquareCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
-                TempGrid[SquareCoords.x, SquareCoords.y].Building = Squares.BuildingType.None;
+                TempGrid[(int)SquareCoords.x, (int)SquareCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
+                TempGrid[(int)SquareCoords.x, (int)SquareCoords.y].Building = Squares.BuildingType.None;
                 return false;
             }
+        } // this is goddamn inefficient.
+
+        public static bool CheckSquareCounters(Squares[,] Grid)
+        {
+            foreach (Squares Square in Grid)
+            {
+                if (Square.sqrCoord.counter == GameRoot.DEFAULYDIST && Square.typeOfSquare == Squares.SqrFlags.Unoccupied)
+                    return false;
+            }
+
+            return true;
         }
 
         static void GridReset(Squares[,] Grid)
@@ -156,8 +164,8 @@ namespace DefendTheBase
         {
             for (int v = 0; v < tempCoords.Count; v++)
             {
-                if (Grid[tempCoords[v].x, tempCoords[v].y].sqrCoord.counter == 0 || Grid[tempCoords[v].x, tempCoords[v].y].sqrCoord.counter == GameRoot.DEFAULYDIST)
-                    Grid[tempCoords[v].x, tempCoords[v].y].sqrCoord.counter = counter;
+                if (Grid[(int)tempCoords[v].x, (int)tempCoords[v].y].sqrCoord.counter == 0 || Grid[(int)tempCoords[v].x, (int)tempCoords[v].y].sqrCoord.counter == GameRoot.DEFAULYDIST)
+                    Grid[(int)tempCoords[v].x, (int)tempCoords[v].y].sqrCoord.counter = counter;
             }
         }
 
@@ -191,11 +199,12 @@ namespace DefendTheBase
             gridStatus = gridFlags.empty;
             updateTimer = TimeSpan.Zero;
 
-            gridSquares[GameRoot.ENDPOINT.x, GameRoot.ENDPOINT.y].typeOfSquare |= Squares.SqrFlags.StopPoint;
-            gridSquares[GameRoot.ENDPOINT.x, GameRoot.ENDPOINT.y].Building = Squares.BuildingType.Base;
+            GenerateNewMap();
+
+            gridSquares[(int)GameRoot.ENDPOINT.x, (int)GameRoot.ENDPOINT.y].typeOfSquare |= Squares.SqrFlags.StopPoint;
+            gridSquares[(int)GameRoot.ENDPOINT.x, (int)GameRoot.ENDPOINT.y].Building = Squares.BuildingType.Base;
             
 
-            GenerateNewMap();
             gridStatus = gridFlags.endPoint;
             pathFound = GridManager.GridPaths(gridSquares);
             
@@ -217,19 +226,6 @@ namespace DefendTheBase
 
             if (updateTimer.TotalMilliseconds > 1000f / GameRoot.UPS)
             {
-                for (int y = 0; y < GameRoot.HEIGHT; y++)
-                    for (int x = 0; x < GameRoot.WIDTH; x++)
-                    {
-                        if (Input.MouseRect.Intersects(gridSquares[x, y].rect) && Input.RMBDown && Input.IsKeyDown(Keys.LeftShift) && !gridStatus.HasFlag(gridFlags.endPoint)) // temporary.
-                        {
-                           /* gridStatus = gridFlags.endPoint;
-                            stopPointCoord = new Coordinates(x, y, 0);
-                            gridSquares[x, y].typeOfSquare |= Squares.SqrFlags.StopPoint;
-                            gridSquares[x, y].Building = Squares.BuildingType.Base;
-                            pathFound = FindPath();*/
-
-                        }
-                    }
 
                 for (int y = 0; y < GameRoot.HEIGHT - 0; y++)
                     for (int x = 0; x < GameRoot.WIDTH - 0; x++)
@@ -284,7 +280,6 @@ namespace DefendTheBase
                 square.typeOfSquare |= Squares.SqrFlags.Unoccupied;
                 square.Building = Squares.BuildingType.None;
             }
-
         }
 
         public string sqrTexDecider(int x, int y)
@@ -309,6 +304,39 @@ namespace DefendTheBase
                 if (gridSquares[x - 1, y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
                     gridSquares[x, y].TrenchName += "W";
             return gridSquares[x, y].TrenchName;
+        }
+    }
+
+    public class Coordinates
+    {
+        public float x, y;
+        public int counter;
+        public Coordinates(float X, float Y, int COUNTER)
+        {
+            x = X;
+            y = Y;
+            counter = COUNTER;
+        }
+
+        public Coordinates(float X, float Y)
+        {
+            x = X;
+            y = Y;
+        }
+
+        public bool Equals(Coordinates Coords)
+        { 
+            if(Coords.x == x && Coords.y == y && Coords.counter == counter)
+                return true;
+            else return false;
+        }
+
+        public bool CoordEqual(Coordinates Coord)
+        {
+            if (Coord.x == x && Coord.y == y)
+                return true;
+            else return false;
+        
         }
     }
 }

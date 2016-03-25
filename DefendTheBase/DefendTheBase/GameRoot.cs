@@ -43,7 +43,6 @@ namespace DefendTheBase
 
         Vector2 ScreenSize; // ScreenSize
 
-        //TankEnemy tanks;
         UiGameScreen gameScreenUi;
         // Constructor
         public GameRoot()
@@ -63,6 +62,7 @@ namespace DefendTheBase
         protected override void Initialize()
         {
             rnd = new Random();
+
             base.Initialize();
         }
 
@@ -72,7 +72,6 @@ namespace DefendTheBase
             spriteBatch = new SpriteBatch(GraphicsDevice);
             // Load Images and Fonts from disk.
             Art.Load(Content);
-
             // Set up variables.
             ResetGame();
         }
@@ -83,7 +82,6 @@ namespace DefendTheBase
             // Reset Variables, or Set if first run.
             UiButtonMessenger.InitiliseListenerList();
             EnemyListener.InitiliseListener();
-            //tanks = new TankEnemy("enemyTest");
             grid = new Grid(SQUARESIZE, DEFAULYDIST);
             gameScreenUi = new UiGameScreen(GraphicsDevice);
             GameManager.ResetValues();
@@ -101,7 +99,7 @@ namespace DefendTheBase
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
             gameScreenUi.Update();
-            LevelWaves.Update(gameTime);
+            WaveManager.Update(gameTime);
 
             // Using the last button pressed ID, as long as it exists,
             // see if it is a "btn0" and then set the BuildState using the rest of the ID.
@@ -118,22 +116,21 @@ namespace DefendTheBase
             grid.Update(gameTime);
 
             if(grid.gridStatus.HasFlag(Grid.gridFlags.endPoint)) //CREATE A WAVE COUNT DOWN
-                LevelWaves.WaveStarted = true;
+                WaveManager.WaveStarted = true;
 
-                
             for (int y = 0; y < HEIGHT; y++) // get if a square has been edited 
                 for (int x = 0; x < WIDTH; x++)
                 {
-                    if ((Input.LMBDown || Input.RMBDown) && grid.gridSquares[x, y].getSquareEdited)
+                    if (grid.gridSquares[x, y].getSquareEdited)
                     {
-                        if (grid.pathFound == true)
-                        {
                             EnemyManager.ResetEnemyAI();
                             grid.pathFound = false;
                             grid.pathFound = GridManager.GridPaths(grid.gridSquares);
-                        }
+
                     }
+
                 }
+
             // Wipe grid when BackSpace is pressed. REMOVE LATER
             if (Input.WasKeyPressed(Keys.Back))
             {
@@ -152,7 +149,6 @@ namespace DefendTheBase
 
             grid.Draw(spriteBatch, Art.DebugFont);
             gameScreenUi.Draw(spriteBatch);
-
             EnemyManager.Draw(spriteBatch);
 
 #if DEBUG
@@ -163,7 +159,7 @@ namespace DefendTheBase
                     "DEBUG" +
                     "\nFPS: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString("N0") +
                     "\nBuild: " + GameManager.BuildState +
-                    "\nEnemySpawn: " + LevelWaves.EnemySpawnTimer,
+                    "\nEnemySpawn: " + WaveManager.EnemySpawnTimer,
                     i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }

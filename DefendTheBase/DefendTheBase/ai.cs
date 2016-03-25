@@ -6,137 +6,143 @@ using System.Text;
 
 namespace DefendTheBase
 {
-    public class ai
+    public class Ai
     {
-        public Coordinates aiPos;
-
-        List<Coordinates> coords;
-        List<Coordinates> tempCoords;
-        Coordinates tempCoord;
-
+        public Coordinates nextCoord, currentCoord;
+        public Vector2 Node, previousVect, Movement;
         internal int tempInt;
 
         int defDist;
+        bool Moving = false;
 
-        public ai(Coordinates aiStart)
+        float distance;
+
+        public Ai()
         {
-            aiPos = aiStart;
             defDist = GameRoot.DEFAULYDIST;
             tempInt = GameRoot.DEFAULYDIST;
-
-            tempCoord = new Coordinates(0, 0, GameRoot.DEFAULYDIST);
-            coords = new List<Coordinates>();
-            tempCoords = new List<Coordinates>();
+            nextCoord = new Coordinates(0, 0);
         }
 
-        public void PathMove(Squares[,] squares, int height, int width, ref Vector2 enemyVect, float speed)
+        public bool PathMove(Squares[,] squares, int height, int width, ref Vector2 EnemyVect, ref Vector2 ScreenPos, float speed, float time, Vector2 Direction, string EnemyType)
         {
-            if ((aiPos.x == (int)enemyVect.X && aiPos.y == (int)enemyVect.Y) || (aiPos.y == (int)enemyVect.Y + 1 && aiPos.x == (int)enemyVect.X))
+            if (!Moving)
             {
-                if (aiPos.x + 1 < width) // check array wont go out of bounds 
+                ScreenPos = new Vector2(Node.X, Node.Y);
+
+
+                if (EnemyType != "Helicopter")
                 {
-                    if (!squares[(int)aiPos.x + 1, (int)aiPos.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
+                    if (currentCoord.x + 1 < width) // check array wont go out of bounds 
                     {
-                        if (squares[(int)aiPos.x + 1, (int)aiPos.y].sqrCoord.counter < tempInt) // check the square distance from endpoint is less than the current pos. 
+                        if (!squares[(int)currentCoord.x + 1, (int)currentCoord.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
                         {
-                            tempInt = squares[(int)aiPos.x + 1, (int)aiPos.y].sqrCoord.counter; // set the tempint to new distance value
-                            tempCoord = new Coordinates((int)aiPos.x + 1, (int)aiPos.y, tempInt); // set temp coord to the aipos + direction.
+                            if (squares[(int)currentCoord.x + 1, (int)currentCoord.y].sqrCoord.counter < tempInt) // check the square distance from endpoint is less than the current pos. 
+                            {
+                                tempInt = squares[(int)currentCoord.x + 1, (int)currentCoord.y].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x + 1, (int)currentCoord.y, tempInt); // set temp coord to the aipos + direction.
+                            }
+                        }
+                    }
+
+
+                    if (currentCoord.x - 1 >= 0) // check array wont go out of bounds 
+                    {
+                        if (!squares[(int)currentCoord.x - 1, (int)currentCoord.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
+                        {
+                            if (squares[(int)currentCoord.x - 1, (int)currentCoord.y].sqrCoord.counter < tempInt) // check the square distance from endpoint is less than the current pos. 
+                            {
+                                tempInt = squares[(int)currentCoord.x - 1, (int)currentCoord.y].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x - 1, (int)currentCoord.y, tempInt); // set temp coord to the aipos + direction.
+                            }
+
+                            if (squares[(int)currentCoord.x - 1, (int)currentCoord.y].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0,2) == 1)
+                            {
+                                tempInt = squares[(int)currentCoord.x - 1, (int)currentCoord.y].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x - 1, (int)currentCoord.y, tempInt); // set temp coord to the aipos + direction.
+                            }
+                        }
+                    }
+
+                    if (currentCoord.y + 1 < height) // check array wont go out of bounds 
+                    {
+                        if (!squares[(int)currentCoord.x, (int)currentCoord.y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
+                        {
+                            if (squares[(int)currentCoord.x, (int)currentCoord.y + 1].sqrCoord.counter < tempInt) // check the square distance from endpoint is less than the current pos. 
+                            {
+                                tempInt = squares[(int)currentCoord.x, (int)currentCoord.y + 1].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y + 1, tempInt); // set temp coord to the aipos + direction.
+                            }
+
+                            if (squares[(int)currentCoord.x, (int)currentCoord.y + 1].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 1)
+                            {
+                                tempInt = squares[(int)currentCoord.x, (int)currentCoord.y + 1].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y + 1, tempInt); // set temp coord to the aipos + direction.
+                            }
+                        }
+                    }
+
+                    if (currentCoord.y - 1 >= 0) // check array wont go out of bounds 
+                    {
+                        if (!squares[(int)currentCoord.x, (int)currentCoord.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
+                        {
+                            if (squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter < tempInt) // check the square distance from endpoint is less than the current pos. 
+                            {
+                                tempInt = squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y - 1, tempInt); // set temp coord to the aipos + direction.
+                            }
+
+                            if (squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 1)
+                            {
+                                tempInt = squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y - 1, tempInt); // set temp coord to the aipos + direction.
+                            }
                         }
                     }
                 }
 
-                if (aiPos.x - 1 >= 0) // check array wont go out of bounds 
+                else if (EnemyType == "Helicopter")
+                    nextCoord = GameRoot.ENDPOINT;
+
+                Node = new Vector2((nextCoord.x * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2, (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2);
+
+                distance = Vector2.Distance(new Vector2(currentCoord.x, currentCoord.y), new Vector2(nextCoord.x, nextCoord.y));
+
+                Direction = new Vector2(nextCoord.x - currentCoord.x, nextCoord.y - currentCoord.y);
+                Movement = Direction;
+                Direction.Normalize();
+
+                previousVect = new Vector2(currentCoord.x, currentCoord.y);
+
+                Moving = true;
+
+            }
+
+
+            if (Moving)
+            {
+                EnemyVect += Direction * speed * time;
+                if (Vector2.Distance(previousVect, EnemyVect) >= distance)
                 {
-                    if (!squares[(int)aiPos.x - 1, (int)aiPos.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                    {
-                        if (squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter < tempInt)
-                        {
-                            tempInt = squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter;
-                            tempCoord = new Coordinates((int)aiPos.x - 1, (int)aiPos.y, tempInt);
-                        }
+                    if(Direction.Y >= 0 && Direction.X >= 0)
+                        ScreenPos = new Vector2(Node.X, Node.Y);
 
-                        else if (squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 0) // random choice between two paths of same length
-                        {
-                            tempInt = squares[(int)aiPos.x - 1, (int)aiPos.y].sqrCoord.counter;
-                            tempCoord = new Coordinates((int)aiPos.x - 1, (int)aiPos.y, tempInt);
-                        }
+                    Moving = false;
 
-                    }
+                    return false;
                 }
 
-                if (aiPos.y + 1 < height) // check array wont go out of bounds 
-                {
-                    if (!squares[(int)aiPos.x, (int)aiPos.y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                    {
-                        if (squares[(int)aiPos.x, (int)aiPos.y + 1].sqrCoord.counter < tempInt)
-                        {
-                            tempInt = squares[(int)aiPos.x, (int)aiPos.y + 1].sqrCoord.counter;
-                            tempCoord = new Coordinates((int)aiPos.x, (int)aiPos.y + 1, tempInt);
-                        }
-
-                        else if (squares[(int)aiPos.x, (int)aiPos.y + 1].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 0)
-                        {
-                            tempInt = squares[(int)aiPos.x, (int)aiPos.y + 1].sqrCoord.counter;
-                            tempCoord = new Coordinates((int)aiPos.x, (int)aiPos.y + 1, tempInt);
-                        }
-                    }
-                }
-
-                if (aiPos.y - 1 >= 0) // check array wont go out of bounds 
-                {
-                    if (!squares[(int)aiPos.x, (int)aiPos.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall))
-                    {
-                        if (squares[(int)aiPos.x, (int)aiPos.y - 1].sqrCoord.counter < tempInt)
-                        {
-                            tempInt = squares[(int)aiPos.x, (int)aiPos.y - 1].sqrCoord.counter;
-                            tempCoord = new Coordinates((int)aiPos.x, (int)aiPos.y - 1, tempInt);
-                        }
-
-                        else if (squares[(int)aiPos.x, (int)aiPos.y - 1].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 0)
-                        {
-                            tempInt = squares[(int)aiPos.x, (int)aiPos.y - 1].sqrCoord.counter;
-                            tempCoord = new Coordinates((int)aiPos.x, (int)aiPos.y - 1, tempInt);
-                        }
-                    }
-                }
-
-
-
-                aiPos = new Coordinates(tempCoord.x, tempCoord.y); // set ai coord to the new location found
+                return true;
             }
 
-            // Somewhere in these ifs is the key to diag movement or wall nope-ing...
-            // adding else to all but the last ifs, removes diag but he nopes through many a wall.
-            if (enemyVect.X < aiPos.x)
-            {
-                enemyVect.X += speed / 100;
-                enemyVect.X = (float)Math.Round(enemyVect.X, 2);
-            }
-
-            if (enemyVect.X > aiPos.x)
-            {
-                enemyVect.X -= speed / 100;
-                enemyVect.X = (float)Math.Round(enemyVect.X, 2);
-            }
-
-            if (enemyVect.Y < aiPos.y)
-            {
-                enemyVect.Y += speed / 100;
-                enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
-            }
-
-            if (enemyVect.Y > aiPos.y)
-            {
-                enemyVect.Y -= speed / 100;
-                enemyVect.Y = (float)Math.Round(enemyVect.Y, 2);
-            }
+            else return false;
             
         }
 
         public void PathMoveReset()
         {
             tempInt = defDist;
-            tempCoord = new Coordinates(0, 0, defDist);
+            nextCoord = new Coordinates(0, 0);
         }
     }
 }
