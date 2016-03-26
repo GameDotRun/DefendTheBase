@@ -12,6 +12,25 @@ using Microsoft.Xna.Framework.Input;
 
 namespace RPGEx
 {
+
+    public static class UiManager
+    {
+        public static List<Ui> UiScreens = new List<Ui>();
+
+        public static void Add(Ui uiScreen)
+        {
+            UiScreens.Add(uiScreen);
+        }
+
+        public static void Draw(SpriteBatch sb)
+        {
+            foreach (Ui uiScreen in UiScreens)
+            {
+                uiScreen.Draw(sb);
+            }
+        }
+    }
+
     /// <summary>
     ///  Ui class providing arrangement and other useful funtions.
     /// </summary>
@@ -23,6 +42,7 @@ namespace RPGEx
         public List<List<UiTextBox>> TextBoxList;
         public List<List<UiTextString>> StringList;
         public List<UiTabs> TabsList;
+        public List<UiStatusBars> UiStatusBarList;
 
         public Vector2 WindowDimensions;
 
@@ -34,6 +54,9 @@ namespace RPGEx
             TextBoxList = new List<List<UiTextBox>>();
             StringList = new List<List<UiTextString>>();
             TabsList = new List<UiTabs>();
+            UiStatusBarList = new List<UiStatusBars>();
+
+            UiManager.Add(this);
         }
 
         /// <summary>
@@ -56,18 +79,46 @@ namespace RPGEx
         {
             if (UiElement is UiTabs)
                 TabsList.Add(UiElement as UiTabs);
+            if (UiElement is UiStatusBars)
+                UiStatusBarList.Add(UiElement as UiStatusBars);
         }
 
-        public void TabLocationTopRight()
-        { }
+        public void Draw(SpriteBatch sb)
+        {
+            foreach (List<UiButton> List in ButtonList)
+            {
+                foreach (UiButton Button in List)
+                {
+                    Button.Draw(sb);
+                }
+            }
 
-        public void TabLocationBottomLeft()
-        { }
+            foreach (List<UiTextString> List in StringList)
+            {
+                foreach (UiTextString String in List)
+                {
+                    String.DrawString(sb);
+                }
+            }
 
-        public void TabLocationBottomRight()
-        { }
+            foreach (List<UiTextBox> List in TextBoxList)
+            {
+                foreach (UiTextBox TextBox in List)
+                {
+                    TextBox.Draw(sb);
+                }
+            }
 
+            foreach (UiStatusBars Bars in UiStatusBarList)
+            {
+                Bars.Draw(sb);
+            }
 
+            foreach (UiTabs Tabs in TabsList)
+            {
+                Tabs.Draw(sb);
+            }
+        }  
     }
 
     /// <summary>
@@ -118,6 +169,53 @@ namespace RPGEx
         {
             get { return active; }
         } 
+    }
+
+    /// <summary>
+    /// Creates a loading bar, health bar etc.
+    /// </summary>
+    public class UiStatusBars
+    {
+        Texture2D BackgroundTex, ForegroundTex;
+        Color BackgroundCol, ForegroundCol;
+        Vector2 SizeOfBar, Location;
+        float Total, Current;
+
+
+        public UiStatusBars(GraphicsDevice graphicDev, float totalData, Vector2 size, Vector2 location, Color backCol, Color foreCol)
+        {
+            Total = totalData;
+            SizeOfBar = size;
+            BackgroundCol = backCol;
+            ForegroundCol = foreCol;
+            Location = location;
+
+            BackgroundTex = new Texture2D(graphicDev, 1, 1, false, SurfaceFormat.Color);
+            BackgroundTex.SetData(new Color[] { backCol });
+
+            ForegroundTex = new Texture2D(graphicDev, 1, 1, false, SurfaceFormat.Color);
+            ForegroundTex.SetData(new Color[] { foreCol });
+        }
+
+        public UiStatusBars(float totalData, Vector2 size, Vector2 location, Texture2D backTex, Texture2D foreTex)
+        {
+            Total = totalData;
+            SizeOfBar = size;
+            Location = location;
+            BackgroundTex = backTex;
+            ForegroundTex = foreTex;
+        }
+
+        public void Update(float currentData)
+        {
+            Current = currentData;
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            sb.Draw(BackgroundTex, new Rectangle((int)Location.X, (int)Location.Y, (int)SizeOfBar.X, (int)SizeOfBar.Y), Color.White);
+            sb.Draw(ForegroundTex, new Rectangle((int)Location.X, (int)Location.Y, (int)SizeOfBar.X * (int)Current / (int)Total, (int)SizeOfBar.Y), Color.White);
+        }
     }
 
     /// <summary>

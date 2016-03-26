@@ -30,7 +30,7 @@ namespace DefendTheBase
         public static Coordinates ENDPOINT = new Coordinates(18, 13, 0);
 
         //ui Borders
-        public const int BORDERTOP = 60;
+        public const int BORDERTOP = 125;
         public const int BORDERRIGHT = 250;
         public const int BORDERLEFT = 0;
 
@@ -43,7 +43,8 @@ namespace DefendTheBase
 
         Vector2 ScreenSize; // ScreenSize
 
-        UiGameScreen gameScreenUi;
+        UiSideGameScreen UiSideScreen;
+        UiTopGameScreen UiTopScreen;
         // Constructor
         public GameRoot()
         {
@@ -83,7 +84,8 @@ namespace DefendTheBase
             UiButtonMessenger.InitiliseListenerList();
             EnemyListener.InitiliseListener();
             grid = new Grid(SQUARESIZE, DEFAULYDIST);
-            gameScreenUi = new UiGameScreen(GraphicsDevice);
+            UiSideScreen = new UiSideGameScreen(GraphicsDevice);
+            UiTopScreen = new UiTopGameScreen(GraphicsDevice);
             GameManager.ResetValues();
         }
 
@@ -98,7 +100,8 @@ namespace DefendTheBase
                 this.Exit();
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
-            gameScreenUi.Update();
+            UiSideScreen.Update();
+            UiTopScreen.Update();
             WaveManager.Update(gameTime);
 
             // Using the last button pressed ID, as long as it exists,
@@ -148,7 +151,7 @@ namespace DefendTheBase
             spriteBatch.Begin();
 
             grid.Draw(spriteBatch, Art.DebugFont);
-            gameScreenUi.Draw(spriteBatch);
+            UiManager.Draw(spriteBatch);
             EnemyManager.Draw(spriteBatch);
 
 #if DEBUG

@@ -8,40 +8,31 @@ using RPGEx;
 
 namespace DefendTheBase
 {
-    public class UiGameScreen : Ui
+
+    public class UiSideGameScreen : Ui
     {
         //these variables hopefully wont be needed when i've made some planned ui functions
-        Vector2 tabDrawPos = new Vector2(1000, 60);
-        Vector2 buttonDrawPos = new Vector2(1025, 120);
+        Vector2 tabDrawPos = new Vector2(1000, GameRoot.BORDERTOP);
+        Vector2 buttonDrawPos = new Vector2(1025, GameRoot.BORDERTOP + 60);
         Vector2 buttonSize = new Vector2(200, 100);
 
         UiTabs tabs;
 
         //Group Elements up with Lists, allows the ui controller to manipulate them
-        public List<UiTextString> waveStats;
-        public List<UiTextString> currencyStats;
-
         public List<UiButton> unitBuild;
         public List<UiButton> baseBuild;
         public List<UiButton> miscBuild;
 
-        public UiGameScreen(GraphicsDevice graphicsDevice) : base(GameRoot.WIDTH, GameRoot.HEIGHT)
+        public UiSideGameScreen(GraphicsDevice graphicsDevice) : base(GameRoot.WIDTH, GameRoot.HEIGHT)
         {
             tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Color.Aquamarine, new Vector2(83, 40));
-            waveStats = new List<UiTextString>();
-            currencyStats = new List<UiTextString>();
 
             unitBuild = new List<UiButton>();
             baseBuild = new List<UiButton>();
             miscBuild = new List<UiButton>();
 
-            //add grouped elements to uicontrollers
-            Add(ref waveStats);
-            Add(ref currencyStats);
+            //add grouped elements to uicontrollers, do not add anything that is part of a tab. Just add the tab
             Add(ref tabs);
-            Add(ref unitBuild);
-            Add(ref baseBuild);
-            Add(ref miscBuild);
 
             CreateUi(graphicsDevice);
         }
@@ -49,33 +40,16 @@ namespace DefendTheBase
         public void Update()
         {
             tabs.Update();
-
-
-            waveStats[0].StringText = "Wave: " + WaveManager.WaveNumber;
-            waveStats[1].StringText = "Enemies: " + WaveManager.WaveEnemiesUsed + "/" + WaveManager.WaveEnemyAmount;
-
-            currencyStats[0].StringText = "Manpower: " + GameManager.Manpower;
-            currencyStats[1].StringText = "Resources: " + GameManager.Resources;
         }
 
         public void Draw(SpriteBatch sb)
         {
             tabs.Draw(sb);
-
-            foreach (UiTextString text in waveStats)
-                text.DrawString(sb);
-            foreach (UiTextString text in currencyStats)
-                text.DrawString(sb);
         }
 
         public void CreateUi(GraphicsDevice graphicsDevice)
         {
-            waveStats.Add(new UiTextString(Art.DebugFont, "Wave: " + WaveManager.WaveNumber, new Vector2(100, 0), Color.Black));
-            waveStats.Add(new UiTextString(Art.DebugFont, "Enemies: " + WaveManager.WaveEnemiesUsed + "/" + WaveManager.WaveEnemyAmount, new Vector2(200, 0), Color.Black));
-
-            currencyStats.Add(new UiTextString(Art.DebugFont, "Manpower: " + GameManager.Manpower, new Vector2(300, 0), Color.Black));
-            currencyStats.Add(new UiTextString(Art.DebugFont, "Resources: " + GameManager.Resources, new Vector2(300, 20), Color.Black));
-
+          
             //its of UTMOST IMPORTANCE that each button has a unique id
 
             //Units buttons Here
@@ -123,11 +97,61 @@ namespace DefendTheBase
                 tabs.Add(miscBuild[i], 2);
                 miscBuild[i].TextBoxRectangleSet();
             }
+        }
+    }
 
-           
+    public class UiTopGameScreen : Ui
+    {
+        public UiStatusBars healthBar;
+
+        public List<UiTextString> waveStats;
+        public List<UiTextString> currencyStats;
+
+
+        public UiTopGameScreen(GraphicsDevice graphicsDevice) : base(GameRoot.WIDTH, GameRoot.HEIGHT)
+        {
+            healthBar = new UiStatusBars(graphicsDevice, 100, new Vector2(100, 25), new Vector2(300, 10), Color.Red, Color.Green);
+            waveStats = new List<UiTextString>();
+            currencyStats = new List<UiTextString>();
+            
+            Add(ref waveStats);
+            Add(ref currencyStats);
+            Add(ref healthBar);
+
+            CreateUi(graphicsDevice);
         }
 
+        public void CreateUi(GraphicsDevice graphicsDevice)
+        {
+            waveStats.Add(new UiTextString(Art.DebugFont, "Wave: " + WaveManager.WaveNumber, new Vector2(100, 0), Color.Black));
+            waveStats.Add(new UiTextString(Art.DebugFont, "Enemies: " + WaveManager.WaveEnemiesUsed + "/" + WaveManager.WaveEnemyAmount, new Vector2(200, 0), Color.Black));
+            currencyStats.Add(new UiTextString(Art.DebugFont, "Manpower: " + GameManager.Manpower, new Vector2(300, 40), Color.Black));
+            currencyStats.Add(new UiTextString(Art.DebugFont, "Resources: " + GameManager.Resources, new Vector2(300, 60), Color.Black));
+        
+        }
+
+        public void Update()
+        {
+            healthBar.Update(50);
+
+            waveStats[0].StringText = "Wave: " + WaveManager.WaveNumber;
+            waveStats[1].StringText = "Enemies: " + WaveManager.WaveEnemiesUsed + "/" + WaveManager.WaveEnemyAmount;
+
+            currencyStats[0].StringText = "Manpower: " + GameManager.Manpower;
+            currencyStats[1].StringText = "Resources: " + GameManager.Resources;
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            healthBar.Draw(sb);
+
+            foreach (UiTextString text in waveStats)
+                text.DrawString(sb);
+            foreach (UiTextString text in currencyStats)
+                text.DrawString(sb);  
+        }
     }
+
 
     /*public class StartScreen : Ui
     { }
