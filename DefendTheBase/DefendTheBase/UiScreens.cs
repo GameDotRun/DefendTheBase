@@ -42,11 +42,6 @@ namespace DefendTheBase
             tabs.Update();
         }
 
-        public void Draw(SpriteBatch sb)
-        {
-            tabs.Draw(sb);
-        }
-
         public void CreateUi(GraphicsDevice graphicsDevice)
         {
           
@@ -139,16 +134,6 @@ namespace DefendTheBase
 
             currencyStats[0].StringText = "Manpower: " + GameManager.Manpower;
             currencyStats[1].StringText = "Resources: " + GameManager.Resources;
-        }
-
-        public void Draw(SpriteBatch sb)
-        {
-            healthBar.Draw(sb);
-
-            foreach (UiTextString text in waveStats)
-                text.DrawString(sb);
-            foreach (UiTextString text in currencyStats)
-                text.DrawString(sb);  
         }
     }
 

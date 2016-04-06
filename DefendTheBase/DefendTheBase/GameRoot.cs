@@ -28,7 +28,7 @@ namespace DefendTheBase
         public const int DEFAULYDIST = 2000; //temp default counter for pathfinding
         public static Coordinates STARTPOINT = new Coordinates(0,0);
         public static Coordinates ENDPOINT = new Coordinates(18, 13, 0);
-
+              
         //ui Borders
         public const int BORDERTOP = 125;
         public const int BORDERRIGHT = 250;

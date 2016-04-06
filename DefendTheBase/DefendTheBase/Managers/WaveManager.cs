@@ -15,7 +15,7 @@ namespace DefendTheBase
         public static int WaveEnemiesUsed = 0;
 
         static int WaveEnemiesSpawned = 0;
-        static float WaveSpawnInterval = 200f;
+        static float WaveSpawnInterval = 500f;
         static float WavePower = 2;
 
         public static void Update(GameTime gameTime)
