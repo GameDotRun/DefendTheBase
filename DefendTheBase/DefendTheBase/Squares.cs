@@ -81,7 +81,7 @@ namespace DefendTheBase
 
                     if (this.HasNeighbour(BuildingType.Trench))
                     {
-                        // Build Trenchh
+                        // Build Trench
                         if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
                         {
                             ghostImage = Art.getTrenchTex(GameRoot.grid.sqrTexDecider((int)sqrCoord.x, (int)sqrCoord.y));
@@ -112,7 +112,8 @@ namespace DefendTheBase
                                     typeOfSquare |= Squares.SqrFlags.Wall;
                                     typeOfSquare |= SqrFlags.Concrete;
                                     Building = BuildingType.Tower;
-                                    TowerHere = new Tower(Tower.Type.Gun, PixelScreenPos);
+                                    //TowerHere = new Tower(Tower.Type.Gun, PixelScreenPos);
+                                    TowerManager.SpawnTower(TowerManager.TypeIDs[0], PixelScreenPos);
                                     sqrEdited = true;
                                     GameManager.ModifyManpower(-2f);
                                     GameManager.ModifyResources(-100);
@@ -133,7 +134,8 @@ namespace DefendTheBase
                                     typeOfSquare |= Squares.SqrFlags.Wall;
                                     typeOfSquare |= SqrFlags.Concrete;
                                     Building = BuildingType.Tower;
-                                    TowerHere = new Tower(Tower.Type.Rocket, PixelScreenPos);
+                                    //TowerHere = new Tower(Tower.Type.Rocket, PixelScreenPos);
+                                    TowerManager.SpawnTower(TowerManager.TypeIDs[1], PixelScreenPos);
                                     sqrEdited = true;
                                     GameManager.ModifyManpower(-4f);
                                     GameManager.ModifyResources(-300);
@@ -154,7 +156,8 @@ namespace DefendTheBase
                                     typeOfSquare |= Squares.SqrFlags.Wall;
                                     typeOfSquare |= SqrFlags.Concrete;
                                     Building = BuildingType.Tower;
-                                    TowerHere = new Tower(Tower.Type.SAM, PixelScreenPos);
+                                    //TowerHere = new Tower(Tower.Type.SAM, PixelScreenPos);
+                                    TowerManager.SpawnTower(TowerManager.TypeIDs[2], PixelScreenPos);
                                     sqrEdited = true;
                                     GameManager.ModifyManpower(-3f);
                                     GameManager.ModifyResources(-400);
@@ -175,7 +178,8 @@ namespace DefendTheBase
                                     typeOfSquare |= Squares.SqrFlags.Wall;
                                     typeOfSquare |= SqrFlags.Concrete;
                                     Building = BuildingType.Tower;
-                                    TowerHere = new Tower(Tower.Type.Tesla, PixelScreenPos);
+                                    //TowerHere = new Tower(Tower.Type.Tesla, PixelScreenPos);
+                                    TowerManager.SpawnTower(TowerManager.TypeIDs[3], PixelScreenPos);
                                     sqrEdited = true;
                                     GameManager.ModifyManpower(-3f);
                                     GameManager.ModifyResources(-500);
@@ -322,15 +326,16 @@ namespace DefendTheBase
                 else highlight = 1;
 
             }
+
                 // Update the Tower if there is one and we are active. We MUST also be next to a trench.
-                if (TowerHere != null)
-                {
-                    if (HasNeighbour(BuildingType.Trench))
-                        TowerHere.IsActive = true;
-                    else
-                        TowerHere.IsActive = false;
-                    TowerHere.Update();
-                }
+            if (TowerHere != null)
+            {
+                if (HasNeighbour(BuildingType.Trench))
+                    TowerHere.IsActive = true;
+                else
+                    TowerHere.IsActive = false;
+                TowerHere.Update();
+            }
 
             
         }
@@ -349,14 +354,14 @@ namespace DefendTheBase
                 sb.Draw(gridSquareTex, rect, Color.Red * highlight);
         }
 
-        public void DrawTowers(SpriteBatch sb)
-        {
-            if (Building == BuildingType.Tower)
-            {
-                sb.Draw(TowerHere.Sprite, new Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), null, Color.White, TowerHere.Rotation, new Vector2(rect.Width / 2, rect.Height / 2), 1f, SpriteEffects.None, 0f);
-                TowerHere.DrawProjectiles(sb);
-            }
-        }
+        //public void DrawTowers(SpriteBatch sb)
+        //{
+        //    if (Building == BuildingType.Tower)
+        //    {
+        //        sb.Draw(TowerHere.Sprite, new Vector2(rect.X + rect.Width / 2, rect.Y + rect.Height / 2), null, Color.White, TowerHere.Rotation, new Vector2(rect.Width / 2, rect.Height / 2), 1f, SpriteEffects.None, 0f);
+        //        TowerHere.DrawProjectiles(sb);
+        //    }
+        //}
 
         public bool HasNeighbour(BuildingType typeOfBuilding)
         {

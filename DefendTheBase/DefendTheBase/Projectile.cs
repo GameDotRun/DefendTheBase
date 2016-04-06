@@ -111,6 +111,7 @@ namespace DefendTheBase
                 if (Vector2.Distance(m_tower.Position, m_position) < 10)
                 {
                     Lifetime = 0;
+                    TowerManager.TowerDamaged(m_damage, m_tower, TypeofProj);
                 }
             }
 

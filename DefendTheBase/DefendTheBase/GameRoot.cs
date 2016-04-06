@@ -83,6 +83,7 @@ namespace DefendTheBase
             // Reset Variables, or Set if first run.
             UiButtonMessenger.InitiliseListenerList();
             EnemyListener.InitiliseListener();
+            TowerListener.InitiliseListener();
             grid = new Grid(SQUARESIZE, DEFAULYDIST);
             UiSideScreen = new UiSideGameScreen(GraphicsDevice);
             UiTopScreen = new UiTopGameScreen(GraphicsDevice);
@@ -103,6 +104,7 @@ namespace DefendTheBase
             UiSideScreen.Update();
             UiTopScreen.Update();
             WaveManager.Update(gameTime);
+            TowerManager.Update();
 
             // Using the last button pressed ID, as long as it exists,
             // see if it is a "btn0" and then set the BuildState using the rest of the ID.
@@ -153,6 +155,7 @@ namespace DefendTheBase
             grid.Draw(spriteBatch, Art.DebugFont);
             UiManager.Draw(spriteBatch);
             EnemyManager.Draw(spriteBatch);
+            TowerManager.Draw(spriteBatch);
 
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.

@@ -79,6 +79,7 @@
     <Compile Include="Managers\EnemyManager.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Grid.cs" />
+    <Compile Include="Managers\TowerManager.cs" />
     <Compile Include="Managers\WaveManager.cs" />
     <Compile Include="Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

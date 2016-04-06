@@ -10,14 +10,27 @@ namespace DefendTheBase
 {
     //hacky but towers will be impossible to access unless they're changed, ill just call it tower manager...
 
-    public static class TowerManager
+    public static class TowerListener
     {
-        public static List<Tower> Towers = new List<Tower>();
+        public static List<Tower> TowersList;
+
+        public static void InitiliseListener()
+        {
+            TowersList = new List<Tower>();
+        }
 
         public static void Add(Tower tower)
         {
-            Towers.Add(tower);
-        }   
+            TowersList.Add(tower);
+        }
+
+        static public void Remove(string TowerID)
+        {
+            int index = TowersList.FindIndex(item => string.Compare(item.TowerID, TowerID, 0) == 0);
+
+            if (index >= 0)
+                TowersList.RemoveAt(index);
+        }
     }
 
 
@@ -25,6 +38,9 @@ namespace DefendTheBase
     {
         // This will contain the type of tower, range, level, health and fireRate.
         // It will also select an appropriate enemy to shoot at within range. Perhaps Closest enemy?
+
+        internal string TowerID;
+        internal string TowerType;
 
         public enum Type
         {
@@ -45,8 +61,11 @@ namespace DefendTheBase
 
         private float  shootTimer;
 
-        public Tower(Type type, Vector2 position, int level = 1, int range = 200, int health = 100, int damage = 1, float fireRate = 2f)
+        public Tower(string towerID, Type type, Vector2 position, int level = 1, int range = 200, int health = 100, int damage = 1, float fireRate = 2f)
         {
+            TowerID = towerID;
+            TowerListener.Add(this);
+
             TypeofTower = type;
             TowerProjectiles = new List<Projectile>();
             Rotation = 0;
@@ -75,7 +94,7 @@ namespace DefendTheBase
                     break;
             }
 
-            TowerManager.Add(this);
+            //TowerManager.Add(this);
         }
 
         public void LevelUp()
@@ -224,6 +243,12 @@ namespace DefendTheBase
             for (int i = 0; i < TowerProjectiles.Count(); i++)
                 if (TowerProjectiles[i].TimeSinceSpawn > TowerProjectiles[i].Lifetime)
                     TowerProjectiles.RemoveAt(i);
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            sb.Draw(Sprite, Position, null, Color.White, Rotation, new Vector2(GameRoot.SQUARESIZE / 2, GameRoot.SQUARESIZE / 2), 1f, SpriteEffects.None, 0f);
+            DrawProjectiles(sb);
         }
 
         public void DrawProjectiles(SpriteBatch sb)
