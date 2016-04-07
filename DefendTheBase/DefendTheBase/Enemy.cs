@@ -52,7 +52,7 @@ namespace DefendTheBase
             Tower targetTower = null;
             Tower tempTower = null;
             float dist = 300;
-            foreach(Tower tower in TowerManager.Towers)
+            foreach(Tower tower in TowerListener.TowersList)
             {
                 tempTower = tower;
                 if (dist > Vector2.Distance(tempTower.Position, enemy.ScreenPos))

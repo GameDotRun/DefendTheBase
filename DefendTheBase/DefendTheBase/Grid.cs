@@ -245,8 +245,8 @@ namespace DefendTheBase
             foreach (Squares square in gridSquares)
                 square.Draw(sb, Art.GroundTexs);
             // Go through and draw towers and their projectiles on top of everything else.
-            foreach (Squares square in gridSquares)
-                square.DrawTowers(sb);
+            //foreach (Squares square in gridSquares)
+            //    square.DrawTowers(sb);
 
 
             for (int y = 0; y < GameRoot.HEIGHT; y++) //Debug counter Text

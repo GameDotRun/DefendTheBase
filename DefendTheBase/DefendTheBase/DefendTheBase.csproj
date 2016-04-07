@@ -74,11 +74,13 @@
   <ItemGroup>
     <Compile Include="Ai.cs" />
     <Compile Include="Art.cs" />
+    <Compile Include="Managers\BuildManager.cs" />
     <Compile Include="Managers\EffectManager.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Managers\EnemyManager.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Grid.cs" />
+    <Compile Include="Managers\TowerManager.cs" />
     <Compile Include="Managers\WaveManager.cs" />
     <Compile Include="Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

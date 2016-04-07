@@ -36,6 +36,7 @@ namespace DefendTheBase
         private static float m_manPower = DEFAULT_MANPOWER;
         private static int m_resources = DEFAULT_RESOURCES;
 
+        public static Coordinates mouseSqrCoords;
         public static GameStates GameState;
         public static BuildStates BuildState;
         public static float Manpower { get { return m_manPower; } }
