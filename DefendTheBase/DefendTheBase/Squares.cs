@@ -86,14 +86,13 @@ namespace DefendTheBase
                         {
                             ghostImage = Art.getTrenchTex(GameRoot.grid.sqrTexDecider((int)sqrCoord.x, (int)sqrCoord.y));
                         }
- 
-                    }
 
-                    if (Input.LMBDown && canClick)
-                    {
-                        BuildManager.Build();
+                        if (Input.LMBDown && canClick && Building != BuildingType.Tower && Building != BuildingType.Trench)
+                        {
+                            BuildManager.Build();
+                        }
                     }
-
+                   
                     highlight = 0.5f;
                 }
 

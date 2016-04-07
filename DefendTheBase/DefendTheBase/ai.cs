@@ -30,7 +30,6 @@ namespace DefendTheBase
             {
                 ScreenPos = new Vector2(Node.X, Node.Y);
 
-
                 if (EnemyType != "Helicopter")
                 {
                     if (currentCoord.x + 1 < width) // check array wont go out of bounds 
