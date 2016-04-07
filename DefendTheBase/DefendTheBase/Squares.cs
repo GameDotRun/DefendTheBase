@@ -93,7 +93,10 @@ namespace DefendTheBase
                             sqrEdited = true;
                         }
                     }
-                   
+
+                    if (Input.WasLMBClicked && GameManager.BuildState == GameManager.BuildStates.Upgrade)
+                        BuildManager.Build();
+
                     highlight = 0.5f;
                 }
 

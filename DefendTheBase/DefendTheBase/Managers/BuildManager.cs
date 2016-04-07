@@ -15,13 +15,27 @@ namespace DefendTheBase
                 BuildConcrete();
             else if (GameManager.BuildState == GameManager.BuildStates.Trench)
                 BuildTrench();
+            else if (GameManager.BuildState == GameManager.BuildStates.Upgrade)
+                Upgrade();
             else if (GameManager.BuildState != GameManager.BuildStates.Nothing)
                 BuildTower();
         }
 
         public static void Delete()
         { 
+            
         
+        }
+
+        static void Upgrade()
+        {
+            foreach (Tower tower in TowerListener.TowersList)
+            {
+                if (tower.towerCoords.CoordEqual(GameManager.mouseSqrCoords))
+                {
+                    tower.LevelUp();
+                }
+            }
         
         }
 
