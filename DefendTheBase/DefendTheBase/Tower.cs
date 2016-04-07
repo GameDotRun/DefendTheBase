@@ -59,7 +59,7 @@ namespace DefendTheBase
         bool rotClock = true;
         public int Level, Range, Health, Damage;
 
-        Coordinates towerCoords;
+        public Coordinates towerCoords;
 
         private float  shootTimer;
 

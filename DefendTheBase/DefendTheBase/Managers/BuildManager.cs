@@ -29,6 +29,7 @@ namespace DefendTheBase
         static void BuildTower()
         {
             string TowerType = BuildToTowerType();
+
             TowerManager.SpawnTower(TowerType, GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].PixelScreenPos, GameManager.mouseSqrCoords);
         
         }
@@ -53,6 +54,13 @@ namespace DefendTheBase
             GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Concrete;
             GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Concrete;
             GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+        }
+
+        public static void RemoveTowerFromSquare(Tower tower)
+        {
+            GameRoot.grid.gridSquares[(int)tower.towerCoords.x, (int)tower.towerCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
+            GameRoot.grid.gridSquares[(int)tower.towerCoords.x, (int)tower.towerCoords.y].Building = Squares.BuildingType.None;
+        
         }
 
         static string BuildToTowerType()
@@ -80,9 +88,6 @@ namespace DefendTheBase
                 default:
                     return "Gun";
             }
-
-            
-
         }
 
     }

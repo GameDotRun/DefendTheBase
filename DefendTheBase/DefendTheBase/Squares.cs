@@ -90,6 +90,7 @@ namespace DefendTheBase
                         if (Input.LMBDown && canClick && Building != BuildingType.Tower && Building != BuildingType.Trench)
                         {
                             BuildManager.Build();
+                            sqrEdited = true;
                         }
                     }
                    

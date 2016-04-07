@@ -56,6 +56,7 @@ namespace DefendTheBase
                 if (tower.Health <= 0)
                 {
                     // DEADED
+                    BuildManager.RemoveTowerFromSquare(tower);
                     DestroyTower(tower.TowerID);
                     break;
                 }
