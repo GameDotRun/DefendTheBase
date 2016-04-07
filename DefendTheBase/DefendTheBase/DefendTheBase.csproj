@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Ai.cs" />
     <Compile Include="Art.cs" />
+    <Compile Include="Managers\BuildManager.cs" />
     <Compile Include="Managers\EffectManager.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Managers\EnemyManager.cs" />

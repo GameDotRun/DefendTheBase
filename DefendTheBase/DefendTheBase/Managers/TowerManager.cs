@@ -27,18 +27,26 @@ namespace DefendTheBase
 
             if (index2 >= 0)
                 TowerIDs.RemoveAt(index2);
+
+
         }
 
-        public static void SpawnTower(string TypeID, Vector2 towerVector)
+        public static void SpawnTower(string TypeID, Vector2 towerVector, Coordinates squareCoords)
         {
             if (TypeID == "Gun")
-                Towers.Add(new Tower(CreateID(TypeID), Tower.Type.Gun, towerVector));
+                Towers.Add(new Tower(CreateID(TypeID), Tower.Type.Gun, towerVector, squareCoords));
             else if (TypeID == "Rocket")
-                Towers.Add(new Tower(CreateID(TypeID), Tower.Type.Rocket, towerVector));
+                Towers.Add(new Tower(CreateID(TypeID), Tower.Type.Rocket, towerVector, squareCoords));
             else if (TypeID == "SAM")
-                Towers.Add(new Tower(CreateID(TypeID), Tower.Type.SAM, towerVector));
+                Towers.Add(new Tower(CreateID(TypeID), Tower.Type.SAM, towerVector, squareCoords));
             else if (TypeID == "Tesla")
-                Towers.Add(new Tower(CreateID(TypeID), Tower.Type.Tesla, towerVector));
+                Towers.Add(new Tower(CreateID(TypeID), Tower.Type.Tesla, towerVector, squareCoords));
+
+
+            GameRoot.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare = Squares.SqrFlags.Occupied;
+            GameRoot.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare |= Squares.SqrFlags.Wall;
+            GameRoot.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare |= Squares.SqrFlags.Concrete;
+            GameRoot.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].Building = Squares.BuildingType.Tower;
         }
 
         public static void Update()
