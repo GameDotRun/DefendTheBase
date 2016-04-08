@@ -94,23 +94,13 @@ namespace DefendTheBase
                         }
                     }
 
-                    if (Input.WasLMBClicked && GameManager.BuildState == GameManager.BuildStates.Upgrade)
+                    if (Input.WasLMBClicked && (GameManager.BuildState == GameManager.BuildStates.Upgrade || GameManager.BuildState == GameManager.BuildStates.Destroy))
                         BuildManager.Build();
 
                     highlight = 0.5f;
                 }
 
                 else highlight = 1;
-
-                // Update the Tower if there is one and we are active. We MUST also be next to a trench.
-                if (TowerHere != null)
-                {
-                    if (HasNeighbour(BuildingType.Trench))
-                        TowerHere.IsActive = true;
-                    else
-                        TowerHere.IsActive = false;
-                    TowerHere.Update();
-                }
             }
             
         }

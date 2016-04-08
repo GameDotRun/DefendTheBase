@@ -17,14 +17,32 @@ namespace DefendTheBase
                 BuildTrench();
             else if (GameManager.BuildState == GameManager.BuildStates.Upgrade)
                 Upgrade();
+            else if (GameManager.BuildState == GameManager.BuildStates.Destroy)
+                Delete();
             else if (GameManager.BuildState != GameManager.BuildStates.Nothing)
                 BuildTower();
         }
 
         public static void Delete()
         { 
-            
-        
+            if(GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Tower)
+            {
+                foreach (Tower tower in TowerListener.TowersList)
+                {
+                    if (tower.towerCoords.CoordEqual(GameManager.mouseSqrCoords))
+                    {
+                        tower.Health = 0;
+                    }
+                }
+
+            }
+
+            else if (GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Concrete)
+            {
+                GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
+                GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.None;
+                GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+            }
         }
 
         static void Upgrade()
