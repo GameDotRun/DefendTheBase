@@ -41,7 +41,7 @@ namespace DefendTheBase
         public static Grid grid;
         public static Random rnd;
 
-        Vector2 ScreenSize; // ScreenSize
+        public static Vector2 ScreenSize; // ScreenSize
 
         UiSideGameScreen UiSideScreen;
         UiTopGameScreen UiTopScreen;
@@ -149,7 +149,7 @@ namespace DefendTheBase
         // Draw
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.DarkOliveGreen);
             spriteBatch.Begin();
 
             grid.Draw(spriteBatch, Art.DebugFont);

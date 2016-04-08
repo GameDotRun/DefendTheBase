@@ -95,6 +95,9 @@ namespace DefendTheBase
         }
     }
 
+
+
+
     public class UiTopGameScreen : Ui
     {
         public UiStatusBars healthBar;
@@ -102,6 +105,7 @@ namespace DefendTheBase
         public List<UiTextString> waveStats;
         public List<UiTextString> currencyStats;
         public List<UiTextString> timers;
+        public List<UiTextString> popUpText;
 
         public UiTopGameScreen(GraphicsDevice graphicsDevice) : base(GameRoot.WIDTH, GameRoot.HEIGHT)
         {
@@ -109,10 +113,12 @@ namespace DefendTheBase
             waveStats = new List<UiTextString>();
             currencyStats = new List<UiTextString>();
             timers = new List<UiTextString>();
+            popUpText = new List<UiTextString>();
 
             Add(ref waveStats);
             Add(ref currencyStats);
             Add(ref timers);
+            Add(ref popUpText);
             Add(ref healthBar);
 
             CreateUi(graphicsDevice);
@@ -126,7 +132,7 @@ namespace DefendTheBase
             currencyStats.Add(new UiTextString(Art.DebugFont, "Resources: " + GameManager.Resources, new Vector2(300, 60), Color.Black));
             timers.Add(new UiTextString(Art.DebugFont, "Next Wave in: ", new Vector2(420, 10), Color.Black));
 
-        
+            
         }
 
         public void Update()
@@ -140,6 +146,7 @@ namespace DefendTheBase
             currencyStats[1].StringText = "Resources: " + GameManager.Resources;
 
             timers[0].StringText = "Next Wave in: " + WaveManager.WaveStartTimer;
+            
         }
     }
 
