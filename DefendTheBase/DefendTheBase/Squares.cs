@@ -87,14 +87,14 @@ namespace DefendTheBase
                             ghostImage = Art.getTrenchTex(GameRoot.grid.sqrTexDecider((int)sqrCoord.x, (int)sqrCoord.y));
                         }
 
-                        if (Input.LMBDown && canClick && Building != BuildingType.Tower && Building != BuildingType.Trench)
+                        if (Input.LMBDown && canClick && Building != BuildingType.Tower && Building != BuildingType.Trench && !WaveManager.WaveStarted)
                         {
                             BuildManager.Build();
                             sqrEdited = true;
                         }
                     }
 
-                    if (Input.WasLMBClicked && (GameManager.BuildState == GameManager.BuildStates.Upgrade || GameManager.BuildState == GameManager.BuildStates.Destroy))
+                    if (Input.WasLMBClicked && (GameManager.BuildState == GameManager.BuildStates.Upgrade || GameManager.BuildState == GameManager.BuildStates.Destroy) && !WaveManager.WaveStarted)
                         BuildManager.Build();
 
                     highlight = 0.5f;

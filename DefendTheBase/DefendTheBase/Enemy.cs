@@ -141,12 +141,8 @@ namespace DefendTheBase
 
             currentCoord = new Coordinates((int)enemyVect.X, (int)enemyVect.Y);
 
-            
 
-            if (GameRoot.grid.pathFound) // this needs some form of trigger 
-            {
-               moving = PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, ref ScreenPos, speed, time, Direction, EnemyType);
-            }
+            moving = PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, ref ScreenPos, speed, time, Direction, EnemyType);
 
             if (GameRoot.ENDPOINT != null)
             {

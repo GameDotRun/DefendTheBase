@@ -9,6 +9,7 @@ namespace DefendTheBase
     public static class WaveManager
     {
         public static TimeSpan EnemySpawnTimer = TimeSpan.Zero;
+        public static TimeSpan WaveStartTimer = TimeSpan.FromMinutes(1);
         public static bool WaveStarted = false;
         public static int WaveNumber = 1;
         public static int WaveEnemyAmount = 100;
@@ -18,27 +19,39 @@ namespace DefendTheBase
         static float WaveSpawnInterval = 500f;
         static float WavePower = 2;
 
+
+
         public static void Update(GameTime gameTime)
         {
-            if (WaveStarted)
+            if(!WaveStarted)
+                WaveStartTimer -= gameTime.ElapsedGameTime;
+
+            if (WaveStartTimer <= TimeSpan.Zero || WaveStarted)
             {
-                EnemyManager.Update(gameTime);
+                WaveStarted = true;
 
-                EnemySpawnTimer += gameTime.ElapsedGameTime;
-
-                if (EnemySpawnTimer.TotalMilliseconds >= WaveSpawnInterval)
+                if (WaveStarted)
                 {
-                    if (WaveEnemiesSpawned != WaveEnemyAmount)
+                    EnemyManager.Update(gameTime);
+
+                    EnemySpawnTimer += gameTime.ElapsedGameTime;
+
+                    if (EnemySpawnTimer.TotalMilliseconds >= WaveSpawnInterval)
                     {
-                        EnemyManager.SpawnEnemy(EnemyManager.TypeIDs[GameRoot.rnd.Next(0, EnemyManager.TypeIDs.Count())], new Vector2(0,0));
-                        WaveEnemiesSpawned++;
+                        if (WaveEnemiesSpawned != WaveEnemyAmount)
+                        {
+                            EnemyManager.SpawnEnemy(EnemyManager.TypeIDs[GameRoot.rnd.Next(0, EnemyManager.TypeIDs.Count())], new Vector2(0, 0));
+                            WaveEnemiesSpawned++;
+                        }
+
+                        EnemySpawnTimer = TimeSpan.Zero;
                     }
 
-                    EnemySpawnTimer = TimeSpan.Zero;
+                    if (WaveEnemiesUsed >= WaveEnemyAmount)
+                        WaveIncrease();
                 }
 
-                if (WaveEnemiesUsed >= WaveEnemyAmount)
-                    WaveIncrease();
+                WaveStartTimer = TimeSpan.FromMinutes(1);
             }
         }
 

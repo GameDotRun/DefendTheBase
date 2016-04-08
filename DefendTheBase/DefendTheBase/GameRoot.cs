@@ -120,8 +120,8 @@ namespace DefendTheBase
 
             grid.Update(gameTime);
 
-            if(grid.gridStatus.HasFlag(Grid.gridFlags.endPoint)) //CREATE A WAVE COUNT DOWN
-                WaveManager.WaveStarted = true;
+            /*if(grid.gridStatus.HasFlag(Grid.gridFlags.endPoint)) //CREATE A WAVE COUNT DOWN
+                WaveManager.WaveStarted = true;*/
 
             for (int y = 0; y < HEIGHT; y++) // get if a square has been edited 
                 for (int x = 0; x < WIDTH; x++)
