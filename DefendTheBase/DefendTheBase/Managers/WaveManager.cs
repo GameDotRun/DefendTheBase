@@ -82,6 +82,8 @@ namespace DefendTheBase
 
         static void WaveIncrease()
         {
+            fade = 1f;
+            waveCountPop = false;
             WaveStarted = false;
             WaveNumber++;
             WavePower++;
