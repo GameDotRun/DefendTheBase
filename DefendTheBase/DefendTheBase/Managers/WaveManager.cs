@@ -37,12 +37,17 @@ namespace DefendTheBase
                     waveCountPop = true;
                 }
 
-                
-                UiManager.UiScreens[1].StringList[3][0].StringColour *=  fade;
-                fade -= 0.001f;
+                if (UiManager.UiScreens[1].StringList[3].Count != 0)
+                {
+                    UiManager.UiScreens[1].StringList[3][0].StringColour *= fade;
+                    fade -= 0.001f;
+                }
 
                 if (fade <= 0)
-                    UiManager.UiScreens[1].StringList[3].RemoveAt(UiManager.UiScreens[1].StringList[3].Count - 1);
+                {
+                    if (UiManager.UiScreens[1].StringList[3].Count != 0)
+                        UiManager.UiScreens[1].StringList[3].RemoveAt(UiManager.UiScreens[1].StringList[3].Count - 1);
+                }
             }
 
 
