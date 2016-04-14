@@ -58,7 +58,9 @@ namespace DefendTheBase
                 if (dist > Vector2.Distance(tempTower.Position, enemy.ScreenPos))
                 {
                     dist = Vector2.Distance(tempTower.Position, enemy.ScreenPos);
-                    targetTower = tower;
+
+                    if(dist > 100)
+                        targetTower = tower;
 
                     enemy.towerInRange = true;
                 }

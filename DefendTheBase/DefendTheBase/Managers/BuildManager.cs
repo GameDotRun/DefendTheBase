@@ -25,27 +25,29 @@ namespace DefendTheBase
 
         public static void Delete()
         {
-            if (GridManager.InaccessibleSquareCheck(GameRoot.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameRoot.ENDPOINT))
+            if (GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building != Squares.BuildingType.None)
             {
-                if (GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Tower)
+                if (GridManager.InaccessibleSquareCheck(GameRoot.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameRoot.ENDPOINT))
                 {
                     foreach (Tower tower in TowerListener.TowersList)
                     {
                         if (tower.towerCoords.CoordEqual(GameManager.mouseSqrCoords))
                         {
-                            tower.Health = 0;
+                            BuildManager.RemoveTowerFromSquare(tower);
+                            TowerManager.DestroyTower(tower.TowerID);
+                            break;
                         }
                     }
-
                 }
-
-                else if (GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Concrete || GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Trench)
-                {
                     GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
                     GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.None;
                     GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
-                }
+                
             }
+
+
+            
+            
         }
 
         static void Upgrade()

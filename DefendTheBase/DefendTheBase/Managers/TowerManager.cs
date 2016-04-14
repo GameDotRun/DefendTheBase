@@ -14,7 +14,7 @@ namespace DefendTheBase
         static List<Tower> Towers = new List<Tower>();
         static List<string> TowerIDs = new List<string>();
 
-        static void DestroyTower(string TowerID)
+        public static void DestroyTower(string TowerID)
         {
             TowerListener.Remove(TowerID);
 
@@ -42,7 +42,6 @@ namespace DefendTheBase
             else if (TypeID == "Tesla")
                 Towers.Add(new Tower(CreateID(TypeID), Tower.Type.Tesla, towerVector, squareCoords));
 
-
             GameRoot.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare = Squares.SqrFlags.Occupied;
             GameRoot.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare |= Squares.SqrFlags.Wall;
             GameRoot.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare |= Squares.SqrFlags.Concrete;
@@ -61,7 +60,7 @@ namespace DefendTheBase
                     break;
                 }
 
-                else
+                else if(GridManager.HasNeighbour(Squares.BuildingType.Trench, tower.towerCoords))
                     tower.Update();
             }
         }

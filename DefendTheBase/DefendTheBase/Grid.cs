@@ -169,6 +169,28 @@ namespace DefendTheBase
             }
         }
 
+        public static bool HasNeighbour(Squares.BuildingType typeOfBuilding, Coordinates coord)
+        {
+            // Check North
+            if (coord.y > 0)
+                if (GameRoot.grid.gridSquares[(int)coord.x, (int)coord.y - 1].Building == typeOfBuilding)
+                    return true;
+            // Check East
+            if (coord.x < GameRoot.WIDTH - 1)
+                if (GameRoot.grid.gridSquares[(int)coord.x + 1, (int)coord.y].Building == typeOfBuilding)
+                    return true;
+            // Check South
+            if (coord.y < GameRoot.HEIGHT - 1)
+                if (GameRoot.grid.gridSquares[(int)coord.x, (int)coord.y + 1].Building == typeOfBuilding)
+                    return true;
+            // Check West
+            if (coord.x > 0)
+                if (GameRoot.grid.gridSquares[(int)coord.x - 1, (int)coord.y].Building == typeOfBuilding)
+                    return true;
+            return false;
+        }
+
+
     }
 
     public class Grid

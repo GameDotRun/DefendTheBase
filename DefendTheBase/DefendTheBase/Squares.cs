@@ -80,7 +80,7 @@ namespace DefendTheBase
                 {
                     GameManager.mouseSqrCoords = new Coordinates(sqrCoord.x, sqrCoord.y);
 
-                    if (this.HasNeighbour(BuildingType.Trench))
+                    if (GridManager.HasNeighbour(BuildingType.Trench, sqrCoord))
                     {
                         if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
                         {
@@ -128,27 +128,7 @@ namespace DefendTheBase
         //    }
         //}
 
-        public bool HasNeighbour(BuildingType typeOfBuilding)
-        {
-            // Check North
-            if (this.sqrCoord.y > 0)
-                if (GameRoot.grid.gridSquares[(int)this.sqrCoord.x, (int)this.sqrCoord.y - 1].Building == typeOfBuilding)
-                    return true;
-            // Check East
-            if (this.sqrCoord.x < GameRoot.WIDTH - 1)
-                if (GameRoot.grid.gridSquares[(int)this.sqrCoord.x + 1, (int)this.sqrCoord.y].Building == typeOfBuilding)
-                    return true;
-            // Check South
-            if (this.sqrCoord.y < GameRoot.HEIGHT - 1)
-                if (GameRoot.grid.gridSquares[(int)this.sqrCoord.x, (int)this.sqrCoord.y + 1].Building == typeOfBuilding)
-                    return true;
-            // Check West
-            if (this.sqrCoord.x > 0)
-                if (GameRoot.grid.gridSquares[(int)this.sqrCoord.x - 1, (int)this.sqrCoord.y].Building == typeOfBuilding)
-                    return true;
-            return false;
-        }
-
+        
         public bool getSquareEdited
         { 
             get{return sqrEdited;}
