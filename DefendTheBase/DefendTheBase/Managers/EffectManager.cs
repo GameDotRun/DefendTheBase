@@ -102,7 +102,8 @@ public class Effect
     bool spriteSheet;
     public bool active = true;
     UiTimer Timer;
-    
+
+    int bloodSheetPos = GameRoot.rnd.Next(0, 17) * 15;
     
     public Effect(EffectManager.EffectEnums Effect, Vector2 Location, bool Spritesheet)
     {
@@ -120,7 +121,7 @@ public class Effect
         switch(Effect)
         {
             case EffectManager.EffectEnums.Blood:
-                return Art.BloodSplat;
+                return Art.BloodSplats;
         }
 
         return null;
@@ -131,7 +132,7 @@ public class Effect
         switch(Effect)
         {
             case EffectManager.EffectEnums.Blood:
-                return 1000f;
+                return 5000f;
         }
 
         return 0f;
@@ -157,7 +158,7 @@ public class Effect
 
     public void Draw(SpriteBatch sb)
     {
-        sb.Draw(effectTex, location, Color.White);
+        sb.Draw(effectTex, location, new Rectangle(bloodSheetPos, 0, 14, 15), Color.White);
     }
 
 

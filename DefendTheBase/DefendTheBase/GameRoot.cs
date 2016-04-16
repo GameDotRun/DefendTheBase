@@ -155,9 +155,10 @@ namespace DefendTheBase
 
             grid.Draw(spriteBatch, Art.DebugFont);
             UiManager.Draw(spriteBatch);
+            EffectManager.Draw(spriteBatch);
             EnemyManager.Draw(spriteBatch);
             TowerManager.Draw(spriteBatch);
-            EffectManager.Draw(spriteBatch);
+            
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
             for (int i = 0; i < 2; i++)
