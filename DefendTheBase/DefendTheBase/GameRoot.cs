@@ -105,6 +105,7 @@ namespace DefendTheBase
             UiTopScreen.Update();
             WaveManager.Update(gameTime);
             TowerManager.Update();
+            EffectManager.Update(gameTime);
 
             // Using the last button pressed ID, as long as it exists,
             // see if it is a "btn0" and then set the BuildState using the rest of the ID.
@@ -156,7 +157,7 @@ namespace DefendTheBase
             UiManager.Draw(spriteBatch);
             EnemyManager.Draw(spriteBatch);
             TowerManager.Draw(spriteBatch);
-
+            EffectManager.Draw(spriteBatch);
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
             for (int i = 0; i < 2; i++)

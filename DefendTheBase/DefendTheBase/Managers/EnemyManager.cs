@@ -94,6 +94,12 @@ namespace DefendTheBase
                                 SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
                             }
                         }
+
+                        else if (Enemy.EnemyType == "Soldier")
+                        {
+                            EffectManager.EffectCall(EffectManager.EffectEnums.Blood, Enemy.ScreenPos, false);
+                        
+                        }
                     }
 
                     DestroyEnemy(Enemy.EnemyID, Enemy.EnemyType); 
