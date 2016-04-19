@@ -19,8 +19,8 @@ namespace DefendTheBase
 
         public Ai()
         {
-            defDist = GameRoot.DEFAULYDIST;
-            tempInt = GameRoot.DEFAULYDIST;
+            defDist = GameManager.DEFAULYDIST;
+            tempInt = GameManager.DEFAULYDIST;
             nextCoord = new Coordinates(0, 0);
         }
 
@@ -55,7 +55,7 @@ namespace DefendTheBase
                                 nextCoord = new Coordinates((int)currentCoord.x - 1, (int)currentCoord.y, tempInt); // set temp coord to the aipos + direction.
                             }
 
-                            if (squares[(int)currentCoord.x - 1, (int)currentCoord.y].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0,2) == 1)
+                            if (squares[(int)currentCoord.x - 1, (int)currentCoord.y].sqrCoord.counter == tempInt && GameManager.rnd.Next(0, 2) == 1)
                             {
                                 tempInt = squares[(int)currentCoord.x - 1, (int)currentCoord.y].sqrCoord.counter; // set the tempint to new distance value
                                 nextCoord = new Coordinates((int)currentCoord.x - 1, (int)currentCoord.y, tempInt); // set temp coord to the aipos + direction.
@@ -73,7 +73,7 @@ namespace DefendTheBase
                                 nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y + 1, tempInt); // set temp coord to the aipos + direction.
                             }
 
-                            if (squares[(int)currentCoord.x, (int)currentCoord.y + 1].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 1)
+                            if (squares[(int)currentCoord.x, (int)currentCoord.y + 1].sqrCoord.counter == tempInt && GameManager.rnd.Next(0, 2) == 1)
                             {
                                 tempInt = squares[(int)currentCoord.x, (int)currentCoord.y + 1].sqrCoord.counter; // set the tempint to new distance value
                                 nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y + 1, tempInt); // set temp coord to the aipos + direction.
@@ -91,7 +91,7 @@ namespace DefendTheBase
                                 nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y - 1, tempInt); // set temp coord to the aipos + direction.
                             }
 
-                            if (squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter == tempInt && GameRoot.rnd.Next(0, 2) == 1)
+                            if (squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter == tempInt && GameManager.rnd.Next(0, 2) == 1)
                             {
                                 tempInt = squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter; // set the tempint to new distance value
                                 nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y - 1, tempInt); // set temp coord to the aipos + direction.
@@ -101,9 +101,9 @@ namespace DefendTheBase
                 }
 
                 else if (EnemyType == "Helicopter")
-                    nextCoord = GameRoot.ENDPOINT;
+                    nextCoord = GameManager.ENDPOINT;
 
-                Node = new Vector2((nextCoord.x * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2, (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2);
+                Node = new Vector2((nextCoord.x * GameManager.SQUARESIZE) + GameManager.SQUARESIZE / 2, (int)GameManager.grid.gridBorder.Y + (nextCoord.y * GameManager.SQUARESIZE) + GameManager.SQUARESIZE / 2);
 
                 distance = Vector2.Distance(new Vector2(currentCoord.x, currentCoord.y), new Vector2(nextCoord.x, nextCoord.y));
 

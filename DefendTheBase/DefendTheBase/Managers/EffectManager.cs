@@ -103,7 +103,7 @@ public class Effect
     public bool active = true;
     UiTimer Timer;
 
-    int bloodSheetPos = GameRoot.rnd.Next(0, 17) * 15;
+    int bloodSheetPos = GameManager.rnd.Next(0, 17) * 15;
     
     public Effect(EffectManager.EffectEnums Effect, Vector2 Location, bool Spritesheet)
     {
@@ -165,11 +165,11 @@ public class Effect
     int CreateID()
     {
         bool IsUnique = false;
-        int ID =  GameRoot.rnd.Next(0, 10) + GameRoot.rnd.Next(0, 100000);
+        int ID = GameManager.rnd.Next(0, 10) + GameManager.rnd.Next(0, 100000);
 
         while (!IsUnique)
             {
-                ID = GameRoot.rnd.Next(0, 10) + GameRoot.rnd.Next(0, 100000);
+                ID = GameManager.rnd.Next(0, 10) + GameManager.rnd.Next(0, 100000);
 
                 foreach (int id in EffectManager.EffectIDs)
                     if (id == ID)

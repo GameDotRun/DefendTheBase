@@ -12,8 +12,8 @@ namespace DefendTheBase
     public class UiSideGameScreen : Ui
     {
         //these variables hopefully wont be needed when i've made some planned ui functions
-        Vector2 tabDrawPos = new Vector2(1000, GameRoot.BORDERTOP);
-        Vector2 buttonDrawPos = new Vector2(1025, GameRoot.BORDERTOP + 60);
+        Vector2 tabDrawPos = new Vector2(1000, GameManager.BORDERTOP);
+        Vector2 buttonDrawPos = new Vector2(1025, GameManager.BORDERTOP + 60);
         Vector2 buttonSize = new Vector2(200, 100);
 
         UiTabs tabs;
@@ -23,7 +23,7 @@ namespace DefendTheBase
         public List<UiButton> baseBuild;
         public List<UiButton> miscBuild;
 
-        public UiSideGameScreen(GraphicsDevice graphicsDevice) : base(GameRoot.WIDTH, GameRoot.HEIGHT)
+        public UiSideGameScreen(GraphicsDevice graphicsDevice) : base(GameManager.WIDTH, GameManager.HEIGHT)
         {
             tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Color.Aquamarine, new Vector2(83, 40));
 
@@ -107,7 +107,7 @@ namespace DefendTheBase
         public List<UiTextString> timers;
         public List<UiTextString> popUpText;
 
-        public UiTopGameScreen(GraphicsDevice graphicsDevice) : base(GameRoot.WIDTH, GameRoot.HEIGHT)
+        public UiTopGameScreen(GraphicsDevice graphicsDevice) : base(GameManager.WIDTH, GameManager.HEIGHT)
         {
             healthBar = new UiStatusBars(graphicsDevice, 100, new Vector2(100, 25), new Vector2(300, 10), Color.Red, Color.Green);
             waveStats = new List<UiTextString>();

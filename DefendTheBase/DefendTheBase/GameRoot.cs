@@ -19,32 +19,6 @@ namespace DefendTheBase
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //Grid Size
-        public const int SQUARESIZE = 50;
-        public const int HEIGHT = 15;
-        public const int WIDTH = 20;
-
-       
-        public const int DEFAULYDIST = 2000; //temp default counter for pathfinding
-        public static Coordinates STARTPOINT = new Coordinates(0,0);
-        public static Coordinates ENDPOINT = new Coordinates(18, 13, 0);
-              
-        //ui Borders
-        public const int BORDERTOP = 125;
-        public const int BORDERRIGHT = 250;
-        public const int BORDERLEFT = 0;
-
-        //game speed
-        public const int UPS = 20; // Updates per second
-        public const int FPS = 60; //Frames per second
-
-        public static Grid grid;
-        public static Random rnd;
-
-        public static Vector2 ScreenSize; // ScreenSize
-
-        UiSideGameScreen UiSideScreen;
-        UiTopGameScreen UiTopScreen;
         // Constructor
         public GameRoot()
         {
@@ -52,17 +26,17 @@ namespace DefendTheBase
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            TargetElapsedTime = TimeSpan.FromSeconds(1.0 / FPS);
+            TargetElapsedTime = TimeSpan.FromSeconds(1.0 / GameManager.FPS);
 
-            ScreenSize = new Vector2(WIDTH, HEIGHT) * SQUARESIZE;
-            graphics.PreferredBackBufferWidth = (int)ScreenSize.X + BORDERRIGHT + BORDERLEFT;
-            graphics.PreferredBackBufferHeight = (int)ScreenSize.Y + BORDERTOP;
+            GameManager.ScreenSize = new Vector2(GameManager.WIDTH, GameManager.HEIGHT) * GameManager.SQUARESIZE;
+            graphics.PreferredBackBufferWidth = (int)GameManager.ScreenSize.X + GameManager.BORDERRIGHT + GameManager.BORDERLEFT;
+            graphics.PreferredBackBufferHeight = (int)GameManager.ScreenSize.Y + GameManager.BORDERTOP;
         }
 
         // Init
         protected override void Initialize()
         {
-            rnd = new Random();
+            //GameManager.rnd = new Random();
 
             base.Initialize();
         }
@@ -75,6 +49,7 @@ namespace DefendTheBase
             Art.Load(Content);
             // Set up variables.
             ResetGame();
+            GameManager.GameState = GameManager.GameStates.StartScreen;
         }
 
         // Reset
@@ -82,11 +57,8 @@ namespace DefendTheBase
         {
             // Reset Variables, or Set if first run.
             UiButtonMessenger.InitiliseListenerList();
-            EnemyListener.InitiliseListener();
-            TowerListener.InitiliseListener();
-            grid = new Grid(SQUARESIZE, DEFAULYDIST);
-            UiSideScreen = new UiSideGameScreen(GraphicsDevice);
-            UiTopScreen = new UiTopGameScreen(GraphicsDevice);
+            GameManager.grid = new Grid(GameManager.SQUARESIZE, GameManager.DEFAULYDIST);
+            GameManager.Init(GraphicsDevice);
             GameManager.ResetValues();
         }
 
@@ -101,50 +73,42 @@ namespace DefendTheBase
                 this.Exit();
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
-            UiSideScreen.Update();
-            UiTopScreen.Update();
-            WaveManager.Update(gameTime);
-            TowerManager.Update();
-            EffectManager.Update(gameTime);
 
-            // Using the last button pressed ID, as long as it exists,
-            // see if it is a "btn0" and then set the BuildState using the rest of the ID.
-            if (UiButtonMessenger.ButtonPressedId != null)
+            if (GameManager.GameState == GameManager.GameStates.StartScreen)
             {
-                if (UiButtonMessenger.ButtonPressedId.Contains("btn0"))
-                {
-                    // Create String from id by removing the "btn0". Then Parse String to enum.
-                    string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
-                    GameManager.BuildState = (GameManager.BuildStates)Enum.Parse(typeof(GameManager.BuildStates), bStateString);
-                }
+                if (Input.LMBDown)
+                    GameManager.GameState = GameManager.GameStates.PlayScreen;
             }
 
-            grid.Update(gameTime);
+            if (GameManager.GameState == GameManager.GameStates.PlayScreen)
+            {
+                GameManager.Update(gameTime);
 
-            /*if(grid.gridStatus.HasFlag(Grid.gridFlags.endPoint)) //CREATE A WAVE COUNT DOWN
-                WaveManager.WaveStarted = true;*/
-
-            for (int y = 0; y < HEIGHT; y++) // get if a square has been edited 
-                for (int x = 0; x < WIDTH; x++)
+                // Using the last button pressed ID, as long as it exists,
+                // see if it is a "btn0" and then set the BuildState using the rest of the ID.
+                if (UiButtonMessenger.ButtonPressedId != null)
                 {
-                    if (grid.gridSquares[x, y].getSquareEdited)
+                    if (UiButtonMessenger.ButtonPressedId.Contains("btn0"))
                     {
-                            EnemyManager.ResetEnemyAI();
-                            grid.pathFound = false;
-                            grid.pathFound = GridManager.GridPaths(grid.gridSquares);
-
+                        // Create String from id by removing the "btn0". Then Parse String to enum.
+                        string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
+                        GameManager.BuildState = (GameManager.BuildStates)Enum.Parse(typeof(GameManager.BuildStates), bStateString);
                     }
-
                 }
+                GameManager.grid.Update(gameTime);
 
-            // Wipe grid when BackSpace is pressed. REMOVE LATER
-            if (Input.WasKeyPressed(Keys.Back))
-            {
-                grid.resetGrid();
-                //tanks.pathFound = false;
+                for (int y = 0; y < GameManager.HEIGHT; y++) // get if a square has been edited 
+                    for (int x = 0; x < GameManager.WIDTH; x++)
+                    {
+                        if (GameManager.grid.gridSquares[x, y].getSquareEdited)
+                        {
+                            EnemyManager.ResetEnemyAI();
+                            GameManager.grid.pathFound = false;
+                            GameManager.grid.pathFound = GridManager.GridPaths(GameManager.grid.gridSquares);
+                        }
+                    }
+                base.Update(gameTime);
             }
-
-            base.Update(gameTime);
         }
 
         // Draw
@@ -153,12 +117,12 @@ namespace DefendTheBase
             GraphicsDevice.Clear(Color.DarkOliveGreen);
             spriteBatch.Begin();
 
-            grid.Draw(spriteBatch, Art.DebugFont);
-            UiManager.Draw(spriteBatch);
-            EffectManager.Draw(spriteBatch);
-            EnemyManager.Draw(spriteBatch);
-            TowerManager.Draw(spriteBatch);
-            
+            if (GameManager.GameState == GameManager.GameStates.PlayScreen)
+            {
+                GameManager.grid.Draw(spriteBatch, Art.DebugFont);
+                GameManager.Draw(spriteBatch);
+                UiManager.Draw(spriteBatch);
+            }
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
             for (int i = 0; i < 2; i++)
@@ -171,10 +135,10 @@ namespace DefendTheBase
                     i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
             }
-
             //spriteBatch.DrawString(Art.DebugFont, tanks.ScreenPos.X + " " + tanks.ScreenPos.Y, tanks.ScreenPos, Color.Black);
 
 #endif
+
             // Finish spriteBatch.
             spriteBatch.End();
 

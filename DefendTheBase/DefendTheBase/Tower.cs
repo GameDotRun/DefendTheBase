@@ -40,7 +40,7 @@ namespace DefendTheBase
         // It will also select an appropriate enemy to shoot at within range. Perhaps Closest enemy?
 
         internal string TowerID;
-        internal string TowerType;
+        //internal string TowerType;
 
         public enum Type
         {
@@ -249,7 +249,7 @@ namespace DefendTheBase
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(Sprite, Position, null, Color.White, Rotation, new Vector2(GameRoot.SQUARESIZE / 2, GameRoot.SQUARESIZE / 2), 1f, SpriteEffects.None, 0f);
+            sb.Draw(Sprite, Position, null, Color.White, Rotation, new Vector2(GameManager.SQUARESIZE / 2, GameManager.SQUARESIZE / 2), 1f, SpriteEffects.None, 0f);
             DrawProjectiles(sb);
         }
 

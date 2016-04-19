@@ -31,7 +31,7 @@ namespace DefendTheBase
 
                 if (!waveCountPop)
                 {
-                    UiManager.UiScreens[1].StringList[3].Add(new UiTextString(Art.DebugFont, "Wave in 60 seconds", new Vector2(GameRoot.ScreenSize.X / 3, GameRoot.ScreenSize.Y / 2), Color.Red));
+                    UiManager.UiScreens[1].StringList[3].Add(new UiTextString(Art.DebugFont, "Wave in 60 seconds", new Vector2(GameManager.ScreenSize.X / 3, GameManager.ScreenSize.Y / 2), Color.Red));
                     UiManager.UiScreens[1].StringList[3][UiManager.UiScreens[1].StringList[3].Count - 1].StringScale = 5f;
 
                     waveCountPop = true;
@@ -65,7 +65,7 @@ namespace DefendTheBase
                     {
                         if (WaveEnemiesSpawned != WaveEnemyAmount)
                         {
-                            EnemyManager.SpawnEnemy(EnemyManager.TypeIDs[GameRoot.rnd.Next(0, EnemyManager.TypeIDs.Count())], new Vector2(0, 0));
+                            EnemyManager.SpawnEnemy(EnemyManager.TypeIDs[GameManager.rnd.Next(0, EnemyManager.TypeIDs.Count())], new Vector2(0, 0));
                             WaveEnemiesSpawned++;
                         }
 

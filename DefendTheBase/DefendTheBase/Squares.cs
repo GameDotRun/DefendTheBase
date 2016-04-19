@@ -74,7 +74,7 @@ namespace DefendTheBase
             if (Input.WasLMBClicked)
                 canClick = true;
 
-            if (!sqrCoord.CoordEqual(GameRoot.STARTPOINT))
+            if (!sqrCoord.CoordEqual(GameManager.STARTPOINT))
             {
                 if (rect.Contains(Input.MousePosition.ToPoint()))
                 {
@@ -84,7 +84,7 @@ namespace DefendTheBase
                     {
                         if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
                         {
-                            ghostImage = Art.getTrenchTex(GameRoot.grid.sqrTexDecider((int)sqrCoord.x, (int)sqrCoord.y));
+                            ghostImage = Art.getTrenchTex(GameManager.grid.sqrTexDecider((int)sqrCoord.x, (int)sqrCoord.y));
                         }
 
                         if (Input.LMBDown && canClick && Building != BuildingType.Tower && Building != BuildingType.Trench && !WaveManager.WaveStarted)

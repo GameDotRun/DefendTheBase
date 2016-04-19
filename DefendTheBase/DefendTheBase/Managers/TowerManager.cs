@@ -42,10 +42,10 @@ namespace DefendTheBase
             else if (TypeID == "Tesla")
                 Towers.Add(new Tower(CreateID(TypeID), Tower.Type.Tesla, towerVector, squareCoords));
 
-            GameRoot.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare = Squares.SqrFlags.Occupied;
-            GameRoot.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare |= Squares.SqrFlags.Wall;
-            GameRoot.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare |= Squares.SqrFlags.Concrete;
-            GameRoot.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].Building = Squares.BuildingType.Tower;
+            GameManager.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare = Squares.SqrFlags.Occupied;
+            GameManager.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare |= Squares.SqrFlags.Wall;
+            GameManager.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare |= Squares.SqrFlags.Concrete;
+            GameManager.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].Building = Squares.BuildingType.Tower;
         }
 
         public static void Update()
@@ -88,7 +88,7 @@ namespace DefendTheBase
             string ID = "";
             while (!IsUnique)
             {
-                ID = TypeID + GameRoot.rnd.Next(0, 10).ToString() + GameRoot.rnd.Next(0, 100000).ToString();
+                ID = TypeID + GameManager.rnd.Next(0, 10).ToString() + GameManager.rnd.Next(0, 100000).ToString();
 
                 foreach (string id in TowerIDs)
                     if (id == ID)

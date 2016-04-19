@@ -25,9 +25,9 @@ namespace DefendTheBase
 
         public static void Delete()
         {
-            if (GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building != Squares.BuildingType.None)
+            if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building != Squares.BuildingType.None)
             {
-                if (GridManager.InaccessibleSquareCheck(GameRoot.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameRoot.ENDPOINT))
+                if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
                 {
                     foreach (Tower tower in TowerListener.TowersList)
                     {
@@ -39,9 +39,9 @@ namespace DefendTheBase
                         }
                     }
                 }
-                    GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
-                    GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.None;
-                    GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
+                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.None;
+                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
                 
             }
 
@@ -67,41 +67,41 @@ namespace DefendTheBase
         {
             string TowerType = BuildToTowerType();
 
-            if (GridManager.InaccessibleSquareCheck(GameRoot.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameRoot.ENDPOINT))
+            if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
             {
-                TowerManager.SpawnTower(TowerType, GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].PixelScreenPos, GameManager.mouseSqrCoords);
+                TowerManager.SpawnTower(TowerType, GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].PixelScreenPos, GameManager.mouseSqrCoords);
             }
         }
 
         //Squares will handle the static objects that dont interact. eg. concrete This just sets the correct square with the flags.
         static void BuildTrench()
         {
-            if (GridManager.InaccessibleSquareCheck(GameRoot.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameRoot.ENDPOINT))
+            if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
             {
-                GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare |= Squares.SqrFlags.Wall;
-                GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Trench;
-                GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare |= Squares.SqrFlags.Wall;
+                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Trench;
+                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
             }
 
-            GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+            GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
         }
 
         
         static void BuildConcrete()
         {
-            if (!GameManager.mouseSqrCoords.CoordEqual(GameRoot.ENDPOINT))
+            if (!GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
             {
-                GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Occupied;
-                GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Concrete;
-                GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Concrete;
-                GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Occupied;
+                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Concrete;
+                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Concrete;
+                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
             }
         }
 
         public static void RemoveTowerFromSquare(Tower tower)
         {
-            GameRoot.grid.gridSquares[(int)tower.towerCoords.x, (int)tower.towerCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
-            GameRoot.grid.gridSquares[(int)tower.towerCoords.x, (int)tower.towerCoords.y].Building = Squares.BuildingType.None;
+            GameManager.grid.gridSquares[(int)tower.towerCoords.x, (int)tower.towerCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
+            GameManager.grid.gridSquares[(int)tower.towerCoords.x, (int)tower.towerCoords.y].Building = Squares.BuildingType.None;
         
         }
 

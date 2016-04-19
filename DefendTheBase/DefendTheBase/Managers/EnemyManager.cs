@@ -107,7 +107,7 @@ namespace DefendTheBase
                 }
 
                 else
-                    Enemy.Update(GameRoot.grid.gridStatus, gt); //updates the enemy
+                    Enemy.Update(GameManager.grid.gridStatus, gt); //updates the enemy
             }
 
             foreach (Projectile proj in TankTurret.EnemyProjectiles) //updates the projectiles of enemy
@@ -132,7 +132,7 @@ namespace DefendTheBase
         {
             foreach (Enemy Enemy in Enemies)
             {
-                Enemy.tempInt = GameRoot.DEFAULYDIST;
+                Enemy.tempInt = GameManager.DEFAULYDIST;
             }
 
         }
@@ -151,7 +151,7 @@ namespace DefendTheBase
             string ID = "";
             while (!IsUnique)
             {
-                ID = TypeID + GameRoot.rnd.Next(0, 10).ToString() + GameRoot.rnd.Next(0, 100000).ToString();
+                ID = TypeID + GameManager.rnd.Next(0, 10).ToString() + GameManager.rnd.Next(0, 100000).ToString();
 
                 foreach (string id in EnemyIDs)
                     if (id == ID)

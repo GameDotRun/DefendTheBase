@@ -118,7 +118,7 @@ namespace DefendTheBase
 
         public Enemy(string enemyID, Vector2 enemyVector) : base()
         {
-            ScreenPos = new Vector2(0, GameRoot.grid.gridBorder.Y + GameRoot.SQUARESIZE /2);
+            ScreenPos = new Vector2(0, GameManager.grid.gridBorder.Y + GameManager.SQUARESIZE / 2);
             enemyVect = enemyVector;
             EnemyID = enemyID;
             EnemyListener.AddEnemy(this);
@@ -144,11 +144,11 @@ namespace DefendTheBase
             currentCoord = new Coordinates((int)enemyVect.X, (int)enemyVect.Y);
 
 
-            moving = PathMove(GameRoot.grid.gridSquares, GameRoot.HEIGHT, GameRoot.WIDTH, ref enemyVect, ref ScreenPos, speed, time, Direction, EnemyType);
+            moving = PathMove(GameManager.grid.gridSquares, GameManager.HEIGHT, GameManager.WIDTH, ref enemyVect, ref ScreenPos, speed, time, Direction, EnemyType);
 
-            if (GameRoot.ENDPOINT != null)
+            if (GameManager.ENDPOINT != null)
             {
-                if (currentCoord.CoordEqual(GameRoot.ENDPOINT))
+                if (currentCoord.CoordEqual(GameManager.ENDPOINT))
                 {
                     IsDestroyed = true;
                 }
@@ -161,7 +161,7 @@ namespace DefendTheBase
 
             // Get screen pixel position from Grid Coordinates (enemyVect).
             if (moving)
-                ScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (enemyVect.X * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2, (int)GameRoot.grid.gridBorder.Y + (enemyVect.Y * GameRoot.SQUARESIZE) + GameRoot.SQUARESIZE / 2);
+                ScreenPos = new Vector2((int)GameManager.grid.gridBorder.X + (enemyVect.X * GameManager.SQUARESIZE) + GameManager.SQUARESIZE / 2, (int)GameManager.grid.gridBorder.Y + (enemyVect.Y * GameManager.SQUARESIZE) + GameManager.SQUARESIZE / 2);
 
             else
             {
@@ -175,7 +175,7 @@ namespace DefendTheBase
                 TurretDirection = TankTurret.Update(this);
             }
 
-            Vector2 NextScreenPos = new Vector2((int)GameRoot.grid.gridBorder.X + (nextCoord.x * GameRoot.SQUARESIZE + 0.1f), (int)GameRoot.grid.gridBorder.Y + (nextCoord.y * GameRoot.SQUARESIZE));
+            Vector2 NextScreenPos = new Vector2((int)GameManager.grid.gridBorder.X + (nextCoord.x * GameManager.SQUARESIZE + 0.1f), (int)GameManager.grid.gridBorder.Y + (nextCoord.y * GameManager.SQUARESIZE));
             Direction = Movement;
 
             if (!towerInRange)

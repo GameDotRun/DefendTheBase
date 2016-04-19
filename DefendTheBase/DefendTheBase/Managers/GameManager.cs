@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
+using RPGEx;
+using Microsoft.Xna.Framework;
 
 namespace DefendTheBase
 {
@@ -14,8 +17,8 @@ namespace DefendTheBase
         {
             StartScreen,
             PlayScreen,
-            EndScreen,
-            Highscore,
+            WinScreen,
+            LoseScreen,
             InfoScreen,
         }
 
@@ -41,6 +44,58 @@ namespace DefendTheBase
         public static BuildStates BuildState;
         public static float Manpower { get { return m_manPower; } }
         public static int Resources { get { return m_resources; } }
+
+        static UiSideGameScreen UiSideScreen;
+        static UiTopGameScreen UiTopScreen;
+
+
+        //Grid Size
+        public const int SQUARESIZE = 50;
+        public const int HEIGHT = 15;
+        public const int WIDTH = 20;
+        public const int DEFAULYDIST = 2000; //temp default counter for pathfinding
+        public static Coordinates STARTPOINT = new Coordinates(0, 0);
+        public static Coordinates ENDPOINT = new Coordinates(18, 13, 0);
+
+        //ui Borders
+        public const int BORDERTOP = 125;
+        public const int BORDERRIGHT = 250;
+        public const int BORDERLEFT = 0;
+
+        //game speed
+        public const int UPS = 20; // Updates per second
+        public const int FPS = 60; //Frames per second
+
+        public static Grid grid;
+        public static Random rnd;
+
+        public static Vector2 ScreenSize; // ScreenSize
+
+        public static void Init(GraphicsDevice graphics )
+        {
+            rnd = new Random();
+            UiSideScreen = new UiSideGameScreen(graphics);
+            UiTopScreen = new UiTopGameScreen(graphics);
+            EnemyListener.InitiliseListener();
+            TowerListener.InitiliseListener();
+        }
+
+        public static void Update(GameTime gameTime)
+        {
+            UiSideScreen.Update();
+            UiTopScreen.Update();
+
+            WaveManager.Update(gameTime);
+            TowerManager.Update();
+            EffectManager.Update(gameTime);
+        }
+
+        public static void Draw(SpriteBatch sb)
+        {
+            EffectManager.Draw(sb);
+            EnemyManager.Draw(sb);
+            TowerManager.Draw(sb);
+        }
 
         public static void ModifyManpower(float value)
         {
