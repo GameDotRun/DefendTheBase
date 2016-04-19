@@ -72,7 +72,7 @@ namespace DefendTheBase
                         if (Enemy.EnemyType == "Helicopter")
                         {
 
-                            EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.Helicopter.Width / 2, Art.Helicopter.Height / 2), true);
+                            EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2((Art.Helicopter.Width / 4) / 2 , Art.Helicopter.Height / 2), true);
                         
                         }
 
@@ -150,8 +150,7 @@ namespace DefendTheBase
 
         public static void EnemyDamaged(int Damage, Enemy enemy, Projectile.Type projectile)
         {
-            //Damage calcualtions should be put here. Not sure on the best way to handle this, could get very large with if's
-            enemy.hitPoints -= Damage;
+            enemy.hitPoints -= GameManager.DamageCalculator(Damage, enemy, projectile);
         }
         /// <summary>
         /// creates a unique ID for the enemy, if the random ID is not unique it will retry. Chances of this happening more than once are 1/1,000,000

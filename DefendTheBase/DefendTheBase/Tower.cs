@@ -66,7 +66,7 @@ namespace DefendTheBase
 
         private float  shootTimer;
 
-        public Tower(string towerID, Type type, Vector2 position, Coordinates coords, int level = 1, int range = 200, int health = 100, int damage = 1, float fireRate = 2f)
+        public Tower(string towerID, Type type, Vector2 position, Coordinates coords, int level = 1, int range = 200, int health = 100, int damage = 10, float fireRate = 2f)
         {
             TowerID = towerID;
             TowerListener.Add(this);
@@ -89,7 +89,7 @@ namespace DefendTheBase
                     break;
                 case Type.Rocket:
                     Sprite = Art.TowerRocket[level - 1];
-                    Damage = 10;
+                    Damage = 30;
                     FireRate = 0.5f;
                     break;
                 case Type.SAM:
@@ -215,11 +215,14 @@ namespace DefendTheBase
                 float dist = Range;
                 for (int i = 0; i < enemyList.Count; i++)
                 {
-                    tempEnemy = enemyList[i];
-                    if (dist > Vector2.Distance(tempEnemy.ScreenPos, this.Position))
+                    if ((enemyList[i].EnemyType != "Helicopter" && TypeofTower != Type.SAM) || (TypeofTower == Type.SAM && enemyList[i].EnemyType == "Helicopter"))
                     {
-                        dist = Vector2.Distance(tempEnemy.ScreenPos, this.Position);
-                        targetEnemy = enemyList[i];
+                        tempEnemy = enemyList[i];
+                        if (dist > Vector2.Distance(tempEnemy.ScreenPos, this.Position))
+                        {
+                            dist = Vector2.Distance(tempEnemy.ScreenPos, this.Position);
+                            targetEnemy = enemyList[i];
+                        }
                     }
                 }
                 if (targetEnemy != null)

@@ -143,8 +143,8 @@ namespace DefendTheBase
 
             currentCoord = new Coordinates((int)enemyVect.X, (int)enemyVect.Y);
 
-
-            moving = PathMove(GameManager.grid.gridSquares, GameManager.HEIGHT, GameManager.WIDTH, ref enemyVect, ref ScreenPos, speed, time, Direction, EnemyType);
+            if(enemyVect != null)
+                moving = PathMove(GameManager.grid.gridSquares, GameManager.HEIGHT, GameManager.WIDTH, ref enemyVect, ref ScreenPos, speed, time, Direction, EnemyType);
 
             if (GameManager.ENDPOINT != null)
             {
@@ -230,7 +230,7 @@ namespace DefendTheBase
     {
         public string Type = "Tank";
 
-        private float m_hp = 20;
+        private float m_hp = 500;
         private float m_speed = 3f;
         private bool spriteSheet = false;
 
@@ -248,7 +248,7 @@ namespace DefendTheBase
     {
         public string Type = "Jeep";
 
-        private float m_hp = 7;
+        private float m_hp = 150;
         private float m_speed = 5f;
         private bool spriteSheet = false;
 
@@ -266,7 +266,7 @@ namespace DefendTheBase
     {
         public string Type = "Transport";
 
-        private float m_hp = 14;
+        private float m_hp = 300;
         private float m_speed = 3f;
         private bool spriteSheet = false;
 
@@ -287,7 +287,7 @@ namespace DefendTheBase
         private float frameSpeed = 100;
         private int frameTotal = 3; // total - 1
 
-        private float m_hp = 2;
+        private float m_hp = 50;
         private float m_speed = 2;
       
         private bool spriteSheet = true;
@@ -312,7 +312,7 @@ namespace DefendTheBase
 
         private float frameSpeed = 50;
         private int frameTotal = 3; // total - 1
-        private float m_hp = 10;
+        private float m_hp = 150;
         // helicopter speed works very differently, as it only heads towards one node currently it goes a lot faster than other units which use multiple nodes. dividing by 10 seems good
         private float m_speed = 5f / 10; 
 

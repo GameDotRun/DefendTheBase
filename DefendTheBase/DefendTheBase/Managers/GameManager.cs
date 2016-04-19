@@ -94,8 +94,8 @@ namespace DefendTheBase
         {
             
             EffectManager.Draw(sb, 0);
-            EnemyManager.Draw(sb);
             TowerManager.Draw(sb);
+            EnemyManager.Draw(sb);
             EffectManager.Draw(sb, 1);
         }
 
@@ -130,6 +130,74 @@ namespace DefendTheBase
                 m_resources += 100;
 
         
+        }
+
+        public static float DamageCalculator(int Damage, Enemy enemy, Projectile.Type projectile)
+        {
+            float totalDamage = 0f;
+            int baseDmg = Damage;
+            Projectile.Type proj = projectile;
+            string enemyType = enemy.EnemyType;
+
+
+            if (enemyType == "Soldier")
+            {
+                if (projectile == Projectile.Type.Gun)
+                {
+                    totalDamage = baseDmg * 3f;
+                }
+
+                else
+                    totalDamage = baseDmg / 2f;      
+            }
+
+            else if (enemyType == "Tank")
+            {
+                if (projectile == Projectile.Type.Rocket)
+                {
+                    totalDamage = baseDmg * 4f;
+                }
+
+                else
+                    totalDamage = baseDmg / 10f;     
+            }
+
+            else if (enemyType == "Helicopter")
+            {
+                if (projectile == Projectile.Type.SAM)
+                {
+                    totalDamage = baseDmg * 2.5f;
+                }
+
+                else
+                    totalDamage = baseDmg / 1.5f;
+            
+            }
+
+            else if (enemyType == "Jeep")
+            {
+                if (projectile == Projectile.Type.Rocket)
+                {
+                    totalDamage = baseDmg * 2.5f;
+                }
+
+                else
+                    totalDamage = baseDmg / 2f;
+            }
+
+            else if (enemyType == "Transport")
+            {
+                if (projectile == Projectile.Type.Rocket)
+                {
+                    totalDamage = baseDmg * 5f;
+                }
+
+                else
+                    totalDamage = baseDmg / 3f;
+            
+            }
+
+            return totalDamage;
         }
 
     }
