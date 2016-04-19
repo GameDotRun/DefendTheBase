@@ -92,9 +92,10 @@ namespace DefendTheBase
 
         public static void Draw(SpriteBatch sb)
         {
-            EffectManager.Draw(sb);
+            EffectManager.Draw(sb, 0);
             EnemyManager.Draw(sb);
             TowerManager.Draw(sb);
+            EffectManager.Draw(sb, 1);
         }
 
         public static void ModifyManpower(float value)

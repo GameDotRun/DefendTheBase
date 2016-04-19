@@ -105,17 +105,13 @@ public class Effect
     public bool active = true;
     UiTimer Timer;
 
-<<<<<<< HEAD
-    int bloodSheetPos = GameManager.rnd.Next(0, 17) * 15;
-=======
     int frame, totalframes;
     public int Zlevel;
 
     float elasped, totalTime;
 
-    int bloodSheetPosX = GameRoot.rnd.Next(0, 17) * 15;
-    int explosionSheetPosY = GameRoot.rnd.Next(0, 3) * 84;
->>>>>>> origin/master
+    int bloodSheetPosX = GameManager.rnd.Next(0, 17) * 15;
+    int explosionSheetPosY = GameManager.rnd.Next(0, 3) * 84;
     
     public Effect(EffectManager.EffectEnums Effect, Vector2 Location, bool Spritesheet)
     {

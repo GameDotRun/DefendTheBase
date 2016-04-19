@@ -25,7 +25,6 @@ namespace DefendTheBase
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
             TargetElapsedTime = TimeSpan.FromSeconds(1.0 / GameManager.FPS);
 
             GameManager.ScreenSize = new Vector2(GameManager.WIDTH, GameManager.HEIGHT) * GameManager.SQUARESIZE;
@@ -36,8 +35,6 @@ namespace DefendTheBase
         // Init
         protected override void Initialize()
         {
-            //GameManager.rnd = new Random();
-
             base.Initialize();
         }
 
@@ -76,30 +73,13 @@ namespace DefendTheBase
 
             if (GameManager.GameState == GameManager.GameStates.StartScreen)
             {
-<<<<<<< HEAD
                 if (Input.LMBDown)
                     GameManager.GameState = GameManager.GameStates.PlayScreen;
-=======
-                if (UiButtonMessenger.ButtonPressedId.Contains("btn0"))
-                {
-                    // Create String from id by removing the "btn0". Then Parse String to enum.
-                    string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
-                    GameManager.BuildState = (GameManager.BuildStates)Enum.Parse(typeof(GameManager.BuildStates), bStateString);
-                }
-
-                else if (UiButtonMessenger.ButtonPressedId.Contains("btn1"))
-                {
-                    // Create String from id by removing the "btn0". Then Parse String to enum.
-                    string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
-                    WaveManager.StartWave();
-                }
->>>>>>> origin/master
             }
 
             if (GameManager.GameState == GameManager.GameStates.PlayScreen)
             {
                 GameManager.Update(gameTime);
-
                 // Using the last button pressed ID, as long as it exists,
                 // see if it is a "btn0" and then set the BuildState using the rest of the ID.
                 if (UiButtonMessenger.ButtonPressedId != null)
@@ -109,6 +89,12 @@ namespace DefendTheBase
                         // Create String from id by removing the "btn0". Then Parse String to enum.
                         string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
                         GameManager.BuildState = (GameManager.BuildStates)Enum.Parse(typeof(GameManager.BuildStates), bStateString);
+                    }
+                    else if (UiButtonMessenger.ButtonPressedId.Contains("btn1"))
+                    {
+                        // Create String from id by removing the "btn0". Then Parse String to enum.
+                        string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
+                        WaveManager.StartWave();
                     }
                 }
                 GameManager.grid.Update(gameTime);
@@ -133,22 +119,12 @@ namespace DefendTheBase
             GraphicsDevice.Clear(Color.DarkOliveGreen);
             spriteBatch.Begin();
 
-<<<<<<< HEAD
             if (GameManager.GameState == GameManager.GameStates.PlayScreen)
             {
                 GameManager.grid.Draw(spriteBatch, Art.DebugFont);
                 GameManager.Draw(spriteBatch);
                 UiManager.Draw(spriteBatch);
             }
-=======
-            grid.Draw(spriteBatch, Art.DebugFont);
-            UiManager.Draw(spriteBatch);
-            EffectManager.Draw(spriteBatch, 0);
-            EnemyManager.Draw(spriteBatch);
-            TowerManager.Draw(spriteBatch);
-            EffectManager.Draw(spriteBatch, 1);
-            
->>>>>>> origin/master
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
             for (int i = 0; i < 2; i++)
