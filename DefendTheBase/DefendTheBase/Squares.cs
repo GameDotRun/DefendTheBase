@@ -115,8 +115,14 @@ namespace DefendTheBase
                 sb.Draw(Art.getTrenchTex(TrenchName), rect, ghostCol * highlight);
             else if (Building == BuildingType.None)
                 sb.Draw(ghostImage, rect, ghostCol * highlight);
-            else if (Building == BuildingType.Base)
-                sb.Draw(gridSquareTex, rect, Color.Red * highlight);
+            //else if (Building == BuildingType.Base)
+            //    sb.Draw(Art.Base, new Rectangle(rect.X, rect.Y, rect.Width*2, rect.Height*2), Color.White);
+        }
+
+        public void DrawBase(SpriteBatch sb)
+        {
+            if (Building == BuildingType.Base)
+                sb.Draw(Art.Base, new Rectangle(rect.X, rect.Y, rect.Width * 2, rect.Height * 2), Color.White);
         }
 
         //public void DrawTowers(SpriteBatch sb)

@@ -92,6 +92,7 @@ namespace DefendTheBase
 
         public static void Draw(SpriteBatch sb)
         {
+            
             EffectManager.Draw(sb, 0);
             EnemyManager.Draw(sb);
             TowerManager.Draw(sb);

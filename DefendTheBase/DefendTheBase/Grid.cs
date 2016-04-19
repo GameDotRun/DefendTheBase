@@ -237,11 +237,21 @@ namespace DefendTheBase
             foreach (Squares square in gridSquares)
                 square.Update();
 
-            // In case we delete everything, always have one bit of Trench.
+            // In case we delete everything, always have 3 bits of Trench.
+            if (gridSquares[GameManager.WIDTH - 2, GameManager.HEIGHT - 1].Building != Squares.BuildingType.Trench)
+            {
+                gridSquares[GameManager.WIDTH - 2, GameManager.HEIGHT - 1].typeOfSquare |= Squares.SqrFlags.Wall;
+                gridSquares[GameManager.WIDTH - 2, GameManager.HEIGHT - 1].Building = Squares.BuildingType.Trench;
+            }
             if (gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 1].Building != Squares.BuildingType.Trench)
             {
                 gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 1].typeOfSquare |= Squares.SqrFlags.Wall;
                 gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 1].Building = Squares.BuildingType.Trench;
+            }
+            if (gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 2].Building != Squares.BuildingType.Trench)
+            {
+                gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 2].typeOfSquare |= Squares.SqrFlags.Wall;
+                gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 2].Building = Squares.BuildingType.Trench;
             }
 
             updateTimer += gameTime.ElapsedGameTime;
@@ -267,8 +277,8 @@ namespace DefendTheBase
             foreach (Squares square in gridSquares)
                 square.Draw(sb, Art.GroundTexs);
             // Go through and draw towers and their projectiles on top of everything else.
-            //foreach (Squares square in gridSquares)
-            //    square.DrawTowers(sb);
+            foreach (Squares square in gridSquares)
+                square.DrawBase(sb);
 
 
             for (int y = 0; y < GameManager.HEIGHT; y++) //Debug counter Text
@@ -286,12 +296,12 @@ namespace DefendTheBase
             // X X X    Create 3 Trenches in the bot-right corner,
             // X X 3    in the order the numbers are shown,
             // X 1 2    to the left here.
-            gridSquares[GameManager.WIDTH - 2, GameManager.HEIGHT - 1].typeOfSquare |= Squares.SqrFlags.Wall;   // 1
-            gridSquares[GameManager.WIDTH - 2, GameManager.HEIGHT - 1].Building = Squares.BuildingType.Trench;  // 1
-            gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 1].typeOfSquare |= Squares.SqrFlags.Wall;   // 2
-            gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 1].Building = Squares.BuildingType.Trench;  // 2
-            gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 2].typeOfSquare |= Squares.SqrFlags.Wall;   // 3
-            gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 2].Building = Squares.BuildingType.Trench;  // 3        
+            //gridSquares[GameManager.WIDTH - 2, GameManager.HEIGHT - 1].typeOfSquare |= Squares.SqrFlags.Wall;   // 1
+            //gridSquares[GameManager.WIDTH - 2, GameManager.HEIGHT - 1].Building = Squares.BuildingType.Trench;  // 1
+            //gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 1].typeOfSquare |= Squares.SqrFlags.Wall;   // 2
+            //gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 1].Building = Squares.BuildingType.Trench;  // 2
+            //gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 2].typeOfSquare |= Squares.SqrFlags.Wall;   // 3
+            //gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 2].Building = Squares.BuildingType.Trench;  // 3        
         }
 
         public void resetGrid()
