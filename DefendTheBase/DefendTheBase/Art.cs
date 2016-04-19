@@ -49,6 +49,7 @@ namespace DefendTheBase
         public static Texture2D BloodSplats { get; private set; }
         public static Texture2D Explosions { get; private set; }
 
+        public static Texture2D[] HpBar { get; private set; }
         // Small font used for debug info.
         public static SpriteFont DebugFont { get; private set; }
 
@@ -108,6 +109,10 @@ namespace DefendTheBase
             ButtonsTower = new Texture2D[4];
             for (int i = 0; i < 4; i++)
                 ButtonsTower[i] = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonTower" + i);
+
+            HpBar = new Texture2D[2];
+            for (int i = 0; i < 2; i++)
+                HpBar[i] = content.Load<Texture2D>("Art/Images/UI/hpBar" + i);
 
             //effects
             BloodSplats = content.Load<Texture2D>("Art/Images/Effect/BLOOD");

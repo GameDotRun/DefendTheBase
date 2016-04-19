@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Flextensions;
 
 namespace DefendTheBase
 {
@@ -57,6 +58,7 @@ namespace DefendTheBase
                     // DEADED
                     BuildManager.RemoveTowerFromSquare(tower);
                     DestroyTower(tower.TowerID);
+                    EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, tower.Position - new Vector2(Art.TowerGun[0].Width/2, Art.TowerGun[0].Height/2) , true);
                     break;
                 }
 
@@ -70,6 +72,12 @@ namespace DefendTheBase
             foreach (Tower tower in Towers)
             {
                 tower.Draw(sb);
+
+                if (Input.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space))
+                {
+                    tower.DrawHpBar(sb);
+                }
+
             }
         }
 

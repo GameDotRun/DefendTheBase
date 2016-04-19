@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Flextensions;
 using Microsoft.Xna.Framework;
+using RPGEx;
 
 namespace DefendTheBase
 {
@@ -61,6 +62,8 @@ namespace DefendTheBase
 
         public Coordinates towerCoords;
 
+        public UiStatusBars healthBar;
+
         private float  shootTimer;
 
         public Tower(string towerID, Type type, Vector2 position, Coordinates coords, int level = 1, int range = 200, int health = 100, int damage = 1, float fireRate = 2f)
@@ -78,6 +81,7 @@ namespace DefendTheBase
             Damage = damage;
             FireRate = fireRate;
             shootTimer = fireRate;
+
             switch (type)
             {
                 case Type.Gun:
@@ -97,6 +101,7 @@ namespace DefendTheBase
             }
 
             towerCoords = new Coordinates(coords.x, coords.y);
+            healthBar = new UiStatusBars(health, new Vector2(32, 12), Position - new Vector2(Art.TowerGun[0].Width / 2, 20), Art.HpBar[0], Art.HpBar[1]);
         }
 
         public void LevelUp()
@@ -245,12 +250,19 @@ namespace DefendTheBase
             for (int i = 0; i < TowerProjectiles.Count(); i++)
                 if (TowerProjectiles[i].TimeSinceSpawn > TowerProjectiles[i].Lifetime)
                     TowerProjectiles.RemoveAt(i);
+
+            healthBar.Update(Health);
         }
 
         public void Draw(SpriteBatch sb)
         {
             sb.Draw(Sprite, Position, null, Color.White, Rotation, new Vector2(GameManager.SQUARESIZE / 2, GameManager.SQUARESIZE / 2), 1f, SpriteEffects.None, 0f);
             DrawProjectiles(sb);
+        }
+
+        public void DrawHpBar(SpriteBatch sb)
+        {
+            healthBar.Draw(sb);
         }
 
         public void DrawProjectiles(SpriteBatch sb)
