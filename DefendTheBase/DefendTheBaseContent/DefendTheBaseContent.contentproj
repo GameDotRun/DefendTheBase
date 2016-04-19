@@ -321,26 +321,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Images\UI\Buttons\ButtonBase0.png">
-      <Name>ButtonBase0</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Images\UI\Buttons\ButtonBase1.png">
-      <Name>ButtonBase1</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Images\UI\Buttons\ButtonBase2.png">
-      <Name>ButtonBase2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Art\Images\UI\Buttons\ButtonBase3.png">
-      <Name>ButtonBase3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Images\UI\Buttons\ButtonTower0.png">
       <Name>ButtonTower0</Name>
       <Importer>TextureImporter</Importer>

@@ -48,14 +48,14 @@ namespace DefendTheBase
             //its of UTMOST IMPORTANCE that each button has a unique id
 
             //Units buttons Here
-            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0TowerGun", true));
-            unitBuild[0].StringText = "Gun Tower";
-            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0TowerRocket", true));
-            unitBuild[1].StringText = "Rocket Tower";
-            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0TowerSAM", true));
-            unitBuild[2].StringText = "SAM Tower";
-            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0TowerTesla", true));
-            unitBuild[3].StringText = "Tesla Tower";
+            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[0], "btn0TowerGun", true));
+            //unitBuild[0].StringText = "Gun Tower";
+            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[1], "btn0TowerRocket", true));
+            //unitBuild[1].StringText = "Rocket Tower";
+            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[2], "btn0TowerSAM", true));
+            //unitBuild[2].StringText = "SAM Tower";
+            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[3], "btn0TowerTesla", true));
+            //unitBuild[3].StringText = "Tesla Tower";
 
             for (int i = 0; i < unitBuild.Count(); i++)
             {
