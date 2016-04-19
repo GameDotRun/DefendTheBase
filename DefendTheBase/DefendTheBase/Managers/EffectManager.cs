@@ -110,6 +110,8 @@ public class Effect
 
     float elasped, totalTime;
 
+    float alphaVal = 1f;
+
     int bloodSheetPosX = GameManager.rnd.Next(0, 17) * 15;
     int explosionSheetPosY = GameManager.rnd.Next(0, 3) * 84;
     
@@ -172,12 +174,16 @@ public class Effect
         {
             EffectManager.spriteSheetUpdate(ref frame, ref elasped, totalTime, totalframes, gt);
         }
+
+        if (EffectE == EffectManager.EffectEnums.Blood)
+            alphaVal -= 0.01f;
+
     }
 
     public void Draw(SpriteBatch sb)
     {
         if(EffectE == EffectManager.EffectEnums.Blood)
-            sb.Draw(effectTex, location, new Rectangle(bloodSheetPosX, 0, 14, 15), Color.White);
+            sb.Draw(effectTex, location, new Rectangle(bloodSheetPosX, 0, 14, 15), Color.White * alphaVal);
         else if(EffectE == EffectManager.EffectEnums.Explosion)
             sb.Draw(effectTex, location, new Rectangle(frame * 78, explosionSheetPosY, 78, 84), Color.White);
     }

@@ -108,7 +108,7 @@ namespace DefendTheBase
 
                         else if (Enemy.EnemyType == "Soldier")
                         {
-                            EffectManager.EffectCall(EffectManager.EffectEnums.Blood, Enemy.ScreenPos, false);
+                            EffectManager.EffectCall(EffectManager.EffectEnums.Blood, Enemy.ScreenPos + new Vector2(GameManager.rnd.Next(-5, 6), GameManager.rnd.Next(-5, 6)), false);
                         
                         }
                     }
