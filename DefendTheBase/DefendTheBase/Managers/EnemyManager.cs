@@ -68,12 +68,21 @@ namespace DefendTheBase
                     {
                         GameManager.EnemyWasDestroyed(Enemy.EnemyType); // resource acquisition 
 
+
+                        if (Enemy.EnemyType == "Helicopter")
+                        {
+
+                            EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.Helicopter.Width / 2, Art.Helicopter.Height / 2), true);
+                        
+                        }
+
                         if (Enemy.EnemyType == "Transport")
                         {
                             for (float i = 0; i < 4; i++)
                             {
                                 WaveManager.WaveEnemiesUsed--;
                                 SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+                                EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.Transport.Width / 2, Art.Transport.Height / 2), true);
                             }
                         }
 
@@ -83,6 +92,7 @@ namespace DefendTheBase
                             {
                                 WaveManager.WaveEnemiesUsed--;
                                 SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+                                EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), true);
                             }
                         }
 
@@ -92,6 +102,7 @@ namespace DefendTheBase
                             {
                                 WaveManager.WaveEnemiesUsed--;
                                 SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+                                EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.JeepBottom.Width / 2, Art.JeepBottom.Height / 2), true);
                             }
                         }
 

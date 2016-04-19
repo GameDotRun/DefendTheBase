@@ -43,11 +43,7 @@ namespace DefendTheBase
                 GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.None;
                 GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
                 
-            }
-
-
-            
-            
+            }   
         }
 
         static void Upgrade()
@@ -67,9 +63,20 @@ namespace DefendTheBase
         {
             string TowerType = BuildToTowerType();
 
+<<<<<<< HEAD
             if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
             {
                 TowerManager.SpawnTower(TowerType, GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].PixelScreenPos, GameManager.mouseSqrCoords);
+=======
+            if (!GameManager.mouseSqrCoords.CoordEqual(GameRoot.ENDPOINT))
+            {
+                if(GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Concrete)
+                {
+                   if (GridManager.InaccessibleSquareCheck(GameRoot.grid.gridSquares, GameManager.mouseSqrCoords))
+                        TowerManager.SpawnTower(TowerType, GameRoot.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].PixelScreenPos, GameManager.mouseSqrCoords);
+
+                }
+>>>>>>> origin/master
             }
         }
 

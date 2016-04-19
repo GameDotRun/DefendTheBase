@@ -97,5 +97,10 @@ namespace DefendTheBase
             GameManager.ModifyManpower(25);
            
         }
+
+        public static void StartWave()
+        {
+            WaveStartTimer = TimeSpan.Zero;
+        }
     }
 }

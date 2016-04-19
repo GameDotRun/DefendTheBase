@@ -80,13 +80,13 @@ namespace DefendTheBase
             }
         }
 
-        public static void Draw(SpriteBatch sb)
+        public static void Draw(SpriteBatch sb, int zlevel)
         {
 
             foreach (Effect effect in EffectList)
             {
-                effect.Draw(sb);
-                
+                if(effect.Zlevel == zlevel)
+                 effect.Draw(sb);
             }
         }
     }
@@ -94,6 +94,8 @@ namespace DefendTheBase
     
 public class Effect
 {
+    EffectManager.EffectEnums EffectE;
+
     public int ID;
     float effectLength;
 
@@ -103,17 +105,28 @@ public class Effect
     public bool active = true;
     UiTimer Timer;
 
+<<<<<<< HEAD
     int bloodSheetPos = GameManager.rnd.Next(0, 17) * 15;
+=======
+    int frame, totalframes;
+    public int Zlevel;
+
+    float elasped, totalTime;
+
+    int bloodSheetPosX = GameRoot.rnd.Next(0, 17) * 15;
+    int explosionSheetPosY = GameRoot.rnd.Next(0, 3) * 84;
+>>>>>>> origin/master
     
     public Effect(EffectManager.EffectEnums Effect, Vector2 Location, bool Spritesheet)
     {
+        EffectE = Effect;
+
         effectTex = GetEffect(Effect);
         effectLength = GetEffectLength(Effect);
 
         location = Location;
         spriteSheet = Spritesheet;
         Timer = new UiTimer(effectLength);
-    
     }
 
     Texture2D GetEffect(EffectManager.EffectEnums Effect)
@@ -121,7 +134,15 @@ public class Effect
         switch(Effect)
         {
             case EffectManager.EffectEnums.Blood:
+                Zlevel = 0;
                 return Art.BloodSplats;
+            case EffectManager.EffectEnums.Explosion:
+                totalframes = 16;
+                frame = 0;
+                elasped = 0;
+                totalTime = 75f;
+                Zlevel = 1;
+                return Art.Explosions;
         }
 
         return null;
@@ -133,6 +154,8 @@ public class Effect
         {
             case EffectManager.EffectEnums.Blood:
                 return 5000f;
+            case EffectManager.EffectEnums.Explosion:
+                return 1200f;
         }
 
         return 0f;
@@ -150,15 +173,17 @@ public class Effect
             active = false;
 
         if (spriteSheet)
-        { 
-        
-        
+        {
+            EffectManager.spriteSheetUpdate(ref frame, ref elasped, totalTime, totalframes, gt);
         }
     }
 
     public void Draw(SpriteBatch sb)
     {
-        sb.Draw(effectTex, location, new Rectangle(bloodSheetPos, 0, 14, 15), Color.White);
+        if(EffectE == EffectManager.EffectEnums.Blood)
+            sb.Draw(effectTex, location, new Rectangle(bloodSheetPosX, 0, 14, 15), Color.White);
+        else if(EffectE == EffectManager.EffectEnums.Explosion)
+            sb.Draw(effectTex, location, new Rectangle(frame * 78, explosionSheetPosY, 78, 84), Color.White);
     }
 
 
