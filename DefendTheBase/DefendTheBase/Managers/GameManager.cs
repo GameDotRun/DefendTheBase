@@ -78,6 +78,7 @@ namespace DefendTheBase
             UiTopScreen = new UiTopGameScreen(graphics);
             EnemyListener.InitiliseListener();
             TowerListener.InitiliseListener();
+            TroopListener.InitiliseListener();
         }
 
         public static void Update(GameTime gameTime)
@@ -87,6 +88,7 @@ namespace DefendTheBase
 
             WaveManager.Update(gameTime);
             TowerManager.Update();
+            TroopManager.Update(gameTime);
             EffectManager.Update(gameTime);
         }
 
@@ -96,7 +98,9 @@ namespace DefendTheBase
             EffectManager.Draw(sb, 0);
             TowerManager.Draw(sb);
             EnemyManager.Draw(sb);
+            TroopManager.Draw(sb);
             EffectManager.Draw(sb, 1);
+
         }
 
         public static void ModifyManpower(float value)

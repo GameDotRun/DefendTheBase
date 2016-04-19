@@ -144,4 +144,122 @@ namespace DefendTheBase
             nextCoord = new Coordinates(0, 0);
         }
     }
+
+    public class FriendlyAi
+    {
+
+        public Coordinates nextCoord, currentCoord;
+        public Vector2 Node, previousVect, Movement;
+        internal int tempInt;
+
+        int defDist;
+        bool Moving = false;
+
+        float distance;
+
+       
+
+        public FriendlyAi()
+        {
+            defDist = GameManager.DEFAULYDIST;
+            tempInt = GameManager.DEFAULYDIST;
+            nextCoord = new Coordinates(0, 0);
+        }
+
+        public bool PathMove(Squares[,] squares, int height, int width, ref Vector2 EnemyVect, ref Vector2 ScreenPos, float speed, float time, Vector2 Direction)
+        {
+            bool wallfound = false;
+
+            if (!Moving)
+            {
+                ScreenPos = new Vector2(Node.X, Node.Y);
+
+                    if (currentCoord.x + 1 < width) // check array wont go out of bounds 
+                    {
+                        if (squares[(int)currentCoord.x + 1, (int)currentCoord.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
+                        {
+                            tempInt = squares[(int)currentCoord.x + 1, (int)currentCoord.y].sqrCoord.counter; // set the tempint to new distance value
+                            nextCoord = new Coordinates((int)currentCoord.x + 1, (int)currentCoord.y, tempInt); // set temp coord to the aipos + direction.
+                            wallfound = true;
+                        }
+                    }
+
+
+                    if (currentCoord.x - 1 >= 0) // check array wont go out of bounds 
+                    {
+                        if (squares[(int)currentCoord.x - 1, (int)currentCoord.y].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
+                        {
+                            if ((wallfound == true && GameManager.rnd.Next(0, 5) == 1) || !wallfound)
+                            {
+                                tempInt = squares[(int)currentCoord.x - 1, (int)currentCoord.y].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x - 1, (int)currentCoord.y, tempInt); // set temp coord to the aipos + direction.
+                                wallfound = true;
+                            }
+                        }
+                    }
+
+                    if (currentCoord.y + 1 < height) // check array wont go out of bounds 
+                    {
+                        if (squares[(int)currentCoord.x, (int)currentCoord.y + 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
+                        {
+                            if ((wallfound == true && GameManager.rnd.Next(0, 5) == 1) || !wallfound)
+                            {
+                                tempInt = squares[(int)currentCoord.x, (int)currentCoord.y + 1].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y + 1, tempInt); // set temp coord to the aipos + direction.
+                                wallfound = true;
+                            }
+                        }
+                    }
+
+                    if (currentCoord.y - 1 >= 0) // check array wont go out of bounds 
+                    {
+                        if (squares[(int)currentCoord.x, (int)currentCoord.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
+                        {
+                            if ((wallfound == true && GameManager.rnd.Next(0, 5) == 1) || !wallfound)
+                            {
+                                tempInt = squares[(int)currentCoord.x, (int)currentCoord.y - 1].sqrCoord.counter; // set the tempint to new distance value
+                                nextCoord = new Coordinates((int)currentCoord.x, (int)currentCoord.y - 1, tempInt); // set temp coord to the aipos + direction.
+                                wallfound = true;
+                            }
+                        }
+                    }
+               
+
+                Node = new Vector2((nextCoord.x * GameManager.SQUARESIZE) + GameManager.SQUARESIZE / 2, (int)GameManager.grid.gridBorder.Y + (nextCoord.y * GameManager.SQUARESIZE) + GameManager.SQUARESIZE / 2);
+
+                distance = Vector2.Distance(new Vector2(currentCoord.x, currentCoord.y), new Vector2(nextCoord.x, nextCoord.y));
+
+                Direction = new Vector2(nextCoord.x - currentCoord.x, nextCoord.y - currentCoord.y);
+                Movement = Direction;
+                Direction.Normalize();
+
+                previousVect = new Vector2(currentCoord.x, currentCoord.y);
+
+                Moving = true;
+
+            }
+
+            if (Moving)
+            {
+                EnemyVect += Direction * speed * time;
+                if (Vector2.Distance(previousVect, EnemyVect) >= distance)
+                {
+                    if (Direction.Y >= 0 && Direction.X >= 0)
+                        ScreenPos = new Vector2(Node.X, Node.Y);
+
+                    Moving = false;
+
+                    return false;
+                }
+
+                return true;
+            }
+
+            else return false;
+        }
+    
+    
+    
+    
+    }
 }

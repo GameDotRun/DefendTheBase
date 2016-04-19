@@ -81,6 +81,7 @@
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="Managers\TowerManager.cs" />
+    <Compile Include="Managers\TroopManager.cs" />
     <Compile Include="Managers\WaveManager.cs" />
     <Compile Include="Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="GameRoot.cs" />
     <Compile Include="Squares.cs" />
     <Compile Include="Tower.cs" />
+    <Compile Include="Troops.cs" />
     <Compile Include="UiScreens.cs" />
   </ItemGroup>
   <ItemGroup>
