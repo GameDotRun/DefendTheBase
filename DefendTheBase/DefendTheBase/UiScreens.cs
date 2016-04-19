@@ -108,7 +108,7 @@ namespace DefendTheBase
 
         public UiTopGameScreen(GraphicsDevice graphicsDevice) : base(GameManager.WIDTH, GameManager.HEIGHT)
         {
-            healthBar = new UiStatusBars(graphicsDevice, 100, new Vector2(100, 25), new Vector2(300, 10), Color.Red, Color.Green);
+            healthBar = new UiStatusBars(100, new Vector2(100, 25), new Vector2(300, 10), Art.HpBar[0], Art.HpBar[1]);
             waveStats = new List<UiTextString>();
             currencyStats = new List<UiTextString>();
             timers = new List<UiTextString>();
