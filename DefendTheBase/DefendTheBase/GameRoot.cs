@@ -117,6 +117,13 @@ namespace DefendTheBase
                     string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
                     GameManager.BuildState = (GameManager.BuildStates)Enum.Parse(typeof(GameManager.BuildStates), bStateString);
                 }
+
+                else if (UiButtonMessenger.ButtonPressedId.Contains("btn1"))
+                {
+                    // Create String from id by removing the "btn0". Then Parse String to enum.
+                    string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
+                    WaveManager.StartWave();
+                }
             }
 
             grid.Update(gameTime);
@@ -155,9 +162,10 @@ namespace DefendTheBase
 
             grid.Draw(spriteBatch, Art.DebugFont);
             UiManager.Draw(spriteBatch);
-            EffectManager.Draw(spriteBatch);
+            EffectManager.Draw(spriteBatch, 0);
             EnemyManager.Draw(spriteBatch);
             TowerManager.Draw(spriteBatch);
+            EffectManager.Draw(spriteBatch, 1);
             
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.

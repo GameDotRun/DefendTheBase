@@ -84,6 +84,8 @@ namespace DefendTheBase
             //Misc Buttons Here
             miscBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0Upgrade", true));
             miscBuild[0].StringText = "Upgrade Tower";
+            miscBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Blue, "btn1NextWave", true));
+            miscBuild[1].StringText = "Next Wave";
 
             for (int i = 0; i < miscBuild.Count(); i++)
             {
@@ -94,9 +96,6 @@ namespace DefendTheBase
             }
         }
     }
-
-
-
 
     public class UiTopGameScreen : Ui
     {
