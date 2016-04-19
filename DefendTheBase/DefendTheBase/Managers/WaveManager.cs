@@ -21,6 +21,7 @@ namespace DefendTheBase
         static float WavePower = 2;
 
         static bool waveCountPop = false;
+        static bool spawnTroop = true;
         static float fade = 1f;
 
         public static void Update(GameTime gameTime)
@@ -48,6 +49,17 @@ namespace DefendTheBase
                     if (UiManager.UiScreens[1].StringList[3].Count != 0)
                         UiManager.UiScreens[1].StringList[3].RemoveAt(UiManager.UiScreens[1].StringList[3].Count - 1);
                 }
+
+                if (WaveStartTimer.Seconds % 5 == 0 && spawnTroop)
+                {
+                    TroopManager.SpawnTroop();
+                    spawnTroop = false;
+                }
+
+                else if (WaveStartTimer.Seconds % 5 != 0)
+                {
+                    spawnTroop = true;
+                }
             }
 
 
@@ -67,7 +79,6 @@ namespace DefendTheBase
                         {
                             EnemyManager.SpawnEnemy(EnemyManager.TypeIDs[GameManager.rnd.Next(0, EnemyManager.TypeIDs.Count())], new Vector2(0, 0));
                             WaveEnemiesSpawned++;
-                            TroopManager.SpawnTroop();
                         }
 
                         EnemySpawnTimer = TimeSpan.Zero;

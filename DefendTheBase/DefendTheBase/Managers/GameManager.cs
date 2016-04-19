@@ -83,6 +83,8 @@ namespace DefendTheBase
 
         public static void Update(GameTime gameTime)
         {
+            m_manPower = TroopListener.TroopList.Count();
+
             UiSideScreen.Update();
             UiTopScreen.Update();
 
