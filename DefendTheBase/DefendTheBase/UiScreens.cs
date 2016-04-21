@@ -291,7 +291,7 @@ namespace DefendTheBase
 
             if (State == QuestionState.Correct || State == QuestionState.Wrong)
             { 
-                if(Input.WasKeyPressed(Microsoft.Xna.Framework.Input.Keys.Enter)
+                if(Input.WasKeyPressed(Microsoft.Xna.Framework.Input.Keys.Enter))
                 {
                     State = QuestionState.Done;
                 }
