@@ -79,6 +79,16 @@ namespace DefendTheBase
             EnemyListener.InitiliseListener();
             TowerListener.InitiliseListener();
             TroopListener.InitiliseListener();
+
+            WaveManager.questionsList.Add(WaveManager.Questions.AmericanBomb);
+            WaveManager.questionsList.Add(WaveManager.Questions.BattleOfBritain);
+            WaveManager.questionsList.Add(WaveManager.Questions.GermanLeader);
+            WaveManager.questionsList.Add(WaveManager.Questions.GermanPolandInvasion);
+            WaveManager.questionsList.Add(WaveManager.Questions.ItalianLeader);
+            WaveManager.questionsList.Add(WaveManager.Questions.NaziLightningWar);
+            WaveManager.questionsList.Add(WaveManager.Questions.SovietLeader);
+            WaveManager.questionsList.Add(WaveManager.Questions.WWIIStartDate);
+            WaveManager.questionsList.Add(WaveManager.Questions.WWIIWinner);
         }
 
         public static void Update(GameTime gameTime)
@@ -88,11 +98,12 @@ namespace DefendTheBase
             UiSideScreen.Update();
             UiTopScreen.Update();
 
+            QuestionPopUpManager.Update();
             WaveManager.Update(gameTime);
             TowerManager.Update();
             TroopManager.Update(gameTime);
             EffectManager.Update(gameTime);
-            QuestionPopUpManager.Update();
+            
         }
 
         public static void Draw(SpriteBatch sb)

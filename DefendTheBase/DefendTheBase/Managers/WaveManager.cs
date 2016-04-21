@@ -9,7 +9,6 @@ namespace DefendTheBase
 {
     public static class WaveManager
     {
-        [Flags]
         public enum Questions
         { 
             WWIIWinner,
@@ -23,7 +22,7 @@ namespace DefendTheBase
             AmericanBomb
         }
 
-
+        public static List<Questions> questionsList = new List<Questions>();
 
         public static TimeSpan EnemySpawnTimer = TimeSpan.Zero;
         public static TimeSpan WaveStartTimer = TimeSpan.FromMinutes(1);
@@ -140,7 +139,10 @@ namespace DefendTheBase
 
             CurrentAnswers = new string[3];
 
-            Questions nextQuestion = (Questions)GameManager.rnd.Next(1, 10);
+            int nextQuestionindex = GameManager.rnd.Next(1, questionsList.Count());
+            Questions nextQuestion = questionsList[nextQuestionindex];
+
+            questionsList.Remove(nextQuestion);
 
             switch (nextQuestion)
             {
@@ -199,13 +201,13 @@ namespace DefendTheBase
                     break;
 
                 default:
-                     CurrentQuestion = QuestionStrings.WWIIWinner;
+                    CurrentQuestion = QuestionStrings.WWIIWinner;
                     CurrentAnswers = QuestionStrings.WWIIWinnerAnswers;
                     CorrectAnswer = QuestionStrings.WWIIWinnerCorrect;
                     break;
             }
 
-            QuestionPopUpManager.Add(new QuestionPopUp(CurrentQuestion, CurrentAnswers[0], CurrentAnswers[1], CurrentAnswers[2], CorrectAnswer ));
+            QuestionPopUpManager.Add(new QuestionPopUp(CurrentQuestion, CurrentAnswers[0], CurrentAnswers[1], CurrentAnswers[2], CorrectAnswer));
         
         
         

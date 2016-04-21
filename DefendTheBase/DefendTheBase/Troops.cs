@@ -99,9 +99,9 @@ namespace DefendTheBase
 
         public void Draw(SpriteBatch sb)
         {
-            if(troopID == "Infantry")
+            if(TroopType == "Infantry")
                 sb.Draw(Art.FriendlySoldier, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width / 2, SourceRect.Height / 2), 1f, SpriteEffects.None, 0);
-            else if(troopID == "Mechanic")
+            else if (TroopType == "Mechanic")
                 sb.Draw(Art.FriendlyMechanic, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width / 2, SourceRect.Height / 2), 1f, SpriteEffects.None, 0);
         }
 

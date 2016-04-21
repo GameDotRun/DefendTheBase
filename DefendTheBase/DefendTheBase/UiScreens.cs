@@ -160,16 +160,23 @@ namespace DefendTheBase
             QuestionPopUps.Add(Question);
         }
 
-       /* public static RemoveQuestion()
+        public static void RemoveQuestion(QuestionPopUp question)
         {
-            QuestionPopUps.Remove(
-        }*/
+            QuestionPopUps.Remove(question);
+        }
 
         public static void Update()
         {
             foreach (QuestionPopUp question in QuestionPopUps)
             {
                 question.Update();
+
+                if (question.State == QuestionPopUp.QuestionState.Done)
+                {
+                    RemoveQuestion(question);
+
+                    break;
+                }
             }
         
         }
@@ -220,7 +227,7 @@ namespace DefendTheBase
 
     public class QuestionPopUp
     {
-        enum QuestionState
+        public enum QuestionState
         { 
             Asking,
             Correct,
@@ -228,7 +235,7 @@ namespace DefendTheBase
             Done
         }
 
-        QuestionState State;
+        public QuestionState State;
 
         UiTextBox QuestionBox, CorrectBox, WrongBox;
         List<UiButton> Answers = new List<UiButton>();
@@ -287,6 +294,13 @@ namespace DefendTheBase
                     }
 
                     else State = QuestionState.Wrong;
+
+                    foreach (UiButton buttons in Answers)
+                    {
+                        UiButtonMessenger.RemoveButton(buttons.GetButtonID);
+                    
+                    }
+            
                 }
             }
 
@@ -297,12 +311,10 @@ namespace DefendTheBase
                     State = QuestionState.Done;
                 }
             }
-
         }
 
         public void Draw(SpriteBatch sb)
         {
-
             if (State == QuestionState.Asking)
             {
                 QuestionBox.Draw(sb);
