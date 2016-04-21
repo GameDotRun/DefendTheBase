@@ -47,6 +47,7 @@ namespace DefendTheBase
         public static Texture2D uiSide { get; private set; }
         public static Texture2D[] ButtonsBase { get; private set; }
         public static Texture2D[] ButtonsTower { get; private set; }
+        public static Texture2D[] ButtonsMisc { get; private set; }
 
         public static Texture2D BloodSplats { get; private set; }
         public static Texture2D Explosions { get; private set; }
@@ -117,6 +118,9 @@ namespace DefendTheBase
             ButtonsTower = new Texture2D[4];
             for (int i = 0; i < 4; i++)
                 ButtonsTower[i] = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonTower" + i);
+            ButtonsMisc = new Texture2D[1];
+            for (int i = 0; i < 1; i++)
+                ButtonsMisc[i] = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonMisc" + i);
 
             HpBar = new Texture2D[2];
             for (int i = 0; i < 2; i++)

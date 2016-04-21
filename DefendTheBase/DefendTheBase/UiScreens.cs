@@ -84,7 +84,7 @@ namespace DefendTheBase
             //Misc Buttons Here
 
             
-            miscBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Blue, "btn1NextWave", true));
+            miscBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsMisc[0], "btn1NextWave", true));
             miscBuild[0].StringText = "Next Wave";
 
             for (int i = 0; i < miscBuild.Count(); i++)
