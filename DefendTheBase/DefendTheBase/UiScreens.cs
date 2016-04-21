@@ -8,7 +8,6 @@ using RPGEx;
 
 namespace DefendTheBase
 {
-
     public class UiSideGameScreen : Ui
     {
         //these variables hopefully wont be needed when i've made some planned ui functions
@@ -149,6 +148,87 @@ namespace DefendTheBase
         }
     }
 
+    public static class QuestionPopUpManager
+    {
+        static List<QuestionPopUp> QuestionPopUps = new List<QuestionPopUp>();
+
+        public static void Add(QuestionPopUp Question)
+        {
+            QuestionPopUps.Add(Question);
+        }
+
+        public static void Update()
+        {
+            foreach (QuestionPopUp question in QuestionPopUps)
+            {
+                question.Update();
+            }
+        
+        }
+
+        public static void Draw(SpriteBatch sb)
+        {
+            foreach(QuestionPopUp question in QuestionPopUps)
+            {
+                question.Draw(sb);
+            }
+        }  
+    }
+
+
+    public class QuestionPopUp
+    {
+        UiTextBox QuestionBox;
+        List<UiButton> Answers = new List<UiButton>();
+        int correctAnsIndex;
+
+        public QuestionPopUp(string Question, string Answer1, string Answer2, string Answer3)
+        {
+            QuestionBox = new UiTextBox(Art.DebugFont, Question, new Vector2(250, 100), Color.White, Art.TextBoxBackGround, false);
+            Answers.Add(new UiButton(Art.DebugFont, new Vector2(400, 400), new Vector2(200, 100), Art.TextBoxBackGround, "Ans1", true));
+            Answers.Add(new UiButton(Art.DebugFont, new Vector2(400, 500), new Vector2(200, 100), Art.TextBoxBackGround, "Ans2", true));
+            Answers.Add(new UiButton(Art.DebugFont, new Vector2(400, 600), new Vector2(200, 100), Art.TextBoxBackGround, "Ans3", true));
+
+            QuestionBox.TextBoxSize = new Vector2(500, 200);
+            QuestionBox.StringScale = 2f;
+            QuestionBox.StringOffset = new Vector2(10, 0);
+
+            Answers[0].StringText = Answer1;
+            Answers[1].StringText = Answer2;
+            Answers[2].StringText = Answer3;
+
+            foreach (UiButton button in Answers)
+            {
+                UiButtonMessenger.RegisterButton(button);
+                button.TextBoxColour = Color.Black;
+                button.StringScale = 2f;
+                button.StringOffset = new Vector2(10, 0);
+                button.TextBoxRectangleSet();
+            }
+        }
+
+        public void Update()
+        {
+            if (UiButtonMessenger.CheckButtonIsDown("Ans1"))
+            {
+                string one = Answers[0].GetButtonID;
+            
+            }
+
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+
+            QuestionBox.Draw(sb);
+
+            foreach (UiButton button in Answers)
+            {
+                button.Draw(sb);
+            }
+        
+        }
+    }
 
     /*public class StartScreen : Ui
     { }

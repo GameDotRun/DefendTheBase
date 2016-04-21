@@ -174,7 +174,7 @@ namespace RPGEx
     /// <summary>
     /// Creates a loading bar, health bar etc.
     /// </summary>
-    public class UiStatusBars
+    public class UiStatusBars 
     {
         Texture2D BackgroundTex, ForegroundTex;
         Color BackgroundCol, ForegroundCol;
@@ -632,6 +632,18 @@ namespace RPGEx
             InitiliseButton();
         }
 
+        public UiButton(SpriteFont Font, Vector2 Location, Vector2 Size, Texture2D Texture, string ButtonID, bool ButtonEffects)
+            : base(Font, "", Location, Color.White, Texture, false)
+        {
+            TextBoxLocation = Location;
+            TextBoxTexture = Texture;
+            TextBoxSize = Size;
+            buttonID = ButtonID;
+            buttonEffects = ButtonEffects;
+            StringPosition = Location;
+            InitiliseButton();
+        }
+
         public void Update(MouseState mouseState, MouseState old)
         {
             if (TextBox.Contains(new Point(mouseState.X, mouseState.Y)))
@@ -733,6 +745,7 @@ namespace RPGEx
     /// </summary>
     public class UiTextBox : UiTextString // Not currently what i want. Will be changed to an editable text box in future (Take more time)
     {
+        private Vector2 stringOffset = new Vector2(0,0);
         private Vector2 txtBoxlocation, txtBoxSize;
         private Rectangle txtBox;
         private Texture2D txtBoxTex;
@@ -817,12 +830,14 @@ namespace RPGEx
 
         public void Draw(SpriteBatch sb)
         {
+            TextBoxRectangleSet();
+
             if (scaleBox)
                 sb.Draw(txtBoxTex, new Rectangle((int)txtBoxlocation.X, (int)txtBoxlocation.Y, (int)StringPXSize.X, (int)StringPXSize.Y), null, txtBoxCol, txtBoxRotation, Vector2.Zero, SpriteEffects.None, 1);
             else
                 sb.Draw(txtBoxTex, txtBox, null, txtBoxCol, txtBoxRotation, Vector2.Zero, SpriteEffects.None, 1);
 
-            sb.DrawString(StringFont, StringText, txtBoxlocation, StringColour, txtBoxRotation, Vector2.Zero, StringScale, SpriteEffects.None, 1);
+            sb.DrawString(StringFont, StringText, txtBoxlocation + stringOffset, StringColour, txtBoxRotation, Vector2.Zero, StringScale, SpriteEffects.None, 1);
         }
 
         private void Initilise()
@@ -853,6 +868,12 @@ namespace RPGEx
         {
             get { return txtBoxSize; }
             set { txtBoxSize = value; }
+        }
+
+        public Vector2 StringOffset
+        {
+            get { return stringOffset; }
+            set { stringOffset = value; }
         }
 
         /// <summary>

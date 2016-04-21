@@ -35,7 +35,6 @@ namespace DefendTheBase
             Troops.Add(new infantry(CreateID()));
         }
 
-
         public static void Update(GameTime gt)
         {
             foreach (Troop troop in Troops)

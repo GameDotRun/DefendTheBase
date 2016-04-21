@@ -35,6 +35,8 @@ namespace DefendTheBase
                     UiManager.UiScreens[1].StringList[3].Add(new UiTextString(Art.DebugFont, "Wave in 60 seconds", new Vector2(GameManager.ScreenSize.X / 3, GameManager.ScreenSize.Y / 2), Color.Red));
                     UiManager.UiScreens[1].StringList[3][UiManager.UiScreens[1].StringList[3].Count - 1].StringScale = 5f;
 
+                    QuestionPopUpManager.Add(new QuestionPopUp("What is the capital of bangkok?\nhuh u fukin wot m8 ill rekt ya innit blud", "darkness", "my old friend", "friend"));
+
                     waveCountPop = true;
                 }
 

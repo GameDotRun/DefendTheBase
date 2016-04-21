@@ -53,6 +53,8 @@ namespace DefendTheBase
         // Small font used for debug info.
         public static SpriteFont DebugFont { get; private set; }
 
+        public static Texture2D TextBoxBackGround { get; private set; }
+
         public static void Load(ContentManager content)
         {
             Pixel = content.Load<Texture2D>("Art/Images/Misc/Pixel");   // Flecks Art Contribution.
@@ -120,6 +122,9 @@ namespace DefendTheBase
 
             // Fonts
             DebugFont = content.Load<SpriteFont>("Art/Fonts/DebugFont");
+
+
+            TextBoxBackGround = content.Load<Texture2D>("Art/Images/Misc/TextBoxBackground");
 
         }
 

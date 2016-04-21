@@ -92,6 +92,7 @@ namespace DefendTheBase
             TowerManager.Update();
             TroopManager.Update(gameTime);
             EffectManager.Update(gameTime);
+            QuestionPopUpManager.Update();
         }
 
         public static void Draw(SpriteBatch sb)
@@ -102,6 +103,7 @@ namespace DefendTheBase
             EnemyManager.Draw(sb);
             TroopManager.Draw(sb);
             EffectManager.Draw(sb, 1);
+            QuestionPopUpManager.Draw(sb);
 
         }
 
