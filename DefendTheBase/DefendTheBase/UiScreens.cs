@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using RPGEx;
+using Flextensions;
 
 namespace DefendTheBase
 {
@@ -158,6 +159,11 @@ namespace DefendTheBase
             QuestionPopUps.Add(Question);
         }
 
+       /* public static RemoveQuestion()
+        {
+            QuestionPopUps.Remove(
+        }*/
+
         public static void Update()
         {
             foreach (QuestionPopUp question in QuestionPopUps)
@@ -176,16 +182,64 @@ namespace DefendTheBase
         }  
     }
 
+    public static class QuestionStrings
+    {
+        public static string WWIIWinner = "Who won World War 2?";
+        public static string SovietLeader = "Who was the leader of the Soviet Union during World War II?";
+        public static string GermanLeader = "Who was the leader of Germany during World War II?";
+        public static string ItalianLeader = "who was the leader of Italy during World War II?";
+        public static string WWIIStartDate = "When did ww2 begin?";
+        public static string GermanPolandInvasion = "Which country did germany invade to start ww2?";
+        public static string NaziLightningWar = "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium and France in April-June 1940 called?";
+        public static string BattleOfBritain = "What was the Battle of Britain?";
+        public static string AmericanBomb = "What kind of bomb did the Americans drop on Hiroshima?";
+
+        public static string[] WWIIWinnerAnswers = { "Britain", "Germany", "Allied Forces" };
+        public static string[] SovietLeaderAnswers = { "Stalin", "Trotski", "Lenin" };
+        public static string[] GermanLeaderAnswers = { "Churchill", "Mussolini", "Hitler" };
+        public static string[] ItalianLeaderAnswers = { "Hirohito", "Mussolini", "Eisenhower" };
+        public static string[] WWIIStartDateAnswers = { "1939", "1914", "1941" };
+        public static string[] GermanPolandInvasionAnswers = { "Austria", "Russia", "Poland" };
+        public static string[] NaziLightningWarAnswers = { "The Blitz", "Blitzkrieg", "Operation Barbarossa" };
+        public static string[] BattleOfBritainAnswers = { "The Royal Air Force defeated the Luftwaffe.", "The Luftwaffe bombed London and other British cities.", "The British withdrew from France by sea." };
+        public static string[] AmericanBombAnswers = { "A V-1 rocket", "Blitzkrieg", "An atomic bomb" };
+
+        public static string WWIIWinnerCorrect = "Ans3";
+        public static string SovietLeaderCorrect = "Ans1";
+        public static string GermanLeaderCorrect = "Ans3";
+        public static string ItalianLeaderCorrect = "Ans2";
+        public static string WWIIStartDateCorrect = "Ans1";
+        public static string GermanPolandInvasionCorrect = "Ans3";
+        public static string NaziLightningWarCorrect = "Ans2";
+        public static string BattleOfBritainCorrect = "Ans1";
+        public static string AmericanBombCorrect = "Ans3";
+
+    }
+
 
     public class QuestionPopUp
     {
-        UiTextBox QuestionBox;
-        List<UiButton> Answers = new List<UiButton>();
-        int correctAnsIndex;
+        enum QuestionState
+        { 
+            Asking,
+            Correct,
+            Wrong,
+            Done
+        }
 
-        public QuestionPopUp(string Question, string Answer1, string Answer2, string Answer3)
+        QuestionState State;
+
+        UiTextBox QuestionBox, CorrectBox, WrongBox;
+        List<UiButton> Answers = new List<UiButton>();
+        string correctAnsID;
+
+        public QuestionPopUp(string Question, string Answer1, string Answer2, string Answer3, string correctAnswerID)
         {
+            correctAnsID = correctAnswerID;
+
             QuestionBox = new UiTextBox(Art.DebugFont, Question, new Vector2(250, 100), Color.White, Art.TextBoxBackGround, false);
+            CorrectBox = new UiTextBox(Art.DebugFont, "Correct! A soldier joins your cause!\n\nPress enter to continue", new Vector2(250, 100), Color.White, Art.TextBoxBackGround, false);
+            WrongBox = new UiTextBox(Art.DebugFont, "Wrong! Better luck next time!\n\nPress enter to continue", new Vector2(250, 100), Color.White, Art.TextBoxBackGround, false);
             Answers.Add(new UiButton(Art.DebugFont, new Vector2(400, 400), new Vector2(200, 100), Art.TextBoxBackGround, "Ans1", true));
             Answers.Add(new UiButton(Art.DebugFont, new Vector2(400, 500), new Vector2(200, 100), Art.TextBoxBackGround, "Ans2", true));
             Answers.Add(new UiButton(Art.DebugFont, new Vector2(400, 600), new Vector2(200, 100), Art.TextBoxBackGround, "Ans3", true));
@@ -193,6 +247,14 @@ namespace DefendTheBase
             QuestionBox.TextBoxSize = new Vector2(500, 200);
             QuestionBox.StringScale = 2f;
             QuestionBox.StringOffset = new Vector2(10, 0);
+
+            CorrectBox.TextBoxSize = new Vector2(500, 200);
+            CorrectBox.StringScale = 2f;
+            CorrectBox.StringOffset = new Vector2(10, 0);
+
+            WrongBox.TextBoxSize = new Vector2(500, 200);
+            WrongBox.StringScale = 2f;
+            WrongBox.StringOffset = new Vector2(10, 0);
 
             Answers[0].StringText = Answer1;
             Answers[1].StringText = Answer2;
@@ -205,15 +267,34 @@ namespace DefendTheBase
                 button.StringScale = 2f;
                 button.StringOffset = new Vector2(10, 0);
                 button.TextBoxRectangleSet();
+
+                button.SetButtonState = UiButton.UiButtonStates.Button_Up;
             }
+
+            State = QuestionState.Asking;
         }
 
         public void Update()
         {
-            if (UiButtonMessenger.CheckButtonIsDown("Ans1"))
+            foreach (UiButton button in Answers)
             {
-                string one = Answers[0].GetButtonID;
-            
+                if (button.IsButtonDown())
+                {
+                    if (button.GetButtonID == correctAnsID)
+                    {
+                        State = QuestionState.Correct;
+                    }
+
+                    else State = QuestionState.Wrong;
+                }
+            }
+
+            if (State == QuestionState.Correct || State == QuestionState.Wrong)
+            { 
+                if(Input.WasKeyPressed(Microsoft.Xna.Framework.Input.Keys.Enter)
+                {
+                    State = QuestionState.Done;
+                }
             }
 
         }
@@ -221,13 +302,21 @@ namespace DefendTheBase
         public void Draw(SpriteBatch sb)
         {
 
-            QuestionBox.Draw(sb);
-
-            foreach (UiButton button in Answers)
+            if (State == QuestionState.Asking)
             {
-                button.Draw(sb);
+                QuestionBox.Draw(sb);
+
+                foreach (UiButton button in Answers)
+                {
+                    button.Draw(sb);
+                }
             }
-        
+
+            else if (State == QuestionState.Correct)
+                CorrectBox.Draw(sb);
+
+            else if (State == QuestionState.Wrong)
+                WrongBox.Draw(sb);
         }
     }
 
