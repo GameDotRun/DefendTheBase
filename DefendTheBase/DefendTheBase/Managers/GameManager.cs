@@ -36,17 +36,27 @@ namespace DefendTheBase
             TowerTesla
         }
 
+        [Flags]
+        public enum Unlocks
+        { 
+            None = 0,
+            RocketTower = 1,
+            SamTower = 2,
+            TeslaTower = 4
+        }
+
         private static float m_manPower = DEFAULT_MANPOWER;
         private static int m_resources = DEFAULT_RESOURCES;
 
         public static Coordinates mouseSqrCoords;
         public static GameStates GameState;
         public static BuildStates BuildState;
+        public static Unlocks UnlockedTowers;
         public static float Manpower { get { return m_manPower; } }
         public static int Resources { get { return m_resources; } }
 
-        static UiSideGameScreen UiSideScreen;
-        static UiTopGameScreen UiTopScreen;
+        public static UiSideGameScreen UiSideScreen;
+        public static UiTopGameScreen UiTopScreen;
 
 
         //Grid Size

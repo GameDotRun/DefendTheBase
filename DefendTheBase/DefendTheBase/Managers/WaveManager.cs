@@ -23,7 +23,7 @@ namespace DefendTheBase
         }
 
         public static List<Questions> questionsList = new List<Questions>();
-
+        public static int questionsAnsweredCorrect = 0;
         public static TimeSpan EnemySpawnTimer = TimeSpan.Zero;
         public static TimeSpan WaveStartTimer = TimeSpan.FromMinutes(1);
         public static bool WaveStarted = false;
@@ -41,6 +41,8 @@ namespace DefendTheBase
 
         public static void Update(GameTime gameTime)
         {
+            QuestionsCorrectCheck();
+
             if (!WaveStarted)
             {
                 WaveStartTimer -= gameTime.ElapsedGameTime;
@@ -208,10 +210,47 @@ namespace DefendTheBase
             }
 
             QuestionPopUpManager.Add(new QuestionPopUp(CurrentQuestion, CurrentAnswers[0], CurrentAnswers[1], CurrentAnswers[2], CorrectAnswer));
-        
-        
-        
         }
 
+        public static void QuestionsCorrectCheck()
+        {
+            if(questionsAnsweredCorrect > 0)
+            {
+                GameManager.UnlockedTowers |= GameManager.Unlocks.RocketTower;
+            }
+
+            if (questionsAnsweredCorrect > 2) 
+            {
+                GameManager.UnlockedTowers |= GameManager.Unlocks.SamTower;
+            }
+
+            if (questionsAnsweredCorrect > 5) 
+            {
+                GameManager.UnlockedTowers |= GameManager.Unlocks.TeslaTower;
+            }
+
+            else if (questionsAnsweredCorrect == 9)
+            { }
+
+            else if (questionsAnsweredCorrect == 12)
+            { }
+
+            else if (questionsAnsweredCorrect == 15)
+            { }
+
+            else if (questionsAnsweredCorrect == 19)
+            { }
+
+            else if (questionsAnsweredCorrect == 20)
+            { }
+
+
+
+
+
+        }
+    
+    
+    
     }
 }

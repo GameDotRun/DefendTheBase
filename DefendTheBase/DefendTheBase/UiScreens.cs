@@ -39,7 +39,55 @@ namespace DefendTheBase
 
         public void Update()
         {
+            if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.RocketTower))
+            {
+                if (unitBuild.Count < 2)
+                {
+                    unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[1], "btn0TowerRocket", true));
+                    buttonSingleInit(unitBuild[unitBuild.Count - 1], unitBuild.Count - 1, 0);
+                }
+            }
+
+            if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.SamTower))
+            {
+                if (unitBuild.Count < 3)
+                {
+                    unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[2], "btn0TowerSAM", true));
+                    buttonSingleInit(unitBuild[unitBuild.Count - 1], unitBuild.Count - 1, 0);
+                }
+            }
+
+            if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.TeslaTower))
+            {
+                if (unitBuild.Count < 4)
+                {
+                    unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[3], "btn0TowerTesla", true));
+                    buttonSingleInit(unitBuild[unitBuild.Count - 1], unitBuild.Count - 1, 0);
+                }
+            }
+
             tabs.Update();
+        }
+
+        public void buttonSingleInit(UiButton Button, int buttonNumber, int tabPage)
+        {
+            Button.TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (buttonNumber * (buttonSize.Y + 10)));
+            Button.SetStringPos();
+            tabs.Add(Button, tabPage);
+            Button.TextBoxRectangleSet();
+        
+        }
+
+        public void buttonsInit(ref List<UiButton> buttonList, int tabPage)
+        {
+            for (int i = 0; i < buttonList.Count(); i++)
+            {
+                buttonList[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));
+                buttonList[i].SetStringPos();
+                tabs.Add(buttonList[i], tabPage);
+                buttonList[i].TextBoxRectangleSet();
+            }
+        
         }
 
         public void CreateUi(GraphicsDevice graphicsDevice)
@@ -50,21 +98,8 @@ namespace DefendTheBase
             //Units buttons Here
             unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[0], "btn0TowerGun", true));
             //unitBuild[0].StringText = "Gun Tower";
-            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[1], "btn0TowerRocket", true));
-            //unitBuild[1].StringText = "Rocket Tower";
-            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[2], "btn0TowerSAM", true));
-            //unitBuild[2].StringText = "SAM Tower";
-            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[3], "btn0TowerTesla", true));
-            //unitBuild[3].StringText = "Tesla Tower";
-            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[4], "btn0Upgrade", true));
 
-            for (int i = 0; i < unitBuild.Count(); i++)
-            {
-                unitBuild[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));
-                unitBuild[i].SetStringPos();
-                tabs.Add(unitBuild[i], 0);
-                unitBuild[i].TextBoxRectangleSet();
-            }
+            buttonsInit(ref unitBuild, 0);
 
             //Base Buttons Here
             baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[0], "btn0Trench", true));
@@ -74,14 +109,8 @@ namespace DefendTheBase
             baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[2], "btn0Destroy", true));
             baseBuild[2].StringText = "Destroy Building";
 
+            buttonsInit(ref baseBuild, 1);
 
-            for (int i = 0; i < baseBuild.Count(); i++)
-            {
-                baseBuild[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));
-                baseBuild[i].SetStringPos();
-                tabs.Add(baseBuild[i], 1);
-                baseBuild[i].TextBoxRectangleSet();
-            }
 
             //Misc Buttons Here
 
@@ -89,13 +118,7 @@ namespace DefendTheBase
             miscBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsMisc[0], "btn1NextWave", true));
             miscBuild[0].StringText = "Next Wave";
 
-            for (int i = 0; i < miscBuild.Count(); i++)
-            {
-                miscBuild[i].TextBoxLocation = new Vector2(buttonDrawPos.X, buttonDrawPos.Y + (i * (buttonSize.Y + 10)));
-                miscBuild[i].SetStringPos();
-                tabs.Add(miscBuild[i], 2);
-                miscBuild[i].TextBoxRectangleSet();
-            }
+            buttonsInit(ref miscBuild, 2);
         }
     }
 
@@ -198,7 +221,7 @@ namespace DefendTheBase
         public static string ItalianLeader = "who was the leader of Italy during World War II?";
         public static string WWIIStartDate = "When did ww2 begin?";
         public static string GermanPolandInvasion = "Which country did germany invade to start ww2?";
-        public static string NaziLightningWar = "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium and France in April-June 1940 called?";
+        public static string NaziLightningWar = "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium\n and France in April-June 1940 called?";
         public static string BattleOfBritain = "What was the Battle of Britain?";
         public static string AmericanBomb = "What kind of bomb did the Americans drop on Hiroshima?";
 
@@ -209,7 +232,7 @@ namespace DefendTheBase
         public static string[] WWIIStartDateAnswers = { "1939", "1914", "1941" };
         public static string[] GermanPolandInvasionAnswers = { "Austria", "Russia", "Poland" };
         public static string[] NaziLightningWarAnswers = { "The Blitz", "Blitzkrieg", "Operation Barbarossa" };
-        public static string[] BattleOfBritainAnswers = { "The Royal Air Force defeated the Luftwaffe.", "The Luftwaffe bombed London and other British cities.", "The British withdrew from France by sea." };
+        public static string[] BattleOfBritainAnswers = { "The Royal Air Force\n defeated the Luftwaffe.", "The Luftwaffe bombed London\n and other British cities.", "The British withdrew\n from France by sea." };
         public static string[] AmericanBombAnswers = { "A V-1 rocket", "Blitzkrieg", "An atomic bomb" };
 
         public static string WWIIWinnerCorrect = "Ans3";
@@ -284,23 +307,27 @@ namespace DefendTheBase
 
         public void Update()
         {
-            foreach (UiButton button in Answers)
+            if (State == QuestionState.Asking)
             {
-                if (button.IsButtonDown())
+                foreach (UiButton button in Answers)
                 {
-                    if (button.GetButtonID == correctAnsID)
+                    if (button.IsButtonDown())
                     {
-                        State = QuestionState.Correct;
-                    }
+                        if (button.GetButtonID == correctAnsID)
+                        {
+                            State = QuestionState.Correct;
+                            WaveManager.questionsAnsweredCorrect++;
+                            TroopManager.SpawnTroop();
 
-                    else State = QuestionState.Wrong;
+                        }
 
-                    foreach (UiButton buttons in Answers)
-                    {
-                        UiButtonMessenger.RemoveButton(buttons.GetButtonID);
-                    
+                        else State = QuestionState.Wrong;
+
+                        foreach (UiButton buttons in Answers)
+                        {
+                            UiButtonMessenger.RemoveButton(buttons.GetButtonID);
+                        }
                     }
-            
                 }
             }
 
