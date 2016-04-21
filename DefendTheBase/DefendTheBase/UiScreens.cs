@@ -56,7 +56,7 @@ namespace DefendTheBase
             //unitBuild[2].StringText = "SAM Tower";
             unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[3], "btn0TowerTesla", true));
             //unitBuild[3].StringText = "Tesla Tower";
-            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0Upgrade", true));
+            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[4], "btn0Upgrade", true));
 
             for (int i = 0; i < unitBuild.Count(); i++)
             {
@@ -73,6 +73,7 @@ namespace DefendTheBase
             baseBuild[1].StringText = "Build Concrete";
             baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[2], "btn0Destroy", true));
             baseBuild[2].StringText = "Destroy Building";
+
 
             for (int i = 0; i < baseBuild.Count(); i++)
             {

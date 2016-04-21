@@ -115,8 +115,8 @@ namespace DefendTheBase
             ButtonsBase = new Texture2D[3];
             for (int i = 0; i < 3; i++)
                 ButtonsBase[i] = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonBase" + i);
-            ButtonsTower = new Texture2D[4];
-            for (int i = 0; i < 4; i++)
+            ButtonsTower = new Texture2D[5];
+            for (int i = 0; i < 5; i++)
                 ButtonsTower[i] = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonTower" + i);
             ButtonsMisc = new Texture2D[1];
             for (int i = 0; i < 1; i++)
