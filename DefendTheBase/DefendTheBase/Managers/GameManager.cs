@@ -125,7 +125,7 @@ namespace DefendTheBase
 
         public static void EnemyWasDestroyed(string EnemyType)
         {
-            //Add modifications for each enemy here
+            //Add modifications for each enemy here (what resources you recieve from enemies after kill)
             if (EnemyType == "Tank")
                 m_resources += 100;
             else if (EnemyType == "Helicopter")
@@ -146,6 +146,7 @@ namespace DefendTheBase
             int baseDmg = Damage;
             Projectile.Type proj = projectile;
             string enemyType = enemy.EnemyType;
+            
 
 
             if (enemyType == "Soldier")

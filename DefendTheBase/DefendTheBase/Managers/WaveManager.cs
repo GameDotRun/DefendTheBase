@@ -29,7 +29,7 @@ namespace DefendTheBase
         public static TimeSpan WaveStartTimer = TimeSpan.FromMinutes(1);
         public static bool WaveStarted = false;
         public static int WaveNumber = 1;
-        public static int WaveEnemyAmount = 100;
+        public static int WaveEnemyAmount = 20;
         public static int WaveEnemiesUsed = 0;
 
         static int WaveEnemiesSpawned = 0;
