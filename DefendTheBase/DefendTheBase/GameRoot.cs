@@ -118,7 +118,7 @@ namespace DefendTheBase
         {
             GraphicsDevice.Clear(Color.DarkOliveGreen);
             spriteBatch.Begin();
-            //spriteBatch.Draw(Art.Background, Vector2.Zero, Color.White);
+            spriteBatch.Draw(Art.Background, Vector2.Zero, Color.DarkGray);
             if (GameManager.GameState == GameManager.GameStates.PlayScreen)
             {
                 GameManager.grid.Draw(spriteBatch, Art.DebugFont);

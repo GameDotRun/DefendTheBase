@@ -60,7 +60,7 @@ namespace DefendTheBase
             Pixel = content.Load<Texture2D>("Art/Images/Misc/Pixel");   // Flecks Art Contribution.
 
             Base = content.Load<Texture2D>("Art/Images/Misc/base");
-            Background = content.Load<Texture2D>("Art/Images/Misc/background");
+            Background = content.Load<Texture2D>("Art/Images/UI/background");
 
             // Trenches
             TrenchTexs = new Texture2D[16];
