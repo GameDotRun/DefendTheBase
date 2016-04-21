@@ -55,6 +55,7 @@ namespace DefendTheBase
             //unitBuild[2].StringText = "SAM Tower";
             unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[3], "btn0TowerTesla", true));
             //unitBuild[3].StringText = "Tesla Tower";
+            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0Upgrade", true));
 
             for (int i = 0; i < unitBuild.Count(); i++)
             {
@@ -65,11 +66,11 @@ namespace DefendTheBase
             }
 
             //Base Buttons Here
-            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0Trench", true));
+            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[0], "btn0Trench", true));
             baseBuild[0].StringText = "Build Trench";
-            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0Concrete", true));
+            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[1], "btn0Concrete", true));
             baseBuild[1].StringText = "Build Concrete";
-            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0Destroy", true));
+            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[2], "btn0Destroy", true));
             baseBuild[2].StringText = "Destroy Building";
 
             for (int i = 0; i < baseBuild.Count(); i++)
@@ -81,10 +82,10 @@ namespace DefendTheBase
             }
 
             //Misc Buttons Here
-            miscBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Red, "btn0Upgrade", true));
-            miscBuild[0].StringText = "Upgrade Tower";
+
+            
             miscBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Color.Blue, "btn1NextWave", true));
-            miscBuild[1].StringText = "Next Wave";
+            miscBuild[0].StringText = "Next Wave";
 
             for (int i = 0; i < miscBuild.Count(); i++)
             {

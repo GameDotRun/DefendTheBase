@@ -290,11 +290,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Images\UnitsPlayer\army_man_good.png">
-      <Name>army_man_good</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Images\UnitsPlayer\medic.png">
       <Name>medic</Name>
       <Importer>TextureImporter</Importer>
@@ -302,11 +297,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Images\UnitsPlayer\mechanic.png">
-      <Name>mechanic</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Art\Images\UnitsPlayer\Rocket-trooper.png">
       <Name>Rocket-trooper</Name>
       <Importer>TextureImporter</Importer>
@@ -456,8 +446,46 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Art\Images\Terrain\new-grass.png">
+      <Name>new-grass</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Art\Images\UI\background.png">
       <Name>background</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Images\UI\Buttons\ButtonBase0.png">
+      <Name>ButtonBase0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\UI\Buttons\ButtonBase1.png">
+      <Name>ButtonBase1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Art\Images\UI\Buttons\ButtonBase2.png">
+      <Name>ButtonBase2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Images\UnitsPlayer\army_man_good.png">
+      <Name>army_man_good</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Art\Images\UnitsPlayer\mechanic.png">
+      <Name>mechanic</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

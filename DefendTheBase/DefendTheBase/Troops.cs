@@ -92,14 +92,15 @@ namespace DefendTheBase
             if (usingSpriteSheet)
             {
                 EffectManager.spriteSheetUpdate(ref spriteSheetNo, ref animElasped, targetElasped, sheetFrameTotal, gameTime);
-                SourceRect = new Rectangle(0, spriteSheetNo * Art.Soldier.Height / (sheetFrameTotal + 1), Art.Soldier.Width, Art.Soldier.Height / (sheetFrameTotal + 1));
+                SourceRect = new Rectangle(0, spriteSheetNo * Art.FriendlySoldier.Height / (sheetFrameTotal + 1), Art.FriendlySoldier.Width, Art.FriendlySoldier.Height / (sheetFrameTotal + 1));
                 
             }
         }
 
         public void Draw(SpriteBatch sb)
         {
-            sb.Draw(Art.Soldier, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width / 2, SourceRect.Height / 2), 1f, SpriteEffects.None, 0);
+            sb.Draw(Art.FriendlySoldier, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width / 2, SourceRect.Height / 2), 1f, SpriteEffects.None, 0);
+            sb.Draw(Art.FriendlyMechanic, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width / 2, SourceRect.Height / 2), 1f, SpriteEffects.None, 0);
         }
 
     }
@@ -110,7 +111,7 @@ namespace DefendTheBase
         public string Type = "Infantry";
 
         private float frameSpeed = 100;
-        private int frameTotal = 3; // total - 1
+        private int frameTotal = 2; // total - 1
 
         private float m_hp = 50;
         private float m_speed = 2;

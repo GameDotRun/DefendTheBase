@@ -32,6 +32,8 @@ namespace DefendTheBase
         public static Texture2D JeepBottom { get; private set; }
         public static Texture2D JeepTop { get; private set; }
         public static Texture2D Soldier { get; private set; }
+        public static Texture2D FriendlySoldier { get; private set; }
+        public static Texture2D FriendlyMechanic { get; private set; }
         public static Texture2D Helicopter { get; private set; }
         public static Texture2D Transport { get; private set; }
 
@@ -69,7 +71,7 @@ namespace DefendTheBase
 
             // Terrain
             Concrete = content.Load<Texture2D>("Art/Images/Terrain/concrete");
-            GroundTexs = content.Load<Texture2D>("Art/Images/Terrain/GrassyDirt");
+            GroundTexs = content.Load<Texture2D>("Art/Images/Terrain/new-grass");
             EnemyTex = content.Load<Texture2D>("Art/Images/Misc/ghostSquare");
 
             // Towers
@@ -95,6 +97,10 @@ namespace DefendTheBase
             Helicopter = content.Load<Texture2D>("Art/Images/UnitsEnemy/helicopter");
             Transport = content.Load<Texture2D>("Art/Images/UnitsEnemy/transport");
 
+            //Friendlies
+            FriendlySoldier = content.Load<Texture2D>("Art/Images/UnitsPlayer/army_man_good");
+            FriendlyMechanic = content.Load<Texture2D>("Art/Images/UnitsPlayer/mechanic");
+
             // Projectiles
             Projectile = content.Load<Texture2D>("Art/Images/Projectiles/Projectile");
             ProjectileGun = content.Load<Texture2D>("Art/Images/Projectiles/bullet");
@@ -105,9 +111,9 @@ namespace DefendTheBase
             // UI
             uiUp = content.Load<Texture2D>("Art/Images/UI/ui-template-topbar");
             uiSide = content.Load<Texture2D>("Art/Images/UI/ui-side");
-            ButtonsBase = new Texture2D[4];
-           /* for (int i = 0; i < 4; i++)
-                ButtonsBase[i] = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonBase" + i);*/
+            ButtonsBase = new Texture2D[3];
+            for (int i = 0; i < 3; i++)
+                ButtonsBase[i] = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonBase" + i);
             ButtonsTower = new Texture2D[4];
             for (int i = 0; i < 4; i++)
                 ButtonsTower[i] = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonTower" + i);
