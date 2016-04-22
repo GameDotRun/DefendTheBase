@@ -25,7 +25,7 @@ namespace DefendTheBase
 
         public UiSideGameScreen(GraphicsDevice graphicsDevice) : base(GameManager.WIDTH, GameManager.HEIGHT)
         {
-            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Color.Aquamarine, new Vector2(83, 40));
+            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Art.tabTestTexture, Art.ButtonEffectTexture, new Vector2(83, 40));
 
             unitBuild = new List<UiButton>();
             baseBuild = new List<UiButton>();
@@ -43,7 +43,7 @@ namespace DefendTheBase
             {
                 if (unitBuild.Count < 2)
                 {
-                    unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[1], "btn0TowerRocket", true));
+                    unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[1], Art.ButtonEffectTexture, "btn0TowerRocket", true));
                     buttonSingleInit(unitBuild[unitBuild.Count - 1], unitBuild.Count - 1, 0);
                 }
             }
@@ -52,7 +52,7 @@ namespace DefendTheBase
             {
                 if (unitBuild.Count < 3)
                 {
-                    unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[2], "btn0TowerSAM", true));
+                    unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[2], Art.ButtonEffectTexture, "btn0TowerSAM", true));
                     buttonSingleInit(unitBuild[unitBuild.Count - 1], unitBuild.Count - 1, 0);
                 }
             }
@@ -61,7 +61,7 @@ namespace DefendTheBase
             {
                 if (unitBuild.Count < 4)
                 {
-                    unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[3], "btn0TowerTesla", true));
+                    unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[3], Art.ButtonEffectTexture, "btn0TowerTesla", true));
                     buttonSingleInit(unitBuild[unitBuild.Count - 1], unitBuild.Count - 1, 0);
                 }
             }
@@ -96,17 +96,17 @@ namespace DefendTheBase
             //its of UTMOST IMPORTANCE that each button has a unique id
 
             //Units buttons Here
-            unitBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[0], "btn0TowerGun", true));
+            unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[0], Art.ButtonEffectTexture, "btn0TowerGun", true));
             //unitBuild[0].StringText = "Gun Tower";
 
             buttonsInit(ref unitBuild, 0);
 
             //Base Buttons Here
-            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[0], "btn0Trench", true));
+            baseBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[0], Art.ButtonEffectTexture, "btn0Trench", true));
             //baseBuild[0].StringText = "Build Trench";
-            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[1], "btn0Concrete", true));
+            baseBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[1], Art.ButtonEffectTexture, "btn0Concrete", true));
             //baseBuild[1].StringText = "Build Concrete";
-            baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[2], "btn0Destroy", true));
+            baseBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[2], Art.ButtonEffectTexture, "btn0Destroy", true));
             //baseBuild[2].StringText = "Destroy Building";
 
             buttonsInit(ref baseBuild, 1);
@@ -114,8 +114,8 @@ namespace DefendTheBase
 
             //Misc Buttons Here
 
-            
-            miscBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsMisc[0], "btn1NextWave", true));
+
+            miscBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsMisc[0], Art.ButtonEffectTexture, "btn1NextWave", true));
             //miscBuild[0].StringText = "Next Wave";
 
             buttonsInit(ref miscBuild, 2);
@@ -255,6 +255,7 @@ namespace DefendTheBase
         {
             QuestionPopUps.Remove(question);
             QuestionUp = false;
+            WaveManager.QuestionsCorrectCheck();
         }
 
         public static void Update()
@@ -305,9 +306,9 @@ namespace DefendTheBase
             QuestionBox = new UiTextBox(Art.DebugFont, Question, new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
             CorrectBox = new UiTextBox(Art.DebugFont, "Correct! A soldier joins your cause!\n\nPress enter to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
             WrongBox = new UiTextBox(Art.DebugFont, "Wrong! Better luck next time!\n\nPress enter to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
-            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 400), new Vector2(300, 100), Art.TextBoxBackGround, "Ans1", true));
-            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 520), new Vector2(300, 100), Art.TextBoxBackGround, "Ans2", true));
-            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 640), new Vector2(300, 100), Art.TextBoxBackGround, "Ans3", true));
+            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 400), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans1", true));
+            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 520), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans2", true));
+            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 640), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans3", true));
 
             QuestionBox.TextBoxSize = new Vector2(500, 200);
             QuestionBox.TextBoxColour = Color.Black;
@@ -385,7 +386,7 @@ namespace DefendTheBase
 
                 foreach (UiButton button in Answers)
                 {
-                    button.Draw(sb);
+                    button.DrawButton(sb);
                 }
             }
 

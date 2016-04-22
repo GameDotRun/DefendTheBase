@@ -266,14 +266,14 @@ namespace RPGEx
         /// The tabs will scale to the given TabSize.
         /// Give empty tabnames for no text
         /// </summary>
-        public UiTabs(GraphicsDevice graphicDev, SpriteFont Font, int Pages, Vector2 TabDrawLocation, string[] TabName, Texture2D TabTexture, Vector2 TabSize)
+        public UiTabs(GraphicsDevice graphicDev, SpriteFont Font, int Pages, Vector2 TabDrawLocation, string[] TabName, Texture2D TabTexture, Texture2D tabEffect, Vector2 TabSize)
         {
             tabList = new List<UiTab>();
 
             string TabID = "Tab";
 
             for (int i = 0; i < Pages; i++)
-                tabList.Add(new UiTab(graphicDev, Font, i, TabID + i.ToString(), TabName[i], TabTexture, TabSize));
+                tabList.Add(new UiTab(Font, i, TabID + i.ToString(), TabName[i], TabTexture, tabEffect, TabSize));
 
             //Set the Draw Locations for tabs.
             SetDrawLocations(TabDrawLocation, Pages);
@@ -474,6 +474,18 @@ namespace RPGEx
             Initilise(TabName);
         }
 
+        public UiTab(SpriteFont Font, int TabNumber, string TabID, string TabName, Texture2D tabTex, Texture2D TabEffect, Vector2 TabSize)
+        {
+            tabNumber = TabNumber;
+
+            //create Button for Tab
+            tabButton = new UiButton(Font, Vector2.Zero, TabSize, tabTex, TabEffect, TabID, true);
+            UiButtonMessenger.RegisterButton(tabButton);
+            tabButton.ScaleBox = false;
+            tabButton.isTabButton = true;
+            Initilise(TabName);
+        }
+
         public void Add<T>(ref T UiElement)
         {
             if (UiElement is UiButton)
@@ -599,6 +611,10 @@ namespace RPGEx
         internal bool isTabButton;
         internal bool isTabSelected;
 
+        Texture2D effectTexture;
+
+        bool DisplayEffect = false;
+
         public enum UiButtonStates
         {
             Button_Down,
@@ -632,9 +648,10 @@ namespace RPGEx
             InitiliseButton();
         }
 
-        public UiButton(SpriteFont Font, Vector2 Location, Vector2 Size, Texture2D Texture, string ButtonID, bool ButtonEffects)
+        public UiButton(SpriteFont Font, Vector2 Location, Vector2 Size, Texture2D Texture, Texture2D EffectTexture, string ButtonID, bool ButtonEffects)
             : base(Font, "", Location, Color.White, Texture, false)
         {
+            effectTexture = EffectTexture;
             TextBoxLocation = Location;
             TextBoxTexture = Texture;
             TextBoxSize = Size;
@@ -649,7 +666,7 @@ namespace RPGEx
             if (TextBox.Contains(new Point(mouseState.X, mouseState.Y)))
             {
                 if (buttonEffects)
-                    highlight = 0.7f;
+                    DisplayEffect = true;
 
                 if (mouseState.LeftButton == ButtonState.Pressed && mouseState.LeftButton != old.LeftButton)
                 {
@@ -662,14 +679,14 @@ namespace RPGEx
 
             else
             {
-                highlight = 1f;
+                DisplayEffect = false;
                 buttonState = UiButtonStates.Button_Up;
             }
 
             if (isTabButton && isTabSelected)
             {
                 sizeChange = 5;
-                highlight = 0.5f;
+                DisplayEffect = true;
             }
 
             else if (IsButtonDown() && buttonEffects)
@@ -688,6 +705,10 @@ namespace RPGEx
                     TextBoxColour * highlight, TextBoxRotation, Vector2.Zero, SpriteEffects.None, 1);
             else
                 sb.Draw(TextBoxTexture, new Rectangle((int)TextBox.X, (int)TextBox.Y + sizeChange / 2, (int)TextBoxSize.X, (int)TextBoxSize.Y), null,
+                    TextBoxColour * highlight, TextBoxRotation, Vector2.Zero, SpriteEffects.None, 0);
+
+            if(DisplayEffect)
+                sb.Draw(effectTexture, new Rectangle((int)TextBox.X, (int)TextBox.Y + sizeChange / 2, (int)TextBoxSize.X, (int)TextBoxSize.Y), null,
                     TextBoxColour * highlight, TextBoxRotation, Vector2.Zero, SpriteEffects.None, 0);
 
             DrawString(sb);

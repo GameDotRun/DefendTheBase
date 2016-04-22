@@ -58,6 +58,9 @@ namespace DefendTheBase
 
         public static Texture2D TextBoxBackGround { get; private set; }
 
+        public static Texture2D ButtonEffectTexture { get; private set; }
+        public static Texture2D tabTestTexture { get; private set; }
+
         public static void Load(ContentManager content)
         {
             Pixel = content.Load<Texture2D>("Art/Images/Misc/Pixel");   // Flecks Art Contribution.
@@ -129,6 +132,8 @@ namespace DefendTheBase
             //effects
             BloodSplats = content.Load<Texture2D>("Art/Images/Effect/BLOOD");
             Explosions = content.Load<Texture2D>("Art/Images/Effect/explosion-sprite");
+            ButtonEffectTexture = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonEffect");
+            tabTestTexture = content.Load<Texture2D>("Art/Images/UI/Buttons/tabTestTex");
 
             // Fonts
             DebugFont = content.Load<SpriteFont>("Art/Fonts/DebugFont");

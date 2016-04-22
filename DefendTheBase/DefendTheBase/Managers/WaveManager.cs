@@ -27,10 +27,6 @@ namespace DefendTheBase
 
         public static void Update(GameTime gameTime)
         {
-            QuestionsCorrectCheck();
-
-
-
             if (!WaveStarted)
             {
                 if (!QuestionPopUpManager.QuestionUp)
@@ -53,8 +49,6 @@ namespace DefendTheBase
                 {
                     spawnTroop = true;
                 }
-
-                
             }
 
 
@@ -191,43 +185,32 @@ namespace DefendTheBase
 
         public static void QuestionsCorrectCheck()
         {
-            if(questionsAnsweredCorrect > 0)
+            if(questionsAnsweredCorrect > 2)
             {
                 GameManager.UnlockedTowers |= GameManager.Unlocks.RocketTower;
             }
 
-            if (questionsAnsweredCorrect > 2) 
+            if (questionsAnsweredCorrect > 5) 
             {
                 GameManager.UnlockedTowers |= GameManager.Unlocks.SamTower;
             }
 
-            if (questionsAnsweredCorrect > 5) 
+            if (questionsAnsweredCorrect > 8) 
             {
                 GameManager.UnlockedTowers |= GameManager.Unlocks.TeslaTower;
             }
 
-            else if (questionsAnsweredCorrect == 9)
+            else if (questionsAnsweredCorrect > 11)
             { }
 
-            else if (questionsAnsweredCorrect == 12)
+            else if (questionsAnsweredCorrect > 14)
             { }
 
-            else if (questionsAnsweredCorrect == 15)
-            { }
-
-            else if (questionsAnsweredCorrect == 19)
+            else if (questionsAnsweredCorrect > 18)
             { }
 
             else if (questionsAnsweredCorrect == 20)
             { }
-
-
-
-
-
         }
-    
-    
-    
     }
 }

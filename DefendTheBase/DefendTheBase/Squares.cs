@@ -44,7 +44,7 @@ namespace DefendTheBase
 
         public bool sqrEdited = false;
 
-        public Texture2D ghostImage;
+        public Texture2D ghostImage = Art.GroundTexs;
         Color ghostCol;
         float highlight;
 
