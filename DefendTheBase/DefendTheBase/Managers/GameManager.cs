@@ -89,16 +89,8 @@ namespace DefendTheBase
             EnemyListener.InitiliseListener();
             TowerListener.InitiliseListener();
             TroopListener.InitiliseListener();
+            QuestionPopUpManager.Init();
 
-            WaveManager.questionsList.Add(WaveManager.Questions.AmericanBomb);
-            WaveManager.questionsList.Add(WaveManager.Questions.BattleOfBritain);
-            WaveManager.questionsList.Add(WaveManager.Questions.GermanLeader);
-            WaveManager.questionsList.Add(WaveManager.Questions.GermanPolandInvasion);
-            WaveManager.questionsList.Add(WaveManager.Questions.ItalianLeader);
-            WaveManager.questionsList.Add(WaveManager.Questions.NaziLightningWar);
-            WaveManager.questionsList.Add(WaveManager.Questions.SovietLeader);
-            WaveManager.questionsList.Add(WaveManager.Questions.WWIIStartDate);
-            WaveManager.questionsList.Add(WaveManager.Questions.WWIIWinner);
         }
 
         public static void Update(GameTime gameTime)

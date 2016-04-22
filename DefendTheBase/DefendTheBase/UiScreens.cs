@@ -103,11 +103,11 @@ namespace DefendTheBase
 
             //Base Buttons Here
             baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[0], "btn0Trench", true));
-            baseBuild[0].StringText = "Build Trench";
+            //baseBuild[0].StringText = "Build Trench";
             baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[1], "btn0Concrete", true));
-            baseBuild[1].StringText = "Build Concrete";
+            //baseBuild[1].StringText = "Build Concrete";
             baseBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[2], "btn0Destroy", true));
-            baseBuild[2].StringText = "Destroy Building";
+            //baseBuild[2].StringText = "Destroy Building";
 
             buttonsInit(ref baseBuild, 1);
 
@@ -116,7 +116,7 @@ namespace DefendTheBase
 
             
             miscBuild.Add(new UiButton(graphicsDevice, Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsMisc[0], "btn1NextWave", true));
-            miscBuild[0].StringText = "Next Wave";
+            //miscBuild[0].StringText = "Next Wave";
 
             buttonsInit(ref miscBuild, 2);
         }
@@ -174,18 +174,87 @@ namespace DefendTheBase
         }
     }
 
+
+    //4 things needed to make a question -
+    //1: make questions and answers below, along with the correct answer. use the same names as enums for the question
+    //2: add enums to question enums... should prob move that too here
+    //3: in init add the new enums to the list
+    //4: add it to the case in questiongenerator, located in waveManager.
+
     public static class QuestionPopUpManager
     {
+        public enum Questions
+        {
+            WWIIWinner,
+            SovietLeader,
+            GermanLeader,
+            ItalianLeader,
+            WWIIStartDate,
+            GermanPolandInvasion,
+            NaziLightningWar,
+            BattleOfBritain,
+            AmericanBomb
+        }
+
+        public static string WWIIWinner = "Who won World War 2?";
+        public static string SovietLeader = "Who was the leader of the Soviet Union during\nWorld War II?";
+        public static string GermanLeader = "Who was the leader of Germany during\nWorld War II?";
+        public static string ItalianLeader = "who was the leader of Italy during World War II?";
+        public static string WWIIStartDate = "When did ww2 begin?";
+        public static string GermanPolandInvasion = "Which country did germany invade to start ww2?";
+        public static string NaziLightningWar = "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium\nand France in April-June 1940 called?";
+        public static string BattleOfBritain = "What was the Battle of Britain?";
+        public static string AmericanBomb = "What kind of bomb did the Americans drop on Hiroshima?";
+
+        public static string[] WWIIWinnerAnswers = { "Britain", "Germany", "Allied Forces" };
+        public static string[] SovietLeaderAnswers = { "Stalin", "Trotski", "Lenin" };
+        public static string[] GermanLeaderAnswers = { "Churchill", "Mussolini", "Hitler" };
+        public static string[] ItalianLeaderAnswers = { "Hirohito", "Mussolini", "Eisenhower" };
+        public static string[] WWIIStartDateAnswers = { "1939", "1914", "1941" };
+        public static string[] GermanPolandInvasionAnswers = { "Austria", "Russia", "Poland" };
+        public static string[] NaziLightningWarAnswers = { "The Blitz", "Blitzkrieg", "Operation Barbarossa" };
+        public static string[] BattleOfBritainAnswers = { "The Royal Air Force\ndefeated the Luftwaffe.", "The Luftwaffe bombed London\nand other British cities.", "The British withdrew\nfrom France by sea." };
+        public static string[] AmericanBombAnswers = { "A V-1 rocket", "Blitzkrieg", "An atomic bomb" };
+
+        public static string WWIIWinnerCorrect = "Ans3";
+        public static string SovietLeaderCorrect = "Ans1";
+        public static string GermanLeaderCorrect = "Ans3";
+        public static string ItalianLeaderCorrect = "Ans2";
+        public static string WWIIStartDateCorrect = "Ans1";
+        public static string GermanPolandInvasionCorrect = "Ans3";
+        public static string NaziLightningWarCorrect = "Ans2";
+        public static string BattleOfBritainCorrect = "Ans1";
+        public static string AmericanBombCorrect = "Ans3";
+
+        public static List<Questions> questionsList = new List<Questions>();
         static List<QuestionPopUp> QuestionPopUps = new List<QuestionPopUp>();
+
+        public static bool QuestionUp = false;
+
+        public static void Init()
+        {
+            questionsList.Add(Questions.AmericanBomb);
+            questionsList.Add(Questions.BattleOfBritain);
+            questionsList.Add(Questions.GermanLeader);
+            questionsList.Add(Questions.GermanPolandInvasion);
+            questionsList.Add(Questions.ItalianLeader);
+            questionsList.Add(Questions.NaziLightningWar);
+            questionsList.Add(Questions.SovietLeader);
+            questionsList.Add(Questions.WWIIStartDate);
+            questionsList.Add(Questions.WWIIWinner);
+        
+        }
 
         public static void Add(QuestionPopUp Question)
         {
             QuestionPopUps.Add(Question);
+            QuestionUp = true;
         }
 
         public static void RemoveQuestion(QuestionPopUp question)
         {
             QuestionPopUps.Remove(question);
+            QuestionUp = false;
         }
 
         public static void Update()
@@ -213,41 +282,6 @@ namespace DefendTheBase
         }  
     }
 
-    public static class QuestionStrings
-    {
-        public static string WWIIWinner = "Who won World War 2?";
-        public static string SovietLeader = "Who was the leader of the Soviet Union during World War II?";
-        public static string GermanLeader = "Who was the leader of Germany during World War II?";
-        public static string ItalianLeader = "who was the leader of Italy during World War II?";
-        public static string WWIIStartDate = "When did ww2 begin?";
-        public static string GermanPolandInvasion = "Which country did germany invade to start ww2?";
-        public static string NaziLightningWar = "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium\n and France in April-June 1940 called?";
-        public static string BattleOfBritain = "What was the Battle of Britain?";
-        public static string AmericanBomb = "What kind of bomb did the Americans drop on Hiroshima?";
-
-        public static string[] WWIIWinnerAnswers = { "Britain", "Germany", "Allied Forces" };
-        public static string[] SovietLeaderAnswers = { "Stalin", "Trotski", "Lenin" };
-        public static string[] GermanLeaderAnswers = { "Churchill", "Mussolini", "Hitler" };
-        public static string[] ItalianLeaderAnswers = { "Hirohito", "Mussolini", "Eisenhower" };
-        public static string[] WWIIStartDateAnswers = { "1939", "1914", "1941" };
-        public static string[] GermanPolandInvasionAnswers = { "Austria", "Russia", "Poland" };
-        public static string[] NaziLightningWarAnswers = { "The Blitz", "Blitzkrieg", "Operation Barbarossa" };
-        public static string[] BattleOfBritainAnswers = { "The Royal Air Force\n defeated the Luftwaffe.", "The Luftwaffe bombed London\n and other British cities.", "The British withdrew\n from France by sea." };
-        public static string[] AmericanBombAnswers = { "A V-1 rocket", "Blitzkrieg", "An atomic bomb" };
-
-        public static string WWIIWinnerCorrect = "Ans3";
-        public static string SovietLeaderCorrect = "Ans1";
-        public static string GermanLeaderCorrect = "Ans3";
-        public static string ItalianLeaderCorrect = "Ans2";
-        public static string WWIIStartDateCorrect = "Ans1";
-        public static string GermanPolandInvasionCorrect = "Ans3";
-        public static string NaziLightningWarCorrect = "Ans2";
-        public static string BattleOfBritainCorrect = "Ans1";
-        public static string AmericanBombCorrect = "Ans3";
-
-    }
-
-
     public class QuestionPopUp
     {
         public enum QuestionState
@@ -268,22 +302,25 @@ namespace DefendTheBase
         {
             correctAnsID = correctAnswerID;
 
-            QuestionBox = new UiTextBox(Art.DebugFont, Question, new Vector2(250, 100), Color.White, Art.TextBoxBackGround, false);
-            CorrectBox = new UiTextBox(Art.DebugFont, "Correct! A soldier joins your cause!\n\nPress enter to continue", new Vector2(250, 100), Color.White, Art.TextBoxBackGround, false);
-            WrongBox = new UiTextBox(Art.DebugFont, "Wrong! Better luck next time!\n\nPress enter to continue", new Vector2(250, 100), Color.White, Art.TextBoxBackGround, false);
-            Answers.Add(new UiButton(Art.DebugFont, new Vector2(400, 400), new Vector2(200, 100), Art.TextBoxBackGround, "Ans1", true));
-            Answers.Add(new UiButton(Art.DebugFont, new Vector2(400, 500), new Vector2(200, 100), Art.TextBoxBackGround, "Ans2", true));
-            Answers.Add(new UiButton(Art.DebugFont, new Vector2(400, 600), new Vector2(200, 100), Art.TextBoxBackGround, "Ans3", true));
+            QuestionBox = new UiTextBox(Art.DebugFont, Question, new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
+            CorrectBox = new UiTextBox(Art.DebugFont, "Correct! A soldier joins your cause!\n\nPress enter to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
+            WrongBox = new UiTextBox(Art.DebugFont, "Wrong! Better luck next time!\n\nPress enter to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
+            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 400), new Vector2(300, 100), Art.TextBoxBackGround, "Ans1", true));
+            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 520), new Vector2(300, 100), Art.TextBoxBackGround, "Ans2", true));
+            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 640), new Vector2(300, 100), Art.TextBoxBackGround, "Ans3", true));
 
             QuestionBox.TextBoxSize = new Vector2(500, 200);
+            QuestionBox.TextBoxColour = Color.Black;
             QuestionBox.StringScale = 2f;
             QuestionBox.StringOffset = new Vector2(10, 0);
 
             CorrectBox.TextBoxSize = new Vector2(500, 200);
+            CorrectBox.TextBoxColour = Color.Black;
             CorrectBox.StringScale = 2f;
             CorrectBox.StringOffset = new Vector2(10, 0);
 
             WrongBox.TextBoxSize = new Vector2(500, 200);
+            WrongBox.TextBoxColour = Color.Black;
             WrongBox.StringScale = 2f;
             WrongBox.StringOffset = new Vector2(10, 0);
 

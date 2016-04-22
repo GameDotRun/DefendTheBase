@@ -9,20 +9,6 @@ namespace DefendTheBase
 {
     public static class WaveManager
     {
-        public enum Questions
-        { 
-            WWIIWinner,
-            SovietLeader,
-            GermanLeader,
-            ItalianLeader,
-            WWIIStartDate,
-            GermanPolandInvasion,
-            NaziLightningWar,
-            BattleOfBritain,
-            AmericanBomb
-        }
-
-        public static List<Questions> questionsList = new List<Questions>();
         public static int questionsAnsweredCorrect = 0;
         public static TimeSpan EnemySpawnTimer = TimeSpan.Zero;
         public static TimeSpan WaveStartTimer = TimeSpan.FromMinutes(1);
@@ -43,29 +29,18 @@ namespace DefendTheBase
         {
             QuestionsCorrectCheck();
 
+
+
             if (!WaveStarted)
             {
-                WaveStartTimer -= gameTime.ElapsedGameTime;
+                if (!QuestionPopUpManager.QuestionUp)
+                    WaveStartTimer -= gameTime.ElapsedGameTime;
 
                 if (!waveCountPop)
                 {
-                    UiManager.UiScreens[1].StringList[3].Add(new UiTextString(Art.DebugFont, "Wave in 60 seconds", new Vector2(GameManager.ScreenSize.X / 3, GameManager.ScreenSize.Y / 2), Color.Red));
-                    UiManager.UiScreens[1].StringList[3][UiManager.UiScreens[1].StringList[3].Count - 1].StringScale = 5f;
                     waveCountPop = true;
 
                     GenerateQuestion();
-                }
-
-                if (UiManager.UiScreens[1].StringList[3].Count != 0)
-                {
-                    UiManager.UiScreens[1].StringList[3][0].StringColour *= fade;
-                    fade -= 0.001f;
-                }
-
-                if (fade <= 0)
-                {
-                    if (UiManager.UiScreens[1].StringList[3].Count != 0)
-                        UiManager.UiScreens[1].StringList[3].RemoveAt(UiManager.UiScreens[1].StringList[3].Count - 1);
                 }
 
                 if (WaveStartTimer.Seconds % 5 == 0 && spawnTroop)
@@ -78,6 +53,8 @@ namespace DefendTheBase
                 {
                     spawnTroop = true;
                 }
+
+                
             }
 
 
@@ -141,71 +118,71 @@ namespace DefendTheBase
 
             CurrentAnswers = new string[3];
 
-            int nextQuestionindex = GameManager.rnd.Next(1, questionsList.Count());
-            Questions nextQuestion = questionsList[nextQuestionindex];
+            int nextQuestionindex = GameManager.rnd.Next(1, QuestionPopUpManager.questionsList.Count());
+            QuestionPopUpManager.Questions nextQuestion = QuestionPopUpManager.questionsList[nextQuestionindex];
 
-            questionsList.Remove(nextQuestion);
+            QuestionPopUpManager.questionsList.Remove(nextQuestion);
 
             switch (nextQuestion)
             {
-                case Questions.AmericanBomb:
-                    CurrentQuestion = QuestionStrings.AmericanBomb;
-                    CurrentAnswers = QuestionStrings.AmericanBombAnswers;
-                    CorrectAnswer = QuestionStrings.AmericanBombCorrect;
+                case QuestionPopUpManager.Questions.AmericanBomb:
+                    CurrentQuestion = QuestionPopUpManager.AmericanBomb;
+                    CurrentAnswers = QuestionPopUpManager.AmericanBombAnswers;
+                    CorrectAnswer = QuestionPopUpManager.AmericanBombCorrect;
                     break;
 
-                case Questions.BattleOfBritain:
-                    CurrentQuestion = QuestionStrings.BattleOfBritain;
-                    CurrentAnswers = QuestionStrings.BattleOfBritainAnswers;
-                    CorrectAnswer = QuestionStrings.BattleOfBritainCorrect;
+                case QuestionPopUpManager.Questions.BattleOfBritain:
+                    CurrentQuestion = QuestionPopUpManager.BattleOfBritain;
+                    CurrentAnswers = QuestionPopUpManager.BattleOfBritainAnswers;
+                    CorrectAnswer = QuestionPopUpManager.BattleOfBritainCorrect;
                     break;
 
-                case Questions.GermanLeader:
-                    CurrentQuestion = QuestionStrings.GermanLeader;
-                    CurrentAnswers = QuestionStrings.GermanLeaderAnswers;
-                    CorrectAnswer = QuestionStrings.GermanLeaderCorrect;
+                case QuestionPopUpManager.Questions.GermanLeader:
+                    CurrentQuestion = QuestionPopUpManager.GermanLeader;
+                    CurrentAnswers = QuestionPopUpManager.GermanLeaderAnswers;
+                    CorrectAnswer = QuestionPopUpManager.GermanLeaderCorrect;
                     break;
 
-                case Questions.GermanPolandInvasion:
-                    CurrentQuestion = QuestionStrings.GermanPolandInvasion;
-                    CurrentAnswers = QuestionStrings.GermanPolandInvasionAnswers;
-                    CorrectAnswer = QuestionStrings.GermanPolandInvasionCorrect;
+                case QuestionPopUpManager.Questions.GermanPolandInvasion:
+                    CurrentQuestion = QuestionPopUpManager.GermanPolandInvasion;
+                    CurrentAnswers = QuestionPopUpManager.GermanPolandInvasionAnswers;
+                    CorrectAnswer = QuestionPopUpManager.GermanPolandInvasionCorrect;
                     break;
 
-                case Questions.ItalianLeader:
-                    CurrentQuestion = QuestionStrings.ItalianLeader;
-                    CurrentAnswers = QuestionStrings.ItalianLeaderAnswers;
-                    CorrectAnswer = QuestionStrings.ItalianLeaderCorrect;
+                case QuestionPopUpManager.Questions.ItalianLeader:
+                    CurrentQuestion = QuestionPopUpManager.ItalianLeader;
+                    CurrentAnswers = QuestionPopUpManager.ItalianLeaderAnswers;
+                    CorrectAnswer = QuestionPopUpManager.ItalianLeaderCorrect;
                     break;
 
-                case Questions.NaziLightningWar:
-                    CurrentQuestion = QuestionStrings.NaziLightningWar;
-                    CurrentAnswers = QuestionStrings.NaziLightningWarAnswers;
-                    CorrectAnswer = QuestionStrings.NaziLightningWarCorrect;
+                case QuestionPopUpManager.Questions.NaziLightningWar:
+                    CurrentQuestion = QuestionPopUpManager.NaziLightningWar;
+                    CurrentAnswers = QuestionPopUpManager.NaziLightningWarAnswers;
+                    CorrectAnswer = QuestionPopUpManager.NaziLightningWarCorrect;
                     break;
 
-                case Questions.SovietLeader:
-                    CurrentQuestion = QuestionStrings.SovietLeader;
-                    CurrentAnswers = QuestionStrings.SovietLeaderAnswers;
-                    CorrectAnswer = QuestionStrings.SovietLeaderCorrect;
+                case QuestionPopUpManager.Questions.SovietLeader:
+                    CurrentQuestion = QuestionPopUpManager.SovietLeader;
+                    CurrentAnswers = QuestionPopUpManager.SovietLeaderAnswers;
+                    CorrectAnswer = QuestionPopUpManager.SovietLeaderCorrect;
                     break;
 
-                case Questions.WWIIStartDate:
-                    CurrentQuestion = QuestionStrings.WWIIStartDate;
-                    CurrentAnswers = QuestionStrings.WWIIStartDateAnswers;
-                    CorrectAnswer = QuestionStrings.WWIIStartDateCorrect;
+                case QuestionPopUpManager.Questions.WWIIStartDate:
+                    CurrentQuestion = QuestionPopUpManager.WWIIStartDate;
+                    CurrentAnswers = QuestionPopUpManager.WWIIStartDateAnswers;
+                    CorrectAnswer = QuestionPopUpManager.WWIIStartDateCorrect;
                     break;
 
-                case Questions.WWIIWinner:
-                    CurrentQuestion = QuestionStrings.WWIIWinner;
-                    CurrentAnswers = QuestionStrings.WWIIWinnerAnswers;
-                    CorrectAnswer = QuestionStrings.WWIIWinnerCorrect;
+                case QuestionPopUpManager.Questions.WWIIWinner:
+                    CurrentQuestion = QuestionPopUpManager.WWIIWinner;
+                    CurrentAnswers = QuestionPopUpManager.WWIIWinnerAnswers;
+                    CorrectAnswer = QuestionPopUpManager.WWIIWinnerCorrect;
                     break;
 
                 default:
-                    CurrentQuestion = QuestionStrings.WWIIWinner;
-                    CurrentAnswers = QuestionStrings.WWIIWinnerAnswers;
-                    CorrectAnswer = QuestionStrings.WWIIWinnerCorrect;
+                    CurrentQuestion = QuestionPopUpManager.WWIIWinner;
+                    CurrentAnswers = QuestionPopUpManager.WWIIWinnerAnswers;
+                    CorrectAnswer = QuestionPopUpManager.WWIIWinnerCorrect;
                     break;
             }
 
