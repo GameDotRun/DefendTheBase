@@ -15,19 +15,25 @@ namespace DefendTheBase
         /// <summary>
         /// Destroys enemies and cleans up references in other lists of said enemy
         /// </summary>
-        static void DestroyTroop(string TroopID, string TypeID)
+        public static void DestroyTroop(int total)
         {
-            TroopListener.RemoveTroop(TroopID);
+            int totalKill = Troops.Count - 1 - total;
 
-            int index = Troops.FindIndex(item => string.Compare(item.troopID, TroopID, 0) == 0);
+            for(int i = Troops.Count - 1; i > totalKill; i--)
+            {
+                string tid = Troops[i].troopID;
+                TroopListener.RemoveTroop(tid);
 
-            if (index >= 0)
-                Troops.RemoveAt(index);
+                int index = Troops.FindIndex(item => string.Compare(item.troopID, tid, 0) == 0);
 
-            int index2 = TroopIDs.FindIndex(item => string.Compare(item, TroopID, 0) == 0);
+                if (index >= 0)
+                    Troops.RemoveAt(index);
 
-            if (index2 >= 0)
-                TroopIDs.RemoveAt(index2);
+                int index2 = TroopIDs.FindIndex(item => string.Compare(item, tid, 0) == 0);
+
+                if (index2 >= 0)
+                    TroopIDs.RemoveAt(index2);
+            }
         }
 
         public static void SpawnTroop()

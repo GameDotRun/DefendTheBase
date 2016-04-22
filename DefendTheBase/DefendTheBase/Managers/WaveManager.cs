@@ -137,7 +137,10 @@ namespace DefendTheBase
             if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.SamTower) && WaveManager.WaveNumber > 8)
                 UseableEnemies.Add("Helicopter");
 
-            WavePower = WaveNumber * 10;
+            WavePower = (WaveNumber * 10);
+
+            if (TowerListener.TowersList.Count /2   != 0)
+                WavePower *= TowerListener.TowersList.Count / 2;
 
             while (CurrentWavePower <= WavePower)
             {

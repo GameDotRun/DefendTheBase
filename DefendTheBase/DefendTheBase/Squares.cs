@@ -87,7 +87,7 @@ namespace DefendTheBase
                             ghostImage = Art.getTrenchTex(GameManager.grid.sqrTexDecider((int)sqrCoord.x, (int)sqrCoord.y));
                         }
 
-                        if (Input.LMBDown && canClick && Building != BuildingType.Tower && Building != BuildingType.Trench && !WaveManager.WaveStarted)
+                        if (Input.WasLMBClicked && canClick && Building != BuildingType.Tower && Building != BuildingType.Trench && !WaveManager.WaveStarted)
                         {
                             BuildManager.Build();
                             sqrEdited = true;

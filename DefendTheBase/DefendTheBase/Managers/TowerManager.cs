@@ -43,6 +43,8 @@ namespace DefendTheBase
             else if (TypeID == "Tesla")
                 Towers.Add(new Tower(CreateID(TypeID), Tower.Type.Tesla, towerVector, squareCoords));
 
+            GameManager.TowerWasBuilt(TypeID);
+
             GameManager.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare = Squares.SqrFlags.Occupied;
             GameManager.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare |= Squares.SqrFlags.Wall;
             GameManager.grid.gridSquares[(int)squareCoords.x, (int)squareCoords.y].typeOfSquare |= Squares.SqrFlags.Concrete;

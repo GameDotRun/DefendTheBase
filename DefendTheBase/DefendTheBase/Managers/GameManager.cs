@@ -11,7 +11,7 @@ namespace DefendTheBase
     public class GameManager
     {
         private const float DEFAULT_MANPOWER = 100f;
-        private const int DEFAULT_RESOURCES = 2500;
+        private const int DEFAULT_RESOURCES = 1000;
 
         public enum GameStates
         {
@@ -154,6 +154,84 @@ namespace DefendTheBase
 
         
         }
+
+        public static void TowerWasBuilt(string TowerType)
+        {
+            if (TowerType == "Gun")
+            {
+                m_resources -= 100;
+                TroopManager.DestroyTroop(2);
+            }
+            else if (TowerType == "Rocket")
+            {
+                m_resources -= 100;
+                TroopManager.DestroyTroop(2);
+            }
+            else if (TowerType == "SAM")
+            {
+                m_resources -= 100;
+                TroopManager.DestroyTroop(2);
+            }
+            else if (TowerType == "Tesla")
+            {
+                m_resources -= 100;
+                TroopManager.DestroyTroop(2);
+            }
+        
+        }
+
+        public static void BaseWasBuilt(string BaseType)
+        {
+            if (BaseType == "Trench")
+                m_resources -= 100;
+
+            else if (BaseType == "Concrete")
+                m_resources -= 100;
+        }
+
+
+        public static void CostGet()
+        {
+            switch (GameManager.BuildState)
+            {
+                case GameManager.BuildStates.TowerGun:
+                    BuildManager.ManPower = 2;
+                    BuildManager.Resources = 100;
+                    break;
+
+                case GameManager.BuildStates.TowerRocket:
+                    BuildManager.ManPower = 1;
+                    BuildManager.Resources = 100;
+                    break;
+
+                case GameManager.BuildStates.TowerSAM:
+                    BuildManager.ManPower = 1;
+                    BuildManager.Resources = 100;
+                    break; ;
+
+                case GameManager.BuildStates.TowerTesla:
+                    BuildManager.ManPower = 1;
+                    BuildManager.Resources = 100;
+                    break;
+
+                case GameManager.BuildStates.Concrete:
+                    BuildManager.ManPower = 1;
+                    BuildManager.Resources = 100;
+                    break;
+
+                case GameManager.BuildStates.Upgrade:
+                    BuildManager.ManPower = 1;
+                    BuildManager.Resources = 100;
+                    break;
+
+                case GameManager.BuildStates.Trench:
+                    BuildManager.ManPower = 1;
+                    BuildManager.Resources = 100;
+                    break;
+            }
+
+        }
+
 
         public static float DamageCalculator(int Damage, Enemy enemy, Projectile.Type projectile)
         {

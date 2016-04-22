@@ -9,6 +9,11 @@ namespace DefendTheBase
 {
     public static class BuildManager
     {
+
+        public static int ManPower = 0;
+        public static int Resources = 0;
+
+
         public static void Build()
         {
             if (GameManager.BuildState == GameManager.BuildStates.Concrete)
@@ -48,11 +53,16 @@ namespace DefendTheBase
 
         static void Upgrade()
         {
-            foreach (Tower tower in TowerListener.TowersList)
+            GameManager.CostGet();
+
+            if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
             {
-                if (tower.towerCoords.CoordEqual(GameManager.mouseSqrCoords))
+                foreach (Tower tower in TowerListener.TowersList)
                 {
-                    tower.LevelUp();
+                    if (tower.towerCoords.CoordEqual(GameManager.mouseSqrCoords))
+                    {
+                        tower.LevelUp();
+                    }
                 }
             }
         
@@ -63,13 +73,18 @@ namespace DefendTheBase
         {
             string TowerType = BuildToTowerType();
 
-            if (!GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
-            {
-                if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Concrete)
-                {
-                    if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords))
-                        TowerManager.SpawnTower(TowerType, GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].PixelScreenPos, GameManager.mouseSqrCoords);
+            GameManager.CostGet();
 
+            if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
+            {
+                if (!GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
+                {
+                    if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Concrete)
+                    {
+                        if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords))
+                            TowerManager.SpawnTower(TowerType, GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].PixelScreenPos, GameManager.mouseSqrCoords);
+
+                    }
                 }
             }
         }
@@ -77,25 +92,44 @@ namespace DefendTheBase
         //Squares will handle the static objects that dont interact. eg. concrete This just sets the correct square with the flags.
         static void BuildTrench()
         {
-            if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
+            GameManager.CostGet();
+
+            if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
             {
-                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare |= Squares.SqrFlags.Wall;
-                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Trench;
+                if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
+                {
+                    GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare |= Squares.SqrFlags.Wall;
+                    GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Trench;
+                    GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+
+                    GameManager.BaseWasBuilt("Trench");
+
+                }
+
                 GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
             }
-
-            GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
         }
 
         
         static void BuildConcrete()
         {
-            if (!GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
+            GameManager.CostGet();
+
+            if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
             {
-                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Occupied;
-                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Concrete;
-                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Concrete;
-                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+                if (!GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
+                {
+                    if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare != Squares.SqrFlags.Concrete)
+                    {
+                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Occupied;
+                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Concrete;
+                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Concrete;
+                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+
+                        GameManager.BaseWasBuilt("Concrete");
+                    }
+
+                }
             }
         }
 
@@ -110,7 +144,7 @@ namespace DefendTheBase
         {
             string Type;
 
-            switch (GameManager.BuildState)
+                switch (GameManager.BuildState)
             { 
                 case GameManager.BuildStates.TowerGun:
                     Type = "Gun";
@@ -132,6 +166,8 @@ namespace DefendTheBase
                     return "Gun";
             }
         }
+
+       
 
     }
 }
