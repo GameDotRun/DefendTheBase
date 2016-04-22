@@ -199,7 +199,7 @@ namespace DefendTheBase
                     {
                         popUpText = PopUpTextManager.Resist;
                         textColour = Color.Yellow;
-                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 2;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 4;
                     }
                 }
 
@@ -227,7 +227,7 @@ namespace DefendTheBase
                     {
                         popUpText = PopUpTextManager.Effective;
                         textColour = Color.DarkKhaki;
-                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 2;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 4;
                     }
 
                     else
@@ -244,7 +244,7 @@ namespace DefendTheBase
                     {
                         popUpText = PopUpTextManager.Effective;
                         textColour = Color.DarkKhaki;
-                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 2;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 3;
                     }
 
                     else
@@ -276,13 +276,12 @@ namespace DefendTheBase
 
             if (critical != 0)
             {
-                text = PopUpTextManager.Critical;
-                textColour = Color.DarkOrange;
+                text += " " + PopUpTextManager.Critical;
             }
 
             if (totalDamage == 0)
             {
-                text = PopUpTextManager.NoEffect;
+                text += " " + PopUpTextManager.NoEffect;
                 textColour = Color.Red;
 
             }

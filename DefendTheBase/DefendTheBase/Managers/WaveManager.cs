@@ -19,11 +19,15 @@ namespace DefendTheBase
 
         static int WaveEnemiesSpawned = 0;
         static float WaveSpawnInterval = 500f;
-        static float WavePower = 2;
+        static int WavePower = 2;
 
         static bool waveCountPop = false;
         static bool spawnTroop = true;
         static float fade = 1f;
+
+        static List<string> WaveComposition = new List<string>();
+
+        static int compositionIndex = 0;
 
         public static void Update(GameTime gameTime)
         {
@@ -35,6 +39,8 @@ namespace DefendTheBase
                 if (!waveCountPop)
                 {
                     waveCountPop = true;
+
+                    WaveCompositionCreator();
 
                     if(QuestionPopUpManager.questionsList.Count != 0)
                         GenerateQuestion();
@@ -55,6 +61,7 @@ namespace DefendTheBase
 
             if (WaveStartTimer <= TimeSpan.Zero || WaveStarted)
             {
+                
                 WaveStarted = true;
 
                 if (WaveStarted)
@@ -67,7 +74,8 @@ namespace DefendTheBase
                     {
                         if (WaveEnemiesSpawned != WaveEnemyAmount)
                         {
-                            EnemyManager.SpawnEnemy(EnemyManager.TypeIDs[GameManager.rnd.Next(0, EnemyManager.TypeIDs.Count())], new Vector2(0, 0));
+                            EnemyManager.SpawnEnemy(WaveComposition[compositionIndex], new Vector2(0, 0));
+                            compositionIndex++;
                             WaveEnemiesSpawned++;
                         }
 
@@ -105,6 +113,72 @@ namespace DefendTheBase
             WaveStartTimer = TimeSpan.Zero;
         }
 
+        public static void WaveCompositionCreator()
+        {
+            compositionIndex = 0;
+
+            WaveComposition.Clear();
+
+            int CurrentWavePower = 0;
+
+            List<string> UseableEnemies = new List<string>();
+
+            UseableEnemies.Add("Soldier");
+
+            if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.RocketTower) && WaveManager.WaveNumber > 2)
+                UseableEnemies.Add("Transport");
+
+            if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.RocketTower) && WaveManager.WaveNumber > 4)
+                UseableEnemies.Add("Jeep");
+
+            if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.RocketTower) && WaveManager.WaveNumber > 6)
+                UseableEnemies.Add("Tank");
+
+            if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.SamTower) && WaveManager.WaveNumber > 8)
+                UseableEnemies.Add("Helicopter");
+
+            WavePower = WaveNumber * 10;
+
+            while (CurrentWavePower <= WavePower)
+            {
+                int index = GameManager.rnd.Next(0, UseableEnemies.Count);
+
+                int difference = WavePower - CurrentWavePower;
+
+                if (UseableEnemies[index] == "Soldier")
+                {
+                    CurrentWavePower++;
+                }
+
+                else if (UseableEnemies[index] == "Transport")
+                {
+                    CurrentWavePower += 2;
+                }
+
+                else if (UseableEnemies[index] == "Jeep")
+                {
+                    CurrentWavePower += 4;
+                }
+
+                else if (UseableEnemies[index] == "Tank")
+                {
+                    CurrentWavePower += 8;
+                }
+
+                else if (UseableEnemies[index] == "Helicopter")
+                {
+                    CurrentWavePower += 16;
+                }
+
+               WaveComposition.Add(UseableEnemies[index]);
+                    
+            }
+
+            WaveEnemyAmount = WaveComposition.Count;
+
+
+        }
+
         public static void GenerateQuestion()
         {
             string CurrentQuestion;
@@ -113,7 +187,7 @@ namespace DefendTheBase
 
             CurrentAnswers = new string[3];
 
-            int nextQuestionindex = GameManager.rnd.Next(1, QuestionPopUpManager.questionsList.Count());
+            int nextQuestionindex = GameManager.rnd.Next(0, QuestionPopUpManager.questionsList.Count());
             QuestionPopUpManager.Questions nextQuestion = QuestionPopUpManager.questionsList[nextQuestionindex];
 
             QuestionPopUpManager.questionsList.Remove(nextQuestion);
