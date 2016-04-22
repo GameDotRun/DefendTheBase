@@ -101,7 +101,20 @@ namespace DefendTheBase
                 }
 
                 else if (EnemyType == "Helicopter")
-                    nextCoord = GameManager.ENDPOINT;
+                {
+                    List<Coordinates> availableCoord = new List<Coordinates>();
+
+                    foreach (Squares square in squares)
+                    {
+                        if (square.sqrCoord.counter != GameManager.DEFAULYDIST)
+                            availableCoord.Add(square.sqrCoord);
+                    }
+
+                    int indexNext = GameManager.rnd.Next(0, availableCoord.Count);
+
+                    nextCoord = availableCoord[indexNext];
+
+                }
 
                 Node = new Vector2((nextCoord.x * GameManager.SQUARESIZE) + GameManager.SQUARESIZE / 2, (int)GameManager.grid.gridBorder.Y + (nextCoord.y * GameManager.SQUARESIZE) + GameManager.SQUARESIZE / 2);
 
@@ -127,6 +140,17 @@ namespace DefendTheBase
                         ScreenPos = new Vector2(Node.X, Node.Y);
 
                     Moving = false;
+
+                    if (EnemyType == "Helicopter")
+                    {
+
+                        for (int i = 0; i < 3; i++)
+                        {
+                            EnemyManager.SpawnEnemy("Soldier", EnemyVect - new Vector2( 2 * i /4,  0));
+                            WaveManager.WaveEnemiesUsed--;
+                        }
+
+                    }
 
                     return false;
                 }

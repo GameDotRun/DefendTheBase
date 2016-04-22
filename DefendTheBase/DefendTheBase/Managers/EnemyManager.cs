@@ -58,7 +58,7 @@ namespace DefendTheBase
         /// </summary>
         public static void Update(GameTime gt)
         {
-            foreach (Enemy Enemy in Enemies)
+            foreach (Enemy Enemy in Enemies.ToList())
             {
                 if (Enemy.IsDestroyed)
                 {
