@@ -225,7 +225,7 @@ namespace DefendTheBase
 
     public class PopUpText : UiTextString
     {
-        public UiTimer timer = new UiTimer(250f);
+        public UiTimer timer = new UiTimer(750f);
 
         public PopUpText(string stringText, Vector2 StringPos, Color color)
             : base(Art.DebugFont, stringText, StringPos, color)
@@ -236,7 +236,7 @@ namespace DefendTheBase
             if (!timer.GetActive)
                 timer.ActivateTimer();
 
-            StringScale += 0.1f;
+            StringScale += 0.01f;
             StringPosition += new Vector2(0, -1);
 
             timer.TimerUpdate(gt);
