@@ -36,7 +36,8 @@ namespace DefendTheBase
                 {
                     waveCountPop = true;
 
-                    GenerateQuestion();
+                    if(QuestionPopUpManager.questionsList.Count != 0)
+                        GenerateQuestion();
                 }
 
                 if (WaveStartTimer.Seconds % 5 == 0 && spawnTroop)

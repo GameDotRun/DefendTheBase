@@ -174,6 +174,84 @@ namespace DefendTheBase
         }
     }
 
+    public static class PopUpTextManager
+    {
+        public static string Critical = "Critical";
+        public static string Resist = "Resist";
+        public static string Effective = "Effective";
+        public static string NoEffect = "No Effect";
+
+        public static List<PopUpText> PopUps = new List<PopUpText>();
+
+        public static void Add(PopUpText popup)
+        {
+            PopUps.Add(popup);
+        }
+
+        public static void Remove(PopUpText popup)
+        {
+            PopUps.Remove(popup);
+        }
+
+        public static void Update(GameTime gt)
+        {
+            if (PopUps.Count > 10)
+            {
+                PopUps.RemoveAt(0);
+            }
+
+            foreach (PopUpText popup in PopUps)
+            {
+                popup.Update(gt);
+
+                if (popup.timer.TimeReached())
+                {
+                    Remove(popup);
+                    break;
+                }
+
+            }
+        }
+
+        public static void Draw(SpriteBatch sb)
+        {
+            foreach (PopUpText popup in PopUps)
+            {
+                popup.Draw(sb);
+            }
+        }  
+    
+    }
+
+    public class PopUpText : UiTextString
+    {
+        public UiTimer timer = new UiTimer(250f);
+
+        public PopUpText(string stringText, Vector2 StringPos, Color color)
+            : base(Art.DebugFont, stringText, StringPos, color)
+        {  }
+
+        public void Update(GameTime gt)
+        {
+            if (!timer.GetActive)
+                timer.ActivateTimer();
+
+            StringScale += 0.1f;
+            StringPosition += new Vector2(0, -1);
+
+            timer.TimerUpdate(gt);
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            DrawString(sb);
+        }
+    }
+
+
+
+
+
 
     //4 things needed to make a question -
     //1: make questions and answers below, along with the correct answer. use the same names as enums for the question

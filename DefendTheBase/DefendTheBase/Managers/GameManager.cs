@@ -105,6 +105,7 @@ namespace DefendTheBase
             TowerManager.Update();
             TroopManager.Update(gameTime);
             EffectManager.Update(gameTime);
+            PopUpTextManager.Update(gameTime);
             
         }
 
@@ -116,6 +117,7 @@ namespace DefendTheBase
             EnemyManager.Draw(sb);
             TroopManager.Draw(sb);
             EffectManager.Draw(sb, 1);
+            PopUpTextManager.Draw(sb);
             QuestionPopUpManager.Draw(sb);
 
         }
@@ -156,71 +158,155 @@ namespace DefendTheBase
         public static float DamageCalculator(int Damage, Enemy enemy, Projectile.Type projectile)
         {
             float totalDamage = 0f;
+            float resistedDamage;
             int baseDmg = Damage;
             Projectile.Type proj = projectile;
             string enemyType = enemy.EnemyType;
+
+            Color textColour = Color.Black;
+            string popUpText = "";
+
+            resistedDamage = Resist(enemy );
+
+ 
+                if (enemyType == "Soldier")
+                {
+                    if (projectile == Projectile.Type.Gun)
+                    {
+                        popUpText = PopUpTextManager.Effective;
+                        textColour = Color.DarkKhaki;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 2;
+                    }
+
+                    else
+                    {
+                        popUpText = PopUpTextManager.Resist;
+                        textColour = Color.Yellow;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 2;
+                    }
+                }
+
+                else if (enemyType == "Tank")
+                {
+                    if (projectile == Projectile.Type.Rocket)
+                    {
+                        popUpText = PopUpTextManager.Effective;
+                        textColour = Color.DarkKhaki;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 2;
+                    }
+
+                    else
+                    {
+                        popUpText = PopUpTextManager.Resist;
+                        textColour = Color.Yellow;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 2;
+                    }
+                }
+
+                else if (enemyType == "Helicopter")
+                {
+                    if (projectile == Projectile.Type.SAM)
+                    {
+                        popUpText = PopUpTextManager.Effective;
+                        textColour = Color.DarkKhaki;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 2;
+                    }
+
+                    else
+                    {
+                        popUpText = PopUpTextManager.Resist;
+                        textColour = Color.Yellow;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 2;
+                    }
+
+                }
+
+                else if (enemyType == "Jeep")
+                {
+                    if (projectile == Projectile.Type.Rocket)
+                    {
+                        popUpText = PopUpTextManager.Effective;
+                        textColour = Color.DarkKhaki;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 2;
+                    }
+
+                    else
+                    {
+                        popUpText = PopUpTextManager.Resist;
+                        textColour = Color.Yellow;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 2;
+                    }
+                }
+
+                else if (enemyType == "Transport")
+                {
+                    if (projectile == Projectile.Type.Rocket)
+                    {
+                        popUpText = PopUpTextManager.Effective;
+                        textColour = Color.DarkKhaki;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 2;
+                    }
+
+                    else
+                    {
+                        popUpText = PopUpTextManager.Resist;
+                        textColour = Color.Yellow;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 2;
+                    }
+
+                }
             
 
 
-            if (enemyType == "Soldier")
-            {
-                if (projectile == Projectile.Type.Gun)
-                {
-                    totalDamage = baseDmg * 3f;
-                }
+            PopUpTextManager.Add(new PopUpText(popUpText, enemy.ScreenPos, textColour));
 
-                else
-                    totalDamage = baseDmg / 2f;      
+            return totalDamage;
+        }
+
+        static float TotalDamageCrunch(float baseDam, float resistedDam, Enemy enemy, ref string text, ref Color textColour)
+        {
+            float totalDamage;
+            float critical;
+
+            totalDamage = baseDam - resistedDam;
+
+            critical = Critical(enemy);
+
+            totalDamage += totalDamage * critical;
+
+            if (critical != 0)
+            {
+                text = PopUpTextManager.Critical;
+                textColour = Color.DarkOrange;
             }
 
-            else if (enemyType == "Tank")
+            if (totalDamage == 0)
             {
-                if (projectile == Projectile.Type.Rocket)
-                {
-                    totalDamage = baseDmg * 4f;
-                }
+                text = PopUpTextManager.NoEffect;
+                textColour = Color.Red;
 
-                else
-                    totalDamage = baseDmg / 10f;     
-            }
-
-            else if (enemyType == "Helicopter")
-            {
-                if (projectile == Projectile.Type.SAM)
-                {
-                    totalDamage = baseDmg * 2.5f;
-                }
-
-                else
-                    totalDamage = baseDmg / 1.5f;
-            
-            }
-
-            else if (enemyType == "Jeep")
-            {
-                if (projectile == Projectile.Type.Rocket)
-                {
-                    totalDamage = baseDmg * 2.5f;
-                }
-
-                else
-                    totalDamage = baseDmg / 2f;
-            }
-
-            else if (enemyType == "Transport")
-            {
-                if (projectile == Projectile.Type.Rocket)
-                {
-                    totalDamage = baseDmg * 5f;
-                }
-
-                else
-                    totalDamage = baseDmg / 3f;
-            
             }
 
             return totalDamage;
         }
 
+        static float Critical(Enemy enemy)
+        {
+            int CriticalValue = rnd.Next(1, 101);
+
+            if (CriticalValue < enemy.criticalResist)
+                return 0;
+
+            else return 2;
+
+        }
+
+        static float Resist(Enemy enemy)
+        {
+            float ResistValue = rnd.Next(1, 101);
+
+            return ResistValue / 10;
+        
+        }
     }
 }

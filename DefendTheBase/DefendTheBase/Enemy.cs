@@ -99,10 +99,13 @@ namespace DefendTheBase
     {
         internal string EnemyID;
         internal string EnemyType;
-        protected float speed;
 
+        //attributes
+        protected float speed;
         public float hitPoints;
-        
+        public float criticalResist;
+        public float resistance;
+
         public Vector2 enemyVect, ScreenPos, Direction, TurretDirection;
         public bool pathFound = false;
         public bool IsDestroyed = false;
@@ -230,6 +233,8 @@ namespace DefendTheBase
     {
         public string Type = "Tank";
 
+        private float m_resistance = 75;
+        private float m_criticalResist = 80;
         private float m_hp = 500;
         private float m_speed = 3f;
         private bool spriteSheet = false;
@@ -237,10 +242,13 @@ namespace DefendTheBase
         public TankEnemy(string enemyID, Vector2 enemyVector)
             : base(enemyID, enemyVector)
         {
+            resistance = m_resistance;
+            criticalResist = m_criticalResist;
             hitPoints = m_hp;
             speed = m_speed;
             EnemyType = Type;
             usingSpriteSheet = spriteSheet;
+
         }
     }
 
@@ -248,6 +256,8 @@ namespace DefendTheBase
     {
         public string Type = "Jeep";
 
+        private float m_resistance = 30;
+        private float m_criticalResist = 40;
         private float m_hp = 150;
         private float m_speed = 5f;
         private bool spriteSheet = false;
@@ -255,6 +265,8 @@ namespace DefendTheBase
         public JeepEnemy(string enemyID, Vector2 enemyVector)
             : base(enemyID, enemyVector)
         {
+            resistance = m_resistance;
+            criticalResist = m_criticalResist;
             hitPoints = m_hp;
             speed = m_speed;
             EnemyType = Type;
@@ -266,6 +278,8 @@ namespace DefendTheBase
     {
         public string Type = "Transport";
 
+        private float m_resistance = 75;
+        private float m_criticalResist = 75;
         private float m_hp = 300;
         private float m_speed = 3f;
         private bool spriteSheet = false;
@@ -273,6 +287,8 @@ namespace DefendTheBase
         public TransportEnemy(string enemyID, Vector2 enemyVector)
             : base(enemyID, enemyVector)
         {
+            resistance = m_resistance;
+            criticalResist = m_criticalResist;
             hitPoints = m_hp;
             speed = m_speed;
             EnemyType = Type;
@@ -284,9 +300,12 @@ namespace DefendTheBase
     {
         public string Type = "Soldier";
 
+       
         private float frameSpeed = 100;
         private int frameTotal = 3; // total - 1
 
+        private float m_resistance = 10;
+        private float m_criticalResist = 20;
         private float m_hp = 50;
         private float m_speed = 2;
       
@@ -296,6 +315,8 @@ namespace DefendTheBase
         public SoldierEnemy(string enemyID, Vector2 enemyVector)
             : base(enemyID, enemyVector)
         {
+            resistance = m_resistance;
+            criticalResist = m_criticalResist;
             hitPoints = m_hp;
             speed = m_speed;
             EnemyType = Type;
@@ -312,6 +333,9 @@ namespace DefendTheBase
 
         private float frameSpeed = 50;
         private int frameTotal = 3; // total - 1
+
+        private float m_resistance = 50;
+        private float m_criticalResist = 50;
         private float m_hp = 150;
         // helicopter speed works very differently, as it only heads towards one node currently it goes a lot faster than other units which use multiple nodes. dividing by 10 seems good
         private float m_speed = 5f / 10; 
@@ -321,6 +345,8 @@ namespace DefendTheBase
         public HelicopterEnemy(string enemyID, Vector2 enemyVector)
             : base(enemyID, enemyVector)
         {
+            resistance = m_resistance;
+            criticalResist = m_criticalResist;
             hitPoints = m_hp;
             speed = m_speed;
             EnemyType = Type;
