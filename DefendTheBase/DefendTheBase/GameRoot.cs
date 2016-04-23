@@ -19,6 +19,9 @@ namespace DefendTheBase
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        StartScreen startScreen;
+
+        public static bool exit = false;
         // Constructor
         public GameRoot()
         {
@@ -47,6 +50,8 @@ namespace DefendTheBase
             // Set up variables.
             ResetGame();
             GameManager.GameState = GameManager.GameStates.StartScreen;
+
+            startScreen = new StartScreen();
         }
 
         // Reset
@@ -66,15 +71,14 @@ namespace DefendTheBase
             // The above must be called for Input data to update per frame, this allows us to instead of:
             // if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             // we can use:
-            if (Input.IsButtonDown(Buttons.Back) || Input.WasKeyPressed(Keys.Escape))
+            if (Input.IsButtonDown(Buttons.Back) || Input.WasKeyPressed(Keys.Escape) || exit)
                 this.Exit();
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
 
             if (GameManager.GameState == GameManager.GameStates.StartScreen)
             {
-                if (Input.LMBDown)
-                    GameManager.GameState = GameManager.GameStates.PlayScreen;
+                startScreen.Update();
             }
 
             if (GameManager.GameState == GameManager.GameStates.PlayScreen)
@@ -119,9 +123,13 @@ namespace DefendTheBase
         {
             GraphicsDevice.Clear(Color.DarkOliveGreen);
             spriteBatch.Begin();
-            spriteBatch.Draw(Art.Background, Vector2.Zero, Color.DarkGray);
+
+            if (GameManager.GameState == GameManager.GameStates.StartScreen)
+                startScreen.Draw(spriteBatch);
+
             if (GameManager.GameState == GameManager.GameStates.PlayScreen)
             {
+                spriteBatch.Draw(Art.Background, Vector2.Zero, Color.DarkGray);
                 GameManager.grid.Draw(spriteBatch, Art.DebugFont);
                 UiManager.Draw(spriteBatch);
                 GameManager.Draw(spriteBatch);

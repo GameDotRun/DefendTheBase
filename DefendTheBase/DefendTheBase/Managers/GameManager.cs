@@ -388,7 +388,7 @@ namespace DefendTheBase
 
         static float Resist(Enemy enemy)
         {
-            float ResistValue = rnd.Next(1, 101);
+            float ResistValue = rnd.Next(1, (int)enemy.resistance);
 
             return ResistValue / 10;
         

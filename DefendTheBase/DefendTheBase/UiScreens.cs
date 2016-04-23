@@ -174,7 +174,6 @@ namespace DefendTheBase
         }
     }
 
-
     public static class PopUpNotificationManager
     {
         public static string NoResources = "Not enough resources";
@@ -251,7 +250,6 @@ namespace DefendTheBase
             DrawString(sb, Vector2.Zero);
         }
     }
-
 
     public static class PopUpTextManager
     {
@@ -356,7 +354,7 @@ namespace DefendTheBase
         public static string GermanPolandInvasion = "Which country did germany invade to start ww2?";
         public static string NaziLightningWar = "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium\nand France in April-June 1940 called?";
         public static string BattleOfBritain = "What was the Battle of Britain?";
-        public static string AmericanBomb = "What kind of bomb did the Americans drop on Hiroshima?";
+        public static string AmericanBomb = "What kind of bomb did the Americans drop on\nHiroshima?";
 
         public static string[] WWIIWinnerAnswers = { "Britain", "Germany", "Allied Forces" };
         public static string[] SovietLeaderAnswers = { "Stalin", "Trotski", "Lenin" };
@@ -550,10 +548,73 @@ namespace DefendTheBase
         }
     }
 
-    /*public class StartScreen : Ui
-    { }
+    public class StartScreen
+    {
+        Vector2 StartScreenModifier = new Vector2(0, -5);
+        Texture2D backgroundTex = Art.StartMenuBackground;
 
-    public class GameOverScreen : Ui
+        List<UiButton> StartMenuButtons = new List<UiButton>();
+
+        public StartScreen()
+        { 
+            for(int i = 0; i < 3; i++)
+            {
+                StartMenuButtons.Add(new UiButton(Art.UiFont, new Vector2(525, 300 + i * 150), new Vector2(200, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "str" + i, true));
+                UiButtonMessenger.RegisterButton(StartMenuButtons[i]);
+            }
+
+            StartMenuButtons[0].StringText = "Start";
+            StartMenuButtons[0].StringOffset = new Vector2(70, 30);
+            StartMenuButtons[1].StringText = "Tutorial";
+            StartMenuButtons[1].StringOffset = new Vector2(55, 30);
+            StartMenuButtons[2].StringText = "Exit";
+            StartMenuButtons[2].StringOffset = new Vector2(75, 30);
+        
+        }
+
+        public void Update()
+        {
+            if (StartMenuButtons[0].IsButtonDown())
+            {
+                DisableScreen();
+                GameManager.GameState = GameManager.GameStates.PlayScreen;
+            }
+
+            else if (StartMenuButtons[1].IsButtonDown())
+            { 
+                //load tutorial vid and whatever else
+            
+            }
+
+            else if (StartMenuButtons[2].IsButtonDown())
+                GameRoot.exit = true;
+        
+        }
+
+        public void Draw(SpriteBatch sb)
+        { 
+            sb.Draw(backgroundTex, Vector2.Zero, Color.White);
+
+            foreach (UiButton button in StartMenuButtons)
+                button.DrawButton(sb);
+        }
+
+        public void EnableScreen()
+        {
+            foreach (UiButton button in StartMenuButtons)
+                UiButtonMessenger.RegisterButton(button);
+        
+        }
+
+        public void DisableScreen()
+        {
+            foreach (UiButton button in StartMenuButtons)
+                UiButtonMessenger.RemoveButton(button.GetButtonID);
+        }
+
+    }
+
+    /*public class GameOverScreen : Ui
     { }*/
 
 }
