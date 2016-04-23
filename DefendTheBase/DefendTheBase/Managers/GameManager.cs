@@ -80,6 +80,7 @@ namespace DefendTheBase
         public static Random rnd;
 
         public static Vector2 ScreenSize; // ScreenSize
+        public static Vector2 MouseScreenPos;
 
         public static void Init(GraphicsDevice graphics )
         {
@@ -95,6 +96,9 @@ namespace DefendTheBase
 
         public static void Update(GameTime gameTime)
         {
+            if(mouseSqrCoords != null)
+                MouseScreenPos = new Vector2(mouseSqrCoords.x * SQUARESIZE, mouseSqrCoords.y * SQUARESIZE + BORDERTOP);
+
             m_manPower = TroopListener.TroopList.Count();
 
             UiSideScreen.Update();
@@ -106,6 +110,7 @@ namespace DefendTheBase
             TroopManager.Update(gameTime);
             EffectManager.Update(gameTime);
             PopUpTextManager.Update(gameTime);
+            PopUpNotificationManager.Update(gameTime);
             
         }
 
@@ -119,6 +124,7 @@ namespace DefendTheBase
             EffectManager.Draw(sb, 1);
             PopUpTextManager.Draw(sb);
             QuestionPopUpManager.Draw(sb);
+            PopUpNotificationManager.Draw(sb);
 
         }
 
@@ -155,27 +161,28 @@ namespace DefendTheBase
         
         }
 
+        //costs stuff
         public static void TowerWasBuilt(string TowerType)
         {
             if (TowerType == "Gun")
             {
-                m_resources -= 100;
-                TroopManager.DestroyTroop(2);
+                m_resources -= BuildManager.Resources;
+                TroopManager.DestroyTroop(BuildManager.ManPower);
             }
             else if (TowerType == "Rocket")
             {
-                m_resources -= 100;
-                TroopManager.DestroyTroop(2);
+                m_resources -= BuildManager.Resources;
+                TroopManager.DestroyTroop(BuildManager.ManPower);
             }
             else if (TowerType == "SAM")
             {
-                m_resources -= 100;
-                TroopManager.DestroyTroop(2);
+                m_resources -= BuildManager.Resources;
+                TroopManager.DestroyTroop(BuildManager.ManPower);
             }
             else if (TowerType == "Tesla")
             {
-                m_resources -= 100;
-                TroopManager.DestroyTroop(2);
+                m_resources -= BuildManager.Resources;
+                TroopManager.DestroyTroop(BuildManager.ManPower);
             }
         
         }
@@ -183,30 +190,30 @@ namespace DefendTheBase
         public static void BaseWasBuilt(string BaseType)
         {
             if (BaseType == "Trench")
-                m_resources -= 100;
+                m_resources -= BuildManager.Resources;
 
             else if (BaseType == "Concrete")
-                m_resources -= 100;
+                m_resources -= BuildManager.Resources;
         }
 
-
+        // modify the values here for different costs
         public static void CostGet()
         {
             switch (GameManager.BuildState)
             {
                 case GameManager.BuildStates.TowerGun:
-                    BuildManager.ManPower = 2;
+                    BuildManager.ManPower = 1;
                     BuildManager.Resources = 100;
                     break;
 
                 case GameManager.BuildStates.TowerRocket:
-                    BuildManager.ManPower = 1;
-                    BuildManager.Resources = 100;
+                    BuildManager.ManPower = 2;
+                    BuildManager.Resources = 300;
                     break;
 
                 case GameManager.BuildStates.TowerSAM:
-                    BuildManager.ManPower = 1;
-                    BuildManager.Resources = 100;
+                    BuildManager.ManPower = 4;
+                    BuildManager.Resources = 1000;
                     break; ;
 
                 case GameManager.BuildStates.TowerTesla:
@@ -226,13 +233,14 @@ namespace DefendTheBase
 
                 case GameManager.BuildStates.Trench:
                     BuildManager.ManPower = 1;
-                    BuildManager.Resources = 100;
+                    BuildManager.Resources = 50;
                     break;
             }
 
         }
 
 
+        //damage stuffs
         public static float DamageCalculator(int Damage, Enemy enemy, Projectile.Type projectile)
         {
             float totalDamage = 0f;

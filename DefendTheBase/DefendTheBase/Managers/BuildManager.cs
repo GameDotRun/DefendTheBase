@@ -75,18 +75,31 @@ namespace DefendTheBase
 
             GameManager.CostGet();
 
-            if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
+            if (!GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
             {
-                if (!GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
+                if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Concrete)
                 {
-                    if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Concrete)
+                    if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
                     {
                         if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords))
                             TowerManager.SpawnTower(TowerType, GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].PixelScreenPos, GameManager.mouseSqrCoords);
+                        else PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.CantPlaceTrench, GameManager.MouseScreenPos, Color.Red));
 
                     }
+
+                    else if (GameManager.Manpower < ManPower)
+                        PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NoManpower, GameManager.MouseScreenPos, Color.Red));
+                    else if (GameManager.Resources < Resources)
+                        PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NoResources, GameManager.MouseScreenPos, Color.Red));
                 }
+
+                else PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NeedConcrete, GameManager.MouseScreenPos, Color.Red));
+
             }
+            
+
+           
+
         }
 
         //Squares will handle the static objects that dont interact. eg. concrete This just sets the correct square with the flags.
@@ -106,8 +119,12 @@ namespace DefendTheBase
 
                 }
 
+                else PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.CantPlaceTrench, GameManager.MouseScreenPos, Color.Red));
+
                 GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
             }
+
+            else PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NoResources, GameManager.MouseScreenPos, Color.Red));
         }
 
         

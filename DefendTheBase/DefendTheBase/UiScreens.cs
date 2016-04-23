@@ -174,6 +174,86 @@ namespace DefendTheBase
         }
     }
 
+
+
+    public static class PopUpNotificationManager
+    {
+        public static string NoResources = "Not enough resources";
+        public static string NoManpower = "Not enough manpower";
+        public static string CantPlaceTrench = "You can't block off squares";
+        public static string NeedConcrete = "Must be placed on concrete";
+        public static string NextToTrench = "Must be placed next to trench";
+
+        public static List<PopUpNotificationText> PopUps = new List<PopUpNotificationText>();
+
+        public static void Add(PopUpNotificationText popup)
+        {
+            PopUps.Add(popup);
+        }
+
+        public static void Remove(PopUpNotificationText popup)
+        {
+            PopUps.Remove(popup);
+        }
+
+        public static void Update(GameTime gt)
+        {
+            if (PopUps.Count > 10)
+            {
+                PopUps.RemoveAt(0);
+            }
+
+            foreach (PopUpNotificationText popup in PopUps)
+            {
+                popup.Update(gt);
+
+                if (popup.timer.TimeReached())
+                {
+                    Remove(popup);
+                    break;
+                }
+
+            }
+        }
+
+        public static void Draw(SpriteBatch sb)
+        {
+            foreach (PopUpNotificationText popup in PopUps)
+            {
+                popup.Draw(sb);
+            }
+        }
+
+    }
+
+    public class PopUpNotificationText : UiTextString
+    {
+        public UiTimer timer = new UiTimer(750f);
+
+        public PopUpNotificationText(string stringText, Vector2 StringPos, Color color)
+            : base(Art.DebugFont, stringText, StringPos, color)
+        {
+            StringScale = 2;
+        }
+
+        public void Update(GameTime gt)
+        {
+            if (!timer.GetActive)
+                timer.ActivateTimer();
+
+            StringScale += 0.01f;
+            StringPosition += new Vector2(0, -1);
+
+            timer.TimerUpdate(gt);
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            DrawString(sb);
+        }
+    }
+
+
     public static class PopUpTextManager
     {
         public static string Critical = "Critical";
@@ -247,11 +327,6 @@ namespace DefendTheBase
             DrawString(sb);
         }
     }
-
-
-
-
-
 
     //4 things needed to make a question -
     //1: make questions and answers below, along with the correct answer. use the same names as enums for the question

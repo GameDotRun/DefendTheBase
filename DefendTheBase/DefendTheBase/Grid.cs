@@ -106,7 +106,7 @@ namespace DefendTheBase
                 TempGrid[(int)SquareCoords.x, (int)SquareCoords.y].Building = Squares.BuildingType.None;
                 return false;
             }
-        } // this is goddamn inefficient.
+        } 
 
         public static bool CheckSquareCounters(Squares[,] Grid)
         {
@@ -134,7 +134,7 @@ namespace DefendTheBase
 
             foreach (Squares square in Grid)
             {
-                if (square.Building.HasFlag(Squares.BuildingType.Trench))
+                if (square.Building.HasFlag(Squares.BuildingType.Trench) || square.Building.HasFlag(Squares.BuildingType.Tower))
                     count++;
             }
 

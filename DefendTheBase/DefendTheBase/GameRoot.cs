@@ -123,8 +123,9 @@ namespace DefendTheBase
             if (GameManager.GameState == GameManager.GameStates.PlayScreen)
             {
                 GameManager.grid.Draw(spriteBatch, Art.DebugFont);
-                GameManager.Draw(spriteBatch);
                 UiManager.Draw(spriteBatch);
+                GameManager.Draw(spriteBatch);
+                
             }
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.

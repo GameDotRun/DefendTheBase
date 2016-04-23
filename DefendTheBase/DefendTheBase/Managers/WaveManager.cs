@@ -139,8 +139,8 @@ namespace DefendTheBase
 
             WavePower = (WaveNumber * 10);
 
-            if (TowerListener.TowersList.Count /2   != 0)
-                WavePower *= TowerListener.TowersList.Count / 2;
+            if (TowerListener.TowersList.Count /3   != 0)
+                WavePower *= TowerListener.TowersList.Count / 3;
 
             while (CurrentWavePower <= WavePower)
             {
