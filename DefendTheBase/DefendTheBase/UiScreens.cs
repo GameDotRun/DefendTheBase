@@ -555,6 +555,12 @@ namespace DefendTheBase
 
         List<UiButton> StartMenuButtons = new List<UiButton>();
 
+        UiTimer FadeOutTimer = new UiTimer(2000f);
+
+        float fade = 1f;
+
+        public bool fadeout = false;
+
         public StartScreen()
         { 
             for(int i = 0; i < 3; i++)
@@ -572,12 +578,15 @@ namespace DefendTheBase
         
         }
 
-        public void Update()
+        public void Update(GameTime gt)
         {
             if (StartMenuButtons[0].IsButtonDown())
             {
                 DisableScreen();
                 GameManager.GameState = GameManager.GameStates.PlayScreen;
+
+                FadeOutTimer.ActivateTimer();
+                fadeout = true;
             }
 
             else if (StartMenuButtons[1].IsButtonDown())
@@ -588,15 +597,26 @@ namespace DefendTheBase
 
             else if (StartMenuButtons[2].IsButtonDown())
                 GameRoot.exit = true;
-        
+
+            if (FadeOutTimer.GetActive)
+            {
+                FadeOutTimer.TimerUpdate(gt);
+                fade -= 0.01f;
+            }
+
+            if (FadeOutTimer.TimeReached())
+                fadeout = false;
         }
 
         public void Draw(SpriteBatch sb)
         { 
-            sb.Draw(backgroundTex, Vector2.Zero, Color.White);
+            sb.Draw(backgroundTex, Vector2.Zero, Color.White * fade);
 
-            foreach (UiButton button in StartMenuButtons)
-                button.DrawButton(sb);
+            if (GameManager.GameState == GameManager.GameStates.StartScreen)
+            {
+                foreach (UiButton button in StartMenuButtons)
+                    button.DrawButton(sb);
+            }
         }
 
         public void EnableScreen()

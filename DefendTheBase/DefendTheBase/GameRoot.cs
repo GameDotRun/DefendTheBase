@@ -76,9 +76,9 @@ namespace DefendTheBase
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
 
-            if (GameManager.GameState == GameManager.GameStates.StartScreen)
+            if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)
             {
-                startScreen.Update();
+                startScreen.Update(gameTime);
             }
 
             if (GameManager.GameState == GameManager.GameStates.PlayScreen)
@@ -124,9 +124,6 @@ namespace DefendTheBase
             GraphicsDevice.Clear(Color.DarkOliveGreen);
             spriteBatch.Begin();
 
-            if (GameManager.GameState == GameManager.GameStates.StartScreen)
-                startScreen.Draw(spriteBatch);
-
             if (GameManager.GameState == GameManager.GameStates.PlayScreen)
             {
                 spriteBatch.Draw(Art.Background, Vector2.Zero, Color.DarkGray);
@@ -135,6 +132,9 @@ namespace DefendTheBase
                 GameManager.Draw(spriteBatch);
                 
             }
+
+            if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)
+                startScreen.Draw(spriteBatch);
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
             /*for (int i = 0; i < 2; i++)
