@@ -453,26 +453,26 @@ namespace DefendTheBase
         {
             correctAnsID = correctAnswerID;
 
-            QuestionBox = new UiTextBox(Art.DebugFont, Question, new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
-            CorrectBox = new UiTextBox(Art.DebugFont, "Correct! A soldier joins your cause!\n\nPress enter to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
-            WrongBox = new UiTextBox(Art.DebugFont, "Wrong! Better luck next time!\n\nPress enter to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
-            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 400), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans1", true));
-            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 520), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans2", true));
-            Answers.Add(new UiButton(Art.DebugFont, new Vector2(350, 640), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans3", true));
+            QuestionBox = new UiTextBox(Art.UiFont, Question, new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
+            CorrectBox = new UiTextBox(Art.UiFont, "Correct! A soldier joins your cause!\n\nPress enter to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
+            WrongBox = new UiTextBox(Art.UiFont, "Wrong! Better luck next time!\n\nPress enter to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
+            Answers.Add(new UiButton(Art.UiFont, new Vector2(350, 400), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans1", true));
+            Answers.Add(new UiButton(Art.UiFont, new Vector2(350, 520), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans2", true));
+            Answers.Add(new UiButton(Art.UiFont, new Vector2(350, 640), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans3", true));
 
             QuestionBox.TextBoxSize = new Vector2(500, 200);
             QuestionBox.TextBoxColour = Color.Black;
-            QuestionBox.StringScale = 2f;
+            //QuestionBox.StringScale = 2f;
             QuestionBox.StringOffset = new Vector2(10, 0);
 
             CorrectBox.TextBoxSize = new Vector2(500, 200);
             CorrectBox.TextBoxColour = Color.Black;
-            CorrectBox.StringScale = 2f;
+            //CorrectBox.StringScale = 2f;
             CorrectBox.StringOffset = new Vector2(10, 0);
 
             WrongBox.TextBoxSize = new Vector2(500, 200);
             WrongBox.TextBoxColour = Color.Black;
-            WrongBox.StringScale = 2f;
+            //WrongBox.StringScale = 2f;
             WrongBox.StringOffset = new Vector2(10, 0);
 
             Answers[0].StringText = Answer1;
@@ -483,7 +483,7 @@ namespace DefendTheBase
             {
                 UiButtonMessenger.RegisterButton(button);
                 button.TextBoxColour = Color.Black;
-                button.StringScale = 2f;
+                //button.StringScale = 2f;
                 button.StringOffset = new Vector2(10, 0);
                 button.TextBoxRectangleSet();
 
