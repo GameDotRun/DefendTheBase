@@ -55,6 +55,7 @@ namespace DefendTheBase
         public static Texture2D[] HpBar { get; private set; }
         // Small font used for debug info.
         public static SpriteFont DebugFont { get; private set; }
+        public static SpriteFont UiFont { get; private set; }
 
         public static Texture2D TextBoxBackGround { get; private set; }
 
@@ -137,7 +138,7 @@ namespace DefendTheBase
 
             // Fonts
             DebugFont = content.Load<SpriteFont>("Art/Fonts/DebugFont");
-
+            UiFont = content.Load<SpriteFont>("Art/Fonts/UiFont");
 
             TextBoxBackGround = content.Load<Texture2D>("Art/Images/Misc/TextBoxBackground");
 

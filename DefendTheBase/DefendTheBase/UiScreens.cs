@@ -126,17 +126,17 @@ namespace DefendTheBase
     {
         public UiStatusBars healthBar;
 
-        public List<UiTextString> waveStats;
-        public List<UiTextString> currencyStats;
-        public List<UiTextString> timers;
+        public List<UiTextBox> waveStats;
+        public List<UiTextBox> currencyStats;
+        public List<UiTextBox> timers;
         public List<UiTextString> popUpText;
 
         public UiTopGameScreen(GraphicsDevice graphicsDevice) : base(GameManager.WIDTH, GameManager.HEIGHT)
         {
             healthBar = new UiStatusBars(100, new Vector2(100, 25), new Vector2(300, 10), Art.HpBar[0], Art.HpBar[1]);
-            waveStats = new List<UiTextString>();
-            currencyStats = new List<UiTextString>();
-            timers = new List<UiTextString>();
+            waveStats = new List<UiTextBox>();
+            currencyStats = new List<UiTextBox>();
+            timers = new List<UiTextBox>();
             popUpText = new List<UiTextString>();
 
             Add(ref waveStats);
@@ -150,11 +150,11 @@ namespace DefendTheBase
 
         public void CreateUi(GraphicsDevice graphicsDevice)
         {
-            waveStats.Add(new UiTextString(Art.DebugFont, "Wave: " + WaveManager.WaveNumber, new Vector2(100, 0), Color.Black));
-            waveStats.Add(new UiTextString(Art.DebugFont, "Enemies: " + WaveManager.WaveEnemiesUsed + "/" + WaveManager.WaveEnemyAmount, new Vector2(200, 0), Color.Black));
-            currencyStats.Add(new UiTextString(Art.DebugFont, "Manpower: " + GameManager.Manpower, new Vector2(300, 40), Color.Black));
-            currencyStats.Add(new UiTextString(Art.DebugFont, "Resources: " + GameManager.Resources, new Vector2(300, 60), Color.Black));
-            timers.Add(new UiTextString(Art.DebugFont, "Next Wave in: ", new Vector2(420, 10), Color.Black));
+            waveStats.Add(new UiTextBox(Art.UiFont, "Wave: ", new Vector2(10, 10), Color.White, Art.TextBoxBackGround, true));
+            waveStats.Add(new UiTextBox(Art.UiFont, "Enemies: " + WaveManager.WaveEnemiesUsed + "/" + WaveManager.WaveEnemyAmount, new Vector2(110, 10), Color.White, Art.TextBoxBackGround, true ));
+            currencyStats.Add(new UiTextBox(Art.UiFont, "Manpower: " + GameManager.Manpower, new Vector2(10, 50), Color.White, Art.TextBoxBackGround, true));
+            currencyStats.Add(new UiTextBox(Art.UiFont, "Resources: " + GameManager.Resources, new Vector2(10, 90), Color.White, Art.TextBoxBackGround, true));
+            timers.Add(new UiTextBox(Art.UiFont, "Next Wave in: ", new Vector2(1000, GameManager.BORDERTOP - 40), Color.White, Art.TextBoxBackGround, true));
 
             
         }
@@ -169,7 +169,7 @@ namespace DefendTheBase
             currencyStats[0].StringText = "Manpower: " + GameManager.Manpower;
             currencyStats[1].StringText = "Resources: " + GameManager.Resources;
 
-            timers[0].StringText = "Next Wave in: " + WaveManager.WaveStartTimer;
+            timers[0].StringText = "Next Wave in: " + WaveManager.WaveStartTimer.TotalSeconds;
             
         }
     }
@@ -248,7 +248,7 @@ namespace DefendTheBase
 
         public void Draw(SpriteBatch sb)
         {
-            DrawString(sb);
+            DrawString(sb, Vector2.Zero);
         }
     }
 
@@ -323,7 +323,7 @@ namespace DefendTheBase
 
         public void Draw(SpriteBatch sb)
         {
-            DrawString(sb);
+            DrawString(sb, Vector2.Zero);
         }
     }
 

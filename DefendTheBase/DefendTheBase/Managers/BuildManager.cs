@@ -152,7 +152,6 @@ namespace DefendTheBase
 
                             GameManager.BaseWasBuilt("Concrete");
                         }
-
                     }
 
                     else ResourceManpowerNotification();

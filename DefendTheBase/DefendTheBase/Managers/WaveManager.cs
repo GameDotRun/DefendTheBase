@@ -11,7 +11,7 @@ namespace DefendTheBase
     {
         public static int questionsAnsweredCorrect = 0;
         public static TimeSpan EnemySpawnTimer = TimeSpan.Zero;
-        public static TimeSpan WaveStartTimer = TimeSpan.FromMinutes(1);
+        public static TimeSpan WaveStartTimer = TimeSpan.FromSeconds(60);
         public static bool WaveStarted = false;
         public static int WaveNumber = 1;
         public static int WaveEnemyAmount = 20;

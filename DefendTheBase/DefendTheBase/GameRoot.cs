@@ -129,7 +129,7 @@ namespace DefendTheBase
             }
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
-            for (int i = 0; i < 2; i++)
+            /*for (int i = 0; i < 2; i++)
             {
                 spriteBatch.DrawString(Art.DebugFont,
                     "DEBUG" +
@@ -138,7 +138,7 @@ namespace DefendTheBase
                     "\nEnemySpawn: " + WaveManager.EnemySpawnTimer,
                     i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
                     i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
-            }
+            }*/
             //spriteBatch.DrawString(Art.DebugFont, tanks.ScreenPos.X + " " + tanks.ScreenPos.Y, tanks.ScreenPos, Color.Black);
 
 #endif

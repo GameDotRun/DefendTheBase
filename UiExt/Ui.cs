@@ -97,7 +97,7 @@ namespace RPGEx
             {
                 foreach (UiTextString String in List)
                 {
-                    String.DrawString(sb);
+                    String.DrawString(sb, Vector2.Zero);
                 }
             }
 
@@ -344,7 +344,7 @@ namespace RPGEx
                 textBox.Draw(sb);
 
             foreach (UiTextString TextString in tabList[currentSelection].StringList)
-                TextString.DrawString(sb);
+                TextString.DrawString(sb, Vector2.Zero);
         }
 
         private void SwitchPageListeners()
@@ -711,7 +711,7 @@ namespace RPGEx
                 sb.Draw(effectTexture, new Rectangle((int)TextBox.X, (int)TextBox.Y + sizeChange / 2, (int)TextBoxSize.X, (int)TextBoxSize.Y), null,
                     TextBoxColour * highlight, TextBoxRotation, Vector2.Zero, SpriteEffects.None, 0);
 
-            DrawString(sb);
+            DrawString(sb, StringOffset);
         }
 
         private void InitiliseButton()
@@ -851,14 +851,20 @@ namespace RPGEx
 
         public void Draw(SpriteBatch sb)
         {
+            GetStringSizePX();
             TextBoxRectangleSet();
-
             if (scaleBox)
-                sb.Draw(txtBoxTex, new Rectangle((int)txtBoxlocation.X, (int)txtBoxlocation.Y, (int)StringPXSize.X, (int)StringPXSize.Y), null, txtBoxCol, txtBoxRotation, Vector2.Zero, SpriteEffects.None, 1);
+            {
+                sb.Draw(txtBoxTex, new Rectangle((int)txtBoxlocation.X, (int)txtBoxlocation.Y, (int)StringPXSize.X + 5, (int)StringPXSize.Y), null, txtBoxCol, txtBoxRotation, Vector2.Zero, SpriteEffects.None, 1);
+                sb.DrawString(StringFont, StringText, txtBoxlocation + stringOffset + new Vector2(2,0), StringColour, txtBoxRotation, Vector2.Zero, StringScale, SpriteEffects.None, 1);
+            }
             else
+            {
                 sb.Draw(txtBoxTex, txtBox, null, txtBoxCol, txtBoxRotation, Vector2.Zero, SpriteEffects.None, 1);
-
-            sb.DrawString(StringFont, StringText, txtBoxlocation + stringOffset, StringColour, txtBoxRotation, Vector2.Zero, StringScale, SpriteEffects.None, 1);
+                sb.DrawString(StringFont, StringText, txtBoxlocation + stringOffset, StringColour, txtBoxRotation, Vector2.Zero, StringScale, SpriteEffects.None, 1);
+            }
+            
+            
         }
 
         private void Initilise()
@@ -1015,9 +1021,9 @@ namespace RPGEx
             GetStringSizePX();
         }
 
-        public void DrawString(SpriteBatch sb)
+        public void DrawString(SpriteBatch sb, Vector2 offset)
         {
-            sb.DrawString(txtFont, txtStr, txtStringPos, txtCol, txtRotation, Vector2.Zero, txtScale, SpriteEffects.None, 1);
+            sb.DrawString(txtFont, txtStr, txtStringPos + offset, txtCol, txtRotation, Vector2.Zero, txtScale, SpriteEffects.None, 1);
         }
 
 

@@ -135,4 +135,32 @@ namespace DefendTheBase
     
     }
 
+    class Mechanic : Troop
+    { 
+        public string Type = "Mechanic";
+
+        private float frameSpeed = 100;
+        private int frameTotal = 2; // total - 1
+
+        private float m_hp = 50;
+        private float m_speed = 2;
+      
+        private bool spriteSheet = true;
+
+
+        public Mechanic(string TroopID) 
+            : base(TroopID)
+        {
+            hitPoints = m_hp;
+            speed = m_speed;
+            TroopType = Type;
+            usingSpriteSheet = spriteSheet;
+            targetElasped = frameSpeed;
+            sheetFrameTotal = frameTotal;
+        }
+    
+    
+    
+    }
+
 }
