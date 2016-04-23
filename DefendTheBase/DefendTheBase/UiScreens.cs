@@ -175,7 +175,6 @@ namespace DefendTheBase
     }
 
 
-
     public static class PopUpNotificationManager
     {
         public static string NoResources = "Not enough resources";
@@ -198,7 +197,7 @@ namespace DefendTheBase
 
         public static void Update(GameTime gt)
         {
-            if (PopUps.Count > 10)
+            if (PopUps.Count > 2)
             {
                 PopUps.RemoveAt(0);
             }

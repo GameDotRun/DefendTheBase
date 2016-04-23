@@ -65,6 +65,8 @@ namespace DefendTheBase
                     }
                 }
             }
+
+            else ResourceManpowerNotification();
         
         }
 
@@ -83,17 +85,14 @@ namespace DefendTheBase
                     {
                         if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords))
                             TowerManager.SpawnTower(TowerType, GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].PixelScreenPos, GameManager.mouseSqrCoords);
-                        else PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.CantPlaceTrench, GameManager.MouseScreenPos, Color.Red));
+                        else BlockedNotification();
 
                     }
 
-                    else if (GameManager.Manpower < ManPower)
-                        PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NoManpower, GameManager.MouseScreenPos, Color.Red));
-                    else if (GameManager.Resources < Resources)
-                        PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NoResources, GameManager.MouseScreenPos, Color.Red));
+                    else ResourceManpowerNotification();
                 }
 
-                else PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NeedConcrete, GameManager.MouseScreenPos, Color.Red));
+                else NeedConcreteNotification();
 
             }
             
@@ -107,24 +106,29 @@ namespace DefendTheBase
         {
             GameManager.CostGet();
 
-            if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
+            if (GridManager.HasNeighbour(Squares.BuildingType.Trench, GameManager.mouseSqrCoords))
             {
-                if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
+                if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
                 {
-                    GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare |= Squares.SqrFlags.Wall;
-                    GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Trench;
+                    if (GridManager.InaccessibleSquareCheck(GameManager.grid.gridSquares, GameManager.mouseSqrCoords) && !GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
+                    {
+                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare |= Squares.SqrFlags.Wall;
+                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Trench;
+                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+
+                        GameManager.BaseWasBuilt("Trench");
+
+                    }
+
+                    else BlockedNotification();
+
                     GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
-
-                    GameManager.BaseWasBuilt("Trench");
-
                 }
 
-                else PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.CantPlaceTrench, GameManager.MouseScreenPos, Color.Red));
-
-                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+                else ResourceManpowerNotification();
             }
 
-            else PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NoResources, GameManager.MouseScreenPos, Color.Red));
+            else NextToTrenchNotification();
         }
 
         
@@ -132,22 +136,54 @@ namespace DefendTheBase
         {
             GameManager.CostGet();
 
-            if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
+            if (!GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
             {
-                if (!GameManager.mouseSqrCoords.CoordEqual(GameManager.ENDPOINT))
+                if (GridManager.HasNeighbour(Squares.BuildingType.Trench, GameManager.mouseSqrCoords))
                 {
-                    if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare != Squares.SqrFlags.Concrete)
+                    if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
                     {
-                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Occupied;
-                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Concrete;
-                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Concrete;
-                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
 
-                        GameManager.BaseWasBuilt("Concrete");
+                        if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare != Squares.SqrFlags.Concrete)
+                        {
+                            GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Occupied;
+                            GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Concrete;
+                            GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.Concrete;
+                            GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+
+                            GameManager.BaseWasBuilt("Concrete");
+                        }
+
                     }
 
+                    else ResourceManpowerNotification();
                 }
+
+                else NextToTrenchNotification();
+
             }
+        }
+
+        static void ResourceManpowerNotification()
+        { 
+            if (GameManager.Manpower < ManPower)
+                PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NoManpower, GameManager.MouseScreenPos, Color.Red));
+            else if (GameManager.Resources < Resources)
+                PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NoResources, GameManager.MouseScreenPos, Color.Red));
+        }
+
+        static void NextToTrenchNotification()
+        {
+            PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NextToTrench, GameManager.MouseScreenPos, Color.Red));
+        }
+
+        static void NeedConcreteNotification()
+        {
+            PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.NeedConcrete, GameManager.MouseScreenPos, Color.Red));
+        }
+
+        static void BlockedNotification()
+        {
+            PopUpNotificationManager.Add(new PopUpNotificationText(PopUpNotificationManager.CantPlaceTrench, GameManager.MouseScreenPos, Color.Red));
         }
 
         public static void RemoveTowerFromSquare(Tower tower)

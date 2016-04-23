@@ -74,34 +74,33 @@ namespace DefendTheBase
             if (Input.WasLMBClicked)
                 canClick = true;
 
-            if (!sqrCoord.CoordEqual(GameManager.STARTPOINT))
+            if (!QuestionPopUpManager.QuestionUp)
             {
-                if (rect.Contains(Input.MousePosition.ToPoint()))
+                if (!sqrCoord.CoordEqual(GameManager.STARTPOINT))
                 {
-                    GameManager.mouseSqrCoords = new Coordinates(sqrCoord.x, sqrCoord.y);
-
-                    if (GridManager.HasNeighbour(BuildingType.Trench, sqrCoord))
+                    if (rect.Contains(Input.MousePosition.ToPoint()))
                     {
+                        GameManager.mouseSqrCoords = new Coordinates(sqrCoord.x, sqrCoord.y);
+
                         if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
                         {
                             ghostImage = Art.getTrenchTex(GameManager.grid.sqrTexDecider((int)sqrCoord.x, (int)sqrCoord.y));
                         }
 
-                        if (Input.WasLMBClicked && canClick && Building != BuildingType.Tower && Building != BuildingType.Trench && !WaveManager.WaveStarted)
+                        if (Input.WasLMBClicked && canClick && !WaveManager.WaveStarted)
                         {
                             BuildManager.Build();
                             sqrEdited = true;
                         }
+
+                        highlight = 0.5f;
                     }
 
-                    if (Input.WasLMBClicked && (GameManager.BuildState == GameManager.BuildStates.Upgrade || GameManager.BuildState == GameManager.BuildStates.Destroy) && !WaveManager.WaveStarted)
-                        BuildManager.Build();
-
-                    highlight = 0.5f;
+                    else highlight = 1;
                 }
-
-                else highlight = 1;
             }
+
+            else highlight = 1;
             
         }
 

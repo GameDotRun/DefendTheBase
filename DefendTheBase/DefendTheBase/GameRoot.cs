@@ -97,7 +97,7 @@ namespace DefendTheBase
                         WaveManager.StartWave();
                     }
                 }
-
+  
                 GameManager.grid.Update(gameTime);
 
                 for (int y = 0; y < GameManager.HEIGHT; y++) // get if a square has been edited 

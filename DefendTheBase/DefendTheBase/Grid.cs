@@ -281,12 +281,12 @@ namespace DefendTheBase
                 square.DrawBase(sb);
 
 
-            for (int y = 0; y < GameManager.HEIGHT; y++) //Debug counter Text
+            /*for (int y = 0; y < GameManager.HEIGHT; y++) //Debug counter Text
                 for (int x = 0; x < GameManager.WIDTH; x++)
                 {
                     if (gridSquares[x, y].sqrCoord.counter < 2000)
                         sb.DrawString(deb, gridSquares[x, y].sqrCoord.counter.ToString(), new Vector2(gridSquares[x, y].rect.X + 10, gridSquares[x, y].rect.Y), Color.Black);
-                }
+                }*/
         }
 
         public void GenerateNewMap() // Generate a Starter Map. Couple of trenches and base in the bottom right.
