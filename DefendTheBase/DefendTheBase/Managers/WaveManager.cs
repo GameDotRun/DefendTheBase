@@ -139,8 +139,8 @@ namespace DefendTheBase
 
             WavePower = (WaveNumber * 10);
 
-            if (TowerListener.TowersList.Count /3   != 0)
-                WavePower *= TowerListener.TowersList.Count / 3;
+            /*if (TowerListener.TowersList.Count /3   != 0)
+                WavePower *= TowerListener.TowersList.Count / 3;*/
 
             while (CurrentWavePower <= WavePower)
             {
@@ -170,7 +170,7 @@ namespace DefendTheBase
 
                 else if (UseableEnemies[index] == "Helicopter")
                 {
-                    CurrentWavePower += 16;
+                    CurrentWavePower += 3;
                 }
 
                WaveComposition.Add(UseableEnemies[index]);

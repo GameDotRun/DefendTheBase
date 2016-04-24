@@ -67,8 +67,6 @@ namespace DefendTheBase
                     if (Enemy.hitPoints <= 0) // check if it was destroyed by means of towers
                     {
                         GameManager.EnemyWasDestroyed(Enemy.EnemyType); // resource acquisition 
-
-
                         if (Enemy.EnemyType == "Helicopter")
                         {
 
@@ -116,6 +114,13 @@ namespace DefendTheBase
                     DestroyEnemy(Enemy.EnemyID, Enemy.EnemyType); 
                     break;
                 }
+
+                if (float.IsNaN(Enemy.enemyVect.X) || float.IsNaN(Enemy.enemyVect.Y))
+                {
+                    DestroyEnemy(Enemy.EnemyID, Enemy.EnemyType);
+                    WaveManager.WaveEnemiesUsed++;
+                }
+
 
                 else
                     Enemy.Update(GameManager.grid.gridStatus, gt); //updates the enemy

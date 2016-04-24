@@ -427,7 +427,7 @@ namespace DefendTheBase
         public static string SovietLeader = "Who was the leader of the Soviet Union\nduring World War II?";
         public static string GermanLeader = "Who was the leader of Germany during\nWorld War II?";
         public static string ItalianLeader = "who was the leader of Italy during\nWorld War II?";
-        public static string WWIIStartDate = "When did ww2 begin?";
+        public static string WWIIStartDate = "When did WW2 begin?";
         public static string GermanPolandInvasion = "Which country did germany invade to\nstart ww2?";
         public static string NaziLightningWar = "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium\nand France in April-June 1940 called?";
         public static string BattleOfBritain = "What was the Battle of Britain?";
