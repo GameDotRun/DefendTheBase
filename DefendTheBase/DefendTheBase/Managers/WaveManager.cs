@@ -263,19 +263,23 @@ namespace DefendTheBase
 
         public static void QuestionsCorrectCheck()
         {
-            if(questionsAnsweredCorrect > 2)
+            if(questionsAnsweredCorrect > 2 && !GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.RocketTower))
             {
                 GameManager.UnlockedTowers |= GameManager.Unlocks.RocketTower;
+                MessageBoxManager.Add(new MessageBox(MessageBoxManager.RocketTowerUnlock));
             }
 
-            if (questionsAnsweredCorrect > 5) 
+            if (questionsAnsweredCorrect > 5 && !GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.SamTower)) 
             {
                 GameManager.UnlockedTowers |= GameManager.Unlocks.SamTower;
+                MessageBoxManager.Add(new MessageBox(MessageBoxManager.SAMTowerUnlock));
             }
 
-            if (questionsAnsweredCorrect > 8) 
+            if (questionsAnsweredCorrect > 8 && !GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.TeslaTower)) 
             {
                 GameManager.UnlockedTowers |= GameManager.Unlocks.TeslaTower;
+                MessageBoxManager.Add(new MessageBox(MessageBoxManager.TeslaTowerUnlock));
+
             }
 
             else if (questionsAnsweredCorrect > 11)

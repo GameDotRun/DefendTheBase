@@ -174,6 +174,83 @@ namespace DefendTheBase
         }
     }
 
+    public static class MessageBoxManager
+    {
+        public static string RocketTowerUnlock = "New Tower Unlocked!\nRocket Tower, use this to make\nshort work of vehicles";
+        public static string SAMTowerUnlock = "New Tower Unlocked!\nSAM Tower, use this to make\nshort work of helicopters";
+        public static string TeslaTowerUnlock = "New Tower Unlocked!\nTesla Tower, has no weakness\nbut no strength either";
+        public static string UpgradeTowerUnlock = "New Tower Unlocked!\nUpgrade Tower, use this to upgrade\nyour Towers";
+        public static string Introduction = "";
+
+        public static List<MessageBox> MessageBox = new List<MessageBox>();
+
+        public static void Add(MessageBox messagebox)
+        {
+            MessageBox.Add(messagebox);
+        }
+
+        public static void Remove(MessageBox messagebox)
+        {
+            MessageBox.Remove(messagebox);
+        }
+
+        public static void Update(GameTime gt)
+        {
+            if (MessageBox.Count > 2)
+            {
+                MessageBox.RemoveAt(0);
+            }
+
+            foreach (MessageBox message in MessageBox)
+            {
+                message.Update(gt);
+
+                if (message.timer.TimeReached())
+                {
+                    Remove(message);
+                    break;
+                }
+
+            }
+        }
+
+        public static void Draw(SpriteBatch sb)
+        {
+            foreach (MessageBox message in MessageBox)
+            {
+                message.Draw(sb);
+            }
+        }
+    
+    }
+
+    public class MessageBox : UiTextBox
+    {
+        public UiTimer timer = new UiTimer(5000f);
+
+        public MessageBox(string stringText)
+            : base(Art.UiFont, stringText, new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false)
+        {
+            TextBoxSize = new Vector2(500, 200);
+            TextBoxColour = Color.Black;
+            StringOffset = new Vector2(10, 0);
+        }
+
+        public void Update(GameTime gt)
+        {
+            if (!timer.GetActive)
+                timer.ActivateTimer();
+
+            timer.TimerUpdate(gt);
+        }
+
+        public void DrawBox(SpriteBatch sb)
+        {
+            Draw(sb);
+        }
+    
+    }
+
     public static class PopUpNotificationManager
     {
         public static string NoResources = "Not enough resources";
@@ -237,7 +314,7 @@ namespace DefendTheBase
         public void Update(GameTime gt)
         {
             if (!timer.GetActive)
-                timer.ActivateTimer();
+                timer.ActivateTimer();  
 
             StringScale += 0.01f;
             StringPosition += new Vector2(0, -1);
@@ -347,14 +424,14 @@ namespace DefendTheBase
         }
 
         public static string WWIIWinner = "Who won World War 2?";
-        public static string SovietLeader = "Who was the leader of the Soviet Union during\nWorld War II?";
+        public static string SovietLeader = "Who was the leader of the Soviet Union\nduring World War II?";
         public static string GermanLeader = "Who was the leader of Germany during\nWorld War II?";
-        public static string ItalianLeader = "who was the leader of Italy during World War II?";
+        public static string ItalianLeader = "who was the leader of Italy during\nWorld War II?";
         public static string WWIIStartDate = "When did ww2 begin?";
-        public static string GermanPolandInvasion = "Which country did germany invade to start ww2?";
+        public static string GermanPolandInvasion = "Which country did germany invade to\nstart ww2?";
         public static string NaziLightningWar = "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium\nand France in April-June 1940 called?";
         public static string BattleOfBritain = "What was the Battle of Britain?";
-        public static string AmericanBomb = "What kind of bomb did the Americans drop on\nHiroshima?";
+        public static string AmericanBomb = "What kind of bomb did the Americans drop\non Hiroshima?";
 
         public static string[] WWIIWinnerAnswers = { "Britain", "Germany", "Allied Forces" };
         public static string[] SovietLeaderAnswers = { "Stalin", "Trotski", "Lenin" };
@@ -363,7 +440,7 @@ namespace DefendTheBase
         public static string[] WWIIStartDateAnswers = { "1939", "1914", "1941" };
         public static string[] GermanPolandInvasionAnswers = { "Austria", "Russia", "Poland" };
         public static string[] NaziLightningWarAnswers = { "The Blitz", "Blitzkrieg", "Operation Barbarossa" };
-        public static string[] BattleOfBritainAnswers = { "The Royal Air Force\ndefeated the Luftwaffe.", "The Luftwaffe bombed London\nand other British cities.", "The British withdrew\nfrom France by sea." };
+        public static string[] BattleOfBritainAnswers = { "The Royal Air Force\ndefeated the Luftwaffe.", "The Luftwaffe bombed\nLondon and other British\ncities.", "The British withdrew\nfrom France by sea." };
         public static string[] AmericanBombAnswers = { "A V-1 rocket", "Blitzkrieg", "An atomic bomb" };
 
         public static string WWIIWinnerCorrect = "Ans3";
@@ -563,18 +640,20 @@ namespace DefendTheBase
 
         public StartScreen()
         { 
-            for(int i = 0; i < 3; i++)
+            for(int i = 0; i < 4; i++)
             {
-                StartMenuButtons.Add(new UiButton(Art.UiFont, new Vector2(525, 300 + i * 150), new Vector2(200, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "str" + i, true));
+                StartMenuButtons.Add(new UiButton(Art.UiFont, new Vector2(525, 250 + i * 150), new Vector2(200, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "str" + i, true));
                 UiButtonMessenger.RegisterButton(StartMenuButtons[i]);
             }
 
             StartMenuButtons[0].StringText = "Start";
             StartMenuButtons[0].StringOffset = new Vector2(70, 30);
-            StartMenuButtons[1].StringText = "Tutorial";
-            StartMenuButtons[1].StringOffset = new Vector2(55, 30);
-            StartMenuButtons[2].StringText = "Exit";
-            StartMenuButtons[2].StringOffset = new Vector2(75, 30);
+            StartMenuButtons[1].StringText = "Info";
+            StartMenuButtons[1].StringOffset = new Vector2(70, 30);
+            StartMenuButtons[2].StringText = "Tutorial";
+            StartMenuButtons[2].StringOffset = new Vector2(55, 30);
+            StartMenuButtons[3].StringText = "Exit";
+            StartMenuButtons[3].StringOffset = new Vector2(75, 30);
         
         }
 
@@ -590,12 +669,18 @@ namespace DefendTheBase
             }
 
             else if (StartMenuButtons[1].IsButtonDown())
+            {
+                //load info box and whatever else
+
+            }
+
+            else if (StartMenuButtons[2].IsButtonDown())
             { 
                 //load tutorial vid and whatever else
             
             }
 
-            else if (StartMenuButtons[2].IsButtonDown())
+            else if (StartMenuButtons[3].IsButtonDown())
                 GameRoot.exit = true;
 
             if (FadeOutTimer.GetActive)

@@ -111,6 +111,7 @@ namespace DefendTheBase
             EffectManager.Update(gameTime);
             PopUpTextManager.Update(gameTime);
             PopUpNotificationManager.Update(gameTime);
+            MessageBoxManager.Update(gameTime);
             
         }
 
@@ -125,6 +126,7 @@ namespace DefendTheBase
             PopUpTextManager.Draw(sb);
             QuestionPopUpManager.Draw(sb);
             PopUpNotificationManager.Draw(sb);
+            MessageBoxManager.Draw(sb);
 
         }
 
@@ -157,8 +159,6 @@ namespace DefendTheBase
                 m_resources += 100;
             else if (EnemyType == "Soldier")
                 m_resources += 100;
-
-        
         }
 
         //costs stuff
