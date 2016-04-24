@@ -38,6 +38,7 @@ namespace DefendTheBase
         // Init
         protected override void Initialize()
         {
+            IsFixedTimeStep = false;
             base.Initialize();
         }
 
@@ -137,16 +138,20 @@ namespace DefendTheBase
                 startScreen.Draw(spriteBatch);
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
-            /*for (int i = 0; i < 2; i++)
+
+            if (!float.IsInfinity(1 / (float)gameTime.ElapsedGameTime.TotalSeconds))
             {
-                spriteBatch.DrawString(Art.DebugFont,
-                    "DEBUG" +
-                    "\nFPS: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString("N0") +
-                    "\nBuild: " + GameManager.BuildState +
-                    "\nEnemySpawn: " + WaveManager.EnemySpawnTimer,
-                    i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
-                    i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
-            }*/
+                for (int i = 0; i < 2; i++)
+                {
+                    spriteBatch.DrawString(Art.DebugFont,
+                        "DEBUG" +
+                        "\nFPS: " + (1 / (float)gameTime.ElapsedGameTime.TotalSeconds).ToString("") +
+                        "\nBuild: " + GameManager.BuildState +
+                        "\nEnemySpawn: " + WaveManager.EnemySpawnTimer,
+                        i < 1 ? Vector2.One : Vector2.Zero,     // if (i<1) {Vec.One} else {Vec.Zero}
+                        i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
+                }
+            }
             //spriteBatch.DrawString(Art.DebugFont, tanks.ScreenPos.X + " " + tanks.ScreenPos.Y, tanks.ScreenPos, Color.Black);
 
 #endif

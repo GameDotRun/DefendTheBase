@@ -238,7 +238,7 @@ namespace DefendTheBase
                         }
                     }
 
-                    if (currentCoord.y - 1 >= 0) // check array wont go out of bounds 
+                    if (currentCoord.y - 1 >= 0 && currentCoord.x < 20) // check array wont go out of bounds 
                     {
                         if (squares[(int)currentCoord.x, (int)currentCoord.y - 1].typeOfSquare.HasFlag(Squares.SqrFlags.Wall)) //check next square is not a wall
                         {

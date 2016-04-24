@@ -31,12 +31,10 @@ namespace DefendTheBase
         /// Removes enemy from listener. Shouldnt have to be called manually,  should be automted.
         /// </summary>
         /// <param name="EnemyID"></param>
-        static public void RemoveEnemy(string EnemyID)
+        static public void RemoveEnemy(Enemy EnemyID)
         {
-            int index = EnemyList.FindIndex(item => string.Compare(item.EnemyID, EnemyID, 0) == 0);
-
-            if (index >= 0)
-                EnemyList.RemoveAt(index);
+            EnemyList.Remove(EnemyID);
+               
         }
     }
 

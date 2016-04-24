@@ -15,20 +15,22 @@ namespace DefendTheBase
     public static class EnemyManager
     {
         public static string[] TypeIDs = { "Tank", "Soldier", "Helicopter", "Jeep", "Transport" };
-        static List<Enemy> Enemies = new List<Enemy>();
+
+        static HashSet<Enemy> Enemies = new HashSet<Enemy>();
+        static HashSet<Enemy> EnemiesToAdd = new HashSet<Enemy>();
+        static HashSet<Enemy> EnemiesToRemove = new HashSet<Enemy>();
+
+
         static List<string> EnemyIDs = new List<string>();
 
         /// <summary>
         /// Destroys enemies and cleans up references in other lists of said enemy
         /// </summary>
-        static void DestroyEnemy(string EnemyID, string TypeID)
+        static void DestroyEnemy(Enemy enemy, string TypeID, string EnemyID)
         {
-            EnemyListener.RemoveEnemy(EnemyID);
+            EnemyListener.RemoveEnemy(enemy);
 
-            int index = Enemies.FindIndex(item => string.Compare(item.EnemyID, EnemyID, 0) == 0);
-
-            if (index >= 0)
-                Enemies.RemoveAt(index);
+            Enemies.Remove(enemy);
 
             int index2 = EnemyIDs.FindIndex(item => string.Compare(item, EnemyID, 0) == 0);
 
@@ -42,15 +44,15 @@ namespace DefendTheBase
         public static void SpawnEnemy(string TypeID, Vector2 enemyVector)
         {
             if (TypeID == "Tank")
-                Enemies.Add(new TankEnemy(CreateID(TypeID), enemyVector));
+                EnemiesToAdd.Add(new TankEnemy(CreateID(TypeID), enemyVector));
             else if (TypeID == "Soldier")
-                Enemies.Add(new SoldierEnemy(CreateID(TypeID), enemyVector));
+                EnemiesToAdd.Add(new SoldierEnemy(CreateID(TypeID), enemyVector));
             else if (TypeID == "Helicopter")
-                Enemies.Add(new HelicopterEnemy(CreateID(TypeID), enemyVector));
+                EnemiesToAdd.Add(new HelicopterEnemy(CreateID(TypeID), enemyVector));
             else if (TypeID == "Jeep")
-                Enemies.Add(new JeepEnemy(CreateID(TypeID), enemyVector));
+                EnemiesToAdd.Add(new JeepEnemy(CreateID(TypeID), enemyVector));
             else if (TypeID == "Transport")
-                Enemies.Add(new TransportEnemy(CreateID(TypeID), enemyVector));
+                EnemiesToAdd.Add(new TransportEnemy(CreateID(TypeID), enemyVector));
         }
 
         /// <summary>
@@ -58,7 +60,7 @@ namespace DefendTheBase
         /// </summary>
         public static void Update(GameTime gt)
         {
-            foreach (Enemy Enemy in Enemies.ToList())
+            foreach (Enemy Enemy in Enemies)
             {
                 if (Enemy.IsDestroyed)
                 {
@@ -78,7 +80,7 @@ namespace DefendTheBase
                         {
                             for (float i = 0; i < 4; i++)
                             {
-                                WaveManager.WaveEnemiesUsed--;
+                                
                                 SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
                                 EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.Transport.Width / 2, Art.Transport.Height / 2), true);
                             }
@@ -88,7 +90,7 @@ namespace DefendTheBase
                         {
                             for (float i = 0; i < 2; i++)
                             {
-                                WaveManager.WaveEnemiesUsed--;
+                               
                                 SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
                                 EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), true);
                             }
@@ -98,7 +100,7 @@ namespace DefendTheBase
                         {
                             for (float i = 0; i < 1; i++)
                             {
-                                WaveManager.WaveEnemiesUsed--;
+                               
                                 SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
                                 EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.JeepBottom.Width / 2, Art.JeepBottom.Height / 2), true);
                             }
@@ -111,20 +113,36 @@ namespace DefendTheBase
                         }
                     }
 
-                    DestroyEnemy(Enemy.EnemyID, Enemy.EnemyType); 
-                    break;
+                    //DestroyEnemy(Enemy, Enemy.EnemyType, Enemy.EnemyID); 
+                    EnemiesToRemove.Add(Enemy);
                 }
 
                 if (float.IsNaN(Enemy.enemyVect.X) || float.IsNaN(Enemy.enemyVect.Y)) // This needs testing...
                 {
-                    DestroyEnemy(Enemy.EnemyID, Enemy.EnemyType);
+                    //DestroyEnemy(Enemy, Enemy.EnemyType, Enemy.EnemyID);
+                    EnemiesToRemove.Add(Enemy);
                     WaveManager.WaveEnemiesUsed++;
                 }
 
-
                 else
                     Enemy.Update(GameManager.grid.gridStatus, gt); //updates the enemy
+
             }
+
+            foreach (Enemy enemy in EnemiesToAdd)
+            {
+                Enemies.Add(enemy);
+
+            }
+
+            foreach (Enemy enemy in EnemiesToRemove)
+            {
+                DestroyEnemy(enemy, enemy.EnemyType, enemy.EnemyID);
+
+            }
+
+            EnemiesToAdd.Clear();
+            EnemiesToRemove.Clear();
 
             foreach (Projectile proj in TankTurret.EnemyProjectiles) //updates the projectiles of enemy
                 proj.Update();
