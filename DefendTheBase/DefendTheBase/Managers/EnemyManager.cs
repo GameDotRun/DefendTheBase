@@ -115,7 +115,7 @@ namespace DefendTheBase
                     break;
                 }
 
-                if (float.IsNaN(Enemy.enemyVect.X) || float.IsNaN(Enemy.enemyVect.Y))
+                if (float.IsNaN(Enemy.enemyVect.X) || float.IsNaN(Enemy.enemyVect.Y)) // This needs testing...
                 {
                     DestroyEnemy(Enemy.EnemyID, Enemy.EnemyType);
                     WaveManager.WaveEnemiesUsed++;
@@ -140,7 +140,14 @@ namespace DefendTheBase
         {
             foreach (Enemy Enemy in Enemies)
             {
-                Enemy.Draw(sb);
+                if(Enemy.EnemyType != "Helicopter")
+                    Enemy.Draw(sb);
+            }
+
+            foreach (Enemy Enemy in Enemies)
+            {
+                if (Enemy.EnemyType == "Helicopter")
+                    Enemy.Draw(sb);
             }
         }
 

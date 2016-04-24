@@ -114,6 +114,9 @@ namespace DefendTheBase
 
                     nextCoord = availableCoord[indexNext];
 
+                    if (GameManager.rnd.Next(0, 100) == 1)
+                        nextCoord = GameManager.ENDPOINT;
+
                 }
 
                 Node = new Vector2((nextCoord.x * GameManager.SQUARESIZE) + GameManager.SQUARESIZE / 2, (int)GameManager.grid.gridBorder.Y + (nextCoord.y * GameManager.SQUARESIZE) + GameManager.SQUARESIZE / 2);
@@ -144,9 +147,9 @@ namespace DefendTheBase
                     if (EnemyType == "Helicopter")
                     {
 
-                        for (int i = 0; i < 3; i++)
+                        for (int i = 0; i < 7; i++)
                         {
-                            EnemyManager.SpawnEnemy("Soldier", EnemyVect - new Vector2( 2 * i /4,  0));
+                            EnemyManager.SpawnEnemy("Soldier", EnemyVect - new Vector2( 2 * i /7,  0));
                             WaveManager.WaveEnemiesUsed--;
                         }
 
