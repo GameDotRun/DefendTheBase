@@ -147,10 +147,9 @@ namespace DefendTheBase
                     if (EnemyType == "Helicopter")
                     {
 
-                        for (int i = 0; i < 7; i++)
+                        for (int i = 0; i < 3; i++)
                         {
-                            EnemyManager.SpawnEnemy("Soldier", EnemyVect - new Vector2( 2 * i /7,  0));
-                            WaveManager.WaveEnemiesUsed--;
+                            EnemyManager.SpawnEnemy("Soldier", EnemyVect - new Vector2( 2 * i /4,  0));
                         }
 
                     }

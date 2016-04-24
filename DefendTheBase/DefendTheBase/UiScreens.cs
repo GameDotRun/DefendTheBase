@@ -169,7 +169,7 @@ namespace DefendTheBase
             currencyStats[0].StringText = "Manpower: " + GameManager.Manpower;
             currencyStats[1].StringText = "Resources: " + GameManager.Resources;
 
-            timers[0].StringText = "Next Wave in: " + WaveManager.WaveStartTimer.TotalSeconds;
+            timers[0].StringText = "Next Wave in: " + WaveManager.WaveStartTimer.TotalSeconds.ToString("N0");
             
         }
     }
@@ -350,7 +350,7 @@ namespace DefendTheBase
 
         public static void Update(GameTime gt)
         {
-            if (PopUps.Count > 10)
+            if (PopUps.Count > 30)
             {
                 PopUps.RemoveAt(0);
             }
