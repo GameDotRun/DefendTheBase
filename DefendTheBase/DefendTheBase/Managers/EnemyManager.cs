@@ -121,7 +121,7 @@ namespace DefendTheBase
                 {
                     //DestroyEnemy(Enemy, Enemy.EnemyType, Enemy.EnemyID);
                     EnemiesToRemove.Add(Enemy);
-                    WaveManager.WaveEnemiesUsed++;
+                    //WaveManager.WaveEnemiesUsed++;
                 }
 
                 else

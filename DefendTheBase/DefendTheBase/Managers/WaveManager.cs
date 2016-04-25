@@ -73,15 +73,18 @@ namespace DefendTheBase
                     {
                         if (WaveEnemiesSpawned != WaveComposition.Count)
                         {
-                            EnemyManager.SpawnEnemy(WaveComposition[compositionIndex], new Vector2(0, 0));
-                            compositionIndex++;
-                            WaveEnemiesSpawned++;
+                            if (WaveComposition.Count != 0)
+                            {
+                                EnemyManager.SpawnEnemy(WaveComposition[0], new Vector2(0, 0));
+                                WaveComposition.RemoveAt(0);
+                                WaveEnemiesSpawned++;
+                            }
                         }
 
                         EnemySpawnTimer = TimeSpan.Zero;
                     }
 
-                    if (EnemyListener.EnemyList.Count == 0 && WaveEnemiesSpawned == WaveComposition.Count)
+                    if (EnemyListener.EnemyList.Count == 0 && WaveComposition.Count == 0)
                         WaveIncrease();
                 }
 
@@ -192,8 +195,6 @@ namespace DefendTheBase
             int nextQuestionindex = GameManager.rnd.Next(0, QuestionPopUpManager.questionsList.Count());
             QuestionPopUpManager.Questions nextQuestion = QuestionPopUpManager.questionsList[nextQuestionindex];
 
-            QuestionPopUpManager.questionsList.Remove(nextQuestion);
-
             switch (nextQuestion)
             {
                 case QuestionPopUpManager.Questions.AmericanBomb:
@@ -257,7 +258,7 @@ namespace DefendTheBase
                     break;
             }
 
-            QuestionPopUpManager.Add(new QuestionPopUp(CurrentQuestion, CurrentAnswers[0], CurrentAnswers[1], CurrentAnswers[2], CorrectAnswer));
+            QuestionPopUpManager.Add(new QuestionPopUp(CurrentQuestion, CurrentAnswers[0], CurrentAnswers[1], CurrentAnswers[2], CorrectAnswer, nextQuestion));
         }
 
         public static void QuestionsCorrectCheck()

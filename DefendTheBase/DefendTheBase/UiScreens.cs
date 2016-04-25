@@ -527,13 +527,17 @@ namespace DefendTheBase
         List<UiButton> Answers = new List<UiButton>();
         string correctAnsID;
 
-        public QuestionPopUp(string Question, string Answer1, string Answer2, string Answer3, string correctAnswerID)
+        QuestionPopUpManager.Questions questionEnum;
+
+        public QuestionPopUp(string Question, string Answer1, string Answer2, string Answer3, string correctAnswerID, QuestionPopUpManager.Questions questionE)
         {
+            questionEnum = questionE;
+
             correctAnsID = correctAnswerID;
 
             QuestionBox = new UiTextBox(Art.UiFont, Question, new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
             CorrectBox = new UiTextBox(Art.UiFont, "Correct! A soldier joins your cause!\n\nPress enter to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
-            WrongBox = new UiTextBox(Art.UiFont, "Wrong! Better luck next time!\n\nPress enter to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
+            WrongBox = new UiTextBox(Art.UiFont, "Wrong! Better luck next time!\n\nClick to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
             Answers.Add(new UiButton(Art.UiFont, new Vector2(350, 400), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans1", true));
             Answers.Add(new UiButton(Art.UiFont, new Vector2(350, 520), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans2", true));
             Answers.Add(new UiButton(Art.UiFont, new Vector2(350, 640), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans3", true));
@@ -584,6 +588,7 @@ namespace DefendTheBase
                             State = QuestionState.Correct;
                             WaveManager.questionsAnsweredCorrect++;
                             TroopManager.SpawnTroop();
+                            QuestionPopUpManager.questionsList.Remove(questionEnum);
 
                         }
 
@@ -597,9 +602,9 @@ namespace DefendTheBase
                 }
             }
 
-            if (State == QuestionState.Correct || State == QuestionState.Wrong)
+            else if (State == QuestionState.Correct || State == QuestionState.Wrong)
             { 
-                if(Input.WasKeyPressed(Microsoft.Xna.Framework.Input.Keys.Enter))
+                if(Input.WasLMBClicked)
                 {
                     State = QuestionState.Done;
                 }
