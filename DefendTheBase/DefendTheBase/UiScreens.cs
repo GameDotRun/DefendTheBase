@@ -536,7 +536,7 @@ namespace DefendTheBase
             correctAnsID = correctAnswerID;
 
             QuestionBox = new UiTextBox(Art.UiFont, Question, new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
-            CorrectBox = new UiTextBox(Art.UiFont, "Correct! A soldier joins your cause!\n\nPress enter to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
+            CorrectBox = new UiTextBox(Art.UiFont, "Correct! A soldier joins your cause!\n\nClick to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
             WrongBox = new UiTextBox(Art.UiFont, "Wrong! Better luck next time!\n\nClick to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
             Answers.Add(new UiButton(Art.UiFont, new Vector2(350, 400), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans1", true));
             Answers.Add(new UiButton(Art.UiFont, new Vector2(350, 520), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans2", true));
