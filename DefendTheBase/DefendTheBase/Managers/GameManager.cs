@@ -42,7 +42,8 @@ namespace DefendTheBase
             None = 0,
             RocketTower = 1,
             SamTower = 2,
-            TeslaTower = 4
+            TeslaTower = 4,
+            Upgrade = 8
         }
 
         private static float m_manPower = DEFAULT_MANPOWER;

@@ -344,8 +344,11 @@ namespace DefendTheBase
 
             }
 
-            else if (questionsAnsweredCorrect > 11)
-            { }
+            else if (questionsAnsweredCorrect > 11 && !GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.Upgrade))
+            { 
+                GameManager.UnlockedTowers |= GameManager.Unlocks.Upgrade;
+                MessageBoxManager.Add(new MessageBox(MessageBoxManager.UpgradeTowerUnlock));
+            }
 
             else if (questionsAnsweredCorrect > 14)
             { }

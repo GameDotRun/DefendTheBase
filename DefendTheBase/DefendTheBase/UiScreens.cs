@@ -66,6 +66,15 @@ namespace DefendTheBase
                 }
             }
 
+            if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.Upgrade))
+            {
+                if (unitBuild.Count < 5)
+                {
+                    unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[4], Art.ButtonEffectTexture, "btn0Upgrade", true));
+                    buttonSingleInit(unitBuild[unitBuild.Count - 1], unitBuild.Count - 1, 0);
+                }
+            }
+
             tabs.Update();
         }
 
