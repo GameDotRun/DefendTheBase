@@ -42,7 +42,7 @@ namespace DefendTheBase
 
                     WaveCompositionCreator();
 
-                    if(QuestionPopUpManager.questionsList.Count != 0)
+                    if(QuestionPopUpManager.QuestionsArray.Count != 0)
                         GenerateQuestion();
                 }
 
@@ -185,142 +185,8 @@ namespace DefendTheBase
 
         public static void GenerateQuestion()
         {
-            string CurrentQuestion;
-            string[] CurrentAnswers;
-            string CorrectAnswer;
-
-            CurrentAnswers = new string[3];
-
-            int nextQuestionindex = GameManager.rnd.Next(0, QuestionPopUpManager.questionsList.Count());
-            QuestionPopUpManager.Questions nextQuestion = QuestionPopUpManager.questionsList[nextQuestionindex];
-
-            switch (nextQuestion)
-            {
-                case QuestionPopUpManager.Questions.AmericanBomb:
-                    CurrentQuestion = QuestionPopUpManager.AmericanBomb;
-                    CurrentAnswers = QuestionPopUpManager.AmericanBombAnswers;
-                    CorrectAnswer = QuestionPopUpManager.AmericanBombCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.BattleOfBritain:
-                    CurrentQuestion = QuestionPopUpManager.BattleOfBritain;
-                    CurrentAnswers = QuestionPopUpManager.BattleOfBritainAnswers;
-                    CorrectAnswer = QuestionPopUpManager.BattleOfBritainCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.GermanLeader:
-                    CurrentQuestion = QuestionPopUpManager.GermanLeader;
-                    CurrentAnswers = QuestionPopUpManager.GermanLeaderAnswers;
-                    CorrectAnswer = QuestionPopUpManager.GermanLeaderCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.GermanPolandInvasion:
-                    CurrentQuestion = QuestionPopUpManager.GermanPolandInvasion;
-                    CurrentAnswers = QuestionPopUpManager.GermanPolandInvasionAnswers;
-                    CorrectAnswer = QuestionPopUpManager.GermanPolandInvasionCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.ItalianLeader:
-                    CurrentQuestion = QuestionPopUpManager.ItalianLeader;
-                    CurrentAnswers = QuestionPopUpManager.ItalianLeaderAnswers;
-                    CorrectAnswer = QuestionPopUpManager.ItalianLeaderCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.NaziLightningWar:
-                    CurrentQuestion = QuestionPopUpManager.NaziLightningWar;
-                    CurrentAnswers = QuestionPopUpManager.NaziLightningWarAnswers;
-                    CorrectAnswer = QuestionPopUpManager.NaziLightningWarCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.SovietLeader:
-                    CurrentQuestion = QuestionPopUpManager.SovietLeader;
-                    CurrentAnswers = QuestionPopUpManager.SovietLeaderAnswers;
-                    CorrectAnswer = QuestionPopUpManager.SovietLeaderCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.WWIIStartDate:
-                    CurrentQuestion = QuestionPopUpManager.WWIIStartDate;
-                    CurrentAnswers = QuestionPopUpManager.WWIIStartDateAnswers;
-                    CorrectAnswer = QuestionPopUpManager.WWIIStartDateCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.WWIIWinner:
-                    CurrentQuestion = QuestionPopUpManager.WWIIWinner;
-                    CurrentAnswers = QuestionPopUpManager.WWIIWinnerAnswers;
-                    CorrectAnswer = QuestionPopUpManager.WWIIWinnerCorrect;
-                    break;
-
-
-
-                    ///
-                case QuestionPopUpManager.Questions.HitlerBorn:
-                    CurrentQuestion = QuestionPopUpManager.HitlerBorn;
-                    CurrentAnswers = QuestionPopUpManager.HitlerBornAnswers;
-                    CorrectAnswer = QuestionPopUpManager.HitlerBornCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.HitlerCar:
-                    CurrentQuestion = QuestionPopUpManager.HitlerCar;
-                    CurrentAnswers = QuestionPopUpManager.HitlerCarAnswers;
-                    CorrectAnswer = QuestionPopUpManager.HitlerCarCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.HitlerProp:
-                    CurrentQuestion = QuestionPopUpManager.HitlerProp;
-                    CurrentAnswers = QuestionPopUpManager.HitlerPropAnswers;
-                    CorrectAnswer = QuestionPopUpManager.HitlerPropCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.HitlersDreamJob:
-                    CurrentQuestion = QuestionPopUpManager.HitlersDreamJob;
-                    CurrentAnswers = QuestionPopUpManager.HitlersDreamJobAnswers;
-                    CorrectAnswer = QuestionPopUpManager.HitlersDreamJobCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.HitlersWife:
-                    CurrentQuestion = QuestionPopUpManager.HitlersWife;
-                    CurrentAnswers = QuestionPopUpManager.HitlersWifeAnswers;
-                    CorrectAnswer = QuestionPopUpManager.HitlersWifeCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.JewKills:
-                    CurrentQuestion = QuestionPopUpManager.JewKills;
-                    CurrentAnswers = QuestionPopUpManager.JewKillsAnswers;
-                    CorrectAnswer = QuestionPopUpManager.JewKillsCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.KristallnachtWhat:
-                    CurrentQuestion = QuestionPopUpManager.KristallnachtWhat;
-                    CurrentAnswers = QuestionPopUpManager.KristallnachtWhatAnswers;
-                    CorrectAnswer = QuestionPopUpManager.KristallnachtWhatCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.SendJews:
-                    CurrentQuestion = QuestionPopUpManager.SendJews;
-                    CurrentAnswers = QuestionPopUpManager.SendJewsAnswers;
-                    CorrectAnswer = QuestionPopUpManager.SendJewsCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.TwoMainSides:
-                    CurrentQuestion = QuestionPopUpManager.TwoMainSides;
-                    CurrentAnswers = QuestionPopUpManager.TwoMainSidesAnswers;
-                    CorrectAnswer = QuestionPopUpManager.TwoMainSidesCorrect;
-                    break;
-
-                case QuestionPopUpManager.Questions.AuschwitzLocation:
-                    CurrentQuestion = QuestionPopUpManager.AuschwitzLocation;
-                    CurrentAnswers = QuestionPopUpManager.AuschwitzLocationAnswers;
-                    CorrectAnswer = QuestionPopUpManager.AuschwitzLocationCorrect;
-                    break;
-
-                default:
-                    CurrentQuestion = QuestionPopUpManager.TwoMainSides;
-                    CurrentAnswers = QuestionPopUpManager.TwoMainSidesAnswers;
-                    CorrectAnswer = QuestionPopUpManager.TwoMainSidesCorrect;
-                    break;
-            }
-
-            QuestionPopUpManager.Add(new QuestionPopUp(CurrentQuestion, CurrentAnswers[0], CurrentAnswers[1], CurrentAnswers[2], CorrectAnswer, nextQuestion));
+            string[] question = QuestionPopUpManager.QuestionsArray[GameManager.rnd.Next(0, QuestionPopUpManager.QuestionsArray.Count)];
+            QuestionPopUpManager.Add(new QuestionPopUp(question));
         }
 
         public static void QuestionsCorrectCheck()

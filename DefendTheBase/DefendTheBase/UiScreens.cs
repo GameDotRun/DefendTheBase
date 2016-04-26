@@ -420,120 +420,38 @@ namespace DefendTheBase
 
     public static class QuestionPopUpManager
     {
-        public enum Questions
+        public static List<string[]> QuestionsArray = new List<string[]>
         {
-            WWIIWinner,
-            SovietLeader,
-            GermanLeader,
-            ItalianLeader,
-            WWIIStartDate,
-            GermanPolandInvasion,
-            NaziLightningWar,
-            BattleOfBritain,
-            AmericanBomb,
-            HitlersWife,
-            HitlerBorn,
-            HitlerCar,
-            SendJews,
-            KristallnachtWhat,
-            HitlersDreamJob,
-            JewKills,
-            TwoMainSides,
-            HitlerProp,
-            AuschwitzLocation
-
-        }
-
-        public static string WWIIWinner = "Who won World War 2?";
-        public static string SovietLeader = "Who was the leader of the Soviet Union\nduring World War II?";
-        public static string GermanLeader = "Who was the leader of Germany during\nWorld War II?";
-        public static string ItalianLeader = "who was the leader of Italy during\nWorld War II?";
-        public static string WWIIStartDate = "When did WW2 begin?";
-        public static string GermanPolandInvasion = "Which country did germany invade to\nstart ww2?";
-        public static string NaziLightningWar = "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium\nand France in April-June 1940 called?";
-        public static string BattleOfBritain = "What was the Battle of Britain?";
-        public static string AmericanBomb = "What kind of bomb did the Americans drop\non Hiroshima?";
-        public static string HitlersWife = "What was Hitlers wife called?";
-        public static string HitlerBorn = "Where was Hitler Born?";
-        public static string HitlerCar = "What type of car did Hitler Promise to build?";
-        public static string SendJews = "What country did Hitler want to send the jews to?";
-        public static string KristallnachtWhat = "What was Kristallnacht?";
-        public static string HitlersDreamJob = "What did hitler want to be?";
-        public static string JewKills = "Roughly how many jews were killed in concentration camps?";
-        public static string TwoMainSides = "Who were the 2 main sides of ww2? Allies and?";
-        public static string HitlerProp = "What did hitler use to persuade people to vote for him?";
-        public static string AuschwitzLocation = "What country was Auschwitz in?";
-
-
-        public static string[] WWIIWinnerAnswers = { "Britain", "Germany", "Allied Forces" };
-        public static string[] SovietLeaderAnswers = { "Stalin", "Trotski", "Lenin" };
-        public static string[] GermanLeaderAnswers = { "Churchill", "Mussolini", "Hitler" };
-        public static string[] ItalianLeaderAnswers = { "Hirohito", "Mussolini", "Eisenhower" };
-        public static string[] WWIIStartDateAnswers = { "1939", "1914", "1941" };
-        public static string[] GermanPolandInvasionAnswers = { "Austria", "Russia", "Poland" };
-        public static string[] NaziLightningWarAnswers = { "The Blitz", "Blitzkrieg", "Operation Barbarossa" };
-        public static string[] BattleOfBritainAnswers = { "The Royal Air Force\ndefeated the Luftwaffe.", "The Luftwaffe bombed\nLondon and other British\ncities.", "The British withdrew\nfrom France by sea." };
-        public static string[] AmericanBombAnswers = { "A V-1 rocket", "Blitzkrieg", "An atomic bomb" };
-        public static string[] HitlersWifeAnswers = { "Eva Braun", "Isla Braun", "Emma Braun" };
-        public static string[] HitlerBornAnswers = { "Poland", "Austria", "Germany" };
-        public static string[] HitlerCarAnswers = { "Beatle", "Volkswagen ", "Ford" };
-        public static string[] SendJewsAnswers = { "Madagascar ", "America", "Poland" };
-        public static string[] KristallnachtWhatAnswers = { "Day of dreams", "Night of crystals", "Night of  broken glass" };
-        public static string[] HitlersDreamJobAnswers = { "Artist ", "Politician", "Soldier" };
-        public static string[] JewKillsAnswers = { "6 mil", "1 mil ", "10 mil" };
-        public static string[] TwoMainSidesAnswers = { "Axis ", "Bad guys", "enemies" };
-        public static string[] HitlerPropAnswers = { "Forced at gun point", "Bribes", "Propaganda " };
-        public static string[] AuschwitzLocationAnswers = { "Italy", "Germany", "Poland " };
-       
-
-        public static string WWIIWinnerCorrect = "Ans3";
-        public static string SovietLeaderCorrect = "Ans1";
-        public static string GermanLeaderCorrect = "Ans3";
-        public static string ItalianLeaderCorrect = "Ans2";
-        public static string WWIIStartDateCorrect = "Ans1";
-        public static string GermanPolandInvasionCorrect = "Ans3";
-        public static string NaziLightningWarCorrect = "Ans2";
-        public static string BattleOfBritainCorrect = "Ans1";
-        public static string AmericanBombCorrect = "Ans3";
-        public static string HitlersWifeCorrect = "Ans1";
-        public static string HitlerBornCorrect = "Ans2";
-        public static string HitlerCarCorrect = "Ans2";
-        public static string SendJewsCorrect = "Ans1";
-        public static string KristallnachtWhatCorrect = "Ans3";
-        public static string HitlersDreamJobCorrect = "Ans1";
-        public static string JewKillsCorrect = "Ans1";
-        public static string TwoMainSidesCorrect = "Ans1";
-        public static string HitlerPropCorrect = "Ans3";
-        public static string AuschwitzLocationCorrect = "Ans3";
-
-        public static List<Questions> questionsList = new List<Questions>();
+            new string[]  { "Who won World War 2?", "Britain", "Germany", "Allied Forces", "Ans3" },
+            new string[] { "Who was the leader of the Soviet Union\nduring World War II?", "Stalin", "Trotski", "Lenin", "Ans1" },
+            new string[] { "Who was the leader of Germany during\nWorld War II?", "Churchill", "Mussolini", "Hitler", "Ans3" },
+            new string[] { "Who was the leader of Italy during\nWorld War II?", "Hirohito", "Mussolini", "Eisenhower", "Ans2" },
+            new string[] { "When did WW2 begin?", "1939", "1914", "1941", "Ans1" },
+            new string[] { "Which country did germany invade to\nstart WW2?", "Austria", "Russia", "Poland", "Ans3" },
+            new string[] { "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium\nand France in April-June 1940 called?", "The Blitz", "Blitzkrieg", "Operation Barbarossa", "Ans2" },
+            new string[] { "What was the Battle of Britain?", "The Royal Air Force\ndefeated the Luftwaffe.", "The Luftwaffe bombed\nLondon and other British\ncities.", "The British withdrew\nfrom France by sea.", "Ans1" },
+            new string[] { "What kind of bomb did the Americans drop\non Hiroshima?", "A V-1 rocket", "Blitzkrieg", "An atomic bomb", "Ans3" },
+            new string[] { "What was Hitlers wife called?", "Eva Braun", "Isla Braun", "Emma Braun", "Ans1" },
+            new string[] { "Where was Hitler Born?", "Poland", "Austria", "Germany", "Ans2" },
+            new string[] { "What type of car did Hitler Promise to build?", "Beatle", "Volkswagen ", "Ford", "Ans2" },
+            new string[] { "What country did Hitler want to send the jews to?", "Madagascar ", "America", "Poland", "Ans1" },
+            new string[] { "What was Kristallnacht?", "Day of dreams", "Night of crystals", "Night of  broken glass", "Ans3" },
+            new string[] { "What did hitler want to be?", "Artist ", "Politician", "Soldier", "Ans1" },
+            new string[] { "Roughly how many jews were killed in concentration camps?", "6 mil", "1 mil ", "10 mil", "Ans1" },
+            new string[] { "Who were the 2 main sides of ww2? Allies and?", "Axis ", "Bad guys", "enemies", "Ans1" },
+            new string[] { "What did hitler use to persuade people to vote for him?", "Forced at gun point", "Bribes", "Propaganda", "Ans3" },
+            new string[] { "What country was Auschwitz in?", "Italy", "Germany", "Poland", "Ans3" }
+        };
+        
         static List<QuestionPopUp> QuestionPopUps = new List<QuestionPopUp>();
 
         public static bool QuestionUp = false;
 
         public static void Init()
         {
-            questionsList.Add(Questions.AmericanBomb);
-            questionsList.Add(Questions.BattleOfBritain);
-            questionsList.Add(Questions.GermanLeader);
-            questionsList.Add(Questions.GermanPolandInvasion);
-            questionsList.Add(Questions.ItalianLeader);
-            questionsList.Add(Questions.NaziLightningWar);
-            questionsList.Add(Questions.SovietLeader);
-            questionsList.Add(Questions.WWIIStartDate);
-            questionsList.Add(Questions.WWIIWinner);
+            
 
-            questionsList.Add(Questions.HitlerCar);
-            questionsList.Add(Questions.HitlerProp);
-            questionsList.Add(Questions.HitlersDreamJob);
-            questionsList.Add(Questions.HitlersWife);
-            questionsList.Add(Questions.JewKills);
-            questionsList.Add(Questions.KristallnachtWhat);
-            questionsList.Add(Questions.AuschwitzLocation);
-            questionsList.Add(Questions.SendJews);
-            questionsList.Add(Questions.TwoMainSides);
-  
-
+            
         
         }
 
@@ -591,15 +509,14 @@ namespace DefendTheBase
         List<UiButton> Answers = new List<UiButton>();
         string correctAnsID;
 
-        QuestionPopUpManager.Questions questionEnum;
+        string[] QuestionDetails = new string[5];
 
-        public QuestionPopUp(string Question, string Answer1, string Answer2, string Answer3, string correctAnswerID, QuestionPopUpManager.Questions questionE)
+        public QuestionPopUp(string[] questionDetails)
         {
-            questionEnum = questionE;
+            QuestionDetails = questionDetails;
+            correctAnsID = questionDetails[4];
 
-            correctAnsID = correctAnswerID;
-
-            QuestionBox = new UiTextBox(Art.UiFont, Question, new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
+            QuestionBox = new UiTextBox(Art.UiFont, questionDetails[0], new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
             CorrectBox = new UiTextBox(Art.UiFont, "Correct! A soldier joins your cause!\n\nClick to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
             WrongBox = new UiTextBox(Art.UiFont, "Wrong! Better luck next time!\n\nClick to continue", new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false);
             Answers.Add(new UiButton(Art.UiFont, new Vector2(350, 400), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans1", true));
@@ -621,9 +538,9 @@ namespace DefendTheBase
             //WrongBox.StringScale = 2f;
             WrongBox.StringOffset = new Vector2(10, 0);
 
-            Answers[0].StringText = Answer1;
-            Answers[1].StringText = Answer2;
-            Answers[2].StringText = Answer3;
+            Answers[0].StringText = questionDetails[1];
+            Answers[1].StringText = questionDetails[2];
+            Answers[2].StringText = questionDetails[3];
 
             foreach (UiButton button in Answers)
             {
@@ -652,7 +569,7 @@ namespace DefendTheBase
                             State = QuestionState.Correct;
                             WaveManager.questionsAnsweredCorrect++;
                             TroopManager.SpawnTroop();
-                            QuestionPopUpManager.questionsList.Remove(questionEnum);
+                            QuestionPopUpManager.QuestionsArray.Remove(QuestionDetails);
 
                         }
 
