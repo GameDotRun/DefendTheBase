@@ -106,7 +106,7 @@ namespace DefendTheBase
         {
             GameManager.CostGet();
 
-            if (GridManager.HasNeighbour(Squares.BuildingType.Trench, GameManager.mouseSqrCoords))
+            if (GridManager.HasNeighbour(Squares.BuildingType.Trench, GameManager.mouseSqrCoords) && GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.None)
             {
                 if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
                 {

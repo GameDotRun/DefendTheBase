@@ -882,33 +882,32 @@ namespace RPGEx
             StringPosition = txtBoxlocation;
         }
 
-        public void LineWrapper()
+        public void LineWrapper() // most certainly doesnt work for induvidual words larger than the textbox
         {
             TextBoxRectangleSet();
 
-            string[] tokenized = StringText.Split(' ','\r');
+            string[] tokenized = StringText.Split(' ','\r'); // tokenize the string, splitting each part by returns and spaces.
 
             List<string> TempStringList = new List<string>();
 
             int CurrentToken = 0;
             int Prevlength;
 
-            TempStringList.Add("");
+            TempStringList.Add(""); 
             foreach (string stringToken in tokenized)
             {
-               
-                Prevlength = TempStringList[CurrentToken].Length - 1;
+                Prevlength = TempStringList[CurrentToken].Length - 1; // get the length of the tempstring without any modifications
 
-                TempStringList[CurrentToken] += stringToken + " ";
+                TempStringList[CurrentToken] += stringToken + " "; // add one of the string tokens made previously
 
-                int length = TempStringList[CurrentToken].Length - 1;
+                int length = TempStringList[CurrentToken].Length - 1; // get the new length
 
-                if(GetNewStringSizePX(TempStringList[CurrentToken]).X > TextBox.Width - 5)
+                if(GetNewStringSizePX(TempStringList[CurrentToken]).X > TextBox.Width - 5) // check if the new length doesnt exceed the width of the text box
                 {
-                    string tempStrLine = TempStringList[CurrentToken].Remove(Prevlength,  length - Prevlength);
-                    TempStringList[CurrentToken] = tempStrLine + "\n";
-                    TempStringList.Add(stringToken + " ");
-                    CurrentToken++;
+                    string tempStrLine = TempStringList[CurrentToken].Remove(Prevlength,  length - Prevlength); // delete the previously added token
+                    TempStringList[CurrentToken] = tempStrLine + "\n"; // set the temp string to the old one with a newline
+                    TempStringList.Add(stringToken + " "); // new line with the attempted added string
+                    CurrentToken++; // advance the current token
                 }
             }
 
@@ -920,7 +919,7 @@ namespace RPGEx
             }
         }
 
-        private Vector2 GetNewStringSizePX(string text)
+        private Vector2 GetNewStringSizePX(string text) // quick check to get the string px size of provided text. (uistring has one but it only does it for its currently assigned string)
         {
             if (text != null)
             {
