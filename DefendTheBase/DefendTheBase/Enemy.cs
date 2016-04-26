@@ -276,8 +276,8 @@ namespace DefendTheBase
     {
         public string Type = "Transport";
 
-        private float m_resistance = 75;
-        private float m_criticalResist = 75;
+        private float m_resistance = 70;
+        private float m_criticalResist = 70;
         private float m_hp = 300;
         private float m_speed = 3f;
         private bool spriteSheet = false;
@@ -303,7 +303,7 @@ namespace DefendTheBase
         private int frameTotal = 3; // total - 1
 
         private float m_resistance = 10;
-        private float m_criticalResist = 20;
+        private float m_criticalResist = 40;
         private float m_hp = 50;
         private float m_speed = 2;
       

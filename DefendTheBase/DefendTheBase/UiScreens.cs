@@ -151,7 +151,7 @@ namespace DefendTheBase
         public void CreateUi(GraphicsDevice graphicsDevice)
         {
             waveStats.Add(new UiTextBox(Art.UiFont, "Wave: ", new Vector2(10, 10), Color.White, Art.TextBoxBackGround, true));
-            waveStats.Add(new UiTextBox(Art.UiFont, "Enemies: " + WaveManager.WaveEnemiesUsed + "/" + WaveManager.WaveEnemyAmount, new Vector2(110, 10), Color.White, Art.TextBoxBackGround, true ));
+            waveStats.Add(new UiTextBox(Art.UiFont, "Kills: " + WaveManager.WaveEnemiesUsed , new Vector2(110, 10), Color.White, Art.TextBoxBackGround, true ));
             currencyStats.Add(new UiTextBox(Art.UiFont, "Manpower: " + GameManager.Manpower, new Vector2(10, 50), Color.White, Art.TextBoxBackGround, true));
             currencyStats.Add(new UiTextBox(Art.UiFont, "Resources: " + GameManager.Resources, new Vector2(10, 90), Color.White, Art.TextBoxBackGround, true));
             timers.Add(new UiTextBox(Art.UiFont, "Next Wave in: ", new Vector2(1000, GameManager.BORDERTOP - 40), Color.White, Art.TextBoxBackGround, true));
@@ -164,7 +164,7 @@ namespace DefendTheBase
             healthBar.Update(50);
 
             waveStats[0].StringText = "Wave: " + WaveManager.WaveNumber;
-            waveStats[1].StringText = "Enemies: " + WaveManager.WaveEnemiesUsed + "/" + WaveManager.WaveEnemyAmount;
+            waveStats[1].StringText = "Kills: " + WaveManager.WaveEnemiesUsed ;
 
             currencyStats[0].StringText = "Manpower: " + GameManager.Manpower;
             currencyStats[1].StringText = "Resources: " + GameManager.Resources;
@@ -350,7 +350,7 @@ namespace DefendTheBase
 
         public static void Update(GameTime gt)
         {
-            if (PopUps.Count > 30)
+            if (PopUps.Count > 100000)
             {
                 PopUps.RemoveAt(0);
             }
@@ -421,7 +421,18 @@ namespace DefendTheBase
             GermanPolandInvasion,
             NaziLightningWar,
             BattleOfBritain,
-            AmericanBomb
+            AmericanBomb,
+            HitlersWife,
+            HitlerBorn,
+            HitlerCar,
+            SendJews,
+            KristallnachtWhat,
+            HitlersDreamJob,
+            JewKills,
+            TwoMainSides,
+            HitlerProp,
+            AuschwitzLocation
+
         }
 
         public static string WWIIWinner = "Who won World War 2?";
@@ -433,6 +444,17 @@ namespace DefendTheBase
         public static string NaziLightningWar = "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium\nand France in April-June 1940 called?";
         public static string BattleOfBritain = "What was the Battle of Britain?";
         public static string AmericanBomb = "What kind of bomb did the Americans drop\non Hiroshima?";
+        public static string HitlersWife = "What was Hitlers wife called?";
+        public static string HitlerBorn = "Where was Hitler Born?";
+        public static string HitlerCar = "What type of car did Hitler Promise to build?";
+        public static string SendJews = "What country did Hitler want to send the jews to?";
+        public static string KristallnachtWhat = "What was Kristallnacht?";
+        public static string HitlersDreamJob = "What did hitler want to be?";
+        public static string JewKills = "Roughly how many jews were killed in concentration camps?";
+        public static string TwoMainSides = "Who were the 2 main sides of ww2? Allies and?";
+        public static string HitlerProp = "What did hitler use to persuade people to vote for him?";
+        public static string AuschwitzLocation = "What country was Auschwitz in?";
+
 
         public static string[] WWIIWinnerAnswers = { "Britain", "Germany", "Allied Forces" };
         public static string[] SovietLeaderAnswers = { "Stalin", "Trotski", "Lenin" };
@@ -443,6 +465,17 @@ namespace DefendTheBase
         public static string[] NaziLightningWarAnswers = { "The Blitz", "Blitzkrieg", "Operation Barbarossa" };
         public static string[] BattleOfBritainAnswers = { "The Royal Air Force\ndefeated the Luftwaffe.", "The Luftwaffe bombed\nLondon and other British\ncities.", "The British withdrew\nfrom France by sea." };
         public static string[] AmericanBombAnswers = { "A V-1 rocket", "Blitzkrieg", "An atomic bomb" };
+        public static string[] HitlersWifeAnswers = { "Eva Braun", "Isla Braun", "Emma Braun" };
+        public static string[] HitlerBornAnswers = { "Poland", "Austria", "Germany" };
+        public static string[] HitlerCarAnswers = { "Beatle", "Volkswagen ", "Ford" };
+        public static string[] SendJewsAnswers = { "Madagascar ", "America", "Poland" };
+        public static string[] KristallnachtWhatAnswers = { "Day of dreams", "Night of crystals", "Night of  broken glass" };
+        public static string[] HitlersDreamJobAnswers = { "Artist ", "Politician", "Soldier" };
+        public static string[] JewKillsAnswers = { "6 mil", "1 mil ", "10 mil" };
+        public static string[] TwoMainSidesAnswers = { "Axis ", "Bad guys", "enemies" };
+        public static string[] HitlerPropAnswers = { "Forced at gun point", "Bribes", "Propaganda " };
+        public static string[] AuschwitzLocationAnswers = { "Italy", "Germany", "Poland " };
+       
 
         public static string WWIIWinnerCorrect = "Ans3";
         public static string SovietLeaderCorrect = "Ans1";
@@ -453,6 +486,16 @@ namespace DefendTheBase
         public static string NaziLightningWarCorrect = "Ans2";
         public static string BattleOfBritainCorrect = "Ans1";
         public static string AmericanBombCorrect = "Ans3";
+        public static string HitlersWifeCorrect = "Ans1";
+        public static string HitlerBornCorrect = "Ans2";
+        public static string HitlerCarCorrect = "Ans2";
+        public static string SendJewsCorrect = "Ans1";
+        public static string KristallnachtWhatCorrect = "Ans3";
+        public static string HitlersDreamJobCorrect = "Ans1";
+        public static string JewKillsCorrect = "Ans1";
+        public static string TwoMainSidesCorrect = "Ans1";
+        public static string HitlerPropCorrect = "Ans3";
+        public static string AuschwitzLocationCorrect = "Ans3";
 
         public static List<Questions> questionsList = new List<Questions>();
         static List<QuestionPopUp> QuestionPopUps = new List<QuestionPopUp>();
@@ -470,6 +513,18 @@ namespace DefendTheBase
             questionsList.Add(Questions.SovietLeader);
             questionsList.Add(Questions.WWIIStartDate);
             questionsList.Add(Questions.WWIIWinner);
+
+            questionsList.Add(Questions.HitlerCar);
+            questionsList.Add(Questions.HitlerProp);
+            questionsList.Add(Questions.HitlersDreamJob);
+            questionsList.Add(Questions.HitlersWife);
+            questionsList.Add(Questions.JewKills);
+            questionsList.Add(Questions.KristallnachtWhat);
+            questionsList.Add(Questions.AuschwitzLocation);
+            questionsList.Add(Questions.SendJews);
+            questionsList.Add(Questions.TwoMainSides);
+  
+
         
         }
 

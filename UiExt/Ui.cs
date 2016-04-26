@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 // Aaron Tighe 2016
-// More designed for in game menus, buttons etc.
+// designed for in game menus, buttons etc.
 
 namespace RPGEx
 {

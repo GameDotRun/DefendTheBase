@@ -71,15 +71,14 @@ namespace DefendTheBase
 
                     if (EnemySpawnTimer.TotalMilliseconds >= WaveSpawnInterval)
                     {
-                        if (WaveEnemiesSpawned != WaveComposition.Count)
-                        {
+                
                             if (WaveComposition.Count != 0)
                             {
                                 EnemyManager.SpawnEnemy(WaveComposition[0], new Vector2(0, 0));
                                 WaveComposition.RemoveAt(0);
                                 WaveEnemiesSpawned++;
                             }
-                        }
+                        
 
                         EnemySpawnTimer = TimeSpan.Zero;
                     }
@@ -251,10 +250,73 @@ namespace DefendTheBase
                     CorrectAnswer = QuestionPopUpManager.WWIIWinnerCorrect;
                     break;
 
+
+
+                    ///
+                case QuestionPopUpManager.Questions.HitlerBorn:
+                    CurrentQuestion = QuestionPopUpManager.HitlerBorn;
+                    CurrentAnswers = QuestionPopUpManager.HitlerBornAnswers;
+                    CorrectAnswer = QuestionPopUpManager.HitlerBornCorrect;
+                    break;
+
+                case QuestionPopUpManager.Questions.HitlerCar:
+                    CurrentQuestion = QuestionPopUpManager.HitlerCar;
+                    CurrentAnswers = QuestionPopUpManager.HitlerCarAnswers;
+                    CorrectAnswer = QuestionPopUpManager.HitlerCarCorrect;
+                    break;
+
+                case QuestionPopUpManager.Questions.HitlerProp:
+                    CurrentQuestion = QuestionPopUpManager.HitlerProp;
+                    CurrentAnswers = QuestionPopUpManager.HitlerPropAnswers;
+                    CorrectAnswer = QuestionPopUpManager.HitlerPropCorrect;
+                    break;
+
+                case QuestionPopUpManager.Questions.HitlersDreamJob:
+                    CurrentQuestion = QuestionPopUpManager.HitlersDreamJob;
+                    CurrentAnswers = QuestionPopUpManager.HitlersDreamJobAnswers;
+                    CorrectAnswer = QuestionPopUpManager.HitlersDreamJobCorrect;
+                    break;
+
+                case QuestionPopUpManager.Questions.HitlersWife:
+                    CurrentQuestion = QuestionPopUpManager.HitlersWife;
+                    CurrentAnswers = QuestionPopUpManager.HitlersWifeAnswers;
+                    CorrectAnswer = QuestionPopUpManager.HitlersWifeCorrect;
+                    break;
+
+                case QuestionPopUpManager.Questions.JewKills:
+                    CurrentQuestion = QuestionPopUpManager.JewKills;
+                    CurrentAnswers = QuestionPopUpManager.JewKillsAnswers;
+                    CorrectAnswer = QuestionPopUpManager.JewKillsCorrect;
+                    break;
+
+                case QuestionPopUpManager.Questions.KristallnachtWhat:
+                    CurrentQuestion = QuestionPopUpManager.KristallnachtWhat;
+                    CurrentAnswers = QuestionPopUpManager.KristallnachtWhatAnswers;
+                    CorrectAnswer = QuestionPopUpManager.KristallnachtWhatCorrect;
+                    break;
+
+                case QuestionPopUpManager.Questions.SendJews:
+                    CurrentQuestion = QuestionPopUpManager.SendJews;
+                    CurrentAnswers = QuestionPopUpManager.SendJewsAnswers;
+                    CorrectAnswer = QuestionPopUpManager.SendJewsCorrect;
+                    break;
+
+                case QuestionPopUpManager.Questions.TwoMainSides:
+                    CurrentQuestion = QuestionPopUpManager.TwoMainSides;
+                    CurrentAnswers = QuestionPopUpManager.TwoMainSidesAnswers;
+                    CorrectAnswer = QuestionPopUpManager.TwoMainSidesCorrect;
+                    break;
+
+                case QuestionPopUpManager.Questions.AuschwitzLocation:
+                    CurrentQuestion = QuestionPopUpManager.AuschwitzLocation;
+                    CurrentAnswers = QuestionPopUpManager.AuschwitzLocationAnswers;
+                    CorrectAnswer = QuestionPopUpManager.AuschwitzLocationCorrect;
+                    break;
+
                 default:
-                    CurrentQuestion = QuestionPopUpManager.WWIIWinner;
-                    CurrentAnswers = QuestionPopUpManager.WWIIWinnerAnswers;
-                    CorrectAnswer = QuestionPopUpManager.WWIIWinnerCorrect;
+                    CurrentQuestion = QuestionPopUpManager.TwoMainSides;
+                    CurrentAnswers = QuestionPopUpManager.TwoMainSidesAnswers;
+                    CorrectAnswer = QuestionPopUpManager.TwoMainSidesCorrect;
                     break;
             }
 
