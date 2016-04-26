@@ -412,25 +412,19 @@ namespace DefendTheBase
         }
     }
 
-    //4 things needed to make a question -
-    //1: make questions and answers below, along with the correct answer. use the same names as enums for the question
-    //2: add enums to question enums... should prob move that too here
-    //3: in init add the new enums to the list
-    //4: add it to the case in questiongenerator, located in waveManager.
-
     public static class QuestionPopUpManager
     {
         public static List<string[]> QuestionsArray = new List<string[]>
         {
-            new string[]  { "Who won World War 2?", "Britain", "Germany", "Allied Forces", "Ans3" },
-            new string[] { "Who was the leader of the Soviet Union\nduring World War II?", "Stalin", "Trotski", "Lenin", "Ans1" },
-            new string[] { "Who was the leader of Germany during\nWorld War II?", "Churchill", "Mussolini", "Hitler", "Ans3" },
-            new string[] { "Who was the leader of Italy during\nWorld War II?", "Hirohito", "Mussolini", "Eisenhower", "Ans2" },
+            new string[] { "Who won World War 2?", "Britain", "Germany", "Allied Forces", "Ans3" },
+            new string[] { "Who was the leader of the Soviet Union during World War II?", "Stalin", "Trotski", "Lenin", "Ans1" },
+            new string[] { "Who was the leader of Germany during World War II?", "Churchill", "Mussolini", "Hitler", "Ans3" },
+            new string[] { "Who was the leader of Italy during World War II?", "Hirohito", "Mussolini", "Eisenhower", "Ans2" },
             new string[] { "When did WW2 begin?", "1939", "1914", "1941", "Ans1" },
-            new string[] { "Which country did germany invade to\nstart WW2?", "Austria", "Russia", "Poland", "Ans3" },
-            new string[] { "What were the Nazi 'lightning war' tactics which\nconquered Denmark, Norway, Holland, Belgium\nand France in April-June 1940 called?", "The Blitz", "Blitzkrieg", "Operation Barbarossa", "Ans2" },
-            new string[] { "What was the Battle of Britain?", "The Royal Air Force\ndefeated the Luftwaffe.", "The Luftwaffe bombed\nLondon and other British\ncities.", "The British withdrew\nfrom France by sea.", "Ans1" },
-            new string[] { "What kind of bomb did the Americans drop\non Hiroshima?", "A V-1 rocket", "Blitzkrieg", "An atomic bomb", "Ans3" },
+            new string[] { "Which country did germany invade to start WW2?", "Austria", "Russia", "Poland", "Ans3" },
+            new string[] { "What were the Nazi 'lightning war' tactics which conquered Denmark, Norway, Holland, Belgium and France in April-June 1940 called?", "The Blitz", "Blitzkrieg", "Operation Barbarossa", "Ans2" },
+            new string[] { "What was the Battle of Britain?", "The Royal Air Force defeated the Luftwaffe.", "The Luftwaffe bombed London and other British cities.", "The British withdrew from France by sea.", "Ans1" },
+            new string[] { "What kind of bomb did the Americans drop on Hiroshima?", "A V-1 rocket", "Blitzkrieg", "An atomic bomb", "Ans3" },
             new string[] { "What was Hitlers wife called?", "Eva Braun", "Isla Braun", "Emma Braun", "Ans1" },
             new string[] { "Where was Hitler Born?", "Poland", "Austria", "Germany", "Ans2" },
             new string[] { "What type of car did Hitler Promise to build?", "Beatle", "Volkswagen ", "Ford", "Ans2" },
@@ -527,16 +521,20 @@ namespace DefendTheBase
             QuestionBox.TextBoxColour = Color.Black;
             //QuestionBox.StringScale = 2f;
             QuestionBox.StringOffset = new Vector2(10, 0);
+            QuestionBox.LineWrapper();
 
             CorrectBox.TextBoxSize = new Vector2(500, 200);
             CorrectBox.TextBoxColour = Color.Black;
             //CorrectBox.StringScale = 2f;
             CorrectBox.StringOffset = new Vector2(10, 0);
+            CorrectBox.LineWrapper();
 
             WrongBox.TextBoxSize = new Vector2(500, 200);
             WrongBox.TextBoxColour = Color.Black;
             //WrongBox.StringScale = 2f;
             WrongBox.StringOffset = new Vector2(10, 0);
+            WrongBox.LineWrapper();
+
 
             Answers[0].StringText = questionDetails[1];
             Answers[1].StringText = questionDetails[2];

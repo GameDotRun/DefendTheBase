@@ -774,6 +774,8 @@ namespace RPGEx
         private float txtBoxRotation, txtBoxScale;
         private bool scaleBox = false;
 
+        private bool lineWrap = false;
+
         public UiTextBox(GraphicsDevice graphicDev)
             : base() // DEFAULT CONSTRUCTOR
         {
@@ -853,6 +855,7 @@ namespace RPGEx
         {
             GetStringSizePX();
             TextBoxRectangleSet();
+
             if (scaleBox)
             {
                 sb.Draw(txtBoxTex, new Rectangle((int)txtBoxlocation.X, (int)txtBoxlocation.Y, (int)StringPXSize.X + 5, (int)StringPXSize.Y), null, txtBoxCol, txtBoxRotation, Vector2.Zero, SpriteEffects.None, 1);
@@ -878,6 +881,57 @@ namespace RPGEx
             StringText = "";
             StringPosition = txtBoxlocation;
         }
+
+        public void LineWrapper()
+        {
+            TextBoxRectangleSet();
+
+            string[] tokenized = StringText.Split(' ','\r');
+
+            List<string> TempStringList = new List<string>();
+
+            int CurrentToken = 0;
+            int Prevlength;
+
+            TempStringList.Add("");
+            foreach (string stringToken in tokenized)
+            {
+               
+                Prevlength = TempStringList[CurrentToken].Length - 1;
+
+                TempStringList[CurrentToken] += stringToken + " ";
+
+                int length = TempStringList[CurrentToken].Length - 1;
+
+                if(GetNewStringSizePX(TempStringList[CurrentToken]).X > TextBox.Width - 5)
+                {
+                    string tempStrLine = TempStringList[CurrentToken].Remove(Prevlength,  length - Prevlength);
+                    TempStringList[CurrentToken] = tempStrLine + "\n";
+                    TempStringList.Add(stringToken + " ");
+                    CurrentToken++;
+                }
+            }
+
+            StringText = "";
+
+            foreach (string String in TempStringList)
+            {
+                StringText += String;
+            }
+        }
+
+        private Vector2 GetNewStringSizePX(string text)
+        {
+            if (text != null)
+            {
+                Vector2 stringsize = StringFont.MeasureString(text);
+                return stringsize;
+            }
+
+            else return Vector2.Zero;
+        
+        }
+
 
         /// <summary>
         /// Get/set TextBoxLocation
@@ -956,6 +1010,13 @@ namespace RPGEx
             get { return scaleBox; }
             set { scaleBox = value; }
         }
+
+        public bool LineWrap
+        {
+            get { return lineWrap; }
+            set { lineWrap = value; }
+        }
+
 
         public void TextBoxRectangleSet()
         {
