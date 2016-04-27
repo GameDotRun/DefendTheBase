@@ -509,25 +509,25 @@ namespace DefendTheBase
     {
         public static List<string[]> QuestionsArray = new List<string[]>
         {
-            new string[] { "Who won World War 2?", "Britain", "Germany", "Allied Forces", "Ans3" },
+            new string[] { "Who won World War II?", "Britain", "Germany", "Allied Forces", "Ans3" },
             new string[] { "Who was the leader of the Soviet Union during World War II?", "Stalin", "Trotski", "Lenin", "Ans1" },
             new string[] { "Who was the leader of Germany during World War II?", "Churchill", "Mussolini", "Hitler", "Ans3" },
             new string[] { "Who was the leader of Italy during World War II?", "Hirohito", "Mussolini", "Eisenhower", "Ans2" },
-            new string[] { "When did WW2 begin?", "1939", "1914", "1941", "Ans1" },
-            new string[] { "Which country did germany invade to start WW2?", "Austria", "Russia", "Poland", "Ans3" },
-            new string[] { "What were the Nazi 'lightning war' tactics which conquered Denmark, Norway, Holland, Belgium and France in April-June 1940 called?", "The Blitz", "Blitzkrieg", "Operation Barbarossa", "Ans2" },
+            new string[] { "When did WWII begin?", "1939", "1914", "1941", "Ans1" },
+            new string[] { "Which country did Germany invade to start WWII?", "Austria", "Russia", "Poland", "Ans3" },
+            new string[] { "What was the Nazi 'Lightning War' called?", "The Blitz", "Blitzkrieg", "Operation Barbarossa", "Ans2" },
             new string[] { "What was the Battle of Britain?", "The Royal Air Force defeated the Luftwaffe.", "The Luftwaffe bombed London and other British cities.", "The British withdrew from France by sea.", "Ans1" },
             new string[] { "What kind of bomb did the Americans drop on Hiroshima?", "A V-1 rocket", "Blitzkrieg", "An atomic bomb", "Ans3" },
             new string[] { "What was Hitlers wife called?", "Eva Braun", "Isla Braun", "Emma Braun", "Ans1" },
             new string[] { "Where was Hitler Born?", "Poland", "Austria", "Germany", "Ans2" },
-            new string[] { "What type of car did Hitler Promise to build?", "Beatle", "Volkswagen ", "Ford", "Ans2" },
-            new string[] { "What country did Hitler want to send the jews to?", "Madagascar ", "America", "Poland", "Ans1" },
-            new string[] { "What was Kristallnacht?", "Day of dreams", "Night of crystals", "Night of  broken glass", "Ans3" },
-            new string[] { "What did hitler want to be?", "Artist ", "Politician", "Soldier", "Ans1" },
-            new string[] { "Roughly how many jews were killed in concentration camps?", "6 mil", "1 mil ", "10 mil", "Ans1" },
-            new string[] { "Who were the 2 main sides of ww2? Allies and?", "Axis ", "Bad guys", "enemies", "Ans1" },
-            new string[] { "What did hitler use to persuade people to vote for him?", "Forced at gun point", "Bribes", "Propaganda", "Ans3" },
-            new string[] { "What country was Auschwitz in?", "Italy", "Germany", "Poland", "Ans3" }
+            new string[] { "What type of car did Hitler promise to build?", "Beatle", "Volkswagen ", "Ford", "Ans2" },
+            new string[] { "What country did Hitler want to send the Jews to?", "Madagascar ", "America", "Poland", "Ans1" },
+            new string[] { "What was Kristallnacht?", "Day of Dreams", "Night of Crystals", "Night of  Broken Glass", "Ans3" },
+            new string[] { "What was Hitler's original desired profession?", "Artist ", "Politician", "Soldier", "Ans1" },
+            new string[] { "Roughly how many Jews were killed in Concentration Camps?", "6 mil", "1 mil ", "10 mil", "Ans1" },
+            new string[] { "Who were the two main sides of WWII? Allies and?", "Axis ", "Bad guys", "Enemies", "Ans1" },
+            new string[] { "What did Hitler use to persuade the people to vote for him?", "Forced at gun point", "Bribes", "Propaganda", "Ans3" },
+            new string[] { "What country was Auschwitz(Concentration Camp) in?", "Italy", "Germany", "Poland", "Ans3" }
         };
         
         static List<QuestionPopUp> QuestionPopUps = new List<QuestionPopUp>();
