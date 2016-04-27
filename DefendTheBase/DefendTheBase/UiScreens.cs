@@ -766,12 +766,10 @@ namespace DefendTheBase
             if (Input.MousePosition.X + TextBoxSize.X > GameManager.ScreenSize.X + GameManager.BORDERRIGHT)
             {
                 float Tempvalue = GameManager.ScreenSize.X + GameManager.BORDERRIGHT - TextBoxSize.X - Input.MousePosition.X;
-                TextBoxLocation = new Vector2(Input.MousePosition.X + Tempvalue, TextBoxLocation.Y);
+                TextBoxLocation = new Vector2(Input.MousePosition.X + Tempvalue, TextBoxLocation.Y + 20);
             }
 
             else TextBoxLocation = Input.MousePosition;
-
-           // else  TextBoxLocation = Input.MousePosition;
         }
 
         public void DrawBox(SpriteBatch sb)

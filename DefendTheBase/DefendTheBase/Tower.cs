@@ -223,6 +223,7 @@ namespace DefendTheBase
                 Enemy targetEnemy = null;
                 Enemy tempEnemy = null;
                 float dist = Range;
+                int index = 0;
                 for (int i = 0; i < enemyList.Count; i++)
                 {
                     if ((enemyList[i].EnemyType != "Helicopter" && TypeofTower != Type.SAM) || (TypeofTower == Type.SAM && enemyList[i].EnemyType == "Helicopter"))
@@ -230,8 +231,36 @@ namespace DefendTheBase
                         tempEnemy = enemyList[i];
                         if (dist > Vector2.Distance(tempEnemy.ScreenPos, this.Position))
                         {
+
                             dist = Vector2.Distance(tempEnemy.ScreenPos, this.Position);
-                            targetEnemy = enemyList[i];
+
+                            if (TypeofTower == Type.Gun)
+                            {
+                                if (targetEnemy == null || i < index || targetEnemy.EnemyType != "Soldier")
+                                {
+                                    index = i;
+                                    targetEnemy = enemyList[i];
+                                }
+                            }
+
+                            if (TypeofTower == Type.Rocket)
+                            {
+                                if (targetEnemy == null || i < index || (targetEnemy.EnemyType != "Tank" && targetEnemy.EnemyType != "Transport" && targetEnemy.EnemyType != "Helicopter"))
+                                {
+                                    index = i;
+                                    targetEnemy = enemyList[i];
+                                }
+                            }
+
+
+                            if (TypeofTower == Type.SAM || TypeofTower == Type.Tesla)
+                            {
+                                if (targetEnemy == null || i < index)
+                                {
+                                    index = i;
+                                    targetEnemy = enemyList[i];
+                                }
+                            }
                         }
                     }
                 }
