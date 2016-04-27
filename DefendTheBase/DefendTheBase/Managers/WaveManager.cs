@@ -21,7 +21,10 @@ namespace DefendTheBase
         static float WaveSpawnInterval = 500f;
         static int WavePower = 2;
 
-        static bool waveCountPop = false;
+        static bool WaveEndInit = false;
+        static bool FirstWaveIntro = true;
+
+
         static bool spawnTroop = true;
         static float fade = 1f;
 
@@ -31,14 +34,22 @@ namespace DefendTheBase
 
         public static void Update(GameTime gameTime)
         {
-            if (!WaveStarted)
+            if (WaveNumber == 1 && FirstWaveIntro)
+            {
+                FirstWaveIntro = false;
+                MessageBoxManager.Add(new MessageBox(MessageBoxManager.Introduction));
+            
+            }
+
+
+            if (!WaveStarted && !MessageBoxManager.MessageDisplayed)
             {
                 if (!QuestionPopUpManager.QuestionUp)
                     WaveStartTimer -= gameTime.ElapsedGameTime;
 
-                if (!waveCountPop)
+                if (!WaveEndInit)
                 {
-                    waveCountPop = true;
+                    WaveEndInit = true;
 
                     WaveCompositionCreator();
 
@@ -94,7 +105,7 @@ namespace DefendTheBase
         static void WaveIncrease()
         {
             fade = 1f;
-            waveCountPop = false;
+            WaveEndInit = false;
             WaveStarted = false;
             WaveNumber++;
             WavePower++;

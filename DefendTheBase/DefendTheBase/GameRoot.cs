@@ -95,7 +95,7 @@ namespace DefendTheBase
                         string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);
                         GameManager.BuildState = (GameManager.BuildStates)Enum.Parse(typeof(GameManager.BuildStates), bStateString);
                     }
-                    else if (UiButtonMessenger.ButtonPressedId.Contains("btn1"))
+                    else if (UiButtonMessenger.ButtonPressedId.Contains("btn1") && !QuestionPopUpManager.QuestionUp && !MessageBoxManager.MessageDisplayed)
                     {
                         // Create String from id by removing the "btn0". Then Parse String to enum.
                         string bStateString = UiButtonMessenger.ButtonPressedId.Substring(4);

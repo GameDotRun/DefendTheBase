@@ -89,7 +89,7 @@ namespace RPGEx
             {
                 foreach (UiButton Button in List)
                 {
-                    Button.Draw(sb);
+                    Button.DrawButton(sb);
                 }
             }
 
@@ -152,6 +152,11 @@ namespace RPGEx
             }
 
             else return true;
+        }
+
+        public void ManualReset()
+        {
+            active = false;
         }
 
         public void TimerUpdate(GameTime gt)
@@ -595,6 +600,7 @@ namespace RPGEx
 
             return null;       
         }
+
         
     }
 
@@ -758,6 +764,11 @@ namespace RPGEx
             StringPosition = TextBoxLocation;
         
         }
+
+        public bool TabButton
+        {
+            get { return isTabButton; }
+        }
     }
 
     /// <summary>
@@ -772,6 +783,8 @@ namespace RPGEx
         private Texture2D txtBoxTex;
         private Color txtBoxCol;
         private float txtBoxRotation, txtBoxScale;
+        private string textboxInfo;
+
         private bool scaleBox = false;
 
         private bool lineWrap = false;
@@ -858,6 +871,7 @@ namespace RPGEx
 
             if (scaleBox)
             {
+                TextBoxSize = new Vector2((int)StringPXSize.X + 5, (int)StringPXSize.Y);
                 sb.Draw(txtBoxTex, new Rectangle((int)txtBoxlocation.X, (int)txtBoxlocation.Y, (int)StringPXSize.X + 5, (int)StringPXSize.Y), null, txtBoxCol, txtBoxRotation, Vector2.Zero, SpriteEffects.None, 1);
                 sb.DrawString(StringFont, StringText, txtBoxlocation + stringOffset + new Vector2(2,0), StringColour, txtBoxRotation, Vector2.Zero, StringScale, SpriteEffects.None, 1);
             }
@@ -928,6 +942,14 @@ namespace RPGEx
             }
 
             else return Vector2.Zero;
+        
+        }
+
+        public void SizeToTextY()
+        {
+            Vector2 TextSize = GetNewStringSizePX(StringText);
+
+            TextBoxSize = new Vector2(TextBoxSize.X, TextSize.Y);
         
         }
 
@@ -1016,10 +1038,22 @@ namespace RPGEx
             set { lineWrap = value; }
         }
 
+        public string TextBoxInfo
+        {
+            get { return textboxInfo; }
+            set { textboxInfo = value; }
+        }
 
         public void TextBoxRectangleSet()
         {
             txtBox = new Rectangle((int)txtBoxlocation.X, (int)txtBoxlocation.Y, (int)txtBoxSize.X, (int)txtBoxSize.Y);
+        }
+
+        public bool IsMouseHovering(Point MousePosPoint)
+        {
+            if (TextBox.Contains(MousePosPoint))
+                return true;
+            else return false;
         }
 
         private void TextBoxTextureDefSet(GraphicsDevice graphicDev)
@@ -1028,6 +1062,8 @@ namespace RPGEx
             txtBoxTex.SetData(new Color[] { Color.Blue });
             txtBoxCol = Color.White;
         }
+
+
 
     }
 

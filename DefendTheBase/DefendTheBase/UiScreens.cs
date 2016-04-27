@@ -26,6 +26,7 @@ namespace DefendTheBase
         public UiSideGameScreen(GraphicsDevice graphicsDevice) : base(GameManager.WIDTH, GameManager.HEIGHT)
         {
             tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Art.tabTestTexture, Art.ButtonEffectTexture, new Vector2(83, 40));
+            
 
             unitBuild = new List<UiButton>();
             baseBuild = new List<UiButton>();
@@ -39,12 +40,29 @@ namespace DefendTheBase
 
         public void Update()
         {
+            if (GameManager.HelpMode)
+            {
+                foreach (UiButton button in UiButtonMessenger.ButtonListeners)
+                {
+                    if (button.IsMouseHovering(Input.MousePosition.ToPoint()) && !button.TabButton && !HelpDialogManager.Hovering)
+                    {
+                        HelpDialogManager.Hovering = true;
+                        HelpDialogManager.Add(new HelpDialog(button.TextBoxInfo, Input.MousePosition));
+                        break;
+                    }
+
+                    else HelpDialogManager.Hovering = false;
+                }
+            }
+
+
             if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.RocketTower))
             {
                 if (unitBuild.Count < 2)
                 {
                     unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[1], Art.ButtonEffectTexture, "btn0TowerRocket", true));
                     buttonSingleInit(unitBuild[unitBuild.Count - 1], unitBuild.Count - 1, 0);
+                    unitBuild[1].TextBoxInfo = "Rocket Tower\n Effective vs Vehicles";
                 }
             }
 
@@ -54,6 +72,7 @@ namespace DefendTheBase
                 {
                     unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[2], Art.ButtonEffectTexture, "btn0TowerSAM", true));
                     buttonSingleInit(unitBuild[unitBuild.Count - 1], unitBuild.Count - 1, 0);
+                    unitBuild[2].TextBoxInfo = "SAM Tower\n Effective vs Helicopters";
                 }
             }
 
@@ -63,6 +82,7 @@ namespace DefendTheBase
                 {
                     unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[3], Art.ButtonEffectTexture, "btn0TowerTesla", true));
                     buttonSingleInit(unitBuild[unitBuild.Count - 1], unitBuild.Count - 1, 0);
+                    unitBuild[3].TextBoxInfo = "Tesla Tower\n Neutral vs All";
                 }
             }
 
@@ -72,9 +92,12 @@ namespace DefendTheBase
                 {
                     unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[4], Art.ButtonEffectTexture, "btn0Upgrade", true));
                     buttonSingleInit(unitBuild[unitBuild.Count - 1], unitBuild.Count - 1, 0);
+                    unitBuild[4].TextBoxInfo = "Upgrade Tower\n Use this to upgrade an existing tower!";
                 }
             }
 
+            
+            
             tabs.Update();
         }
 
@@ -106,16 +129,21 @@ namespace DefendTheBase
 
             //Units buttons Here
             unitBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsTower[0], Art.ButtonEffectTexture, "btn0TowerGun", true));
+            unitBuild[0].TextBoxInfo = "Gun Tower\n Effective vs Soldiers";
             //unitBuild[0].StringText = "Gun Tower";
 
             buttonsInit(ref unitBuild, 0);
 
             //Base Buttons Here
             baseBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[0], Art.ButtonEffectTexture, "btn0Trench", true));
-            //baseBuild[0].StringText = "Build Trench";
+            baseBuild[0].TextBoxInfo = "Use this to build trenches!";
+
             baseBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[1], Art.ButtonEffectTexture, "btn0Concrete", true));
+            baseBuild[1].TextBoxInfo = "Use this to build foundations to place your towers on!";
             //baseBuild[1].StringText = "Build Concrete";
+
             baseBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[2], Art.ButtonEffectTexture, "btn0Destroy", true));
+            baseBuild[2].TextBoxInfo = "Use this to Destroy a placed building!";
             //baseBuild[2].StringText = "Destroy Building";
 
             buttonsInit(ref baseBuild, 1);
@@ -126,6 +154,7 @@ namespace DefendTheBase
 
             miscBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsMisc[0], Art.ButtonEffectTexture, "btn1NextWave", true));
             //miscBuild[0].StringText = "Next Wave";
+            miscBuild[0].TextBoxInfo = "Start Next Wave";
 
             buttonsInit(ref miscBuild, 2);
         }
@@ -139,6 +168,7 @@ namespace DefendTheBase
         public List<UiTextBox> currencyStats;
         public List<UiTextBox> timers;
         public List<UiTextString> popUpText;
+        public List<UiButton> topScreenButtons;
 
         public UiTopGameScreen(GraphicsDevice graphicsDevice) : base(GameManager.WIDTH, GameManager.HEIGHT)
         {
@@ -147,25 +177,51 @@ namespace DefendTheBase
             currencyStats = new List<UiTextBox>();
             timers = new List<UiTextBox>();
             popUpText = new List<UiTextString>();
+            topScreenButtons = new List<UiButton>();
 
             Add(ref waveStats);
             Add(ref currencyStats);
             Add(ref timers);
             Add(ref popUpText);
             Add(ref healthBar);
+            Add(ref topScreenButtons);
 
             CreateUi(graphicsDevice);
         }
 
         public void CreateUi(GraphicsDevice graphicsDevice)
         {
-            waveStats.Add(new UiTextBox(Art.UiFont, "Wave: ", new Vector2(10, 10), Color.White, Art.TextBoxBackGround, true));
-            waveStats.Add(new UiTextBox(Art.UiFont, "Kills: " + WaveManager.WaveEnemiesUsed , new Vector2(110, 10), Color.White, Art.TextBoxBackGround, true ));
-            currencyStats.Add(new UiTextBox(Art.UiFont, "Manpower: " + GameManager.Manpower, new Vector2(10, 50), Color.White, Art.TextBoxBackGround, true));
-            currencyStats.Add(new UiTextBox(Art.UiFont, "Resources: " + GameManager.Resources, new Vector2(10, 90), Color.White, Art.TextBoxBackGround, true));
-            timers.Add(new UiTextBox(Art.UiFont, "Next Wave in: ", new Vector2(1000, GameManager.BORDERTOP - 40), Color.White, Art.TextBoxBackGround, true));
 
-            
+            topScreenButtons.Add(new UiButton(Art.UiFont, new Vector2(1200,  5), new Vector2(30, 30), Art.HelpButton, Art.ButtonEffectTexture, "HelpButton", true));
+
+            waveStats.Add(new UiTextBox(Art.UiFont, "Wave: ", new Vector2(10, 10), Color.White, Art.TextBoxBackGround, true));
+            waveStats[0].TextBoxInfo = "Current Wave Number";
+
+            waveStats.Add(new UiTextBox(Art.UiFont, "Kills: " + WaveManager.WaveEnemiesUsed , new Vector2(110, 10), Color.White, Art.TextBoxBackGround, true ));
+            waveStats[1].TextBoxInfo = "Number of Enemies killed";
+
+            currencyStats.Add(new UiTextBox(Art.UiFont, "Manpower: " + GameManager.Manpower, new Vector2(10, 50), Color.White, Art.TextBoxBackGround, true));
+            currencyStats[0].TextBoxInfo = "Number of men available";
+
+            currencyStats.Add(new UiTextBox(Art.UiFont, "Resources: " + GameManager.Resources, new Vector2(10, 90), Color.White, Art.TextBoxBackGround, true));
+            currencyStats[1].TextBoxInfo = "Number of resources available.";
+
+            timers.Add(new UiTextBox(Art.UiFont, "Next Wave in: ", new Vector2(1000, GameManager.BORDERTOP - 40), Color.White, Art.TextBoxBackGround, true));
+            timers[0].TextBoxInfo = "Time till next wave";
+
+            foreach (UiButton button in topScreenButtons)
+            {
+                UiButtonMessenger.RegisterButton(button);
+                button.TextBoxRectangleSet();
+                button.SetButtonState = UiButton.UiButtonStates.Button_Up;
+            }
+
+            if (!GameManager.HelpMode)
+            {
+                topScreenButtons[0].TextBoxTexture = Art.HelpButtonOff;
+            }
+
+            topScreenButtons[0].TextBoxInfo = "Help Button";
         }
 
         public void Update()
@@ -173,34 +229,65 @@ namespace DefendTheBase
             healthBar.Update(50);
 
             waveStats[0].StringText = "Wave: " + WaveManager.WaveNumber;
-            waveStats[1].StringText = "Kills: " + WaveManager.WaveEnemiesUsed ;
+            waveStats[1].StringText = "Kills: " + WaveManager.WaveEnemiesUsed;
+
+            
 
             currencyStats[0].StringText = "Manpower: " + GameManager.Manpower;
             currencyStats[1].StringText = "Resources: " + GameManager.Resources;
 
             timers[0].StringText = "Next Wave in: " + WaveManager.WaveStartTimer.TotalSeconds.ToString("N0");
-            
+
+            foreach (List<UiTextBox> boxList in TextBoxList)
+            {
+                foreach (UiTextBox box in boxList)
+                {
+                    if (box.IsMouseHovering(Input.MousePosition.ToPoint())  && !HelpDialogManager.Hovering)
+                    {
+                        HelpDialogManager.Hovering = true;
+                        HelpDialogManager.Add(new HelpDialog(box.TextBoxInfo, Input.MousePosition));
+                        break;
+                    }
+                }
+            }
+
+
+            if (topScreenButtons[0].IsButtonDown() && GameManager.HelpMode)
+            {
+                topScreenButtons[0].TextBoxTexture = Art.HelpButtonOff;
+                GameManager.HelpMode = false;
+            }
+
+            else if (topScreenButtons[0].IsButtonDown() && !GameManager.HelpMode)
+            {
+                topScreenButtons[0].TextBoxTexture = Art.HelpButton;
+                GameManager.HelpMode = true;
+            }
         }
     }
 
     public static class MessageBoxManager
     {
-        public static string RocketTowerUnlock = "New Tower Unlocked!\nRocket Tower, use this to make\nshort work of vehicles";
-        public static string SAMTowerUnlock = "New Tower Unlocked!\nSAM Tower, use this to make\nshort work of helicopters";
-        public static string TeslaTowerUnlock = "New Tower Unlocked!\nTesla Tower, has no weakness\nbut no strength either";
-        public static string UpgradeTowerUnlock = "New Tower Unlocked!\nUpgrade Tower, use this to upgrade\nyour Towers";
-        public static string Introduction = "";
+        public static string RocketTowerUnlock = "New Tower Unlocked! Rocket Tower, use this to make short work of vehicles";
+        public static string SAMTowerUnlock = "New Tower Unlocked! SAM Tower, use this to make short work of helicopters";
+        public static string TeslaTowerUnlock = "New Tower Unlocked! Tesla Tower, has no weakness but no strength either";
+        public static string UpgradeTowerUnlock = "New Tower Unlocked! Upgrade Tower, use this to upgrade your Towers";
+        public static string Introduction = "Welcome to Defend the Base! [Insert introduction here]";
 
         public static List<MessageBox> MessageBox = new List<MessageBox>();
+
+        public static bool MessageDisplayed = false;
 
         public static void Add(MessageBox messagebox)
         {
             MessageBox.Add(messagebox);
+            MessageDisplayed = true;
         }
 
         public static void Remove(MessageBox messagebox)
         {
             MessageBox.Remove(messagebox);
+            MessageDisplayed = false;
         }
 
         public static void Update(GameTime gt)
@@ -235,7 +322,7 @@ namespace DefendTheBase
 
     public class MessageBox : UiTextBox
     {
-        public UiTimer timer = new UiTimer(5000f);
+        public UiTimer timer = new UiTimer(30000f);
 
         public MessageBox(string stringText)
             : base(Art.UiFont, stringText, new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false)
@@ -243,6 +330,7 @@ namespace DefendTheBase
             TextBoxSize = new Vector2(500, 200);
             TextBoxColour = Color.Black;
             StringOffset = new Vector2(10, 0);
+            LineWrapper();
         }
 
         public void Update(GameTime gt)
@@ -251,6 +339,11 @@ namespace DefendTheBase
                 timer.ActivateTimer();
 
             timer.TimerUpdate(gt);
+
+            if (TextBox.Contains(Input.MousePosition.ToPoint()) && Input.WasLMBClicked)
+            {
+                timer.ManualReset();
+            }
         }
 
         public void DrawBox(SpriteBatch sb)
@@ -359,7 +452,7 @@ namespace DefendTheBase
 
         public static void Update(GameTime gt)
         {
-            if (PopUps.Count > 100000)
+            if (PopUps.Count > 10)
             {
                 PopUps.RemoveAt(0);
             }
@@ -519,26 +612,26 @@ namespace DefendTheBase
 
             QuestionBox.TextBoxSize = new Vector2(500, 200);
             QuestionBox.TextBoxColour = Color.Black;
-            //QuestionBox.StringScale = 2f;
             QuestionBox.StringOffset = new Vector2(10, 0);
             QuestionBox.LineWrapper();
 
             CorrectBox.TextBoxSize = new Vector2(500, 200);
             CorrectBox.TextBoxColour = Color.Black;
-            //CorrectBox.StringScale = 2f;
             CorrectBox.StringOffset = new Vector2(10, 0);
             CorrectBox.LineWrapper();
 
             WrongBox.TextBoxSize = new Vector2(500, 200);
             WrongBox.TextBoxColour = Color.Black;
-            //WrongBox.StringScale = 2f;
             WrongBox.StringOffset = new Vector2(10, 0);
             WrongBox.LineWrapper();
 
 
             Answers[0].StringText = questionDetails[1];
+            Answers[0].TextBoxInfo = "An answer box.";
             Answers[1].StringText = questionDetails[2];
+            Answers[1].TextBoxInfo = "An answer box.";
             Answers[2].StringText = questionDetails[3];
+            Answers[2].TextBoxInfo = "An answer box.";
 
             foreach (UiButton button in Answers)
             {
@@ -570,6 +663,7 @@ namespace DefendTheBase
                             TroopManager.SpawnTroop();
                             QuestionPopUpManager.QuestionsArray.Remove(QuestionDetails);
 
+
                         }
 
                         else State = QuestionState.Wrong;
@@ -587,6 +681,8 @@ namespace DefendTheBase
                 if(Input.WasLMBClicked)
                 {
                     State = QuestionState.Done;
+
+                    Input.Update();
                 }
             }
         }
@@ -609,6 +705,80 @@ namespace DefendTheBase
             else if (State == QuestionState.Wrong)
                 WrongBox.Draw(sb);
         }
+    }
+
+    public static class HelpDialogManager
+    {
+        public static List<HelpDialog> DialogBox = new List<HelpDialog>();
+
+        public static bool Hovering = false;
+
+        public static void Add(HelpDialog messagebox)
+        {
+            DialogBox.Add(messagebox);
+        }
+
+        public static void Remove(HelpDialog messagebox)
+        {
+            DialogBox.Remove(messagebox);
+        }
+
+        public static void Update()
+        {
+            if (DialogBox.Count > 1)
+                DialogBox.RemoveAt(0);
+
+
+            if (Hovering == false && DialogBox.Count != 0)
+                DialogBox.RemoveAt(0);
+
+            foreach (HelpDialog message in DialogBox)
+            {
+                message.Update();
+            }
+        }
+
+        public static void Draw(SpriteBatch sb)
+        {
+            foreach (HelpDialog message in DialogBox)
+            {
+                message.Draw(sb);
+            }
+        }
+    }
+
+    public class HelpDialog : UiTextBox
+    { 
+        public HelpDialog(string stringText, Vector2 mousePos)
+            : base(Art.HelpFont, stringText, mousePos, Color.White, Art.TextBoxBackGround, false)
+        {
+            TextBoxSize = new Vector2(200, 300);
+            TextBoxColour = Color.Black;
+            LineWrapper();
+
+            SizeToTextY();
+
+            StringOffset = new Vector2(10, 0);
+        }
+
+        public void Update()
+        {
+            if (Input.MousePosition.X + TextBoxSize.X > GameManager.ScreenSize.X + GameManager.BORDERRIGHT)
+            {
+                float Tempvalue = GameManager.ScreenSize.X + GameManager.BORDERRIGHT - TextBoxSize.X - Input.MousePosition.X;
+                TextBoxLocation = new Vector2(Input.MousePosition.X + Tempvalue, TextBoxLocation.Y);
+            }
+
+            else TextBoxLocation = Input.MousePosition;
+
+           // else  TextBoxLocation = Input.MousePosition;
+        }
+
+        public void DrawBox(SpriteBatch sb)
+        {
+            Draw(sb);
+        }
+    
     }
 
     public class StartScreen
@@ -649,20 +819,25 @@ namespace DefendTheBase
             {
                 DisableScreen();
                 GameManager.GameState = GameManager.GameStates.PlayScreen;
-
                 FadeOutTimer.ActivateTimer();
                 fadeout = true;
+
+                StartMenuButtons[0].SetButtonState = UiButton.UiButtonStates.Button_Up;
+
+                Input.Update(); 
+
             }
 
             else if (StartMenuButtons[1].IsButtonDown())
             {
                 //load info box and whatever else
-
+                Input.Update();
             }
 
             else if (StartMenuButtons[2].IsButtonDown())
             { 
                 //load tutorial vid and whatever else
+                Input.Update();
             
             }
 
@@ -677,6 +852,8 @@ namespace DefendTheBase
 
             if (FadeOutTimer.TimeReached())
                 fadeout = false;
+
+            
         }
 
         public void Draw(SpriteBatch sb)

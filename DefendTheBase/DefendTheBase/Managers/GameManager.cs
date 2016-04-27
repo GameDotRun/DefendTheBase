@@ -83,6 +83,8 @@ namespace DefendTheBase
         public static Vector2 ScreenSize; // ScreenSize
         public static Vector2 MouseScreenPos;
 
+        public static bool HelpMode = false;
+
         public static void Init(GraphicsDevice graphics )
         {
             rnd = new Random();
@@ -113,6 +115,9 @@ namespace DefendTheBase
             PopUpTextManager.Update(gameTime);
             PopUpNotificationManager.Update(gameTime);
             MessageBoxManager.Update(gameTime);
+
+            if (HelpMode)
+                HelpDialogManager.Update();
             
         }
 
@@ -128,6 +133,9 @@ namespace DefendTheBase
             QuestionPopUpManager.Draw(sb);
             PopUpNotificationManager.Draw(sb);
             MessageBoxManager.Draw(sb);
+
+            if (HelpMode)
+                HelpDialogManager.Draw(sb);
 
         }
 

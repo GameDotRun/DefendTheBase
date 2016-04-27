@@ -56,6 +56,7 @@ namespace DefendTheBase
         // Small font used for debug info.
         public static SpriteFont DebugFont { get; private set; }
         public static SpriteFont UiFont { get; private set; }
+        public static SpriteFont HelpFont { get; private set; }
 
         public static Texture2D TextBoxBackGround { get; private set; }
 
@@ -64,6 +65,8 @@ namespace DefendTheBase
 
         public static Texture2D StartMenuBackground { get; private set; }
 
+        public static Texture2D HelpButton { get; private set; }
+        public static Texture2D HelpButtonOff { get; private set; }
         public static void Load(ContentManager content)
         {
             Pixel = content.Load<Texture2D>("Art/Images/Misc/Pixel");   // Flecks Art Contribution.
@@ -141,11 +144,14 @@ namespace DefendTheBase
             // Fonts
             DebugFont = content.Load<SpriteFont>("Art/Fonts/DebugFont");
             UiFont = content.Load<SpriteFont>("Art/Fonts/UiFont");
+            HelpFont = content.Load<SpriteFont>("Art/Fonts/HelpFont");
 
             TextBoxBackGround = content.Load<Texture2D>("Art/Images/Misc/TextBoxBackground");
 
             StartMenuBackground = content.Load<Texture2D>("Art/Images/Misc/StartMenu");
 
+            HelpButton = content.Load<Texture2D>("Art/Images/Misc/HelpButton");
+            HelpButtonOff = content.Load<Texture2D>("Art/Images/Misc/HelpButtonOff");
         }
 
         public static Texture2D getTrenchTex(string trenchName)

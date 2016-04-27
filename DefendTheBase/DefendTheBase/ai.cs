@@ -177,8 +177,6 @@ namespace DefendTheBase
         public Coordinates nextCoord, currentCoord;
         public Vector2 Node, previousVect, Movement;
         internal int tempInt;
-
-        int defDist;
         bool Moving = false;
 
         float distance;
@@ -187,7 +185,6 @@ namespace DefendTheBase
 
         public FriendlyAi()
         {
-            defDist = GameManager.DEFAULYDIST;
             tempInt = GameManager.DEFAULYDIST;
             nextCoord = new Coordinates(0, 0);
         }
