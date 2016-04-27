@@ -547,6 +547,7 @@ namespace DefendTheBase
                 //button.StringScale = 2f;
                 button.StringOffset = new Vector2(10, 0);
                 button.TextBoxRectangleSet();
+                button.LineWrapper();
 
                 button.SetButtonState = UiButton.UiButtonStates.Button_Up;
             }
