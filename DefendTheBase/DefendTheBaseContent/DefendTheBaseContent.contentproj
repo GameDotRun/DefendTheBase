@@ -554,10 +554,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="Art\Images\Misc\EndScreen.png">
-      <Name>EndScreen</Name>
-=======
     <Compile Include="Art\Images\UnitsEnemy\soldier_blue.png">
       <Name>soldier_blue</Name>
       <Importer>TextureImporter</Importer>
@@ -620,7 +616,6 @@
   <ItemGroup>
     <Compile Include="Art\Images\UnitsEnemy\jeep_top.png">
       <Name>jeep_top</Name>
->>>>>>> origin/master
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

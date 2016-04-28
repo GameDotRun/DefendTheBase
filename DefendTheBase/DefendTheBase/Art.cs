@@ -151,7 +151,7 @@ namespace DefendTheBase
             TextBoxBackGround = content.Load<Texture2D>("Art/Images/Misc/TextBoxBackground");
 
             StartMenuBackground = content.Load<Texture2D>("Art/Images/Misc/StartMenu");
-            EndScreenBackground = content.Load<Texture2D>("Art/Images/Misc/EndScreen");
+            //EndScreenBackground = content.Load<Texture2D>("Art/Images/Misc/EndScreen");
 
             HelpButton = content.Load<Texture2D>("Art/Images/Misc/HelpButton");
             HelpButtonOff = content.Load<Texture2D>("Art/Images/Misc/HelpButtonOff");
