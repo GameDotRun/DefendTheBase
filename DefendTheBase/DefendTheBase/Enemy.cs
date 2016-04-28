@@ -41,6 +41,7 @@ namespace DefendTheBase
     static class TankTurret
     {
         public static List<Projectile> EnemyProjectiles = new List<Projectile>();
+        static float Rotation;
         public static Vector2 Update(Enemy enemy)
         {
             enemy.shootTimer -= 1 / 60f;
@@ -66,8 +67,11 @@ namespace DefendTheBase
             //Shoot
             if (targetTower != null)
             {
+                // LERPING HERE
                 turretDirection = new Vector2(targetTower.Position.X - enemy.ScreenPos.X, targetTower.Position.Y - enemy.ScreenPos.Y);
-                
+                float nextRotation = turretDirection.ToAngle();
+                Rotation = Extensions.CurveAngle(Rotation, nextRotation, 0.5f);
+                turretDirection = Rotation.ToVector();
                 // Shoot
 
                 if (enemy.shootTimer <= 0)
@@ -178,15 +182,15 @@ namespace DefendTheBase
             if (EnemyType == "Tank" || EnemyType == "Jeep")
             {
                 TurretDirection = TankTurret.Update(this);
-                float nextTurretRotation = TurretDirection.ToAngle();
-                turretRotation = Extensions.CurveAngle(turretRotation, nextTurretRotation, 0.06f);
             }
 
             Vector2 NextScreenPos = new Vector2((int)GameManager.grid.gridBorder.X + (nextCoord.x * GameManager.SQUARESIZE + 0.1f), (int)GameManager.grid.gridBorder.Y + (nextCoord.y * GameManager.SQUARESIZE));
             Direction = Movement;
 
             if (!towerInRange)
+            {
                 TurretDirection = Direction;
+            }
 
             if (usingSpriteSheet)
             {
