@@ -67,6 +67,7 @@ namespace DefendTheBase
             if (targetTower != null)
             {
                 turretDirection = new Vector2(targetTower.Position.X - enemy.ScreenPos.X, targetTower.Position.Y - enemy.ScreenPos.Y);
+                
                 // Shoot
 
                 if (enemy.shootTimer <= 0)
@@ -109,7 +110,7 @@ namespace DefendTheBase
         public bool IsDestroyed = false;
         public bool towerInRange = false;
         public bool usingSpriteSheet;
-        public float time, shootTimer, animElasped, targetElasped;
+        public float time, shootTimer, animElasped, targetElasped, turretRotation;
         public int spriteSheetNo = 0;
         public int sheetFrameTotal;
 
@@ -174,6 +175,8 @@ namespace DefendTheBase
             if (EnemyType == "Tank" || EnemyType == "Jeep")
             {
                 TurretDirection = TankTurret.Update(this);
+                float nextTurretRotation = TurretDirection.ToAngle();
+                turretRotation = Extensions.CurveAngle(turretRotation, nextTurretRotation, 0.06f);
             }
 
             Vector2 NextScreenPos = new Vector2((int)GameManager.grid.gridBorder.X + (nextCoord.x * GameManager.SQUARESIZE + 0.1f), (int)GameManager.grid.gridBorder.Y + (nextCoord.y * GameManager.SQUARESIZE));
@@ -200,7 +203,7 @@ namespace DefendTheBase
             if (EnemyType == "Tank")
             {
                 sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
-                sb.Draw(Art.TankTop, new Vector2(ScreenPos.X , ScreenPos.Y), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.TankTop.Width / 5, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Art.TankTop, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.TankTop.Width / 5, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
             }
 
             else if (EnemyType == "Transport")

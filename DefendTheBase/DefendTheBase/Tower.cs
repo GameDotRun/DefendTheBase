@@ -266,7 +266,9 @@ namespace DefendTheBase
                 }
                 if (targetEnemy != null)
                 {
-                    Rotation = Extensions.ToAngle(targetEnemy.ScreenPos - Position);
+                    float nextRotation = Extensions.ToAngle(targetEnemy.ScreenPos - Position);
+                    //Rotation = MathHelper.Lerp(Rotation, nextRotation, 0.06f);
+                    Rotation = Extensions.CurveAngle(Rotation, nextRotation, 0.6f);
                     // Shoot
                     if (shootTimer >= (1f/FireRate))
                     {
