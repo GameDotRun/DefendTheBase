@@ -141,7 +141,7 @@ namespace DefendTheBase
             if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.SamTower) && WaveManager.WaveNumber > 8)
                 UseableEnemies.Add("Helicopter");
 
-            WavePower = (WaveNumber * 10);
+            WavePower = (WaveNumber * 20);
 
             /*if (TowerListener.TowersList.Count /3   != 0)
                 WavePower *= TowerListener.TowersList.Count / 3;*/
@@ -159,22 +159,22 @@ namespace DefendTheBase
 
                 else if (UseableEnemies[index] == "Transport")
                 {
-                    CurrentWavePower += 2;
+                    CurrentWavePower += 8;
                 }
 
                 else if (UseableEnemies[index] == "Jeep")
                 {
-                    CurrentWavePower += 4;
+                    CurrentWavePower += 10;
                 }
 
                 else if (UseableEnemies[index] == "Tank")
                 {
-                    CurrentWavePower += 8;
+                    CurrentWavePower += 16;
                 }
 
                 else if (UseableEnemies[index] == "Helicopter")
                 {
-                    CurrentWavePower += 3;
+                    CurrentWavePower += 10;
                 }
 
                WaveComposition.Add(UseableEnemies[index]);

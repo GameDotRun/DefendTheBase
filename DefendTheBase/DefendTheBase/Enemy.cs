@@ -118,6 +118,8 @@ namespace DefendTheBase
 
         bool moving = false;
 
+        public float damage;
+
         public Enemy(string enemyID, Vector2 enemyVector) : base()
         {
             ScreenPos = new Vector2(0, GameManager.grid.gridBorder.Y + GameManager.SQUARESIZE / 2);
@@ -153,6 +155,7 @@ namespace DefendTheBase
                 if (currentCoord.CoordEqual(GameManager.ENDPOINT))
                 {
                     IsDestroyed = true;
+                    GameManager.BaseHealth -= damage;
                 }
             }
 
@@ -238,6 +241,7 @@ namespace DefendTheBase
         private float m_criticalResist = 80;
         private float m_hp = 500;
         private float m_speed = 3f;
+        private float m_damage = 5f;
         private bool spriteSheet = false;
 
         public TankEnemy(string enemyID, Vector2 enemyVector)
@@ -249,7 +253,7 @@ namespace DefendTheBase
             speed = m_speed;
             EnemyType = Type;
             usingSpriteSheet = spriteSheet;
-
+            damage = m_damage;
         }
     }
 
@@ -261,6 +265,7 @@ namespace DefendTheBase
         private float m_criticalResist = 40;
         private float m_hp = 150;
         private float m_speed = 5f;
+        private float m_damage = 1f;
         private bool spriteSheet = false;
 
         public JeepEnemy(string enemyID, Vector2 enemyVector)
@@ -272,6 +277,7 @@ namespace DefendTheBase
             speed = m_speed;
             EnemyType = Type;
             usingSpriteSheet = spriteSheet;
+            damage = m_damage;
         }
     }
 
@@ -283,6 +289,7 @@ namespace DefendTheBase
         private float m_criticalResist = 70;
         private float m_hp = 300;
         private float m_speed = 3f;
+        private float m_damage = 5f;
         private bool spriteSheet = false;
 
         public TransportEnemy(string enemyID, Vector2 enemyVector)
@@ -294,6 +301,7 @@ namespace DefendTheBase
             speed = m_speed;
             EnemyType = Type;
             usingSpriteSheet = spriteSheet;
+            damage = m_damage;
         }
     }
 
@@ -309,6 +317,7 @@ namespace DefendTheBase
         private float m_criticalResist = 40;
         private float m_hp = 50;
         private float m_speed = 2;
+        private float m_damage = 1f;
       
         private bool spriteSheet = true;
 
@@ -324,6 +333,7 @@ namespace DefendTheBase
             usingSpriteSheet = spriteSheet;
             targetElasped = frameSpeed;
             sheetFrameTotal = frameTotal;
+            damage = m_damage;
         }
    
     }
@@ -339,7 +349,8 @@ namespace DefendTheBase
         private float m_criticalResist = 50;
         private float m_hp = 150;
         // helicopter speed works very differently, as it only heads towards one node currently it goes a lot faster than other units which use multiple nodes. dividing by 10 seems good
-        private float m_speed = 5f / 10; 
+        private float m_speed = 5f / 10;
+        private float m_damage = 8f;
 
         private bool spriteSheet = true;
 
@@ -354,6 +365,7 @@ namespace DefendTheBase
             usingSpriteSheet = spriteSheet;
             targetElasped = frameSpeed;
             sheetFrameTotal = frameTotal;
+            damage = m_damage;
         }
     }
 

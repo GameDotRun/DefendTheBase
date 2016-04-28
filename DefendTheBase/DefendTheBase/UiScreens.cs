@@ -226,7 +226,7 @@ namespace DefendTheBase
 
         public void Update()
         {
-            healthBar.Update(50);
+            healthBar.Update(GameManager.BaseHealth);
 
             waveStats[0].StringText = "Wave: " + WaveManager.WaveNumber;
             waveStats[1].StringText = "Kills: " + WaveManager.WaveEnemiesUsed;

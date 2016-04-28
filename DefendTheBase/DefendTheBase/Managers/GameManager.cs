@@ -10,7 +10,7 @@ namespace DefendTheBase
 {
     public class GameManager
     {
-        private const float DEFAULT_MANPOWER = 100f;
+        private const float DEFAULT_MANPOWER = 0f;
         private const int DEFAULT_RESOURCES = 1000;
 
         public enum GameStates
@@ -84,6 +84,8 @@ namespace DefendTheBase
         public static Vector2 MouseScreenPos;
 
         public static bool HelpMode = false;
+
+        public static float BaseHealth = 100;
 
         public static void Init(GraphicsDevice graphics )
         {
