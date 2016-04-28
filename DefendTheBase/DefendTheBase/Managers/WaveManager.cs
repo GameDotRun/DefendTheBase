@@ -55,17 +55,9 @@ namespace DefendTheBase
 
                     if(QuestionPopUpManager.QuestionsArray.Count != 0)
                         GenerateQuestion();
-                }
 
-                if (WaveStartTimer.Seconds % 5 == 0 && spawnTroop)
-                {
-                    TroopManager.SpawnTroop();
-                    spawnTroop = false;
-                }
-
-                else if (WaveStartTimer.Seconds % 5 != 0)
-                {
-                    spawnTroop = true;
+                    for(int i = 0; i < 7; i++)
+                        TroopManager.SpawnTroop();
                 }
             }
 

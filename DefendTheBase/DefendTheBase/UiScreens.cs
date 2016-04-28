@@ -172,7 +172,7 @@ namespace DefendTheBase
 
         public UiTopGameScreen(GraphicsDevice graphicsDevice) : base(GameManager.WIDTH, GameManager.HEIGHT)
         {
-            healthBar = new UiStatusBars(100, new Vector2(100, 25), new Vector2(300, 10), Art.HpBar[0], Art.HpBar[1]);
+            healthBar = new UiStatusBars(100, new Vector2(400, 75), new Vector2(300, 20), Art.HpBar[0], Art.HpBar[1]);
             waveStats = new List<UiTextBox>();
             currencyStats = new List<UiTextBox>();
             timers = new List<UiTextBox>();
@@ -877,6 +877,49 @@ namespace DefendTheBase
             foreach (UiButton button in StartMenuButtons)
                 UiButtonMessenger.RemoveButton(button.GetButtonID);
         }
+
+    }
+
+    public class EndScreen
+    {
+        Vector2 EndScreenModifier = new Vector2(0, -5);
+        Texture2D backgroundTex = Art.EndScreenBackground;
+
+        UiTimer FadeOutTimer = new UiTimer(5000f);
+
+        float fade = 1f;
+
+        public bool fadeout = false;
+
+        public EndScreen()
+        {
+
+
+        }
+
+        public void Update(GameTime gt)
+        {
+            FadeOutTimer.ActivateTimer();
+
+            if (FadeOutTimer.GetActive)
+            {
+                FadeOutTimer.TimerUpdate(gt);
+                fade -= 0.01f;
+            }
+
+            if (FadeOutTimer.TimeReached())
+            {
+
+                fadeout = false;
+
+            }
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+            sb.Draw(backgroundTex, Vector2.Zero, Color.White * fade);
+        }
+
 
     }
 

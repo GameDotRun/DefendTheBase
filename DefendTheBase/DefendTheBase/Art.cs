@@ -67,6 +67,8 @@ namespace DefendTheBase
 
         public static Texture2D HelpButton { get; private set; }
         public static Texture2D HelpButtonOff { get; private set; }
+
+        public static Texture2D EndScreenBackground { get; private set; }
         public static void Load(ContentManager content)
         {
             Pixel = content.Load<Texture2D>("Art/Images/Misc/Pixel");   // Flecks Art Contribution.
@@ -149,6 +151,7 @@ namespace DefendTheBase
             TextBoxBackGround = content.Load<Texture2D>("Art/Images/Misc/TextBoxBackground");
 
             StartMenuBackground = content.Load<Texture2D>("Art/Images/Misc/StartMenu");
+            EndScreenBackground = content.Load<Texture2D>("Art/Images/Misc/EndScreen");
 
             HelpButton = content.Load<Texture2D>("Art/Images/Misc/HelpButton");
             HelpButtonOff = content.Load<Texture2D>("Art/Images/Misc/HelpButtonOff");

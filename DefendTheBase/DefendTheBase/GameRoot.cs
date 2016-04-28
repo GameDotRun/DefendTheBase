@@ -20,6 +20,7 @@ namespace DefendTheBase
         SpriteBatch spriteBatch;
 
         StartScreen startScreen;
+        EndScreen endScreen;
 
         public static bool exit = false;
         // Constructor
@@ -53,6 +54,7 @@ namespace DefendTheBase
             GameManager.GameState = GameManager.GameStates.StartScreen;
 
             startScreen = new StartScreen();
+            endScreen = new EndScreen();
         }
 
         // Reset
@@ -80,6 +82,11 @@ namespace DefendTheBase
             if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)
             {
                 startScreen.Update(gameTime);
+            }
+
+            if (GameManager.GameState == GameManager.GameStates.LoseScreen || endScreen.fadeout)
+            {
+                endScreen.Update(gameTime);
             }
 
             if (GameManager.GameState == GameManager.GameStates.PlayScreen)
@@ -136,6 +143,11 @@ namespace DefendTheBase
 
             if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)
                 startScreen.Draw(spriteBatch);
+
+            if (GameManager.GameState == GameManager.GameStates.LoseScreen || endScreen.fadeout)
+                endScreen.Draw(spriteBatch);
+                
+
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
 
