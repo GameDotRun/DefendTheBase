@@ -22,6 +22,8 @@ namespace DefendTheBase
         StartScreen startScreen;
         EndScreen endScreen;
 
+        public static bool resetgame = false;
+
         public static bool exit = false;
         // Constructor
         public GameRoot()
@@ -61,10 +63,11 @@ namespace DefendTheBase
         public void ResetGame()
         {
             // Reset Variables, or Set if first run.
+            GameManager.ResetValues();
             UiButtonMessenger.InitiliseListenerList();
             GameManager.grid = new Grid(GameManager.SQUARESIZE, GameManager.DEFAULYDIST);
             GameManager.Init(GraphicsDevice);
-            GameManager.ResetValues();
+           
         }
 
         // Update
@@ -79,6 +82,10 @@ namespace DefendTheBase
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
 
+            GameManager.grid.Update(gameTime);
+
+           
+
             if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)
             {
                 startScreen.Update(gameTime);
@@ -89,7 +96,13 @@ namespace DefendTheBase
                 endScreen.Update(gameTime);
             }
 
-            if (GameManager.GameState == GameManager.GameStates.PlayScreen)
+            if (resetgame)
+            {
+                ResetGame();
+                resetgame = false;
+            }
+
+            if (GameManager.GameState == GameManager.GameStates.PlayScreen || endScreen.fadein)
             {
                 GameManager.Update(gameTime);
                 // Using the last button pressed ID, as long as it exists,
@@ -110,7 +123,7 @@ namespace DefendTheBase
                     }
                 }
   
-                GameManager.grid.Update(gameTime);
+                
 
                 for (int y = 0; y < GameManager.HEIGHT; y++) // get if a square has been edited 
                     for (int x = 0; x < GameManager.WIDTH; x++)
@@ -132,7 +145,7 @@ namespace DefendTheBase
             GraphicsDevice.Clear(Color.DarkOliveGreen);
             spriteBatch.Begin();
 
-            if (GameManager.GameState == GameManager.GameStates.PlayScreen)
+            if (GameManager.GameState == GameManager.GameStates.PlayScreen || endScreen.fadein)
             {
                 spriteBatch.Draw(Art.Background, Vector2.Zero, Color.DarkGray);
                 GameManager.grid.Draw(spriteBatch, Art.DebugFont);

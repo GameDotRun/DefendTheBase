@@ -14,7 +14,7 @@ namespace DefendTheBase
     /// </summary>
     public static class EnemyManager
     {
-        public static string[] TypeIDs = { "Tank", "Soldier", "Helicopter", "Jeep", "Transport" };
+        public static string[] TypeIDs = { "Tank", "Soldier", "Helicopter", "Jeep", "Transport", "TankBlue", "TankRed", "SoldierBlue", "SoldierRed", "TransportBlue", "TransportRed", "JeepBlue", "JeepRed" };
 
         static HashSet<Enemy> Enemies = new HashSet<Enemy>();
         static HashSet<Enemy> EnemiesToAdd = new HashSet<Enemy>();
@@ -22,6 +22,19 @@ namespace DefendTheBase
 
 
         static List<string> EnemyIDs = new List<string>();
+
+        public static void Init()
+        {
+             Enemies.Clear();
+             EnemiesToAdd.Clear();
+             EnemiesToRemove.Clear();
+
+             /*HashSet<Enemy> Enemies = new HashSet<Enemy>();
+             HashSet<Enemy> EnemiesToAdd = new HashSet<Enemy>();
+             HashSet<Enemy> EnemiesToRemove = new HashSet<Enemy>();*/
+
+            
+        }
 
         /// <summary>
         /// Destroys enemies and cleans up references in other lists of said enemy
@@ -53,6 +66,22 @@ namespace DefendTheBase
                 EnemiesToAdd.Add(new JeepEnemy(CreateID(TypeID), enemyVector));
             else if (TypeID == "Transport")
                 EnemiesToAdd.Add(new TransportEnemy(CreateID(TypeID), enemyVector));
+            else if (TypeID == "TankBlue")
+                EnemiesToAdd.Add(new TankEnemyBlue(CreateID(TypeID), enemyVector));
+            else if (TypeID == "SoldierBlue")
+                EnemiesToAdd.Add(new SoldierEnemyBlue(CreateID(TypeID), enemyVector));
+            else if (TypeID == "JeepBlue")
+                EnemiesToAdd.Add(new JeepEnemyBlue(CreateID(TypeID), enemyVector));
+            else if (TypeID == "TransportBlue")
+                EnemiesToAdd.Add(new TransportEnemyBlue(CreateID(TypeID), enemyVector));
+            else if (TypeID == "TankRed")
+                EnemiesToAdd.Add(new TankEnemyRed(CreateID(TypeID), enemyVector));
+            else if (TypeID == "SoldierRed")
+                EnemiesToAdd.Add(new SoldierEnemyRed(CreateID(TypeID), enemyVector));
+            else if (TypeID == "JeepRed")
+                EnemiesToAdd.Add(new JeepEnemyRed(CreateID(TypeID), enemyVector));
+            else if (TypeID == "TransportRed")
+                EnemiesToAdd.Add(new TransportEnemyRed(CreateID(TypeID), enemyVector));
         }
 
         /// <summary>
@@ -64,10 +93,10 @@ namespace DefendTheBase
             {
                 if (Enemy.IsDestroyed)
                 {
-                    WaveManager.WaveEnemiesUsed++;
-
                     if (Enemy.hitPoints <= 0) // check if it was destroyed by means of towers
                     {
+                        WaveManager.EnemiesKilled++;
+
                         GameManager.EnemyWasDestroyed(Enemy.EnemyType); // resource acquisition 
                         if (Enemy.EnemyType == "Helicopter")
                         {

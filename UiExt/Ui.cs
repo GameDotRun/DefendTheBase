@@ -12,10 +12,15 @@ using Microsoft.Xna.Framework.Input;
 
 namespace RPGEx
 {
-
     public static class UiManager
     {
         public static List<Ui> UiScreens = new List<Ui>();
+
+
+        public static void Init()
+        { 
+             List<Ui> UiScreens = new List<Ui>();
+        }
 
         public static void Add(Ui uiScreen)
         {

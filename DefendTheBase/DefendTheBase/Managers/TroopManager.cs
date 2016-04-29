@@ -12,6 +12,12 @@ namespace DefendTheBase
         static List<Troop> Troops = new List<Troop>();
         static List<string> TroopIDs = new List<string>();
 
+        public static void Init()
+        {
+            Troops.Clear();
+            TroopIDs.Clear(); 
+        }
+
         /// <summary>
         /// Destroys enemies and cleans up references in other lists of said enemy
         /// </summary>

@@ -103,6 +103,9 @@ namespace DefendTheBase
         internal string EnemyID;
         internal string EnemyType;
 
+        public Texture2D Top;
+        public Texture2D Bottom;
+
         //attributes
         protected float speed;
         public float hitPoints;
@@ -209,168 +212,34 @@ namespace DefendTheBase
             //Add draw Methods for each enemy here
             if (EnemyType == "Tank")
             {
-                sb.Draw(Art.TankBottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
-                sb.Draw(Art.TankTop, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.TankTop.Width / 5, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Bottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Top, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.TankTop.Width / 5, Art.TankTop.Height / 2), 1f, SpriteEffects.None, 0);
             }
 
             else if (EnemyType == "Transport")
             {
-                sb.Draw(Art.Transport, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.Transport.Width / 2, Art.Transport.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Bottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.Transport.Width / 2, Art.Transport.Height / 2), 1f, SpriteEffects.None, 0);
             }
 
             else if (EnemyType == "Jeep")
             {
-                sb.Draw(Art.JeepBottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.JeepBottom.Width / 2, Art.JeepBottom.Height / 2), 1f, SpriteEffects.None, 0);
-                sb.Draw(Art.JeepTop, new Vector2(ScreenPos.X - Direction.X * Art.JeepBottom.Width / 3, ScreenPos.Y - Direction.Y * Art.JeepBottom.Width / 3), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.JeepTop.Width / 4, Art.JeepTop.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Bottom, new Vector2(ScreenPos.X, ScreenPos.Y), null, Color.White, Direction.ToAngle(), new Vector2(Art.JeepBottom.Width / 2, Art.JeepBottom.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Top, new Vector2(ScreenPos.X - Direction.X * Art.JeepBottom.Width / 3, ScreenPos.Y - Direction.Y * Art.JeepBottom.Width / 3), null, Color.White, TurretDirection.ToAngle(), new Vector2(Art.JeepTop.Width / 4, Art.JeepTop.Height / 2), 1f, SpriteEffects.None, 0);
             }
 
             else if (EnemyType == "Soldier")
             {
-                sb.Draw(Art.Soldier, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width / 2, SourceRect.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Bottom, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width / 2, SourceRect.Height / 2), 1f, SpriteEffects.None, 0);
 
             }
 
             else if (EnemyType == "Helicopter")
             {
-                sb.Draw(Art.Helicopter, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width / 2, SourceRect.Height / 2), 1f, SpriteEffects.None, 0);
+                sb.Draw(Bottom, new Vector2(ScreenPos.X, ScreenPos.Y), SourceRect, Color.White, Direction.ToAngle(), new Vector2(SourceRect.Width / 2, SourceRect.Height / 2), 1f, SpriteEffects.None, 0);
             }
         }
     }
 
-    class TankEnemy : Enemy
-    {
-        public string Type = "Tank";
-
-        private float m_resistance = 75;
-        private float m_criticalResist = 80;
-        private float m_hp = 500;
-        private float m_speed = 3f;
-        private float m_damage = 5f;
-        private bool spriteSheet = false;
-
-        public TankEnemy(string enemyID, Vector2 enemyVector)
-            : base(enemyID, enemyVector)
-        {
-            resistance = m_resistance;
-            criticalResist = m_criticalResist;
-            hitPoints = m_hp;
-            speed = m_speed;
-            EnemyType = Type;
-            usingSpriteSheet = spriteSheet;
-            damage = m_damage;
-        }
-    }
-
-    class JeepEnemy : Enemy
-    {
-        public string Type = "Jeep";
-
-        private float m_resistance = 30;
-        private float m_criticalResist = 40;
-        private float m_hp = 150;
-        private float m_speed = 5f;
-        private float m_damage = 1f;
-        private bool spriteSheet = false;
-
-        public JeepEnemy(string enemyID, Vector2 enemyVector)
-            : base(enemyID, enemyVector)
-        {
-            resistance = m_resistance;
-            criticalResist = m_criticalResist;
-            hitPoints = m_hp;
-            speed = m_speed;
-            EnemyType = Type;
-            usingSpriteSheet = spriteSheet;
-            damage = m_damage;
-        }
-    }
-
-    class TransportEnemy : Enemy
-    {
-        public string Type = "Transport";
-
-        private float m_resistance = 70;
-        private float m_criticalResist = 70;
-        private float m_hp = 300;
-        private float m_speed = 3f;
-        private float m_damage = 5f;
-        private bool spriteSheet = false;
-
-        public TransportEnemy(string enemyID, Vector2 enemyVector)
-            : base(enemyID, enemyVector)
-        {
-            resistance = m_resistance;
-            criticalResist = m_criticalResist;
-            hitPoints = m_hp;
-            speed = m_speed;
-            EnemyType = Type;
-            usingSpriteSheet = spriteSheet;
-            damage = m_damage;
-        }
-    }
-
-    class SoldierEnemy : Enemy
-    {
-        public string Type = "Soldier";
-
-       
-        private float frameSpeed = 100;
-        private int frameTotal = 3; // total - 1
-
-        private float m_resistance = 10;
-        private float m_criticalResist = 40;
-        private float m_hp = 50;
-        private float m_speed = 2;
-        private float m_damage = 1f;
-      
-        private bool spriteSheet = true;
-
-
-        public SoldierEnemy(string enemyID, Vector2 enemyVector)
-            : base(enemyID, enemyVector)
-        {
-            resistance = m_resistance;
-            criticalResist = m_criticalResist;
-            hitPoints = m_hp;
-            speed = m_speed;
-            EnemyType = Type;
-            usingSpriteSheet = spriteSheet;
-            targetElasped = frameSpeed;
-            sheetFrameTotal = frameTotal;
-            damage = m_damage;
-        }
-   
-    }
-
-    class HelicopterEnemy : Enemy
-    {
-        public string Type = "Helicopter";
-
-        private float frameSpeed = 50;
-        private int frameTotal = 3; // total - 1
-
-        private float m_resistance = 50;
-        private float m_criticalResist = 50;
-        private float m_hp = 150;
-        // helicopter speed works very differently, as it only heads towards one node currently it goes a lot faster than other units which use multiple nodes. dividing by 10 seems good
-        private float m_speed = 5f / 10;
-        private float m_damage = 8f;
-
-        private bool spriteSheet = true;
-
-        public HelicopterEnemy(string enemyID, Vector2 enemyVector)
-            : base(enemyID, enemyVector)
-        {
-            resistance = m_resistance;
-            criticalResist = m_criticalResist;
-            hitPoints = m_hp;
-            speed = m_speed;
-            EnemyType = Type;
-            usingSpriteSheet = spriteSheet;
-            targetElasped = frameSpeed;
-            sheetFrameTotal = frameTotal;
-            damage = m_damage;
-        }
-    }
+    
 
 }

@@ -82,6 +82,7 @@ namespace DefendTheBase
                     {
                         GameManager.mouseSqrCoords = new Coordinates(sqrCoord.x, sqrCoord.y);
 
+
                         if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
                         {
                             ghostImage = Art.getTrenchTex(GameManager.grid.sqrTexDecider((int)sqrCoord.x, (int)sqrCoord.y));

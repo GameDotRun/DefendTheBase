@@ -15,6 +15,14 @@ namespace DefendTheBase
         static List<Tower> Towers = new List<Tower>();
         static List<string> TowerIDs = new List<string>();
 
+
+        public static void Init()
+        {
+            Towers.Clear();
+            TowerIDs.Clear();
+
+        }
+
         public static void DestroyTower(string TowerID)
         {
             TowerListener.Remove(TowerID);

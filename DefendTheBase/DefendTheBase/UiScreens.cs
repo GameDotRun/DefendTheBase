@@ -197,7 +197,7 @@ namespace DefendTheBase
             waveStats.Add(new UiTextBox(Art.UiFont, "Wave: ", new Vector2(10, 10), Color.White, Art.TextBoxBackGround, true));
             waveStats[0].TextBoxInfo = "Current Wave Number";
 
-            waveStats.Add(new UiTextBox(Art.UiFont, "Kills: " + WaveManager.WaveEnemiesUsed , new Vector2(110, 10), Color.White, Art.TextBoxBackGround, true ));
+            waveStats.Add(new UiTextBox(Art.UiFont, "Kills: " + WaveManager.EnemiesKilled, new Vector2(110, 10), Color.White, Art.TextBoxBackGround, true));
             waveStats[1].TextBoxInfo = "Number of Enemies killed";
 
             currencyStats.Add(new UiTextBox(Art.UiFont, "Manpower: " + GameManager.Manpower, new Vector2(10, 50), Color.White, Art.TextBoxBackGround, true));
@@ -229,7 +229,7 @@ namespace DefendTheBase
             healthBar.Update(GameManager.BaseHealth);
 
             waveStats[0].StringText = "Wave: " + WaveManager.WaveNumber;
-            waveStats[1].StringText = "Kills: " + WaveManager.WaveEnemiesUsed;
+            waveStats[1].StringText = "Kills: " + WaveManager.EnemiesKilled;
 
             
 
@@ -328,7 +328,6 @@ namespace DefendTheBase
             : base(Art.UiFont, stringText, new Vector2(250, 150), Color.White, Art.TextBoxBackGround, false)
         {
             TextBoxSize = new Vector2(500, 200);
-            TextBoxColour = Color.Black;
             StringOffset = new Vector2(10, 0);
             LineWrapper();
         }
@@ -611,17 +610,14 @@ namespace DefendTheBase
             Answers.Add(new UiButton(Art.UiFont, new Vector2(350, 640), new Vector2(300, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "Ans3", true));
 
             QuestionBox.TextBoxSize = new Vector2(500, 200);
-            QuestionBox.TextBoxColour = Color.Black;
             QuestionBox.StringOffset = new Vector2(10, 0);
             QuestionBox.LineWrapper();
 
             CorrectBox.TextBoxSize = new Vector2(500, 200);
-            CorrectBox.TextBoxColour = Color.Black;
             CorrectBox.StringOffset = new Vector2(10, 0);
             CorrectBox.LineWrapper();
 
             WrongBox.TextBoxSize = new Vector2(500, 200);
-            WrongBox.TextBoxColour = Color.Black;
             WrongBox.StringOffset = new Vector2(10, 0);
             WrongBox.LineWrapper();
 
@@ -636,8 +632,6 @@ namespace DefendTheBase
             foreach (UiButton button in Answers)
             {
                 UiButtonMessenger.RegisterButton(button);
-                button.TextBoxColour = Color.Black;
-                //button.StringScale = 2f;
                 button.StringOffset = new Vector2(10, 0);
                 button.TextBoxRectangleSet();
                 button.LineWrapper();
@@ -753,7 +747,6 @@ namespace DefendTheBase
             : base(Art.HelpFont, stringText, mousePos, Color.White, Art.TextBoxBackGround, false)
         {
             TextBoxSize = new Vector2(200, 300);
-            TextBoxColour = Color.Black;
             LineWrapper();
 
             SizeToTextY();
@@ -785,6 +778,7 @@ namespace DefendTheBase
         Texture2D backgroundTex = Art.StartMenuBackground;
 
         List<UiButton> StartMenuButtons = new List<UiButton>();
+        UiTextBox HiScores = new UiTextBox(Art.UiFont, "", new Vector2(50, 250), Color.White, Art.TextBoxBackGround, false);
 
         UiTimer FadeOutTimer = new UiTimer(2000f);
 
@@ -808,13 +802,31 @@ namespace DefendTheBase
             StartMenuButtons[2].StringOffset = new Vector2(55, 30);
             StartMenuButtons[3].StringText = "Exit";
             StartMenuButtons[3].StringOffset = new Vector2(75, 30);
+
+            HiScores.TextBoxSize = new Vector2(400, 150);
+            HiScores.StringOffset = new Vector2(10, 0);
+
+            GameManager.Scores = GameManager.Scores.LoadData();
         
         }
 
         public void Update(GameTime gt)
         {
+            HiScores.StringText = "Highest Wave: " + GameManager.Scores.HighestWave.ToString() + "\n"
+                + "Highest Wave Kills: " + GameManager.Scores.HighestWaveKills + "\n\n"
+                    + "All time kills: " + GameManager.Scores.AllTimeKills;
+
+            if (fade < 1 && GameManager.GameState == GameManager.GameStates.StartScreen)
+            {
+                
+                EnableScreen();
+                fade = 1;
+            }
+
             if (StartMenuButtons[0].IsButtonDown())
             {
+                GameRoot.resetgame = true;
+
                 DisableScreen();
                 GameManager.GameState = GameManager.GameStates.PlayScreen;
                 FadeOutTimer.ActivateTimer();
@@ -862,6 +874,8 @@ namespace DefendTheBase
             {
                 foreach (UiButton button in StartMenuButtons)
                     button.DrawButton(sb);
+
+                HiScores.Draw(sb);
             }
         }
 
@@ -887,9 +901,10 @@ namespace DefendTheBase
 
         UiTimer FadeOutTimer = new UiTimer(5000f);
 
-        float fade = 1f;
+        float fade = 0f;
 
         public bool fadeout = false;
+        public bool fadein = true;
 
         public EndScreen()
         {
@@ -899,7 +914,20 @@ namespace DefendTheBase
 
         public void Update(GameTime gt)
         {
-            FadeOutTimer.ActivateTimer();
+          
+            if (fade >= 1)
+            {
+                FadeOutTimer.ActivateTimer();
+                fadeout = true;
+                fadein = false;
+                GameManager.GameState = GameManager.GameStates.StartScreen;
+            }
+
+            else if (fade < 1 && !fadeout && GameManager.GameState == GameManager.GameStates.LoseScreen)
+            {
+                fade += 0.001f;
+                fadein = true;
+            }
 
             if (FadeOutTimer.GetActive)
             {
@@ -907,12 +935,15 @@ namespace DefendTheBase
                 fade -= 0.01f;
             }
 
-            if (FadeOutTimer.TimeReached())
+            if (FadeOutTimer.TimeReached() )
             {
-
                 fadeout = false;
-
             }
+
+            if (fade < 0)
+                fade = 0;
+
+            
         }
 
         public void Draw(SpriteBatch sb)
@@ -920,8 +951,9 @@ namespace DefendTheBase
             sb.Draw(backgroundTex, Vector2.Zero, Color.White * fade);
         }
 
-
     }
+
+
 
     /*public class GameOverScreen : Ui
     { }*/

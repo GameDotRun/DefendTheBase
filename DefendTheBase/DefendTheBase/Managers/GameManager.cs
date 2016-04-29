@@ -11,7 +11,8 @@ namespace DefendTheBase
     public class GameManager
     {
         private const float DEFAULT_MANPOWER = 0f;
-        private const int DEFAULT_RESOURCES = 1000;
+        private const int DEFAULT_RESOURCES = 1000000000;
+        private const int DEFAULT_BASE_HEALTH = 100;
 
         public enum GameStates
         {
@@ -85,15 +86,31 @@ namespace DefendTheBase
 
         public static bool HelpMode = false;
 
-        public static float BaseHealth = 100;
+        public static float BaseHealth = DEFAULT_BASE_HEALTH;
+
+        public static HiScoreData Scores = new HiScoreData();
+
+        static bool SaveData = true;
+
+        public static void ResetValues()
+        {
+            m_manPower = DEFAULT_MANPOWER;
+            m_resources = DEFAULT_RESOURCES;
+            BaseHealth = DEFAULT_BASE_HEALTH;
+        }
 
         public static void Init(GraphicsDevice graphics )
         {
             rnd = new Random();
+            UiManager.UiScreens.Clear();
             UiSideScreen = new UiSideGameScreen(graphics);
             UiTopScreen = new UiTopGameScreen(graphics);
+            WaveManager.Reset();
+            EnemyManager.Init();
             EnemyListener.InitiliseListener();
+            TowerManager.Init();
             TowerListener.InitiliseListener();
+            TroopManager.Init();
             TroopListener.InitiliseListener();
             QuestionPopUpManager.Init();
 
@@ -118,8 +135,39 @@ namespace DefendTheBase
             PopUpNotificationManager.Update(gameTime);
             MessageBoxManager.Update(gameTime);
 
+            if (BaseHealth <= 0)
+            {
+                if (EffectManager.EffectList.Count < 10)
+                {
+                    for (int i = 0; i < 1; i++)
+                    {
+                        EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, new Vector2(ENDPOINT.x * SQUARESIZE + rnd.Next(-30, 60), ENDPOINT.y * SQUARESIZE + BORDERTOP + rnd.Next(-30, 60)), true);
+                    }
+                }
+
+                GameState = GameStates.LoseScreen;
+            }
+
+            if (GameState == GameStates.LoseScreen && SaveData)
+            {
+                SaveData = false;
+                Scores.AllTimeKills += WaveManager.EnemiesKilled;
+                if (Scores.HighestWaveKills <= WaveManager.EnemiesKilled && Scores.HighestWave <= WaveManager.WaveNumber)
+                {
+                    Scores.HighestWaveKills = WaveManager.EnemiesKilled;
+                    Scores.HighestWave = WaveManager.WaveNumber;
+                }
+
+                Scores.SaveData(Scores);
+
+            }
+
+            if (GameState == GameStates.PlayScreen && !SaveData)
+                SaveData = true;
+
             if (HelpMode)
                 HelpDialogManager.Update();
+
             
         }
 
@@ -151,11 +199,7 @@ namespace DefendTheBase
             m_resources += value;
         }
 
-        public static void ResetValues()
-        {
-            m_manPower = DEFAULT_MANPOWER;
-            m_resources = DEFAULT_RESOURCES;
-        }
+        
 
         public static void EnemyWasDestroyed(string EnemyType)
         {

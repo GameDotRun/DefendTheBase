@@ -20,7 +20,7 @@ namespace DefendTheBase
             Explosion
         }
 
-        static List<Effect> EffectList = new List<Effect>();
+        public static List<Effect> EffectList = new List<Effect>();
         public static List<int> EffectIDs = new List<int>();
 
         //Saves time not ahving to type these loops for each sheet, BUT each sheet will have to be either horizontal or vertical not both

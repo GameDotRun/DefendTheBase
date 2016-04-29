@@ -15,14 +15,14 @@ namespace DefendTheBase
         public static bool WaveStarted = false;
         public static int WaveNumber = 1;
         public static int WaveEnemyAmount = 20;
-        public static int WaveEnemiesUsed = 0;
+        public static int EnemiesKilled = 0;
 
         static int WaveEnemiesSpawned = 0;
         static float WaveSpawnInterval = 500f;
         static int WavePower = 2;
 
         static bool WaveEndInit = false;
-        static bool FirstWaveIntro = true;
+        static bool FirstWaveIntro = false;
 
 
         static bool spawnTroop = true;
@@ -37,12 +37,13 @@ namespace DefendTheBase
             if (WaveNumber == 1 && FirstWaveIntro)
             {
                 FirstWaveIntro = false;
-                MessageBoxManager.Add(new MessageBox(MessageBoxManager.Introduction));
+                if(MessageBoxManager.MessageBox.Count == 0)
+                    MessageBoxManager.Add(new MessageBox(MessageBoxManager.Introduction));
             
             }
 
 
-            if (!WaveStarted && !MessageBoxManager.MessageDisplayed)
+            if (!WaveStarted && !MessageBoxManager.MessageDisplayed && GameManager.GameState == GameManager.GameStates.PlayScreen)
             {
                 if (!QuestionPopUpManager.QuestionUp)
                     WaveStartTimer -= gameTime.ElapsedGameTime;
@@ -103,7 +104,6 @@ namespace DefendTheBase
             WavePower++;
             //WaveEnemyAmount = (WaveNumber * 75) + (int)(WavePower * 0.5f);
             //WaveSpawnInterval = (WaveEnemyAmount / WaveNumber) * 10f;
-            WaveEnemiesUsed = 0;
             WaveEnemiesSpawned = 0;
             WaveEnemyAmount+=2;
             if (WaveNumber < 200)
@@ -127,7 +127,7 @@ namespace DefendTheBase
 
             List<string> UseableEnemies = new List<string>();
 
-            UseableEnemies.Add("Soldier");
+                UseableEnemies.Add("Soldier");
 
             if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.RocketTower) && WaveManager.WaveNumber > 2)
                 UseableEnemies.Add("Transport");
@@ -141,7 +141,43 @@ namespace DefendTheBase
             if (GameManager.UnlockedTowers.HasFlag(GameManager.Unlocks.SamTower) && WaveManager.WaveNumber > 8)
                 UseableEnemies.Add("Helicopter");
 
+            if(WaveManager.WaveNumber > 10)
+                UseableEnemies.Add("SoldierBlue");
+
+            if (WaveManager.WaveNumber > 12)
+                UseableEnemies.Add("TransportBlue");
+
+            if (WaveManager.WaveNumber > 14)
+                UseableEnemies.Add("JeepBlue");
+
+            if (WaveManager.WaveNumber > 16)
+                UseableEnemies.Add("TankBlue");
+
+            if (WaveManager.WaveNumber > 20)
+                UseableEnemies.Add("SoldierRed");
+
+            if (WaveManager.WaveNumber > 22)
+                UseableEnemies.Add("TransportRed");
+
+            if (WaveManager.WaveNumber > 24)
+                UseableEnemies.Add("JeepRed");
+
+            if (WaveManager.WaveNumber > 26)
+                UseableEnemies.Add("TankRed");
+
+                // UseableEnemies.Add("TankBlue");
+               //   UseableEnemies.Add("TankRed");
+               // UseableEnemies.Add("JeepBlue");
+               // UseableEnemies.Add("JeepRed");
+               // UseableEnemies.Add("TransportBlue");
+               // UseableEnemies.Add("TransportRed");
+               // UseableEnemies.Add("SoldierBlue");
+              //  UseableEnemies.Add("SoldierRed");
+
             WavePower = (WaveNumber * 20);
+
+            if (WaveNumber > 26)
+                WavePower = WaveNumber * 40;
 
             /*if (TowerListener.TowersList.Count /3   != 0)
                 WavePower *= TowerListener.TowersList.Count / 3;*/
@@ -175,6 +211,46 @@ namespace DefendTheBase
                 else if (UseableEnemies[index] == "Helicopter")
                 {
                     CurrentWavePower += 10;
+                }
+
+                if (UseableEnemies[index] == "SoldierBlue")
+                {
+                    CurrentWavePower++;
+                }
+
+                else if (UseableEnemies[index] == "TransportBlue")
+                {
+                    CurrentWavePower += 8;
+                }
+
+                else if (UseableEnemies[index] == "JeepBlue")
+                {
+                    CurrentWavePower += 10;
+                }
+
+                else if (UseableEnemies[index] == "TankBlue")
+                {
+                    CurrentWavePower += 16;
+                }
+
+                if (UseableEnemies[index] == "SoldierRed")
+                {
+                    CurrentWavePower++;
+                }
+
+                else if (UseableEnemies[index] == "TransportRed")
+                {
+                    CurrentWavePower += 8;
+                }
+
+                else if (UseableEnemies[index] == "JeepRed")
+                {
+                    CurrentWavePower += 10;
+                }
+
+                else if (UseableEnemies[index] == "TankRed")
+                {
+                    CurrentWavePower += 16;
                 }
 
                WaveComposition.Add(UseableEnemies[index]);
@@ -227,6 +303,22 @@ namespace DefendTheBase
 
             else if (questionsAnsweredCorrect == 20)
             { }
+        }
+
+        public static void Reset()
+        {
+            questionsAnsweredCorrect = 0;
+            WaveStarted = false;
+            WaveNumber = 1;
+            WaveEnemyAmount = 20;
+            EnemiesKilled = 0;
+            WaveEnemiesSpawned = 0;
+            WaveSpawnInterval = 500f;
+            WavePower = 2;
+
+            WaveEndInit = false;
+            FirstWaveIntro = true;
+
         }
     }
 }

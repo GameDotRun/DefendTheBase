@@ -37,6 +37,19 @@ namespace DefendTheBase
         public static Texture2D Helicopter { get; private set; }
         public static Texture2D Transport { get; private set; }
 
+        public static Texture2D TankBottomBlue { get; private set; }
+        public static Texture2D TankTopBlue { get; private set; }
+        public static Texture2D TankBottomRed { get; private set; }
+        public static Texture2D TankTopRed { get; private set; }
+        public static Texture2D SoldierBlue { get; private set; }
+        public static Texture2D SoldierRed { get; private set; }
+        public static Texture2D JeepBottomBlue { get; private set; }
+        public static Texture2D JeepTopBlue { get; private set; }
+        public static Texture2D JeepBottomRed { get; private set; }
+        public static Texture2D JeepTopRed { get; private set; }
+        public static Texture2D TransportBlue { get; private set; }
+        public static Texture2D TransportRed { get; private set; }
+
         public static Texture2D Projectile { get; private set; }
         public static Texture2D ProjectileGun { get; private set; }
         public static Texture2D ProjectileRocket { get; private set; }
@@ -108,6 +121,18 @@ namespace DefendTheBase
             Soldier = content.Load<Texture2D>("Art/Images/UnitsEnemy/soldier");
             Helicopter = content.Load<Texture2D>("Art/Images/UnitsEnemy/helicopter");
             Transport = content.Load<Texture2D>("Art/Images/UnitsEnemy/transport");
+            TankBottomBlue = content.Load<Texture2D>("Art/Images/UnitsEnemy/Tank_bottom_blue");
+            TankTopBlue = content.Load<Texture2D>("Art/Images/UnitsEnemy/Tank_top_blue");
+            TankBottomRed = content.Load<Texture2D>("Art/Images/UnitsEnemy/Tank_bottom_red");
+            TankTopRed = content.Load<Texture2D>("Art/Images/UnitsEnemy/Tank_top_red");
+            JeepBottomBlue = content.Load<Texture2D>("Art/Images/UnitsEnemy/jeep_bottom_blue");
+            JeepTopBlue = content.Load<Texture2D>("Art/Images/UnitsEnemy/jeep_top");
+            JeepTopRed = content.Load<Texture2D>("Art/Images/UnitsEnemy/jeep_top");
+            JeepBottomRed = content.Load<Texture2D>("Art/Images/UnitsEnemy/jeep_bottom_red");
+            SoldierBlue = content.Load<Texture2D>("Art/Images/UnitsEnemy/soldier_blue");
+            SoldierRed = content.Load<Texture2D>("Art/Images/UnitsEnemy/soldier_red");
+            TransportBlue = content.Load<Texture2D>("Art/Images/UnitsEnemy/transport_blue");
+            TransportRed = content.Load<Texture2D>("Art/Images/UnitsEnemy/transport_red");
 
             //Friendlies
             FriendlySoldier = content.Load<Texture2D>("Art/Images/UnitsPlayer/army_man_good");
@@ -151,7 +176,7 @@ namespace DefendTheBase
             TextBoxBackGround = content.Load<Texture2D>("Art/Images/Misc/TextBoxBackground");
 
             StartMenuBackground = content.Load<Texture2D>("Art/Images/Misc/StartMenu");
-            //EndScreenBackground = content.Load<Texture2D>("Art/Images/Misc/EndScreen");
+            EndScreenBackground = content.Load<Texture2D>("Art/Images/Misc/EndScreen");
 
             HelpButton = content.Load<Texture2D>("Art/Images/Misc/HelpButton");
             HelpButtonOff = content.Load<Texture2D>("Art/Images/Misc/HelpButtonOff");
