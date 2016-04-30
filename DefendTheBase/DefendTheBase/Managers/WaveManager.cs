@@ -295,14 +295,6 @@ namespace DefendTheBase
                 MessageBoxManager.Add(new MessageBox(MessageBoxManager.UpgradeTowerUnlock));
             }
 
-            else if (questionsAnsweredCorrect > 14)
-            { }
-
-            else if (questionsAnsweredCorrect > 18)
-            { }
-
-            else if (questionsAnsweredCorrect == 20)
-            { }
         }
 
         public static void Reset()

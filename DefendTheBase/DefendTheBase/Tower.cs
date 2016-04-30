@@ -13,7 +13,7 @@ namespace DefendTheBase
 
     public static class TowerListener
     {
-        public static List<Tower> TowersList;
+        public static List<Tower> TowersList = new List<Tower>();
 
         public static void InitiliseListener()
         {

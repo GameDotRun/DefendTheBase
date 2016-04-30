@@ -82,10 +82,6 @@ namespace DefendTheBase
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
 
-            GameManager.grid.Update(gameTime);
-
-           
-
             if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)
             {
                 startScreen.Update(gameTime);
@@ -122,8 +118,8 @@ namespace DefendTheBase
                         WaveManager.StartWave();
                     }
                 }
-  
-                
+
+                GameManager.grid.Update(gameTime);
 
                 for (int y = 0; y < GameManager.HEIGHT; y++) // get if a square has been edited 
                     for (int x = 0; x < GameManager.WIDTH; x++)
@@ -137,6 +133,8 @@ namespace DefendTheBase
                     }
                 base.Update(gameTime);
             }
+
+            
         }
 
         // Draw

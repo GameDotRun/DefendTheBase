@@ -69,6 +69,7 @@ namespace DefendTheBase
                     BuildManager.RemoveTowerFromSquare(tower);
                     DestroyTower(tower.TowerID);
                     EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, tower.Position - new Vector2(Art.TowerGun[0].Width/2, Art.TowerGun[0].Height/2) , true);
+                    GameManager.grid.gridSquares[(int)tower.towerCoords.x, (int)tower.towerCoords.y].sqrEdited = true;
                     break;
                 }
 
@@ -83,7 +84,7 @@ namespace DefendTheBase
             {
                 tower.Draw(sb);
 
-                if (Input.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space))
+                if (Input.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Space) || GameManager.HelpMode)
                 {
                     tower.DrawHpBar(sb);
                 }

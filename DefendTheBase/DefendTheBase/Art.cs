@@ -19,7 +19,9 @@ namespace DefendTheBase
         public static Texture2D[] TrenchTexs { get; private set; }
 
         public static Texture2D Concrete { get; private set; }
+        public static Texture2D ConcreteBlocked { get; private set; }
         public static Texture2D GroundTexs { get; private set; }
+        public static Texture2D BlockedSquare { get; private set; }
         public static Texture2D EnemyTex { get; private set; }
 
         public static Texture2D[] TowerGun { get; private set; }
@@ -96,7 +98,9 @@ namespace DefendTheBase
 
             // Terrain
             Concrete = content.Load<Texture2D>("Art/Images/Terrain/concrete");
+            ConcreteBlocked = content.Load<Texture2D>("Art/Images/Terrain/concreteBlocked");
             GroundTexs = content.Load<Texture2D>("Art/Images/Terrain/new-grass");
+            BlockedSquare = content.Load<Texture2D>("Art/Images/Terrain/squareBlocked");
             EnemyTex = content.Load<Texture2D>("Art/Images/Misc/ghostSquare");
 
             // Towers

@@ -72,7 +72,7 @@ namespace DefendTheBase
 
                 tempCoords.Clear();
 
-                if (count == (GameManager.WIDTH * GameManager.HEIGHT) - 1 - GetTrenchCount(Grid))
+                if (count == (GameManager.WIDTH * GameManager.HEIGHT) -  GetTrenchCount(Grid))
                     loopStop = false;
 
             }

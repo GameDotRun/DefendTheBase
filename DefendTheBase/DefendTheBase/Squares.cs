@@ -50,6 +50,8 @@ namespace DefendTheBase
 
         bool canClick = true;
 
+        string squareInfo = "A grass patch, build a trench here or concrete for tower foundations!";
+
         public Squares(int SquareSize, Vector2 Location, int x, int y, int defDist)
         {
             sqrLoc = Location;
@@ -74,24 +76,58 @@ namespace DefendTheBase
             if (Input.WasLMBClicked)
                 canClick = true;
 
+            if (sqrCoord.counter == GameManager.DEFAULYDIST)
+            {
+                ghostImage = Art.BlockedSquare;
+                squareInfo = "A blocked of square, solve this problem by building a trench or a tower here!";
+            }
+            
+
             if (!QuestionPopUpManager.QuestionUp)
             {
                 if (!sqrCoord.CoordEqual(GameManager.STARTPOINT))
                 {
                     if (rect.Contains(Input.MousePosition.ToPoint()))
                     {
-                        GameManager.mouseSqrCoords = new Coordinates(sqrCoord.x, sqrCoord.y);
 
+                        if(GameManager.HelpMode)
+                            if(!HelpDialogManager.Hovering)
+                                HelpDialogManager.Hovering = true;
+
+                        GameManager.mouseSqrCoords = new Coordinates(sqrCoord.x, sqrCoord.y);
 
                         if (Building == BuildingType.None && GameManager.BuildState == GameManager.BuildStates.Trench)
                         {
                             ghostImage = Art.getTrenchTex(GameManager.grid.sqrTexDecider((int)sqrCoord.x, (int)sqrCoord.y));
+                            squareInfo = "A grass patch, build a trench here or concrete for tower foundations!";
+                        }
+
+                        if (Building == BuildingType.Concrete)
+                        {
+                            squareInfo = "Build a tower on this concrete!";
+                        }
+
+                        if (Building == BuildingType.Trench)
+                        {
+                            squareInfo = "A trench";
+                        }
+
+                        if (Building == BuildingType.Tower)
+                        {
+                            squareInfo = "A tower";
                         }
 
                         if (Input.WasLMBClicked && canClick && !WaveManager.WaveStarted)
                         {
                             BuildManager.Build();
                             sqrEdited = true;
+                        }
+
+
+                        if (GameManager.HelpMode)
+                        {
+                            HelpDialogManager.Add(new HelpDialog(squareInfo, Input.MousePosition));
+
                         }
 
                         highlight = 0.5f;
@@ -102,7 +138,7 @@ namespace DefendTheBase
             }
 
             else highlight = 1;
-            
+
         }
 
         public void Draw(SpriteBatch sb, Texture2D gridSquareTex)
@@ -111,6 +147,8 @@ namespace DefendTheBase
                 sb.Draw(ghostImage, rect, ghostCol * highlight);
             if (typeOfSquare.HasFlag(SqrFlags.Concrete))
                 sb.Draw(Art.Concrete, rect, ghostCol * highlight);
+            if (typeOfSquare.HasFlag(SqrFlags.Concrete) && sqrCoord.counter == GameManager.DEFAULYDIST && Building == BuildingType.Concrete)
+                sb.Draw(Art.ConcreteBlocked, rect, ghostCol * highlight);
             if (Building == BuildingType.Trench)
                 sb.Draw(Art.getTrenchTex(TrenchName), rect, ghostCol * highlight);
             else if (Building == BuildingType.None)

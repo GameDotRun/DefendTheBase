@@ -453,7 +453,8 @@ namespace DefendTheBase
         {
             if (PopUps.Count > 10)
             {
-                PopUps.RemoveAt(0);
+                while(PopUps.Count > 10)
+                    PopUps.RemoveAt(0);
             }
 
             foreach (PopUpText popup in PopUps)
