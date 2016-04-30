@@ -200,6 +200,9 @@ namespace DefendTheBase
             waveStats.Add(new UiTextBox(Art.UiFont, "Kills: " + WaveManager.EnemiesKilled, new Vector2(110, 10), Color.White, Art.TextBoxBackGround, true));
             waveStats[1].TextBoxInfo = "Number of Enemies killed";
 
+            waveStats.Add(new UiTextBox(Art.UiFont, "Questions Completed: " + WaveManager.questionsAnsweredCorrect + "/" + QuestionPopUpManager.QuestionTotal, new Vector2(800, 10), Color.White, Art.TextBoxBackGround, true));
+            waveStats[2].TextBoxInfo = "Questions Completed";
+
             currencyStats.Add(new UiTextBox(Art.UiFont, "Manpower: " + GameManager.Manpower, new Vector2(10, 50), Color.White, Art.TextBoxBackGround, true));
             currencyStats[0].TextBoxInfo = "Number of men available";
 
@@ -216,6 +219,11 @@ namespace DefendTheBase
                 button.SetButtonState = UiButton.UiButtonStates.Button_Up;
             }
 
+            foreach (UiTextBox box in waveStats)
+            {
+                box.StringOffset = new Vector2(5, 0);
+            }
+
             if (!GameManager.HelpMode)
             {
                 topScreenButtons[0].TextBoxTexture = Art.HelpButtonOff;
@@ -230,7 +238,7 @@ namespace DefendTheBase
 
             waveStats[0].StringText = "Wave: " + WaveManager.WaveNumber;
             waveStats[1].StringText = "Kills: " + WaveManager.EnemiesKilled;
-
+            waveStats[2].StringText = "Questions Completed: " + WaveManager.questionsAnsweredCorrect + "/" + QuestionPopUpManager.QuestionTotal;
             
 
             currencyStats[0].StringText = "Manpower: " + GameManager.Manpower;
@@ -507,7 +515,7 @@ namespace DefendTheBase
 
     public static class QuestionPopUpManager
     {
-        public static List<string[]> QuestionsArray = new List<string[]>
+         public static List<string[]> QuestionsArray = new List<string[]>
         {
             new string[] { "Who won World War II?", "Britain", "Germany", "Allied Forces", "Ans3" },
             new string[] { "Who was the leader of the Soviet Union during World War II?", "Stalin", "Trotski", "Lenin", "Ans1" },
@@ -529,7 +537,9 @@ namespace DefendTheBase
             new string[] { "What did Hitler use to persuade the people to vote for him?", "Forced at gun point", "Bribes", "Propaganda", "Ans3" },
             new string[] { "What country was Auschwitz(Concentration Camp) in?", "Italy", "Germany", "Poland", "Ans3" }
         };
-        
+
+        public static int QuestionTotal = QuestionsArray.Count();
+
         static List<QuestionPopUp> QuestionPopUps = new List<QuestionPopUp>();
 
         public static bool QuestionUp = false;

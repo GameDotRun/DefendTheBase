@@ -877,7 +877,7 @@ namespace RPGEx
             if (scaleBox)
             {
                 TextBoxSize = new Vector2((int)StringPXSize.X + 5, (int)StringPXSize.Y);
-                sb.Draw(txtBoxTex, new Rectangle((int)txtBoxlocation.X, (int)txtBoxlocation.Y, (int)StringPXSize.X + 5, (int)StringPXSize.Y), null, txtBoxCol, txtBoxRotation, Vector2.Zero, SpriteEffects.None, 1);
+                sb.Draw(txtBoxTex, new Rectangle((int)txtBoxlocation.X, (int)txtBoxlocation.Y, (int)StringPXSize.X + (int)StringOffset.X + 10, (int)StringPXSize.Y), null, txtBoxCol, txtBoxRotation, Vector2.Zero, SpriteEffects.None, 1);
                 sb.DrawString(StringFont, StringText, txtBoxlocation + stringOffset + new Vector2(2,0), StringColour, txtBoxRotation, Vector2.Zero, StringScale, SpriteEffects.None, 1);
             }
             else
