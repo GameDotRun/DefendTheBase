@@ -21,6 +21,7 @@ namespace DefendTheBase
 
         StartScreen startScreen;
         EndScreen endScreen;
+        InfoScreen infoScreen;
 
         public static bool resetgame = false;
 
@@ -57,6 +58,7 @@ namespace DefendTheBase
 
             startScreen = new StartScreen();
             endScreen = new EndScreen();
+            infoScreen = new InfoScreen(GraphicsDevice);
         }
 
         // Reset
@@ -85,6 +87,11 @@ namespace DefendTheBase
             if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)
             {
                 startScreen.Update(gameTime);
+            }
+
+            if (GameManager.GameState == GameManager.GameStates.InfoScreen)
+            {
+                infoScreen.Update();
             }
 
             if (GameManager.GameState == GameManager.GameStates.LoseScreen || endScreen.fadeout)
@@ -150,6 +157,11 @@ namespace DefendTheBase
                 UiManager.Draw(spriteBatch);
                 GameManager.Draw(spriteBatch);
                 
+            }
+
+            if (GameManager.GameState == GameManager.GameStates.InfoScreen)
+            {
+                infoScreen.Draw(spriteBatch);
             }
 
             if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)

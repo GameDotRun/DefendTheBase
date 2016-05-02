@@ -248,7 +248,7 @@ namespace RPGEx
             string TabID = "Tab";
 
             for (int i = 0; i < Pages; i++)
-                tabList.Add(new UiTab(graphicDev, Font, i, TabID + i.ToString(), TabName[i], TabColour));
+                tabList.Add(new UiTab(graphicDev, Font, i, TabName[i] + TabID + i.ToString(), TabName[i], TabColour));
 
             //Set the Draw Locations for tabs.
             SetDrawLocations(TabDrawLocation, Pages);
@@ -265,7 +265,7 @@ namespace RPGEx
             string TabID = "Tab";
 
             for (int i = 0; i < Pages; i++)
-                tabList.Add(new UiTab(graphicDev, Font, i, TabID + i.ToString(), TabName[i], TabTexture));
+                tabList.Add(new UiTab(graphicDev, Font, i, TabName[i] + TabID + i.ToString(), TabName[i], TabTexture));
 
             //Set the Draw Locations for tabs.
             SetDrawLocations(TabDrawLocation, Pages);
@@ -283,7 +283,7 @@ namespace RPGEx
             string TabID = "Tab";
 
             for (int i = 0; i < Pages; i++)
-                tabList.Add(new UiTab(Font, i, TabID + i.ToString(), TabName[i], TabTexture, tabEffect, TabSize));
+                tabList.Add(new UiTab(Font, i, TabName[i] + TabID + i.ToString(), TabName[i], TabTexture, tabEffect, TabSize));
 
             //Set the Draw Locations for tabs.
             SetDrawLocations(TabDrawLocation, Pages);
@@ -301,7 +301,7 @@ namespace RPGEx
             string TabID = "Tab";
 
             for (int i = 0; i < Pages; i++)
-                tabList.Add(new UiTab(graphicDev, Font, i, TabID + i.ToString(), TabName[i], TabColor, TabSize));
+                tabList.Add(new UiTab(graphicDev, Font, i, TabName[i] + TabID + i.ToString(), TabName[i], TabColor, TabSize));
 
             //Set the Draw Locations for tabs.
             SetDrawLocations(TabDrawLocation, Pages);

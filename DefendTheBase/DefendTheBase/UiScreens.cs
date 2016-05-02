@@ -25,7 +25,7 @@ namespace DefendTheBase
 
         public UiSideGameScreen(GraphicsDevice graphicsDevice) : base(GameManager.WIDTH, GameManager.HEIGHT)
         {
-            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Art.tabTestTexture, Art.ButtonEffectTexture, new Vector2(83, 40));
+                tabs = new UiTabs(graphicsDevice, Art.DebugFont, 3, tabDrawPos, new string[3] { "Towers", "Base", "Misc" }, Art.tabTestTexture, Art.ButtonEffectTexture, new Vector2(83, 40));
             
 
             unitBuild = new List<UiButton>();
@@ -97,8 +97,8 @@ namespace DefendTheBase
             }
 
             
-            
-            tabs.Update();
+            if(GameManager.GameState == GameManager.GameStates.PlayScreen)
+                tabs.Update();
         }
 
         public void buttonSingleInit(UiButton Button, int buttonNumber, int tabPage)
@@ -827,7 +827,7 @@ namespace DefendTheBase
         { 
             for(int i = 0; i < 4; i++)
             {
-                StartMenuButtons.Add(new UiButton(Art.UiFont, new Vector2(525, 250 + i * 150), new Vector2(200, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "str" + i, true));
+                StartMenuButtons.Add(new UiButton(Art.UiFont, new Vector2(525, 250 + i * 150), new Vector2(200, 100), Art.TextBoxBackGround, Art.ButtonEffectTexture, "str" + i, true));    
                 UiButtonMessenger.RegisterButton(StartMenuButtons[i]);
             }
 
@@ -877,7 +877,7 @@ namespace DefendTheBase
 
             else if (StartMenuButtons[1].IsButtonDown())
             {
-                //load info box and whatever else
+                GameManager.GameState = GameManager.GameStates.InfoScreen;
                 Input.Update();
             }
 
@@ -927,6 +927,100 @@ namespace DefendTheBase
         {
             foreach (UiButton button in StartMenuButtons)
                 UiButtonMessenger.RemoveButton(button.GetButtonID);
+        }
+
+    }
+
+    public class InfoScreen
+    {
+        const string Hitler = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        const string Churchill = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        const string Mussolini = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        const string Allies = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        const string Axis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+        Texture2D backgroundTex = Art.StartMenuBackground;
+        UiTabs tabs;
+        UiButton backButton;
+
+        List<UiTextBox> InfoBoxes = new List<UiTextBox>();
+
+        public InfoScreen(GraphicsDevice graphicsDevice)
+        {
+            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 5, new Vector2(200,200), new string[5] { "Hitler", "Churchill", "Mussolini", "Allies", "Axis" }, Art.tabTestTexture, Art.ButtonEffectTexture, new Vector2(100, 50));
+            backButton = new UiButton(Art.UiFont, new Vector2(20, 800), new Vector2(100, 50 ), Art.TextBoxBackGround, Art.ButtonEffectTexture, "backButton", true);
+
+            backButton.SetButtonState = UiButton.UiButtonStates.Button_Up;
+
+            backButton.StringText = "Back";
+            backButton.StringOffset = new Vector2(10);
+
+            InfoBoxes.Add(new UiTextBox(Art.UiFont, Hitler, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes[0].TextBoxSize = new Vector2(900, 500);
+            InfoBoxes[0].StringOffset = new Vector2(20, 10);
+            InfoBoxes[0].LineWrapper();
+            tabs.Add(InfoBoxes[0], 0);
+
+            InfoBoxes.Add(new UiTextBox(Art.UiFont, Churchill, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes[1].TextBoxSize = new Vector2(900, 500);
+            InfoBoxes[1].StringOffset = new Vector2(20, 10);
+            InfoBoxes[1].LineWrapper();
+            tabs.Add(InfoBoxes[1], 1);
+
+            InfoBoxes.Add(new UiTextBox(Art.UiFont, Mussolini, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes[2].TextBoxSize = new Vector2(900, 500);
+            InfoBoxes[2].StringOffset = new Vector2(20, 10);
+            InfoBoxes[2].LineWrapper();
+            tabs.Add(InfoBoxes[2], 2);
+
+            InfoBoxes.Add(new UiTextBox(Art.UiFont, Allies, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes[3].TextBoxSize = new Vector2(900, 500);
+            InfoBoxes[3].StringOffset = new Vector2(20, 10);
+            InfoBoxes[3].LineWrapper();
+            tabs.Add(InfoBoxes[3], 3);
+
+            InfoBoxes.Add(new UiTextBox(Art.UiFont, Axis, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes[4].TextBoxSize = new Vector2(900, 500);
+            InfoBoxes[4].StringOffset = new Vector2(20, 10);
+            InfoBoxes[4].LineWrapper();
+            tabs.Add(InfoBoxes[4], 4);
+
+        }
+
+        public void Update()
+        {
+            if (GameManager.GameState == GameManager.GameStates.InfoScreen)
+            {
+                EnableScreen();
+                Input.Update();
+            }
+
+            if (backButton.IsButtonDown())
+            {
+                backButton.SetButtonState = UiButton.UiButtonStates.Button_Up;
+                DisableScreen();
+                GameManager.GameState = GameManager.GameStates.StartScreen;
+            }
+
+            tabs.Update();
+        }
+
+        public void Draw(SpriteBatch sb)
+        {
+
+            sb.Draw(backgroundTex, Vector2.Zero, Color.White);
+            backButton.DrawButton(sb);
+            tabs.Draw(sb);
+        }
+
+        public void EnableScreen()
+        {
+            UiButtonMessenger.RegisterButton(backButton);
+        }
+
+        public void DisableScreen()
+        {
+            UiButtonMessenger.RemoveButton(backButton.GetButtonID);
         }
 
     }
