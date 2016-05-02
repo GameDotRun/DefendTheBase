@@ -955,8 +955,6 @@ namespace DefendTheBase
             backButton.StringText = "Back";
             backButton.StringOffset = new Vector2(10);
 
-            
-
             InfoBoxes.Add(new UiTextBox(Art.UiFont, Hitler, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
             tabs.Add(InfoBoxes[0], 0);
 
