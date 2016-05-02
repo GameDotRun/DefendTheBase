@@ -152,8 +152,8 @@ namespace DefendTheBase
             // UI
             uiUp = content.Load<Texture2D>("Art/Images/UI/ui-template-topbar");
             uiSide = content.Load<Texture2D>("Art/Images/UI/ui-side");
-            ButtonsBase = new Texture2D[3];
-            for (int i = 0; i < 3; i++)
+            ButtonsBase = new Texture2D[4];
+            for (int i = 0; i < 4; i++)
                 ButtonsBase[i] = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonBase" + i);
             ButtonsTower = new Texture2D[5];
             for (int i = 0; i < 5; i++)

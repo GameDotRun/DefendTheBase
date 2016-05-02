@@ -24,28 +24,73 @@ namespace DefendTheBase
                 Upgrade();
             else if (GameManager.BuildState == GameManager.BuildStates.Destroy)
                 Delete();
+            else if (GameManager.BuildState == GameManager.BuildStates.Repair)
+                Repair();
             else if (GameManager.BuildState != GameManager.BuildStates.Nothing)
                 BuildTower();
         }
 
         public static void Delete()
         {
+            bool IStower = false;
+
             if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building != Squares.BuildingType.None)
             {
                     foreach (Tower tower in TowerListener.TowersList)
                     {
                         if (tower.towerCoords.CoordEqual(GameManager.mouseSqrCoords))
                         {
+                            if (tower.TowerType == "Gun")
+                            {
+                                
+                                GameManager.BuildState = GameManager.BuildStates.TowerGun;
+                                GameManager.CostGet();
+                            }
+                            else if (tower.TowerType == "Rocket")
+                            {
+                                GameManager.BuildState = GameManager.BuildStates.TowerRocket;
+                                GameManager.CostGet();
+                            }
+                            else if (tower.TowerType == "SAM")
+                            {
+                                GameManager.BuildState = GameManager.BuildStates.TowerSAM;
+                                GameManager.CostGet();
+                            }
+                            else if (tower.TowerType == "Tesla")
+                            {
+                                GameManager.BuildState = GameManager.BuildStates.TowerSAM;
+                                GameManager.CostGet();
+                            }
+
+
                             BuildManager.RemoveTowerFromSquare(tower);
+                            GameManager.ObjectWasDemolished(tower.TowerType);
                             TowerManager.DestroyTower(tower.TowerID);
+                            IStower = true;
                             break;
                         }
+
                     }
-                
-                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
-                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.None;
-                GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
-                
+
+                    if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Concrete && !IStower)
+                    {
+                        GameManager.BuildState = GameManager.BuildStates.Concrete;
+                        GameManager.CostGet();
+                        GameManager.ObjectWasDemolished("Concrete");
+                    }
+                    else if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Trench && !IStower)
+                    {
+                        GameManager.BuildState = GameManager.BuildStates.Trench;
+                        GameManager.CostGet();
+                        GameManager.ObjectWasDemolished("Trench");
+                    }
+
+
+                    GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
+                    GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.None;
+                    GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+
+                    GameManager.BuildState = GameManager.BuildStates.Destroy;
             }   
         }
 
@@ -60,6 +105,35 @@ namespace DefendTheBase
                     if (tower.towerCoords.CoordEqual(GameManager.mouseSqrCoords))
                     {
                         tower.LevelUp();
+                        GameManager.TowerWasUpgraded();
+                    }
+                }
+            }
+
+            else ResourceManpowerNotification();
+        
+        }
+
+        static void Repair()
+        {
+            GameManager.CostGet();
+
+            if (GameManager.Manpower >= ManPower && GameManager.Resources >= Resources)
+            {
+                foreach (Tower tower in TowerListener.TowersList)
+                {
+                    if (tower.towerCoords.CoordEqual(GameManager.mouseSqrCoords))
+                    {
+                        if (tower.Health != tower.HEALTHDEF)
+                        {
+                            int temp = tower.HEALTHDEF - tower.Health;
+
+                            temp = temp / 2;
+
+                            tower.Health += temp;
+
+                            GameManager.TowerWasRepaired();
+                        }
                     }
                 }
             }

@@ -146,6 +146,11 @@ namespace DefendTheBase
             baseBuild[2].TextBoxInfo = "Use this to Destroy a placed building!";
             //baseBuild[2].StringText = "Destroy Building";
 
+            baseBuild.Add(new UiButton(Art.DebugFont, Vector2.Zero, buttonSize, Art.ButtonsBase[3], Art.ButtonEffectTexture, "btn0Repair", true));
+            baseBuild[3].TextBoxInfo = "Use this to repair a tower!";
+            baseBuild[3].StringText = "Repair Tower";
+
+
             buttonsInit(ref baseBuild, 1);
 
 

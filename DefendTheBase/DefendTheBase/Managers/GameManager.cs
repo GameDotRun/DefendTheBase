@@ -29,6 +29,7 @@ namespace DefendTheBase
             Nothing,
             Destroy,
             Upgrade,
+            Repair,
             Trench,
             Concrete,
             TowerGun,
@@ -242,6 +243,33 @@ namespace DefendTheBase
         
         }
 
+        public static void ObjectWasDemolished(string ObjectType)
+        {
+            if (ObjectType == "Gun")
+            {
+                m_resources += BuildManager.Resources / 4;
+            }
+            else if (ObjectType == "Rocket")
+            {
+                m_resources += BuildManager.Resources / 4;
+            }
+            else if (ObjectType == "SAM")
+            {
+                m_resources += BuildManager.Resources / 4;
+            }
+            else if (ObjectType == "Tesla")
+            {
+                m_resources += BuildManager.Resources / 4;
+            }
+
+            else if (ObjectType == "Trench")
+                m_resources += BuildManager.Resources / 4;
+
+            else if (ObjectType == "Concrete")
+                m_resources += BuildManager.Resources / 4;
+
+        }
+
         public static void BaseWasBuilt(string BaseType)
         {
             if (BaseType == "Trench")
@@ -249,6 +277,17 @@ namespace DefendTheBase
 
             else if (BaseType == "Concrete")
                 m_resources -= BuildManager.Resources;
+        }
+
+        public static void TowerWasRepaired()
+        {
+            m_resources -= BuildManager.Resources;
+        }
+
+        public static void TowerWasUpgraded()
+        {
+            m_resources -= BuildManager.Resources;
+            TroopManager.DestroyTroop(BuildManager.ManPower);
         }
 
         // modify the values here for different costs
@@ -278,10 +317,15 @@ namespace DefendTheBase
 
                 case GameManager.BuildStates.Concrete:
                     BuildManager.ManPower = 1;
-                    BuildManager.Resources = 100;
+                    BuildManager.Resources = 150;
                     break;
 
                 case GameManager.BuildStates.Upgrade:
+                    BuildManager.ManPower = 1;
+                    BuildManager.Resources = 1000;
+                    break;
+
+                case GameManager.BuildStates.Repair:
                     BuildManager.ManPower = 1;
                     BuildManager.Resources = 100;
                     break;

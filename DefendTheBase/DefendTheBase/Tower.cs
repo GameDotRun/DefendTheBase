@@ -40,8 +40,10 @@ namespace DefendTheBase
         // This will contain the type of tower, range, level, health and fireRate.
         // It will also select an appropriate enemy to shoot at within range. Perhaps Closest enemy?
 
+        public int HEALTHDEF = 100;
+
         internal string TowerID;
-        //internal string TowerType;
+        internal string TowerType;
 
         public enum Type
         {
@@ -86,17 +88,21 @@ namespace DefendTheBase
             {
                 case Type.Gun:
                     Sprite = Art.TowerGun[level - 1];
+                    TowerType = "Gun";
                     break;
                 case Type.Rocket:
                     Sprite = Art.TowerRocket[level - 1];
                     Damage = 30;
                     FireRate = 0.5f;
+                    TowerType = "Rocket";
                     break;
                 case Type.SAM:
                     Sprite = Art.TowerSAM[level - 1];
+                    TowerType = "SAM";
                     break;
                 case Type.Tesla:
                     Sprite = Art.TowerTesla[level - 1];
+                    TowerType = "Tesla";
                     break;
             }
 
