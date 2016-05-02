@@ -955,35 +955,30 @@ namespace DefendTheBase
             backButton.StringText = "Back";
             backButton.StringOffset = new Vector2(10);
 
+            
+
             InfoBoxes.Add(new UiTextBox(Art.UiFont, Hitler, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
-            InfoBoxes[0].TextBoxSize = new Vector2(900, 500);
-            InfoBoxes[0].StringOffset = new Vector2(20, 10);
-            InfoBoxes[0].LineWrapper();
             tabs.Add(InfoBoxes[0], 0);
 
             InfoBoxes.Add(new UiTextBox(Art.UiFont, Churchill, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
-            InfoBoxes[1].TextBoxSize = new Vector2(900, 500);
-            InfoBoxes[1].StringOffset = new Vector2(20, 10);
-            InfoBoxes[1].LineWrapper();
             tabs.Add(InfoBoxes[1], 1);
 
             InfoBoxes.Add(new UiTextBox(Art.UiFont, Mussolini, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
-            InfoBoxes[2].TextBoxSize = new Vector2(900, 500);
-            InfoBoxes[2].StringOffset = new Vector2(20, 10);
-            InfoBoxes[2].LineWrapper();
             tabs.Add(InfoBoxes[2], 2);
 
             InfoBoxes.Add(new UiTextBox(Art.UiFont, Allies, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
-            InfoBoxes[3].TextBoxSize = new Vector2(900, 500);
-            InfoBoxes[3].StringOffset = new Vector2(20, 10);
-            InfoBoxes[3].LineWrapper();
             tabs.Add(InfoBoxes[3], 3);
 
             InfoBoxes.Add(new UiTextBox(Art.UiFont, Axis, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
-            InfoBoxes[4].TextBoxSize = new Vector2(900, 500);
-            InfoBoxes[4].StringOffset = new Vector2(20, 10);
-            InfoBoxes[4].LineWrapper();
             tabs.Add(InfoBoxes[4], 4);
+
+
+            foreach (UiTextBox box in InfoBoxes)
+            {
+                box.TextBoxSize = new Vector2(900, 500);
+                box.StringOffset = new Vector2(20, 10);
+                box.LineWrapper();
+            }
 
         }
 
