@@ -357,6 +357,13 @@ namespace RPGEx
                 TextString.DrawString(sb, Vector2.Zero);
         }
 
+        public void AddTabsToButtonMessenger()
+        {
+            foreach (UiTab Tab in tabList)
+                UiButtonMessenger.RegisterButton(Tab.tabButton);
+        
+        }
+
         private void SwitchPageListeners()
         {
             foreach (UiTab Tab in tabList)

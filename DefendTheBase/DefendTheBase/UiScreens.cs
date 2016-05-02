@@ -1015,6 +1015,8 @@ namespace DefendTheBase
 
         public void EnableScreen()
         {
+            tabs.AddTabsToButtonMessenger();
+
             UiButtonMessenger.RegisterButton(backButton);
         }
 

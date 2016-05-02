@@ -278,7 +278,7 @@ namespace DefendTheBase
         private float m_criticalResist = 50;
         private float m_hp = 50;
         private float m_speed = 2;
-        private float m_damage = 1f;
+        private float m_damage = 1000f;
 
         private bool spriteSheet = true;
 
