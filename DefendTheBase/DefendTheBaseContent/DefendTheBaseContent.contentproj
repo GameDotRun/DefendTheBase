@@ -648,9 +648,10 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Compile Include="Art\Wildlife.wmv">
-      <Name>Wildlife</Name>
+    <Compile Include="Art\Videos\IntroVideo.wmv">
+      <Name>IntroVideo</Name>
       <Importer>WmvImporter</Importer>
       <Processor>VideoProcessor</Processor>
     </Compile>

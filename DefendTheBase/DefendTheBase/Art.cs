@@ -93,7 +93,7 @@ namespace DefendTheBase
             Pixel = content.Load<Texture2D>("Art/Images/Misc/Pixel");   // Flecks Art Contribution.
 
             // VIDEOS
-            StartVideo = content.Load<Video>("Art/Wildlife");
+            StartVideo = content.Load<Video>("Art/Videos/IntroVideo");
             GameManager.videoPlayer = new VideoPlayer();
             GameManager.videoPlayer.IsLooped = false;
 
