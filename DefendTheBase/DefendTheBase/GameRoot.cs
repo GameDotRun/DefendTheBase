@@ -54,7 +54,7 @@ namespace DefendTheBase
             Art.Load(Content);
             // Set up variables.
             ResetGame();
-            GameManager.GameState = GameManager.GameStates.StartScreen;
+            GameManager.GameState = GameManager.GameStates.StartVideo;
 
             startScreen = new StartScreen();
             endScreen = new EndScreen();
@@ -83,6 +83,18 @@ namespace DefendTheBase
                 this.Exit();
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
+
+            if (GameManager.GameState == GameManager.GameStates.StartVideo)
+            {
+                if (GameManager.FIRSTRUN)
+                {
+                    GameManager.videoPlayer.Play(Art.StartVideo);
+                    GameManager.FIRSTRUN = false;
+                }
+                if (GameManager.videoPlayer.State == MediaState.Stopped)
+                    GameManager.GameState = GameManager.GameStates.StartScreen;
+            }
+
 
             if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)
             {
@@ -162,6 +174,19 @@ namespace DefendTheBase
             if (GameManager.GameState == GameManager.GameStates.InfoScreen)
             {
                 infoScreen.Draw(spriteBatch);
+            }
+
+            if (GameManager.GameState == GameManager.GameStates.StartVideo)
+            {
+                if (GameManager.videoPlayer.State != MediaState.Stopped)
+                {
+                    Texture2D texture = GameManager.videoPlayer.GetTexture();
+                    if (texture != null)
+                    {
+                        spriteBatch.Draw(texture, new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight),
+                            Color.White);
+                    }
+                }
             }
 
             if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)

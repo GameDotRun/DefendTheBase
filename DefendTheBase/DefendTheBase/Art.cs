@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Media;
 
 namespace DefendTheBase
 {
@@ -84,9 +85,17 @@ namespace DefendTheBase
         public static Texture2D HelpButtonOff { get; private set; }
 
         public static Texture2D EndScreenBackground { get; private set; }
+
+        public static Video StartVideo { get; private set; }
+
         public static void Load(ContentManager content)
         {
             Pixel = content.Load<Texture2D>("Art/Images/Misc/Pixel");   // Flecks Art Contribution.
+
+            // VIDEOS
+            StartVideo = content.Load<Video>("Art/Wildlife");
+            GameManager.videoPlayer = new VideoPlayer();
+            GameManager.videoPlayer.IsLooped = false;
 
             Base = content.Load<Texture2D>("Art/Images/Misc/base");
             Background = content.Load<Texture2D>("Art/Images/UI/background");

@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using RPGEx;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 
 namespace DefendTheBase
 {
@@ -16,6 +17,7 @@ namespace DefendTheBase
 
         public enum GameStates
         {
+            StartVideo,
             StartScreen,
             PlayScreen,
             WinScreen,
@@ -60,6 +62,9 @@ namespace DefendTheBase
 
         public static UiSideGameScreen UiSideScreen;
         public static UiTopGameScreen UiTopScreen;
+
+        public static VideoPlayer videoPlayer;
+        public static bool FIRSTRUN = true;
 
 
         //Grid Size
