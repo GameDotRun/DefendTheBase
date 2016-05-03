@@ -19,6 +19,13 @@ namespace DefendTheBase
             // Get the path of the save game
             string fullpath = "hiscores.dat";
 
+            // Check to see if the save exists.
+            if (!File.Exists(fullpath))
+            {
+                //If the file doesn't exist, make a fake one...
+                CreateFile();
+            }
+
             // Open the file
             FileStream stream = File.Open(fullpath, FileMode.OpenOrCreate,
             FileAccess.Read);
@@ -36,8 +43,6 @@ namespace DefendTheBase
             }
 
             return (data);
-        
-            
         }
 
         public void SaveData(HiScoreData data)
@@ -47,7 +52,7 @@ namespace DefendTheBase
 
 
             // Open the file, creating it if necessary
-            FileStream stream = File.Open(fullPath, FileMode.OpenOrCreate);
+            FileStream stream = File.Open(fullPath, FileMode.Create);
             try
             {
                 // Convert the object to XML data and put it in the stream
@@ -60,6 +65,17 @@ namespace DefendTheBase
                 stream.Close();
             }
         
+        }
+
+        public void CreateFile()
+        {
+            // Create dummy data to save.
+            HiScoreData data = new HiScoreData();
+            data.AllTimeKills = 0;
+            data.HighestWave = 0;
+            data.HighestWaveKills = 0;
+
+            SaveData(data);
         }
 
     }
