@@ -223,6 +223,7 @@ namespace RPGEx
 
         public void Draw(SpriteBatch sb)
         {
+            
             sb.Draw(BackgroundTex, new Rectangle((int)Location.X, (int)Location.Y, (int)SizeOfBar.X, (int)SizeOfBar.Y), Color.White);
             sb.Draw(ForegroundTex, new Rectangle((int)Location.X, (int)Location.Y, (int)SizeOfBar.X * (int)Current / (int)Total, (int)SizeOfBar.Y), Color.White);
         }

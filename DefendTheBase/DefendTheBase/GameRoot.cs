@@ -171,7 +171,7 @@ namespace DefendTheBase
                 endScreen.Draw(spriteBatch);
                 
 
-#if DEBUG
+/*#if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
 
             if (!float.IsInfinity(1 / (float)gameTime.ElapsedGameTime.TotalSeconds))
@@ -187,9 +187,11 @@ namespace DefendTheBase
                         i < 1 ? Color.Black : Color.White);     // if (i<1) {C.Black} else {C.White}
                 }
             }
+
             //spriteBatch.DrawString(Art.DebugFont, tanks.ScreenPos.X + " " + tanks.ScreenPos.Y, tanks.ScreenPos, Color.Black);
 
 #endif
+ **/
 
             // Finish spriteBatch.
             spriteBatch.End();
