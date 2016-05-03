@@ -420,13 +420,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Art\Images\UI\hpBar0.png">
-      <Name>hpBar0</Name>
+    <Compile Include="Art\Images\UI\hpBar1.png">
+      <Name>hpBar1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Art\Images\UI\hpBar1.png">
-      <Name>hpBar1</Name>
+    <Compile Include="Art\Images\UI\hpBar0.png">
+      <Name>hpBar0</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
