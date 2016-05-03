@@ -70,7 +70,7 @@ namespace DefendTheBase
                 // LERPING HERE
                 turretDirection = new Vector2(targetTower.Position.X - enemy.ScreenPos.X, targetTower.Position.Y - enemy.ScreenPos.Y);
                 float nextRotation = turretDirection.ToAngle();
-                Rotation = Extensions.CurveAngle(Rotation, nextRotation, 0.5f);
+                Rotation = Extensions.CurveAngle(Rotation, nextRotation, 0.3f);
                 turretDirection = Rotation.ToVector();
                 // Shoot
 
@@ -192,7 +192,10 @@ namespace DefendTheBase
 
             if (!towerInRange)
             {
-                TurretDirection = Direction;
+                float nextTurretDirection = Direction.ToAngle();
+                // LERPING HERE
+                turretRotation = Extensions.CurveAngle(turretRotation, nextTurretDirection, 0.3f);
+                TurretDirection = turretRotation.ToVector();
             }
 
             if (usingSpriteSheet)
