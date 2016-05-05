@@ -939,6 +939,8 @@ namespace DefendTheBase
         const string Allies = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         const string Axis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         const string HiroHito = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        const string Stalin = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        const string CharlesDeGaulle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
         Texture2D backgroundTex = Art.StartMenuBackground;
         UiTabs tabs;
@@ -948,7 +950,7 @@ namespace DefendTheBase
 
         public InfoScreen(GraphicsDevice graphicsDevice)
         {
-            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 6, new Vector2(200,200), new string[6] { "Hitler", "Churchill", "Mussolini", "Hirohito", "Allies", "Axis" }, Art.tabTestTexture, Art.ButtonEffectTexture, new Vector2(100, 50));
+            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 8, new Vector2(200, 200), new string[8] { "Churchill", "Stalin", "de Gaulle", "Hitler", "Mussolini", "Hirohito", "Allies", "Axis" }, Art.tabTestTexture, Art.ButtonEffectTexture, new Vector2(100, 50));
             backButton = new UiButton(Art.UiFont, new Vector2(20, 800), new Vector2(100, 50 ), Art.TextBoxBackGround, Art.ButtonEffectTexture, "backButton", true);
 
             backButton.SetButtonState = UiButton.UiButtonStates.Button_Up;
@@ -956,23 +958,31 @@ namespace DefendTheBase
             backButton.StringText = "Back";
             backButton.StringOffset = new Vector2(10);
 
-            InfoBoxes.Add(new UiTextBox(Art.InfoFont, Hitler, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes.Add(new UiTextBox(Art.InfoFont, Churchill, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
             tabs.Add(InfoBoxes[0], 0);
 
-            InfoBoxes.Add(new UiTextBox(Art.UiFont, Churchill, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes.Add(new UiTextBox(Art.InfoFont, Stalin, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
             tabs.Add(InfoBoxes[1], 1);
 
-            InfoBoxes.Add(new UiTextBox(Art.UiFont, Mussolini, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes.Add(new UiTextBox(Art.InfoFont, CharlesDeGaulle, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
             tabs.Add(InfoBoxes[2], 2);
 
-            InfoBoxes.Add(new UiTextBox(Art.UiFont, Allies, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes.Add(new UiTextBox(Art.InfoFont, Hitler, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
             tabs.Add(InfoBoxes[3], 3);
 
-            InfoBoxes.Add(new UiTextBox(Art.UiFont, Axis, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes.Add(new UiTextBox(Art.InfoFont, Mussolini, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
             tabs.Add(InfoBoxes[4], 4);
 
-            InfoBoxes.Add(new UiTextBox(Art.UiFont, HiroHito, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes.Add(new UiTextBox(Art.InfoFont, HiroHito, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
             tabs.Add(InfoBoxes[5], 5);
+
+            InfoBoxes.Add(new UiTextBox(Art.InfoFont, Allies, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            tabs.Add(InfoBoxes[6], 6);
+
+            InfoBoxes.Add(new UiTextBox(Art.InfoFont, Axis, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            tabs.Add(InfoBoxes[7], 7);
+
+            
             foreach (UiTextBox box in InfoBoxes)
             {
                 box.TextBoxSize = new Vector2(900, 500);
