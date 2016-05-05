@@ -91,7 +91,7 @@ namespace DefendTheBase
                     GameManager.videoPlayer.Play(Art.StartVideo);
                     GameManager.FIRSTRUN = false;
                 }
-                if (GameManager.videoPlayer.State == MediaState.Stopped)
+                if (GameManager.videoPlayer.State == MediaState.Stopped || Input.LMBDown)
                     GameManager.GameState = GameManager.GameStates.StartScreen;
             }
 
