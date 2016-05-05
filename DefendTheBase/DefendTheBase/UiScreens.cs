@@ -938,6 +938,7 @@ namespace DefendTheBase
         const string Mussolini = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         const string Allies = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         const string Axis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        const string HiroHito = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
         Texture2D backgroundTex = Art.StartMenuBackground;
         UiTabs tabs;
@@ -947,7 +948,7 @@ namespace DefendTheBase
 
         public InfoScreen(GraphicsDevice graphicsDevice)
         {
-            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 5, new Vector2(200,200), new string[5] { "Hitler", "Churchill", "Mussolini", "Allies", "Axis" }, Art.tabTestTexture, Art.ButtonEffectTexture, new Vector2(100, 50));
+            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 6, new Vector2(200,200), new string[6] { "Hitler", "Churchill", "Mussolini", "Hirohito", "Allies", "Axis" }, Art.tabTestTexture, Art.ButtonEffectTexture, new Vector2(100, 50));
             backButton = new UiButton(Art.UiFont, new Vector2(20, 800), new Vector2(100, 50 ), Art.TextBoxBackGround, Art.ButtonEffectTexture, "backButton", true);
 
             backButton.SetButtonState = UiButton.UiButtonStates.Button_Up;
@@ -970,11 +971,12 @@ namespace DefendTheBase
             InfoBoxes.Add(new UiTextBox(Art.UiFont, Axis, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
             tabs.Add(InfoBoxes[4], 4);
 
-
+            InfoBoxes.Add(new UiTextBox(Art.UiFont, HiroHito, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            tabs.Add(InfoBoxes[5], 5);
             foreach (UiTextBox box in InfoBoxes)
             {
-                box.TextBoxSize = new Vector2(80, 500);
-                box.StringOffset = new Vector2(3, 10);
+                box.TextBoxSize = new Vector2(900, 500);
+                box.StringOffset = new Vector2(20, 10);
                 box.LineWrapper();
             }
 
