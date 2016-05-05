@@ -84,18 +84,6 @@ namespace DefendTheBase
 
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
 
-            if (GameManager.GameState == GameManager.GameStates.StartVideo)
-            {
-                if (GameManager.FIRSTRUN)
-                {
-                    GameManager.videoPlayer.Play(Art.StartVideo);
-                    GameManager.FIRSTRUN = false;
-                }
-                if (GameManager.videoPlayer.State == MediaState.Stopped || Input.LMBDown)
-                    GameManager.GameState = GameManager.GameStates.StartScreen;
-            }
-
-
             if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)
             {
                 startScreen.Update(gameTime);
@@ -150,7 +138,19 @@ namespace DefendTheBase
                             GameManager.grid.pathFound = GridManager.GridPaths(GameManager.grid.gridSquares);
                         }
                     }
+
                 base.Update(gameTime);
+            }
+
+            if (GameManager.GameState == GameManager.GameStates.StartVideo)
+            {
+                if (GameManager.FIRSTRUN)
+                {
+                    GameManager.videoPlayer.Play(Art.StartVideo);
+                    GameManager.FIRSTRUN = false;
+                }
+                if (GameManager.videoPlayer.State == MediaState.Stopped || Input.LMBDown)
+                    GameManager.GameState = GameManager.GameStates.StartScreen;
             }
 
             
