@@ -77,6 +77,15 @@ namespace DefendTheBase
 
         public static Texture2D TextBoxBackGround { get; private set; }
 
+        public static Texture2D HitlerPort { get; private set; }
+        public static Texture2D ChurchilPort { get; private set; }
+        public static Texture2D AxisPort { get; private set; }
+        public static Texture2D AlliesPort { get; private set; }
+        public static Texture2D FrenchiePort { get; private set; }
+        public static Texture2D HiroHitoPort { get; private set; }
+        public static Texture2D MussoPort { get; private set; }
+        public static Texture2D StalinPort { get; private set; }
+
         public static Texture2D ButtonEffectTexture { get; private set; }
         public static Texture2D tabTestTexture { get; private set; }
 
@@ -181,6 +190,16 @@ namespace DefendTheBase
             Explosions = content.Load<Texture2D>("Art/Images/Effect/explosion-sprite");
             ButtonEffectTexture = content.Load<Texture2D>("Art/Images/UI/Buttons/ButtonEffect");
             tabTestTexture = content.Load<Texture2D>("Art/Images/UI/Buttons/tabTestTex");
+
+            //tab portraits
+            HitlerPort = content.Load<Texture2D>("Art/Images/Portraits/Hitler");
+            ChurchilPort = content.Load<Texture2D>("Art/Images/Portraits/Churchil");
+            AxisPort = content.Load<Texture2D>("Art/Images/Portraits/AxisFlag");
+            AlliesPort = content.Load<Texture2D>("Art/Images/Portraits/AlliesFlag");
+            FrenchiePort = content.Load<Texture2D>("Art/Images/Portraits/Frenchie");
+            HiroHitoPort = content.Load<Texture2D>("Art/Images/Portraits/Hirohito");
+            MussoPort = content.Load<Texture2D>("Art/Images/Portraits/Musso");
+            StalinPort = content.Load<Texture2D>("Art/Images/Portraits/Stalin");
 
             // Fonts
             DebugFont = content.Load<SpriteFont>("Art/Fonts/DebugFont");
