@@ -933,7 +933,7 @@ namespace DefendTheBase
 
     public class InfoScreen
     {
-        const string Hitler = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+        const string Hitler = "Adolf Hitler was the leader of the Nazi Party and Chancellor of Germany from 1933 to 1945, and Fuhrer (leader) of Nazi Germany from 1934 to 1945. As dictator of Nazi Germany, he initiated World War II in Europe with the invasion of Poland in September 1939. \n Hitler was born in German speaking Austria and moved to and from Germany in his youngest years. Hitler's father's farming efforts at Hafeld ended in failure in 1897 and the family moved to Lambach. The eight-year-old Hitler took singing lessons, sang in the church choir, and even considered becoming a priest. \nIgnoring his son's desire to attend a classical high school and become an artist, Alois (Hitlers Father) sent Hitler to the Realschule in Linz in September 1900.Hitler rebelled against this decision, and in Mein Kampf revealed that he intentionally did poorly in school, hoping that once his father saw 'what little progress I was making at the technical school he would let me devote myself to my dream'. \nFrom 1905, Hitler lived a bohemian life in Vienna, financed by orphan's benefits and support from his mother. He worked as a casual labourer and eventually as a painter, selling watercolours of Vienna's sights. The Academy of Fine Arts Vienna rejected him in 1907 and again in 1908, citing 'unfitness for painting'. \nHitler created a public image as a celibate man without a domestic life, dedicated entirely to his political mission and the nation. He met his lover, Eva Braun, in 1929, and married her in April 1945. \n \n \nSourced from:  https://en.wikipedia.org/wiki/Adolf_Hitler";
         const string Churchill = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         const string Mussolini = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
         const string Allies = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
@@ -955,7 +955,7 @@ namespace DefendTheBase
             backButton.StringText = "Back";
             backButton.StringOffset = new Vector2(10);
 
-            InfoBoxes.Add(new UiTextBox(Art.UiFont, Hitler, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
+            InfoBoxes.Add(new UiTextBox(Art.InfoFont, Hitler, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
             tabs.Add(InfoBoxes[0], 0);
 
             InfoBoxes.Add(new UiTextBox(Art.UiFont, Churchill, new Vector2(200, 255), Color.White, Art.TextBoxBackGround, false));
@@ -973,8 +973,8 @@ namespace DefendTheBase
 
             foreach (UiTextBox box in InfoBoxes)
             {
-                box.TextBoxSize = new Vector2(900, 500);
-                box.StringOffset = new Vector2(20, 10);
+                box.TextBoxSize = new Vector2(80, 500);
+                box.StringOffset = new Vector2(3, 10);
                 box.LineWrapper();
             }
 

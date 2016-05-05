@@ -72,6 +72,7 @@ namespace DefendTheBase
         // Small font used for debug info.
         public static SpriteFont DebugFont { get; private set; }
         public static SpriteFont UiFont { get; private set; }
+        public static SpriteFont InfoFont { get; private set; }
         public static SpriteFont HelpFont { get; private set; }
 
         public static Texture2D TextBoxBackGround { get; private set; }
@@ -185,6 +186,7 @@ namespace DefendTheBase
             DebugFont = content.Load<SpriteFont>("Art/Fonts/DebugFont");
             UiFont = content.Load<SpriteFont>("Art/Fonts/UiFont");
             HelpFont = content.Load<SpriteFont>("Art/Fonts/HelpFont");
+            InfoFont = content.Load<SpriteFont>("Art/Fonts/InfoFont");
 
             TextBoxBackGround = content.Load<Texture2D>("Art/Images/Misc/TextBoxBackground");
 
