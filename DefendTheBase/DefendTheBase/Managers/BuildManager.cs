@@ -36,13 +36,14 @@ namespace DefendTheBase
 
             if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building != Squares.BuildingType.None)
             {
+               
                     foreach (Tower tower in TowerListener.TowersList)
                     {
                         if (tower.towerCoords.CoordEqual(GameManager.mouseSqrCoords))
                         {
                             if (tower.TowerType == "Gun")
                             {
-                                
+
                                 GameManager.BuildState = GameManager.BuildStates.TowerGun;
                                 GameManager.CostGet();
                             }
@@ -72,25 +73,29 @@ namespace DefendTheBase
 
                     }
 
-                    if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Concrete && !IStower)
+                    if (!GameManager.mouseSqrCoords.CoordEqual(new Coordinates(GameManager.WIDTH - 2, GameManager.HEIGHT - 1)) && !GameManager.mouseSqrCoords.CoordEqual(new Coordinates(GameManager.WIDTH - 1, GameManager.HEIGHT - 1)) && !GameManager.mouseSqrCoords.CoordEqual(new Coordinates(GameManager.WIDTH - 1, GameManager.HEIGHT - 2)))
                     {
-                        GameManager.BuildState = GameManager.BuildStates.Concrete;
-                        GameManager.CostGet();
-                        GameManager.ObjectWasDemolished("Concrete");
+
+                        if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Concrete && !IStower)
+                        {
+                            GameManager.BuildState = GameManager.BuildStates.Concrete;
+                            GameManager.CostGet();
+                            GameManager.ObjectWasDemolished("Concrete");
+                        }
+                        else if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Trench && !IStower)
+                        {
+                            GameManager.BuildState = GameManager.BuildStates.Trench;
+                            GameManager.CostGet();
+                            GameManager.ObjectWasDemolished("Trench");
+                        }
+
+
+                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
+                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.None;
+                        GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
+
+                        GameManager.BuildState = GameManager.BuildStates.Destroy;
                     }
-                    else if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Trench && !IStower)
-                    {
-                        GameManager.BuildState = GameManager.BuildStates.Trench;
-                        GameManager.CostGet();
-                        GameManager.ObjectWasDemolished("Trench");
-                    }
-
-
-                    GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].typeOfSquare = Squares.SqrFlags.Unoccupied;
-                    GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building = Squares.BuildingType.None;
-                    GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].sqrEdited = true;
-
-                    GameManager.BuildState = GameManager.BuildStates.Destroy;
             }   
         }
 

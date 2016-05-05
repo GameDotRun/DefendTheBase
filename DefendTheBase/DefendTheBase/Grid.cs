@@ -190,7 +190,6 @@ namespace DefendTheBase
             return false;
         }
 
-
     }
 
     public class Grid

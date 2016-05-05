@@ -929,7 +929,7 @@ namespace RPGEx
 
                 int length = TempStringList[CurrentToken].Length - 1; // get the new length
 
-                if(GetNewStringSizePX(TempStringList[CurrentToken]).X > TextBox.Width - 5) // check if the new length doesnt exceed the width of the text box
+                if(GetNewStringSizePX(TempStringList[CurrentToken]).X > TextBox.Width - stringOffset.X) // check if the new length doesnt exceed the width of the text box
                 {
                     string tempStrLine = TempStringList[CurrentToken].Remove(Prevlength,  length - Prevlength); // delete the previously added token
                     TempStringList[CurrentToken] = tempStrLine + "\n"; // set the temp string to the old one with a newline
