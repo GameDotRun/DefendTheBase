@@ -449,6 +449,7 @@ namespace DefendTheBase
         public static string Effective = "Effective";
         public static string NoEffect = "No Effect";
         public static string Misfire = "Misfire";
+        public static string Neutral = "Neutral";
 
         public static List<PopUpText> PopUps = new List<PopUpText>();
 
