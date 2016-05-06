@@ -16,6 +16,8 @@ namespace DefendTheBase
     {
         public static string[] TypeIDs = { "Tank", "Soldier", "Helicopter", "Jeep", "Transport", "TankBlue", "TankRed", "SoldierBlue", "SoldierRed", "TransportBlue", "TransportRed", "JeepBlue", "JeepRed" };
 
+        public static string SpawnSoldierString = "Soldier";
+
         static HashSet<Enemy> Enemies = new HashSet<Enemy>();
         static HashSet<Enemy> EnemiesToAdd = new HashSet<Enemy>();
         static HashSet<Enemy> EnemiesToRemove = new HashSet<Enemy>();
@@ -89,6 +91,13 @@ namespace DefendTheBase
         /// </summary>
         public static void Update(GameTime gt)
         {
+            if (WaveManager.WaveNumber > 10)
+                SpawnSoldierString = "SoldierBlue";
+
+
+            if (WaveManager.WaveNumber > 20)
+                SpawnSoldierString = "SoldierRed";
+
             foreach (Enemy Enemy in Enemies)
             {
                 if (Enemy.IsDestroyed)
@@ -109,8 +118,8 @@ namespace DefendTheBase
                         {
                             for (float i = 0; i < 4; i++)
                             {
-                                
-                                SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+
+                                SpawnEnemy(SpawnSoldierString, Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
                                 EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.Transport.Width / 2, Art.Transport.Height / 2), true);
                             }
                         }
@@ -119,8 +128,8 @@ namespace DefendTheBase
                         {
                             for (float i = 0; i < 2; i++)
                             {
-                               
-                                SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+
+                                SpawnEnemy(SpawnSoldierString, Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
                                 EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), true);
                             }
                         }
@@ -129,8 +138,8 @@ namespace DefendTheBase
                         {
                             for (float i = 0; i < 1; i++)
                             {
-                               
-                                SpawnEnemy("Soldier", Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
+
+                                SpawnEnemy(SpawnSoldierString, Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
                                 EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.JeepBottom.Width / 2, Art.JeepBottom.Height / 2), true);
                             }
                         }

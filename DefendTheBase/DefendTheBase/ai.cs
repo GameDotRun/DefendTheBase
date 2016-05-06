@@ -149,7 +149,7 @@ namespace DefendTheBase
 
                         for (int i = 0; i < 3; i++)
                         {
-                            EnemyManager.SpawnEnemy("Soldier", EnemyVect - new Vector2( 2 * i /4,  0));
+                            EnemyManager.SpawnEnemy(EnemyManager.SpawnSoldierString, EnemyVect - new Vector2(2 * i / 4, 0));
                         }
 
                     }

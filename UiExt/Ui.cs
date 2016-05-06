@@ -235,7 +235,7 @@ namespace RPGEx
     /// </summary>
     public class UiTabs
     {
-        internal List<UiTab> tabList;
+        public List<UiTab> tabList;
         private int currentSelection;
 
         /// <summary>
@@ -433,7 +433,7 @@ namespace RPGEx
         }
     }
 
-    internal class UiTab
+    public class UiTab
     {
         //List of items the tab contains, will be fed to the tabs own draw method
         public UiButton tabButton;
@@ -539,6 +539,8 @@ namespace RPGEx
             tabButton.GetStringSizePX();
             InitiliseLists();
         }
+
+
     }
 
     /// <summary>

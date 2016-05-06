@@ -950,10 +950,19 @@ namespace DefendTheBase
 
         public InfoScreen(GraphicsDevice graphicsDevice)
         {
-            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 8, new Vector2(200, 200), new string[8] { "Churchill", "Stalin", "de Gaulle", "Hitler", "Mussolini", "Hirohito", "Allies", "Axis" }, Art.tabTestTexture, Art.ButtonEffectTexture, new Vector2(100, 50));
+            tabs = new UiTabs(graphicsDevice, Art.DebugFont, 8, new Vector2(200, 200), new string[8] { "", "", "", "", "", "", "", "" }, Art.tabTestTexture, Art.ButtonEffectTexture, new Vector2(100, 50));
             backButton = new UiButton(Art.UiFont, new Vector2(20, 800), new Vector2(100, 50 ), Art.TextBoxBackGround, Art.ButtonEffectTexture, "backButton", true);
 
             backButton.SetButtonState = UiButton.UiButtonStates.Button_Up;
+
+            tabs.tabList[0].tabButton.TextBoxTexture = Art.ChurchilPort;
+            tabs.tabList[1].tabButton.TextBoxTexture = Art.StalinPort;
+            tabs.tabList[2].tabButton.TextBoxTexture = Art.FrenchiePort;
+            tabs.tabList[3].tabButton.TextBoxTexture = Art.HitlerPort;
+            tabs.tabList[4].tabButton.TextBoxTexture = Art.MussoPort;
+            tabs.tabList[5].tabButton.TextBoxTexture = Art.HiroHitoPort;
+            tabs.tabList[6].tabButton.TextBoxTexture = Art.AlliesPort;
+            tabs.tabList[7].tabButton.TextBoxTexture = Art.AxisPort;
 
             backButton.StringText = "Back";
             backButton.StringOffset = new Vector2(10);
