@@ -205,21 +205,19 @@ namespace DefendTheBase
             m_resources += value;
         }
 
-        
-
         public static void EnemyWasDestroyed(string EnemyType)
         {
             //Add modifications for each enemy here (what resources you recieve from enemies after kill)
             if (EnemyType == "Tank")
                 m_resources += 100;
             else if (EnemyType == "Helicopter")
-                m_resources += 100;
+                m_resources += 75;
             else if (EnemyType == "Transport")
-                m_resources += 100;
+                m_resources += 50;
             else if (EnemyType == "Jeep")
-                m_resources += 100;
+                m_resources += 30;
             else if (EnemyType == "Soldier")
-                m_resources += 100;
+                m_resources += 10;
         }
 
         //costs stuff
@@ -302,26 +300,26 @@ namespace DefendTheBase
             {
                 case GameManager.BuildStates.TowerGun:
                     BuildManager.ManPower = 1;
-                    BuildManager.Resources = 100;
-                    break;
-
-                case GameManager.BuildStates.TowerRocket:
-                    BuildManager.ManPower = 2;
                     BuildManager.Resources = 300;
                     break;
 
+                case GameManager.BuildStates.TowerRocket:
+                    BuildManager.ManPower = 3;
+                    BuildManager.Resources = 500;
+                    break;
+
                 case GameManager.BuildStates.TowerSAM:
-                    BuildManager.ManPower = 4;
-                    BuildManager.Resources = 1000;
+                    BuildManager.ManPower = 3;
+                    BuildManager.Resources = 700;
                     break; ;
 
                 case GameManager.BuildStates.TowerTesla:
-                    BuildManager.ManPower = 1;
-                    BuildManager.Resources = 100;
+                    BuildManager.ManPower = 5;
+                    BuildManager.Resources = 1000;
                     break;
 
                 case GameManager.BuildStates.Concrete:
-                    BuildManager.ManPower = 1;
+                    BuildManager.ManPower = 0;
                     BuildManager.Resources = 150;
                     break;
 
@@ -332,11 +330,11 @@ namespace DefendTheBase
 
                 case GameManager.BuildStates.Repair:
                     BuildManager.ManPower = 1;
-                    BuildManager.Resources = 100;
+                    BuildManager.Resources = 500;
                     break;
 
                 case GameManager.BuildStates.Trench:
-                    BuildManager.ManPower = 1;
+                    BuildManager.ManPower = 0;
                     BuildManager.Resources = 50;
                     break;
             }
@@ -476,7 +474,7 @@ namespace DefendTheBase
                     {
                         popUpText = PopUpTextManager.Resist;
                         textColour = Color.Yellow;
-                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 2;
+                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 3;
                     }
 
                 }
