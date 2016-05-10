@@ -120,6 +120,11 @@ namespace DefendTheBase
             TroopListener.InitiliseListener();
             QuestionPopUpManager.Init();
 
+            // CHEATY TEST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            UnlockedTowers |= Unlocks.RocketTower;
+            UnlockedTowers |= Unlocks.SamTower;
+            UnlockedTowers |= Unlocks.TeslaTower;
+
         }
 
         public static void Update(GameTime gameTime)
