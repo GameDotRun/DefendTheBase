@@ -102,9 +102,8 @@ namespace DefendTheBase
                     break;
                 case Type.Tesla:
                     Sprite = Art.TowerTesla[level - 1];
-                    Damage = 10;
+                    Damage = 20;
                     FireRate = 100;
-                    Health = 1000;
                     TowerType = "Tesla";
                     break;
             }
@@ -133,8 +132,6 @@ namespace DefendTheBase
                     case Type.Tesla:
                         Range += 75;
                         Sprite = Art.TowerTesla[Level - 1];
-                        Range += 300;
-                        Damage += 4;
                         break;
                 }
             }
@@ -147,7 +144,9 @@ namespace DefendTheBase
 
             if (GameManager.rnd.Next(1, 50) == 1) // misfire
             {
-                Health -= 5;
+                if (TowerType != "Tesla")
+                    Health -= 5;
+                else Health -= 1;
                 PopUpTextManager.Add(new PopUpText(PopUpTextManager.Misfire, Position, Color.Red));
             }
 
