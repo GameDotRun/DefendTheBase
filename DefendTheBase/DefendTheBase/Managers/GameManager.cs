@@ -81,7 +81,7 @@ namespace DefendTheBase
         public const int BORDERLEFT = 0;
 
         //game speed
-        public const int UPS = 20; // Updates per second
+        public const int UPS = 20; // Updates per second only grid uses this
         public const int FPS = 60; //Frames per second
 
         public static Grid grid;

@@ -279,6 +279,8 @@ namespace DefendTheBase
                 if (pathFound == false)
                     pathFound = GridManager.GridPaths(gridSquares);
 
+
+                updateTimer = TimeSpan.Zero;
             }
         }
 
