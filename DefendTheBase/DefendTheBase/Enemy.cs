@@ -88,11 +88,14 @@ namespace DefendTheBase
                     EnemyProjectiles.RemoveAt(i);
 
             turretDirection.Normalize();
+            Rotation = turretDirection.ToAngle();
             return turretDirection;
         }
 
         static void Shoot(Tower TargetTower, Enemy enemy, Vector2 Direction)
         {
+            Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, Rotation);
+            Vector2 offset = Vector2.Transform(new Vector2(35, 0), aimQuat);
             EnemyProjectiles.Add(new Projectile(Projectile.Type.Gun, TargetTower, enemy.ScreenPos, Direction, 1f, 2));
         }
     

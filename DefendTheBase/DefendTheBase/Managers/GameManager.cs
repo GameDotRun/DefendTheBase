@@ -126,7 +126,7 @@ namespace DefendTheBase
             UnlockedTowers |= Unlocks.SamTower;
             UnlockedTowers |= Unlocks.TeslaTower;
             UnlockedTowers |= Unlocks.Upgrade;
-            ModifyResources(10000);
+            ModifyResources(100000);
             for (int i = 0; i < 100; i++)
                 TroopManager.SpawnTroop();
         }

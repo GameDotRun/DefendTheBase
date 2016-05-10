@@ -217,7 +217,58 @@ namespace DefendTheBase
                         }
                         break;
                     case Type.SAM:
-                        TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position, Rotation.ToVector(), 1f, Damage));
+                        if (Level == 1)
+                        {
+                            offset = Vector2.Transform(new Vector2(25, -8), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, -4), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                        }
+                        else if (Level == 2)
+                        {
+                            offset = Vector2.Transform(new Vector2(25, -8), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, -4), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, 8), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, 4), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                        }
+                        else if (Level == 3)
+                        {
+                            offset = Vector2.Transform(new Vector2(25, -10), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, -8), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, -2), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, 2), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, 8), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, 10), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                        }
+                        else
+                        {
+                            offset = Vector2.Transform(new Vector2(25, -10), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, -8), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, -6), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, -4), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, 4), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, 6), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, 8), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                            offset = Vector2.Transform(new Vector2(25, 10), aimQuat);
+                            TowerProjectiles.Add(new Projectile(Projectile.Type.SAM, targetEnemy, Position + offset, Rotation.ToVector(), 1f, Damage));
+                        }
                         break;
                     case Type.Tesla:
                         TowerProjectiles.Add(new Projectile(Projectile.Type.Tesla, targetEnemy, Position, Rotation.ToVector(), 1f, Damage));

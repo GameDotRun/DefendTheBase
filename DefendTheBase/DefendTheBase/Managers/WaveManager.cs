@@ -254,7 +254,8 @@ namespace DefendTheBase
                 }
 
                WaveComposition.Add(UseableEnemies[index]);
-                    
+
+               //WaveComposition.Add("Tank");
             }
 
             WaveEnemyAmount = WaveComposition.Count;
