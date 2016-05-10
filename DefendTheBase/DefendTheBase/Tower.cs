@@ -104,6 +104,7 @@ namespace DefendTheBase
                     Sprite = Art.TowerTesla[level - 1];
                     Damage = 10;
                     FireRate = 100;
+                    Health = 1000;
                     TowerType = "Tesla";
                     break;
             }
