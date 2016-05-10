@@ -100,6 +100,7 @@ namespace DefendTheBase
                     break;
                 case Type.Tesla:
                     Sprite = Art.TowerTesla[level - 1];
+                    FireRate = 100;
                     TowerType = "Tesla";
                     break;
             }
