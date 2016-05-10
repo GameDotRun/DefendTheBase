@@ -57,7 +57,7 @@ namespace DefendTheBase
                     if(QuestionPopUpManager.QuestionsArray.Count != 0)
                         GenerateQuestion();
 
-                    for(int i = 0; i < 7; i++)
+                    for(int i = 0; i < 3; i++)
                         TroopManager.SpawnTroop();
                 }
             }

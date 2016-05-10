@@ -125,9 +125,11 @@ namespace DefendTheBase
                         break;
                     case Type.Rocket:
                         Sprite = Art.TowerRocket[Level - 1];
+                        Range += 30;
                         break;
                     case Type.SAM:
                         Sprite = Art.TowerSAM[Level - 1];
+                        Range += 75;
                         break;
                     case Type.Tesla:
                         Range += 75;
