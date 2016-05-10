@@ -124,6 +124,7 @@ namespace DefendTheBase
             UnlockedTowers |= Unlocks.RocketTower;
             UnlockedTowers |= Unlocks.SamTower;
             UnlockedTowers |= Unlocks.TeslaTower;
+            ModifyResources(10000);
 
         }
 
