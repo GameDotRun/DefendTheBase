@@ -23,7 +23,7 @@ namespace DefendTheBase
         public Vector2 Position;                    // The pixel position on screen.
         public float Lifetime, TimeSinceSpawn;      // Used to destroy projectiles after a while.
 
-        private int m_damage;
+        private float m_damage;
         private float m_speed, m_rotation;
         private Texture2D m_sprite;
         private Vector2 m_position, m_velocity, m_center;
@@ -31,7 +31,7 @@ namespace DefendTheBase
         private Enemy m_enemy;
         private Tower m_tower;
 
-        public Projectile(Type type, Enemy enemy, Vector2 position, Vector2 direction, float lifetime, int damage, float speed = 10)
+        public Projectile(Type type, Enemy enemy, Vector2 position, Vector2 direction, float lifetime, float damage, float speed = 10)
         {
             direction.Normalize();
             m_enemy = enemy;

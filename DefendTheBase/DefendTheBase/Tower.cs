@@ -58,7 +58,8 @@ namespace DefendTheBase
         public float Rotation, FireRate;
         public bool IsActive = true;
         bool rotClock = true;
-        public int Level, Range, Health, Damage;
+        public int Level, Range, Health;
+        public float Damage;
 
         public Coordinates towerCoords;
 
@@ -66,7 +67,7 @@ namespace DefendTheBase
 
         private float  shootTimer;
 
-        public Tower(string towerID, Type type, Vector2 position, Coordinates coords, int level = 1, int range = 200, int health = 100, int damage = 10, float fireRate = 2f)
+        public Tower(string towerID, Type type, Vector2 position, Coordinates coords, int level = 1, int range = 200, int health = 100, float damage = 10, float fireRate = 2f)
         {
             TowerID = towerID;
             TowerListener.Add(this);
@@ -100,7 +101,8 @@ namespace DefendTheBase
                     break;
                 case Type.Tesla:
                     Sprite = Art.TowerTesla[level - 1];
-                    FireRate = 100;
+                    FireRate = 10;
+                    Damage = 0.2f;
                     TowerType = "Tesla";
                     break;
             }

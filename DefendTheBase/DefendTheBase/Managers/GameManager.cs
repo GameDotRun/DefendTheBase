@@ -125,6 +125,7 @@ namespace DefendTheBase
             UnlockedTowers |= Unlocks.SamTower;
             UnlockedTowers |= Unlocks.TeslaTower;
             ModifyResources(10000);
+            ModifyManpower(100000);
 
         }
 
@@ -349,11 +350,11 @@ namespace DefendTheBase
 
 
         //damage stuffs
-        public static float DamageCalculator(int Damage, Enemy enemy, Projectile.Type projectile)
+        public static float DamageCalculator(float Damage, Enemy enemy, Projectile.Type projectile)
         {
             float totalDamage = 0f;
             float resistedDamage;
-            int baseDmg = Damage;
+            float baseDmg = Damage;
             Projectile.Type proj = projectile;
             string enemyType = enemy.EnemyType;
 
