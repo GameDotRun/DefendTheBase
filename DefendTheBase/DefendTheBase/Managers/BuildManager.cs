@@ -107,7 +107,7 @@ namespace DefendTheBase
             {
                 foreach (Tower tower in TowerListener.TowersList)
                 {
-                    if (tower.towerCoords.CoordEqual(GameManager.mouseSqrCoords))
+                    if (tower.towerCoords.CoordEqual(GameManager.mouseSqrCoords) && tower.Level < 4)
                     {
                         tower.LevelUp();
                         GameManager.TowerWasUpgraded();

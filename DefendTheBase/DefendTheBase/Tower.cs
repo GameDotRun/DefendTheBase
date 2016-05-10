@@ -102,7 +102,7 @@ namespace DefendTheBase
                     break;
                 case Type.Tesla:
                     Sprite = Art.TowerTesla[level - 1];
-                    Damage = 20;
+                    Damage = 40;
                     FireRate = 100;
                     TowerType = "Tesla";
                     break;
@@ -131,6 +131,7 @@ namespace DefendTheBase
                         break;
                     case Type.Tesla:
                         Range += 75;
+                        Damage += 40;
                         Sprite = Art.TowerTesla[Level - 1];
                         break;
                 }
