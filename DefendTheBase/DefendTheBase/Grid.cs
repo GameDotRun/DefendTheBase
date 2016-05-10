@@ -252,6 +252,17 @@ namespace DefendTheBase
                 gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 2].typeOfSquare |= Squares.SqrFlags.Wall;
                 gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 2].Building = Squares.BuildingType.Trench;
             }
+            if (gridSquares[GameManager.WIDTH - 3, GameManager.HEIGHT - 1].Building != Squares.BuildingType.Trench)
+            {
+                gridSquares[GameManager.WIDTH - 3, GameManager.HEIGHT - 1].typeOfSquare |= Squares.SqrFlags.Wall;
+                gridSquares[GameManager.WIDTH - 3, GameManager.HEIGHT - 1].Building = Squares.BuildingType.Trench;
+            }
+            if (gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 3].Building != Squares.BuildingType.Trench)
+            {
+                gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 3].typeOfSquare |= Squares.SqrFlags.Wall;
+                gridSquares[GameManager.WIDTH - 1, GameManager.HEIGHT - 3].Building = Squares.BuildingType.Trench;
+            }
+
 
             updateTimer += gameTime.ElapsedGameTime;
 

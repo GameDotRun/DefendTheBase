@@ -18,7 +18,7 @@ namespace DefendTheBase
         public static int EnemiesKilled = 0;
 
         static int WaveEnemiesSpawned = 0;
-        static float WaveSpawnInterval = 500f;
+        static float WaveSpawnInterval = 1000f;
         static int WavePower = 2;
 
         static bool WaveEndInit = false;
@@ -106,8 +106,8 @@ namespace DefendTheBase
             //WaveSpawnInterval = (WaveEnemyAmount / WaveNumber) * 10f;
             WaveEnemiesSpawned = 0;
             WaveEnemyAmount+=2;
-            if (WaveNumber < 200)
-                WaveSpawnInterval-=2;
+            if (WaveNumber < 50)
+                WaveSpawnInterval-= 10;
             GameManager.ModifyManpower(25);
            
         }
@@ -305,7 +305,7 @@ namespace DefendTheBase
             WaveEnemyAmount = 20;
             EnemiesKilled = 0;
             WaveEnemiesSpawned = 0;
-            WaveSpawnInterval = 500f;
+            WaveSpawnInterval = 1000f;
             WavePower = 2;
 
             WaveEndInit = false;

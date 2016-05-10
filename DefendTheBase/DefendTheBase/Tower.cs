@@ -9,8 +9,6 @@ using RPGEx;
 
 namespace DefendTheBase
 {
-    //hacky but towers will be impossible to access unless they're changed, ill just call it tower manager...
-
     public static class TowerListener
     {
         public static List<Tower> TowersList = new List<Tower>();

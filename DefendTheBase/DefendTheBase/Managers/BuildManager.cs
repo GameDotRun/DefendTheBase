@@ -73,7 +73,7 @@ namespace DefendTheBase
 
                     }
 
-                    if (!GameManager.mouseSqrCoords.CoordEqual(new Coordinates(GameManager.WIDTH - 2, GameManager.HEIGHT - 1)) && !GameManager.mouseSqrCoords.CoordEqual(new Coordinates(GameManager.WIDTH - 1, GameManager.HEIGHT - 1)) && !GameManager.mouseSqrCoords.CoordEqual(new Coordinates(GameManager.WIDTH - 1, GameManager.HEIGHT - 2)))
+                    if (!GameManager.mouseSqrCoords.CoordEqual(new Coordinates(GameManager.WIDTH - 2, GameManager.HEIGHT - 1)) && !GameManager.mouseSqrCoords.CoordEqual(new Coordinates(GameManager.WIDTH - 1, GameManager.HEIGHT - 1)) && !GameManager.mouseSqrCoords.CoordEqual(new Coordinates(GameManager.WIDTH - 1, GameManager.HEIGHT - 2)) && !GameManager.mouseSqrCoords.CoordEqual(new Coordinates(GameManager.WIDTH - 3, GameManager.HEIGHT - 1)) && !GameManager.mouseSqrCoords.CoordEqual(new Coordinates(GameManager.WIDTH - 1, GameManager.HEIGHT - 3)))
                     {
 
                         if (GameManager.grid.gridSquares[(int)GameManager.mouseSqrCoords.x, (int)GameManager.mouseSqrCoords.y].Building == Squares.BuildingType.Concrete && !IStower)
