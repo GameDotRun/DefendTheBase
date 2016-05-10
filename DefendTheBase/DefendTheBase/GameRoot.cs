@@ -159,11 +159,12 @@ namespace DefendTheBase
             if (GameManager.GameState == GameManager.GameStates.TutScreen)
             {
                 GameManager.videoPlayer.Play(Art.TutVideo);
-                if (GameManager.videoPlayer.State == MediaState.Stopped)
+                if (GameManager.videoPlayer.State == MediaState.Stopped || Input.WasLMBClicked)
+                {
                     GameManager.GameState = GameManager.GameStates.StartScreen;
+                    GameManager.videoPlayer.Stop();
+                }
             }
-
-            
         }
 
         // Draw
@@ -186,7 +187,7 @@ namespace DefendTheBase
                 infoScreen.Draw(spriteBatch);
             }
 
-            if (GameManager.GameState == GameManager.GameStates.StartVideo)
+            if (GameManager.GameState == GameManager.GameStates.StartVideo || GameManager.GameState == GameManager.GameStates.TutScreen)
             {
                 if (GameManager.videoPlayer.State != MediaState.Stopped)
                 {
