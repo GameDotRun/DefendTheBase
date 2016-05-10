@@ -92,10 +92,10 @@ namespace DefendTheBase
             }
         }
 
-        public static void TowerDamaged(int Damage, Tower tower, Projectile.Type projectile)
+        public static void TowerDamaged(float Damage, Tower tower, Projectile.Type projectile)
         {
             //Damage calcualtions should be put here. Not sure on the best way to handle this, could get very large with if's
-            tower.Health -= Damage;
+            tower.Health -= (int)Damage;
         }
 
         /// <summary>

@@ -23,6 +23,7 @@ namespace DefendTheBase
             WinScreen,
             LoseScreen,
             InfoScreen,
+            TutScreen
         }
 
         public enum BuildStates
@@ -120,6 +121,13 @@ namespace DefendTheBase
             TroopListener.InitiliseListener();
             QuestionPopUpManager.Init();
 
+            // CHEATY TEST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            UnlockedTowers |= Unlocks.RocketTower;
+            UnlockedTowers |= Unlocks.SamTower;
+            UnlockedTowers |= Unlocks.TeslaTower;
+            ModifyResources(10000);
+            for (int i = 0; i < 100; i++)
+                TroopManager.SpawnTroop();
         }
 
         public static void Update(GameTime gameTime)
@@ -343,11 +351,11 @@ namespace DefendTheBase
 
 
         //damage stuffs
-        public static float DamageCalculator(int Damage, Enemy enemy, Projectile.Type projectile)
+        public static float DamageCalculator(float Damage, Enemy enemy, Projectile.Type projectile)
         {
             float totalDamage = 0f;
             float resistedDamage;
-            int baseDmg = Damage;
+            float baseDmg = Damage;
             Projectile.Type proj = projectile;
             string enemyType = enemy.EnemyType;
 

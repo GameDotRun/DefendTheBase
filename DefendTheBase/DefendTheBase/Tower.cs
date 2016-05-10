@@ -58,7 +58,8 @@ namespace DefendTheBase
         public float Rotation, FireRate;
         public bool IsActive = true;
         bool rotClock = true;
-        public int Level, Range, Health, Damage;
+        public int Level, Range, Health;
+        public float Damage;
 
         public Coordinates towerCoords;
 
@@ -131,6 +132,8 @@ namespace DefendTheBase
                     case Type.Tesla:
                         Range += 75;
                         Sprite = Art.TowerTesla[Level - 1];
+                        Range += 300;
+                        Damage += 4;
                         break;
                 }
             }

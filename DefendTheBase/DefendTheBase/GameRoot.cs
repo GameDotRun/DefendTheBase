@@ -150,6 +150,16 @@ namespace DefendTheBase
                     GameManager.FIRSTRUN = false;
                 }
                 if (GameManager.videoPlayer.State == MediaState.Stopped || Input.LMBDown)
+                {
+                    GameManager.GameState = GameManager.GameStates.StartScreen;
+                    GameManager.videoPlayer.Stop();
+                }
+            }
+
+            if (GameManager.GameState == GameManager.GameStates.TutScreen)
+            {
+                GameManager.videoPlayer.Play(Art.TutVideo);
+                if (GameManager.videoPlayer.State == MediaState.Stopped)
                     GameManager.GameState = GameManager.GameStates.StartScreen;
             }
 

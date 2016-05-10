@@ -216,7 +216,7 @@ namespace DefendTheBase
 
         }
 
-        public static void EnemyDamaged(int Damage, Enemy enemy, Projectile.Type projectile)
+        public static void EnemyDamaged(float Damage, Enemy enemy, Projectile.Type projectile)
         {
             enemy.hitPoints -= GameManager.DamageCalculator(Damage, enemy, projectile);
         }
