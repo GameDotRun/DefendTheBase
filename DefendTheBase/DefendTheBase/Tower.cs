@@ -66,7 +66,7 @@ namespace DefendTheBase
 
         private float  shootTimer;
 
-        public Tower(string towerID, Type type, Vector2 position, Coordinates coords, int level = 1, int range = 200, int health = 100, int damage = 10, float fireRate = 2f)
+        public Tower(string towerID, Type type, Vector2 position, Coordinates coords, int level = 1, int range = 200, int health = 100, int damage = 500, float fireRate = 2f)
         {
             TowerID = towerID;
             TowerListener.Add(this);
@@ -86,11 +86,12 @@ namespace DefendTheBase
             {
                 case Type.Gun:
                     Sprite = Art.TowerGun[level - 1];
+                    Damage = 500;
                     TowerType = "Gun";
                     break;
                 case Type.Rocket:
                     Sprite = Art.TowerRocket[level - 1];
-                    Damage = 30;
+                    Damage = 1500;
                     FireRate = 0.5f;
                     TowerType = "Rocket";
                     break;
@@ -100,6 +101,7 @@ namespace DefendTheBase
                     break;
                 case Type.Tesla:
                     Sprite = Art.TowerTesla[level - 1];
+                    Damage = 10;
                     FireRate = 100;
                     TowerType = "Tesla";
                     break;
@@ -118,16 +120,16 @@ namespace DefendTheBase
                 {
                     case Type.Gun:
                         Sprite = Art.TowerGun[Level - 1];
-                        Range += 50;
+                        Range += 25;
                         break;
                     case Type.Rocket:
                         Sprite = Art.TowerRocket[Level - 1];
-                        Damage += 5;
                         break;
                     case Type.SAM:
                         Sprite = Art.TowerSAM[Level - 1];
                         break;
                     case Type.Tesla:
+                        Range += 75;
                         Sprite = Art.TowerTesla[Level - 1];
                         break;
                 }

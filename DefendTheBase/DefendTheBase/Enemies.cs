@@ -14,9 +14,9 @@ namespace DefendTheBase
 
         public string Type = "Tank";
 
-        private float m_resistance = 75;
+        private float m_resistance = 750;
         private float m_criticalResist = 80;
-        private float m_hp = 500;
+        private float m_hp = 25000;
         private float m_speed = 3f;
         private float m_damage = 5f;
         private bool spriteSheet = false;
@@ -44,9 +44,9 @@ namespace DefendTheBase
 
         public string Type = "Tank";
 
-        private float m_resistance = 80;
+        private float m_resistance = 800;
         private float m_criticalResist = 85;
-        private float m_hp = 1000;
+        private float m_hp = 50000;
         private float m_speed = 3f;
         private float m_damage = 10f;
         private bool spriteSheet = false;
@@ -73,9 +73,9 @@ namespace DefendTheBase
 
         public string Type = "Tank";
 
-        private float m_resistance = 90;
+        private float m_resistance = 900;
         private float m_criticalResist = 90;
-        private float m_hp = 2000;
+        private float m_hp = 100000;
         private float m_speed = 3f;
         private float m_damage = 5f;
         private bool spriteSheet = false;
@@ -102,9 +102,9 @@ namespace DefendTheBase
 
         public string Type = "Jeep";
 
-        private float m_resistance = 30;
+        private float m_resistance = 300;
         private float m_criticalResist = 40;
-        private float m_hp = 150;
+        private float m_hp = 7500;
         private float m_speed = 5f;
         private float m_damage = 1f;
         private bool spriteSheet = false;
@@ -132,9 +132,9 @@ namespace DefendTheBase
 
         public string Type = "Jeep";
 
-        private float m_resistance = 30;
+        private float m_resistance = 300;
         private float m_criticalResist = 40;
-        private float m_hp = 300;
+        private float m_hp = 15000;
         private float m_speed = 5f;
         private float m_damage = 2f;
         private bool spriteSheet = false;
@@ -161,9 +161,9 @@ namespace DefendTheBase
 
         public string Type = "Jeep";
 
-        private float m_resistance = 30;
+        private float m_resistance = 300;
         private float m_criticalResist = 40;
-        private float m_hp = 600;
+        private float m_hp = 30000;
         private float m_speed = 5f;
         private float m_damage = 3f;
         private bool spriteSheet = false;
@@ -189,9 +189,9 @@ namespace DefendTheBase
 
         public string Type = "Transport";
 
-        private float m_resistance = 70;
+        private float m_resistance = 700;
         private float m_criticalResist = 70;
-        private float m_hp = 300;
+        private float m_hp = 15000;
         private float m_speed = 3f;
         private float m_damage = 5f;
         private bool spriteSheet = false;
@@ -216,9 +216,9 @@ namespace DefendTheBase
 
         public string Type = "Transport";
 
-        private float m_resistance = 75;
+        private float m_resistance = 750;
         private float m_criticalResist = 75;
-        private float m_hp = 600;
+        private float m_hp = 30000;
         private float m_speed = 3f;
         private float m_damage = 5f;
         private bool spriteSheet = false;
@@ -243,9 +243,9 @@ namespace DefendTheBase
 
         public string Type = "Transport";
 
-        private float m_resistance = 80;
+        private float m_resistance = 800;
         private float m_criticalResist = 80;
-        private float m_hp = 1200;
+        private float m_hp = 60000;
         private float m_speed = 3f;
         private float m_damage = 5f;
         private bool spriteSheet = false;
@@ -274,9 +274,9 @@ namespace DefendTheBase
         private float frameSpeed = 100;
         private int frameTotal = 3; // total - 1
 
-        private float m_resistance = 10;
+        private float m_resistance = 100;
         private float m_criticalResist = 50;
-        private float m_hp = 50;
+        private float m_hp = 1500;
         private float m_speed = 2;
         private float m_damage = 5f;
 
@@ -309,9 +309,9 @@ namespace DefendTheBase
         private float frameSpeed = 100;
         private int frameTotal = 3; // total - 1
 
-        private float m_resistance = 20;
+        private float m_resistance = 200;
         private float m_criticalResist = 60;
-        private float m_hp = 100;
+        private float m_hp = 5000;
         private float m_speed = 2;
         private float m_damage = 2f;
 
@@ -344,9 +344,9 @@ namespace DefendTheBase
         private float frameSpeed = 100;
         private int frameTotal = 3; // total - 1
 
-        private float m_resistance = 40;
+        private float m_resistance = 400;
         private float m_criticalResist = 70;
-        private float m_hp = 200;
+        private float m_hp = 10000;
         private float m_speed = 4;
         private float m_damage = 4f;
 
@@ -379,9 +379,9 @@ namespace DefendTheBase
         private float frameSpeed = 50;
         private int frameTotal = 3; // total - 1
 
-        private float m_resistance = 50;
+        private float m_resistance = 500;
         private float m_criticalResist = 50;
-        private float m_hp = 150;
+        private float m_hp = 15000;
         // helicopter speed works very differently, as it only heads towards one node currently it goes a lot faster than other units which use multiple nodes. dividing by 10 seems good
         private float m_speed = 5f / 10;
         private float m_damage = 8f;

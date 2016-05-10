@@ -361,23 +361,23 @@ namespace DefendTheBase
                 {
                     if (projectile == Projectile.Type.Gun)
                     {
-                            popUpText = PopUpTextManager.Effective;
                         textColour = Color.DarkKhaki;
                         totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 2;
+                        popUpText = PopUpTextManager.Effective + ":" + totalDamage.ToString();
                     }
 
                     else if (projectile == Projectile.Type.Tesla)
                     {
-                        popUpText = PopUpTextManager.Neutral;
                         textColour = Color.DarkKhaki;
-                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour);
+                        totalDamage = TotalDamageCrunch(baseDmg, 0, enemy, ref popUpText, ref textColour);
+                        popUpText = PopUpTextManager.Neutral + ":" + totalDamage.ToString();
                     }
 
                     else
                     {
-                        popUpText = PopUpTextManager.Resist;
                         textColour = Color.Yellow;
                         totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 2;
+                        popUpText = PopUpTextManager.Resist + ":" + totalDamage.ToString();
                     }
                 }
 
@@ -385,23 +385,23 @@ namespace DefendTheBase
                 {
                     if (projectile == Projectile.Type.Rocket)
                     {
-                        popUpText = PopUpTextManager.Effective;
                         textColour = Color.DarkKhaki;
                         totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 2;
+                        popUpText = PopUpTextManager.Effective + ":" + totalDamage.ToString();
                     }
 
                     else if (projectile == Projectile.Type.Tesla)
                     {
-                        popUpText = PopUpTextManager.Neutral;
                         textColour = Color.DarkKhaki;
-                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour);
+                        totalDamage = TotalDamageCrunch(baseDmg, 0, enemy, ref popUpText, ref textColour);
+                        popUpText = PopUpTextManager.Neutral + ":" + totalDamage.ToString();
                     }
 
                     else
                     {
-                        popUpText = PopUpTextManager.Resist;
                         textColour = Color.Yellow;
                         totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 4;
+                        popUpText = PopUpTextManager.Resist + ":" + totalDamage.ToString();
                     }
                 }
 
@@ -409,23 +409,23 @@ namespace DefendTheBase
                 {
                     if (projectile == Projectile.Type.SAM)
                     {
-                        popUpText = PopUpTextManager.Effective;
                         textColour = Color.DarkKhaki;
                         totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 2;
+                        popUpText = PopUpTextManager.Effective + ":" + totalDamage.ToString();
                     }
 
                     else if (projectile == Projectile.Type.Tesla)
                     {
-                        popUpText = PopUpTextManager.Neutral;
                         textColour = Color.DarkKhaki;
-                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour);
+                        totalDamage = TotalDamageCrunch(baseDmg, 0, enemy, ref popUpText, ref textColour);
+                        popUpText = PopUpTextManager.Neutral + ":" + totalDamage.ToString();
                     }
 
                     else
-                    {
-                        popUpText = PopUpTextManager.Resist;
+                    { 
                         textColour = Color.Yellow;
                         totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 2;
+                        popUpText = PopUpTextManager.Resist + ":" + totalDamage.ToString();
                     }
 
                 }
@@ -433,24 +433,24 @@ namespace DefendTheBase
                 else if (enemyType == "Jeep")
                 {
                     if (projectile == Projectile.Type.Rocket)
-                    {
-                        popUpText = PopUpTextManager.Effective;
+                    { 
                         textColour = Color.DarkKhaki;
                         totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 4;
+                        popUpText = PopUpTextManager.Effective + ":" + totalDamage.ToString();
                     }
 
                     else if (projectile == Projectile.Type.Tesla)
                     {
-                        popUpText = PopUpTextManager.Neutral;
                         textColour = Color.DarkKhaki;
-                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour);
+                        totalDamage = TotalDamageCrunch(baseDmg, 0, enemy, ref popUpText, ref textColour);
+                        popUpText = PopUpTextManager.Neutral + ":" + totalDamage.ToString();
                     }
 
                     else
                     {
-                        popUpText = PopUpTextManager.Resist;
                         textColour = Color.Yellow;
                         totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 2;
+                        popUpText = PopUpTextManager.Resist + ":" + totalDamage.ToString();
                     }
                 }
 
@@ -458,23 +458,24 @@ namespace DefendTheBase
                 {
                     if (projectile == Projectile.Type.Rocket)
                     {
-                        popUpText = PopUpTextManager.Effective;
                         textColour = Color.DarkKhaki;
                         totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) * 3;
+                        popUpText = PopUpTextManager.Effective + ":" + totalDamage.ToString();
                     }
 
                     else if (projectile == Projectile.Type.Tesla)
                     {
-                        popUpText = PopUpTextManager.Neutral;
                         textColour = Color.DarkKhaki;
-                        totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour);
+                        totalDamage = TotalDamageCrunch(baseDmg, 0, enemy, ref popUpText, ref textColour);
+                        popUpText = PopUpTextManager.Neutral + ":" + totalDamage.ToString();
                     }
 
                     else
                     {
-                        popUpText = PopUpTextManager.Resist;
+                        
                         textColour = Color.Yellow;
                         totalDamage = TotalDamageCrunch(baseDmg, resistedDamage, enemy, ref popUpText, ref textColour) / 3;
+                        popUpText = PopUpTextManager.Resist + ":" + totalDamage.ToString();
                     }
 
                 }
