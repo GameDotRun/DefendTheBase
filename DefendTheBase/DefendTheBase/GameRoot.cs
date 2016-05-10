@@ -82,6 +82,8 @@ namespace DefendTheBase
             if (Input.IsButtonDown(Buttons.Back) || Input.WasKeyPressed(Keys.Escape) || exit)
                 this.Exit();
 
+            
+
             UiButtonMessenger.ButtonResponder(Input.GetMouseState, Input.GetMouseStateOld);
 
             if (GameManager.GameState == GameManager.GameStates.StartScreen || startScreen.fadeout)
@@ -153,6 +155,7 @@ namespace DefendTheBase
                 {
                     GameManager.GameState = GameManager.GameStates.StartScreen;
                     GameManager.videoPlayer.Stop();
+                    PlayMusic();
                 }
             }
 
@@ -164,6 +167,17 @@ namespace DefendTheBase
                     GameManager.GameState = GameManager.GameStates.StartScreen;
                     GameManager.videoPlayer.Stop();
                 }
+            }
+        }
+
+        private void PlayMusic()
+        {
+            if (MediaPlayer.State != MediaState.Playing)
+            {
+                // Play music
+                MediaPlayer.IsRepeating = true;
+                MediaPlayer.Volume = GameManager.MASTER_VOL * GameManager.MUSIC_VOL;
+                MediaPlayer.Play(Sound.Music);
             }
         }
 

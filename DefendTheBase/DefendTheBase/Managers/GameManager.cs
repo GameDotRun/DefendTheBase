@@ -11,6 +11,13 @@ namespace DefendTheBase
 {
     public class GameManager
     {
+        //VOLUMES
+        public const float MASTER_VOL = 0f;
+        public const float MUSIC_VOL = 1f;
+        public const float BUTTON_VOL = 0.5f;
+        public const float SOUNDFX_VOL = 0.5f;
+
+
         private const float DEFAULT_MANPOWER = 0f;
         private const int DEFAULT_RESOURCES = 1000;
         private const int DEFAULT_BASE_HEALTH = 100;
@@ -66,7 +73,6 @@ namespace DefendTheBase
 
         public static VideoPlayer videoPlayer;
         public static bool FIRSTRUN = true;
-
 
         //Grid Size
         public const int SQUARESIZE = 50;

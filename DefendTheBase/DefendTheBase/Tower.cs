@@ -144,7 +144,7 @@ namespace DefendTheBase
         {
             Quaternion aimQuat = Quaternion.CreateFromYawPitchRoll(0, 0, Rotation);
             Vector2 offset = Vector2.Transform(new Vector2(25, -16), aimQuat);
-
+            Sound.GunShot.Play(GameManager.MASTER_VOL * GameManager.SOUNDFX_VOL * 0.5f, (float)GameManager.rnd.NextDouble(), 0f);
             if (GameManager.rnd.Next(1, 50) == 1) // misfire
             {
                 if (TowerType != "Tesla")

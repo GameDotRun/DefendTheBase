@@ -103,6 +103,9 @@ namespace DefendTheBase
         {
             Pixel = content.Load<Texture2D>("Art/Images/Misc/Pixel");   // Flecks Art Contribution.
 
+            // Load Sounds
+            Sound.Load(content);
+
             // VIDEOS
             StartVideo = content.Load<Video>("Art/Videos/IntroVideo");
             TutVideo = content.Load<Video>("Art/Videos/TutVideo");
