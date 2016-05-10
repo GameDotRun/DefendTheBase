@@ -884,8 +884,8 @@ namespace DefendTheBase
             }
 
             else if (StartMenuButtons[2].IsButtonDown())
-            { 
-                //load tutorial vid and whatever else
+            {
+                GameManager.GameState = GameManager.GameStates.TutScreen;
                 Input.Update();
             
             }

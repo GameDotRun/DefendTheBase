@@ -97,6 +97,7 @@ namespace DefendTheBase
         public static Texture2D EndScreenBackground { get; private set; }
 
         public static Video StartVideo { get; private set; }
+        public static Video TutVideo { get; private set; }
 
         public static void Load(ContentManager content)
         {
@@ -104,6 +105,7 @@ namespace DefendTheBase
 
             // VIDEOS
             StartVideo = content.Load<Video>("Art/Videos/IntroVideo");
+            TutVideo = content.Load<Video>("Art/Videos/TutVideo");
             GameManager.videoPlayer = new VideoPlayer();
             GameManager.videoPlayer.IsLooped = false;
 

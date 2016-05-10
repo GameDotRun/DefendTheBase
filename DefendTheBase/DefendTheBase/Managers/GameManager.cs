@@ -23,6 +23,7 @@ namespace DefendTheBase
             WinScreen,
             LoseScreen,
             InfoScreen,
+            TutScreen
         }
 
         public enum BuildStates
@@ -125,8 +126,8 @@ namespace DefendTheBase
             UnlockedTowers |= Unlocks.SamTower;
             UnlockedTowers |= Unlocks.TeslaTower;
             ModifyResources(10000);
-            ModifyManpower(100000);
-
+            for (int i = 0; i < 100; i++)
+                TroopManager.SpawnTroop();
         }
 
         public static void Update(GameTime gameTime)
