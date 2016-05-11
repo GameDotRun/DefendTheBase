@@ -13,10 +13,10 @@ namespace DefendTheBase
     public class GameManager
     {
         //VOLUMES
-        public const float MASTER_VOL = 0f;
+        public const float MASTER_VOL = 1f;
         public const float MUSIC_VOL = 1f;
         public const float BUTTON_VOL = 0.5f;
-        public const float SOUNDFX_VOL = 0.5f;
+        public const float SOUNDFX_VOL = 0.25f;
 
 
         private const float DEFAULT_MANPOWER = 0f;
@@ -193,11 +193,6 @@ namespace DefendTheBase
 
             if (HelpMode)
                 HelpDialogManager.Update();
-
-
-
-
-
 
         }
 
