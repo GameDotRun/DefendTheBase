@@ -136,7 +136,7 @@ namespace DefendTheBase
             enemyVect = enemyVector;
             EnemyID = enemyID;
             EnemyListener.AddEnemy(this);
-            shootTimer = 1;
+            shootTimer = 2;
 
             animElasped = 0;
         }

@@ -73,7 +73,6 @@ namespace DefendTheBase
                 }
             }
 
-
             if (WaveStartTimer <= TimeSpan.Zero || WaveStarted)
             {
                 WaveStarted = true;
@@ -94,14 +93,12 @@ namespace DefendTheBase
 
                     if (EnemySpawnTimer.TotalMilliseconds >= WaveSpawnInterval)
                     {
-                
                             if (WaveComposition.Count != 0)
                             {
                                 EnemyManager.SpawnEnemy(WaveComposition[0], new Vector2(0, 0));
                                 WaveComposition.RemoveAt(0);
                                 WaveEnemiesSpawned++;
                             }
-                        
 
                         EnemySpawnTimer = TimeSpan.Zero;
                     }
@@ -121,8 +118,6 @@ namespace DefendTheBase
             WaveStarted = false;
             WaveNumber++;
             WavePower++;
-            //WaveEnemyAmount = (WaveNumber * 75) + (int)(WavePower * 0.5f);
-            //WaveSpawnInterval = (WaveEnemyAmount / WaveNumber) * 10f;
             WaveEnemiesSpawned = 0;
             WaveEnemyAmount+=2;
             if (WaveNumber < 50)
