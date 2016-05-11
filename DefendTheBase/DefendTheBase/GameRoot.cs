@@ -26,6 +26,10 @@ namespace DefendTheBase
         public static bool resetgame = false;
 
         public static bool exit = false;
+
+        public static TimeSpan targetTime;
+
+        public static bool SpeedUp = false;
         // Constructor
         public GameRoot()
         {
@@ -42,7 +46,7 @@ namespace DefendTheBase
         // Init
         protected override void Initialize()
         {
-            IsFixedTimeStep = false;
+            IsFixedTimeStep = true;
             base.Initialize();
         }
 
@@ -75,6 +79,21 @@ namespace DefendTheBase
         // Update
         protected override void Update(GameTime gameTime)
         {
+            targetTime = this.TargetElapsedTime;
+
+            if (Input.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad0))
+            {
+                this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 180.0f);
+                SpeedUp = true;
+            }
+            else
+            {
+                SpeedUp = false;
+                this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 60.0f);
+
+            }
+            
+
             Input.Update();
             // The above must be called for Input data to update per frame, this allows us to instead of:
             // if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
@@ -184,6 +203,8 @@ namespace DefendTheBase
         // Draw
         protected override void Draw(GameTime gameTime)
         {
+            graphics.SynchronizeWithVerticalRetrace = false;
+
             GraphicsDevice.Clear(Color.DarkOliveGreen);
             spriteBatch.Begin();
 
@@ -221,7 +242,7 @@ namespace DefendTheBase
                 endScreen.Draw(spriteBatch);
                 
 
-/*#if DEBUG
+#if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
 
             if (!float.IsInfinity(1 / (float)gameTime.ElapsedGameTime.TotalSeconds))
@@ -241,7 +262,7 @@ namespace DefendTheBase
             //spriteBatch.DrawString(Art.DebugFont, tanks.ScreenPos.X + " " + tanks.ScreenPos.Y, tanks.ScreenPos, Color.Black);
 
 #endif
- **/
+ 
 
             // Finish spriteBatch.
             spriteBatch.End();

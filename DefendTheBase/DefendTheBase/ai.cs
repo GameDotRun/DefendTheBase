@@ -136,7 +136,7 @@ namespace DefendTheBase
 
             if (Moving)
             {
-                EnemyVect += Direction * speed * time;
+                EnemyVect += Direction * speed / GameManager.FPS ;
                 if (Vector2.Distance(previousVect, EnemyVect) >= distance)
                 {
                     if(Direction.Y >= 0 && Direction.X >= 0)

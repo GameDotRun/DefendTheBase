@@ -92,7 +92,7 @@ namespace DefendTheBase
                     break;
                 case Type.Rocket:
                     Sprite = Art.TowerRocket[level - 1];
-                    Damage = 1500;
+                    Damage = 1700;
                     FireRate = 0.5f;
                     TowerType = "Rocket";
                     break;

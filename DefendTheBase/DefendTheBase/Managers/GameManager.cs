@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using RPGEx;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Media;
+using Flextensions;
 
 namespace DefendTheBase
 {
@@ -88,8 +89,10 @@ namespace DefendTheBase
         public const int BORDERLEFT = 0;
 
         //game speed
-        public const int UPS = 20; // Updates per second only grid uses this
+        public static int UPS = 120; // Updates per second only grid uses this
         public const int FPS = 60; //Frames per second
+
+        public static int EnemyUSpeed = 1; 
 
         public static Grid grid;
         public static Random rnd;
@@ -104,6 +107,8 @@ namespace DefendTheBase
         public static HiScoreData Scores = new HiScoreData();
 
         static bool SaveData = true;
+
+
 
         public static void ResetValues()
         {
@@ -128,18 +133,18 @@ namespace DefendTheBase
             QuestionPopUpManager.Init();
 
             // CHEATY TEST !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            UnlockedTowers |= Unlocks.RocketTower;
+            /*UnlockedTowers |= Unlocks.RocketTower;
             UnlockedTowers |= Unlocks.SamTower;
             UnlockedTowers |= Unlocks.TeslaTower;
             UnlockedTowers |= Unlocks.Upgrade;
             ModifyResources(100000);
             for (int i = 0; i < 100; i++)
-                TroopManager.SpawnTroop();
+                TroopManager.SpawnTroop();*/
         }
 
         public static void Update(GameTime gameTime)
         {
-            if(mouseSqrCoords != null)
+            if (mouseSqrCoords != null)
                 MouseScreenPos = new Vector2(mouseSqrCoords.x * SQUARESIZE, mouseSqrCoords.y * SQUARESIZE + BORDERTOP);
 
             m_manPower = TroopListener.TroopList.Count();
@@ -189,7 +194,11 @@ namespace DefendTheBase
             if (HelpMode)
                 HelpDialogManager.Update();
 
-            
+
+
+
+
+
         }
 
         public static void Draw(SpriteBatch sb)
@@ -340,7 +349,7 @@ namespace DefendTheBase
 
                 case GameManager.BuildStates.Upgrade:
                     BuildManager.ManPower = 1;
-                    BuildManager.Resources = 1000;
+                    BuildManager.Resources = 10000;
                     break;
 
                 case GameManager.BuildStates.Repair:

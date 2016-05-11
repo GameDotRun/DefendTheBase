@@ -694,8 +694,7 @@ namespace DefendTheBase
                             WaveManager.questionsAnsweredCorrect++;
                             TroopManager.SpawnTroop();
                             QuestionPopUpManager.QuestionsArray.Remove(QuestionDetails);
-                            GameManager.ModifyResources(1000);
-
+                            GameManager.ModifyResources(WaveManager.WaveComposition.Count * 20);
 
                         }
 

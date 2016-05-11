@@ -28,7 +28,7 @@ namespace DefendTheBase
         static bool spawnTroop = true;
         static float fade = 1f;
 
-        static List<string> WaveComposition = new List<string>();
+        public static List<string> WaveComposition = new List<string>();
 
         static int compositionIndex = 0;
 
@@ -54,8 +54,19 @@ namespace DefendTheBase
 
                     WaveCompositionCreator();
 
+                    GameManager.ModifyResources(1000);
+
                     if(QuestionPopUpManager.QuestionsArray.Count != 0)
                         GenerateQuestion();
+                    if (GameManager.Manpower != 0 && GameManager.BaseHealth < 100)
+                    { 
+                        float temp = 100 - GameManager.BaseHealth;
+                        temp = temp * (GameManager.Manpower / 100);
+                        GameManager.BaseHealth += temp * 3;
+
+                        if (GameManager.BaseHealth > 100)
+                            GameManager.BaseHealth = 100;
+                    }
 
                     for(int i = 0; i < 3; i++)
                         TroopManager.SpawnTroop();
@@ -71,7 +82,15 @@ namespace DefendTheBase
                 {
                     EnemyManager.Update(gameTime);
 
+                    float ttMili = (GameManager.FPS * 1000 / GameRoot.targetTime.Milliseconds);
+                    TimeSpan timeAdjust = new TimeSpan(0, 0, 0, 0, (int)ttMili / 1000);
+
                     EnemySpawnTimer += gameTime.ElapsedGameTime;
+
+                    if (GameRoot.SpeedUp)
+                    {
+                        EnemySpawnTimer += timeAdjust;
+                    }
 
                     if (EnemySpawnTimer.TotalMilliseconds >= WaveSpawnInterval)
                     {
@@ -108,7 +127,6 @@ namespace DefendTheBase
             WaveEnemyAmount+=2;
             if (WaveNumber < 50)
                 WaveSpawnInterval-= 10;
-            GameManager.ModifyManpower(25);
            
         }
 
