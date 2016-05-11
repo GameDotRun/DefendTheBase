@@ -56,19 +56,23 @@ namespace DefendTheBase
 
                     GameManager.ModifyResources(1000);
 
+                    if (questionsAnsweredCorrect == QuestionPopUpManager.QuestionTotal)
+                        GameManager.ModifyResources(WaveManager.WaveComposition.Count * 20);
+
+
                     if(QuestionPopUpManager.QuestionsArray.Count != 0)
                         GenerateQuestion();
                     if (GameManager.Manpower != 0 && GameManager.BaseHealth < 100)
                     { 
                         float temp = 100 - GameManager.BaseHealth;
                         temp = temp * (GameManager.Manpower / 100);
-                        GameManager.BaseHealth += temp * 3;
+                        GameManager.BaseHealth += temp * 5;
 
                         if (GameManager.BaseHealth > 100)
                             GameManager.BaseHealth = 100;
                     }
 
-                    for(int i = 0; i < 3; i++)
+                    for(int i = 0; i < 4; i++)
                         TroopManager.SpawnTroop();
                 }
             }

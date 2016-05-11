@@ -50,7 +50,7 @@ namespace DefendTheBase
             Vector2 turretDirection = new Vector2();
             Tower targetTower = null;
             Tower tempTower = null;
-            float dist = 200;
+            float dist = 175;
             foreach(Tower tower in TowerListener.TowersList)
             {
                 tempTower = tower;

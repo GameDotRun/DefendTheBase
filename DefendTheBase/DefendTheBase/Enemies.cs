@@ -105,7 +105,7 @@ namespace DefendTheBase
         private float m_resistance = 300;
         private float m_criticalResist = 40;
         private float m_hp = 7500;
-        private float m_speed = 5f;
+        private float m_speed = 4f;
         private float m_damage = 1f;
         private bool spriteSheet = false;
 
@@ -135,7 +135,7 @@ namespace DefendTheBase
         private float m_resistance = 300;
         private float m_criticalResist = 40;
         private float m_hp = 15000;
-        private float m_speed = 5f;
+        private float m_speed = 4f;
         private float m_damage = 2f;
         private bool spriteSheet = false;
 
@@ -164,7 +164,7 @@ namespace DefendTheBase
         private float m_resistance = 300;
         private float m_criticalResist = 40;
         private float m_hp = 20000;
-        private float m_speed = 5f;
+        private float m_speed = 4f;
         private float m_damage = 3f;
         private bool spriteSheet = false;
 
@@ -347,7 +347,7 @@ namespace DefendTheBase
         private float m_resistance = 400;
         private float m_criticalResist = 70;
         private float m_hp = 6000;
-        private float m_speed = 4;
+        private float m_speed = 2;
         private float m_damage = 1f;
 
         private bool spriteSheet = true;

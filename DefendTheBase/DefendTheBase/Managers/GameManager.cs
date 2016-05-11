@@ -343,7 +343,7 @@ namespace DefendTheBase
                     break;
 
                 case GameManager.BuildStates.Upgrade:
-                    BuildManager.ManPower = 1;
+                    BuildManager.ManPower = 3;
                     BuildManager.Resources = 10000;
                     break;
 
