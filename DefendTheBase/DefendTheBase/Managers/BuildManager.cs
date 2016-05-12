@@ -116,7 +116,6 @@ namespace DefendTheBase
             }
 
             else ResourceManpowerNotification();
-        
         }
 
         static void Repair()
