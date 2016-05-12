@@ -245,7 +245,7 @@ namespace DefendTheBase
 #if DEBUG
             // Draw debug text. Shadow on offset, then white text on top for visibility.
 
-            if (!float.IsInfinity(1 / (float)gameTime.ElapsedGameTime.TotalSeconds))
+            /*if (!float.IsInfinity(1 / (float)gameTime.ElapsedGameTime.TotalSeconds))
             {
                 for (int i = 0; i < 2; i++)
                 {
@@ -259,7 +259,7 @@ namespace DefendTheBase
                 }
             }
 
-            //spriteBatch.DrawString(Art.DebugFont, tanks.ScreenPos.X + " " + tanks.ScreenPos.Y, tanks.ScreenPos, Color.Black);
+            //spriteBatch.DrawString(Art.DebugFont, tanks.ScreenPos.X + " " + tanks.ScreenPos.Y, tanks.ScreenPos, Color.Black);*/
 
 #endif
  
