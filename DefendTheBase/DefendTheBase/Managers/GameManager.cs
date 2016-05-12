@@ -16,7 +16,7 @@ namespace DefendTheBase
         public const float MASTER_VOL = 1f;
         public const float MUSIC_VOL = 1f;
         public const float BUTTON_VOL = 0.5f;
-        public const float SOUNDFX_VOL = 0.25f;
+        public const float SOUNDFX_VOL = 0.7f;
 
 
         private const float DEFAULT_MANPOWER = 0f;
