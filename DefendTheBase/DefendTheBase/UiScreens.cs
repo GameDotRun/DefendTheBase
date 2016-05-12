@@ -202,7 +202,7 @@ namespace DefendTheBase
             waveStats.Add(new UiTextBox(Art.UiFont, "Wave: ", new Vector2(10, 10), Color.White, Art.TextBoxBackGround, true));
             waveStats[0].TextBoxInfo = "Current Wave Number";
 
-            waveStats.Add(new UiTextBox(Art.UiFont, "Kills: " + WaveManager.EnemiesKilled, new Vector2(110, 10), Color.White, Art.TextBoxBackGround, true));
+            waveStats.Add(new UiTextBox(Art.UiFont, "Kills: " + WaveManager.EnemiesKilled, new Vector2(130, 10), Color.White, Art.TextBoxBackGround, true));
             waveStats[1].TextBoxInfo = "Number of Enemies killed";
 
             waveStats.Add(new UiTextBox(Art.UiFont, "Questions Completed: " + WaveManager.questionsAnsweredCorrect + "/" + QuestionPopUpManager.QuestionTotal, new Vector2(925, 50), Color.White, Art.TextBoxBackGround, true));

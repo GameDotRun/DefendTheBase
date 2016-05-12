@@ -98,6 +98,7 @@ namespace DefendTheBase
                     break;
                 case Type.SAM:
                     Sprite = Art.TowerSAM[level - 1];
+                    Damage = 250;
                     TowerType = "SAM";
                     break;
                 case Type.Tesla:
