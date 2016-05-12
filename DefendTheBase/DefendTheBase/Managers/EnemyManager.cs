@@ -126,8 +126,11 @@ namespace DefendTheBase
 
                                 SpawnEnemy(SpawnSoldierString, Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
                                 EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.Transport.Width / 2, Art.Transport.Height / 2), true);
-                                Sound.Explosion.Play(GameManager.MASTER_VOL * GameManager.SOUNDFX_VOL * 0.5f, 0f, 0f);
+                               
                             }
+
+                            Sound.Explosion.Play(GameManager.MASTER_VOL * GameManager.SOUNDFX_VOL * 0.5f, 0f, 0f);
+
                         }
 
                         else if (Enemy.EnemyType == "Tank")
@@ -137,8 +140,9 @@ namespace DefendTheBase
 
                                 SpawnEnemy(SpawnSoldierString, Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
                                 EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.TankBottom.Width / 2, Art.TankBottom.Height / 2), true);
-                                Sound.Explosion.Play(GameManager.MASTER_VOL * GameManager.SOUNDFX_VOL * 0.5f, 0f, 0f);
+                               
                             }
+                            Sound.Explosion.Play(GameManager.MASTER_VOL * GameManager.SOUNDFX_VOL * 0.5f, 0f, 0f);
                         }
 
                         else if (Enemy.EnemyType == "Jeep")
@@ -148,8 +152,9 @@ namespace DefendTheBase
 
                                 SpawnEnemy(SpawnSoldierString, Enemy.enemyVect - new Vector2(Enemy.Direction.X * -i / 4, Enemy.Direction.Y * -i / 4));
                                 EffectManager.EffectCall(EffectManager.EffectEnums.Explosion, Enemy.ScreenPos - new Vector2(Art.JeepBottom.Width / 2, Art.JeepBottom.Height / 2), true);
-                                Sound.Explosion.Play(GameManager.MASTER_VOL * GameManager.SOUNDFX_VOL * 0.5f, 0f, 0f);
+                               
                             }
+                            Sound.Explosion.Play(GameManager.MASTER_VOL * GameManager.SOUNDFX_VOL * 0.5f, 0f, 0f);
                         }
 
                         else if (Enemy.EnemyType == "Soldier")
