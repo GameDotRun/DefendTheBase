@@ -100,6 +100,12 @@ namespace DefendTheBase
 
             foreach (Enemy Enemy in Enemies)
             {
+                foreach (Projectile proj in TankTurret.EnemyProjectiles) //updates the projectiles of enemy
+                    proj.Update();
+                // Remove Projectiles after lifetime.
+                for (int i = 0; i < TankTurret.EnemyProjectiles.Count(); i++)
+                    if (TankTurret.EnemyProjectiles[i].TimeSinceSpawn > TankTurret.EnemyProjectiles[i].Lifetime)
+                        TankTurret.EnemyProjectiles.RemoveAt(i);
                 if (Enemy.IsDestroyed)
                 {
                     if (Enemy.hitPoints <= 0) // check if it was destroyed by means of towers
@@ -186,12 +192,7 @@ namespace DefendTheBase
             EnemiesToAdd.Clear();
             EnemiesToRemove.Clear();
 
-            foreach (Projectile proj in TankTurret.EnemyProjectiles) //updates the projectiles of enemy
-                proj.Update();
-            // Remove Projectiles after lifetime.
-            for (int i = 0; i < TankTurret.EnemyProjectiles.Count(); i++)
-                if (TankTurret.EnemyProjectiles[i].TimeSinceSpawn > TankTurret.EnemyProjectiles[i].Lifetime)
-                    TankTurret.EnemyProjectiles.RemoveAt(i);
+            
         }
 
 
