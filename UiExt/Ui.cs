@@ -42,7 +42,6 @@ namespace RPGEx
     public class Ui
     {
         //Elements added to these lists can be manipulated. Nothing implemented yet.
-        //Hoho list in list should be fun :P
         public List<List<UiButton>> ButtonList;
         public List<List<UiTextBox>> TextBoxList;
         public List<List<UiTextString>> StringList;

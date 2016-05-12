@@ -89,7 +89,7 @@ namespace DefendTheBase
         public const int BORDERLEFT = 0;
 
         //game speed
-        public static int UPS = 120; // Updates per second only grid uses this
+        public static int UPS = 120; // Updates per second
         public const int FPS = 60; //Frames per second
 
         public static int EnemyUSpeed = 1; 
@@ -119,6 +119,7 @@ namespace DefendTheBase
 
         public static void Init(GraphicsDevice graphics )
         {
+            UnlockedTowers = 0;
             rnd = new Random();
             UiManager.UiScreens.Clear();
             UiSideScreen = new UiSideGameScreen(graphics);
