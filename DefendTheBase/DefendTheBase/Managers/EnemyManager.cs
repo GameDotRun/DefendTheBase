@@ -188,6 +188,10 @@ namespace DefendTheBase
 
             foreach (Projectile proj in TankTurret.EnemyProjectiles) //updates the projectiles of enemy
                 proj.Update();
+            // Remove Projectiles after lifetime.
+            for (int i = 0; i < TankTurret.EnemyProjectiles.Count(); i++)
+                if (TankTurret.EnemyProjectiles[i].TimeSinceSpawn > TankTurret.EnemyProjectiles[i].Lifetime)
+                    TankTurret.EnemyProjectiles.RemoveAt(i);
         }
 
 
